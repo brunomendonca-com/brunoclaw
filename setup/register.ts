@@ -22,6 +22,9 @@ interface RegisterArgs {
   requiresTrigger: boolean;
   isMain: boolean;
   assistantName: string;
+  model?: string;
+  baseUrl?: string;
+  apiKey?: string;
 }
 
 function parseArgs(args: string[]): RegisterArgs {
@@ -61,6 +64,15 @@ function parseArgs(args: string[]): RegisterArgs {
         break;
       case '--assistant-name':
         result.assistantName = args[++i] || 'Andy';
+        break;
+      case '--model':
+        result.model = args[++i];
+        break;
+      case '--base-url':
+        result.baseUrl = args[++i];
+        break;
+      case '--api-key':
+        result.apiKey = args[++i];
         break;
     }
   }
@@ -107,6 +119,11 @@ export async function run(args: string[]): Promise<void> {
     added_at: new Date().toISOString(),
     requiresTrigger: parsed.requiresTrigger,
     isMain: parsed.isMain,
+    containerConfig: {
+      model: parsed.model,
+      customBaseUrl: parsed.baseUrl,
+      customApiKey: parsed.apiKey
+    }
   });
 
   logger.info('Wrote registration to SQLite');

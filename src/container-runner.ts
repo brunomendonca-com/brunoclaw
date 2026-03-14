@@ -15,6 +15,9 @@ import {
   GROUPS_DIR,
   IDLE_TIMEOUT,
   TIMEZONE,
+  DEFAULT_MODEL,
+  DEFAULT_BASE_URL,
+  DEFAULT_API_KEY,
 } from './config.js';
 import { resolveGroupFolderPath, resolveGroupIpcPath } from './group-folder.js';
 import { logger } from './logger.js';
@@ -46,6 +49,7 @@ export interface ContainerInput {
   isMain: boolean;
   isScheduledTask?: boolean;
   assistantName?: string;
+  model?: string;
 }
 
 export interface ContainerOutput {
@@ -236,27 +240,37 @@ function buildVolumeMounts(
 function buildContainerArgs(
   mounts: VolumeMount[],
   containerName: string,
+  group: RegisteredGroup,
 ): string[] {
   const args: string[] = ['run', '-i', '--rm', '--name', containerName];
 
   // Pass host timezone so container's local time matches the user's
   args.push('-e', `TZ=${TIMEZONE}`);
 
-  // Route API traffic through the credential proxy (containers never see real secrets)
-  args.push(
-    '-e',
-    `ANTHROPIC_BASE_URL=http://${CONTAINER_HOST_GATEWAY}:${CREDENTIAL_PROXY_PORT}`,
-  );
-
-  // Mirror the host's auth method with a placeholder value.
-  // API key mode: SDK sends x-api-key, proxy replaces with real key.
-  // OAuth mode:   SDK exchanges placeholder token for temp API key,
-  //               proxy injects real OAuth token on that exchange request.
-  const authMode = detectAuthMode();
-  if (authMode === 'api-key') {
-    args.push('-e', 'ANTHROPIC_API_KEY=placeholder');
+  // Route API traffic through the credential proxy or a custom endpoint
+  const customBaseUrl = group.containerConfig?.customBaseUrl || DEFAULT_BASE_URL;
+  if (customBaseUrl) {
+    args.push('-e', `ANTHROPIC_BASE_URL=${customBaseUrl}`);
   } else {
-    args.push('-e', 'CLAUDE_CODE_OAUTH_TOKEN=placeholder');
+    args.push(
+      '-e',
+      `ANTHROPIC_BASE_URL=http://${CONTAINER_HOST_GATEWAY}:${CREDENTIAL_PROXY_PORT}`,
+    );
+  }
+
+  // Handle the API Key / Auth Token
+  // If a custom API key is explicitly provided for this group, use it directly.
+  // Otherwise, mirror the host's auth method with a placeholder value for the proxy.
+  const customApiKey = group.containerConfig?.customApiKey || DEFAULT_API_KEY;
+  if (customApiKey) {
+    args.push('-e', `ANTHROPIC_API_KEY=${customApiKey}`);
+  } else {
+    const authMode = detectAuthMode();
+    if (authMode === 'api-key') {
+      args.push('-e', 'ANTHROPIC_API_KEY=placeholder');
+    } else {
+      args.push('-e', 'CLAUDE_CODE_OAUTH_TOKEN=placeholder');
+    }
   }
 
   // Inject fal.ai API key if configured
@@ -305,7 +319,7 @@ export async function runContainerAgent(
   const mounts = buildVolumeMounts(group, input.isMain);
   const safeName = group.folder.replace(/[^a-zA-Z0-9-]/g, '-');
   const containerName = `nanoclaw-${safeName}-${Date.now()}`;
-  const containerArgs = buildContainerArgs(mounts, containerName);
+  const containerArgs = buildContainerArgs(mounts, containerName, group);
 
   logger.debug(
     {
@@ -345,7 +359,11 @@ export async function runContainerAgent(
     let stdoutTruncated = false;
     let stderrTruncated = false;
 
-    container.stdin.write(JSON.stringify(input));
+    // Add the dynamic model option from group overrides or env defaults
+    container.stdin.write(JSON.stringify({
+      ...input,
+      model: group.containerConfig?.model || DEFAULT_MODEL
+    }));
     container.stdin.end();
 
     // Streaming output: parse OUTPUT_START/END marker pairs as they arrive

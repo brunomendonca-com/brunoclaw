@@ -27,6 +27,7 @@ interface ContainerInput {
   isMain: boolean;
   isScheduledTask?: boolean;
   assistantName?: string;
+  model?: string;
 }
 
 interface ContainerOutput {
@@ -440,7 +441,7 @@ async function runQuery(
       additionalDirectories: extraDirs.length > 0 ? extraDirs : undefined,
       resume: sessionId,
       resumeSessionAt: resumeAt,
-      model: 'claude-haiku-4-5-20251001',
+      model: containerInput.model || process.env.DEFAULT_MODEL || 'claude-haiku-4-5-20251001',
       systemPrompt: globalClaudeMd
         ? { type: 'preset' as const, preset: 'claude_code' as const, append: globalClaudeMd }
         : undefined,

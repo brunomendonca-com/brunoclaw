@@ -30,6 +30,9 @@ export interface AllowedRoot {
 export interface ContainerConfig {
   additionalMounts?: AdditionalMount[];
   timeout?: number; // Default: 300000 (5 minutes)
+  model?: string; // Optional — override the model for this group
+  customBaseUrl?: string; // Optional — custom Anthropic-compatible API endpoint
+  customApiKey?: string; // Optional — custom API key (if proxy bypass is needed)
 }
 
 export interface RegisteredGroup {
