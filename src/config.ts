@@ -7,11 +7,11 @@ import { readEnvFile } from './env.js';
 // Secrets (API keys, tokens) are NOT read here — they are loaded only
 // by the credential proxy (credential-proxy.ts), never exposed to containers.
 const envConfig = readEnvFile([
-  'ASSISTANT_NAME', 
+  'ASSISTANT_NAME',
   'ASSISTANT_HAS_OWN_NUMBER',
   'DEFAULT_MODEL',
   'DEFAULT_BASE_URL',
-  'DEFAULT_API_KEY'
+  'DEFAULT_API_KEY',
 ]);
 
 export const ASSISTANT_NAME =
@@ -19,9 +19,12 @@ export const ASSISTANT_NAME =
 export const ASSISTANT_HAS_OWN_NUMBER =
   (process.env.ASSISTANT_HAS_OWN_NUMBER ||
     envConfig.ASSISTANT_HAS_OWN_NUMBER) === 'true';
-export const DEFAULT_MODEL = process.env.DEFAULT_MODEL || envConfig.DEFAULT_MODEL;
-export const DEFAULT_BASE_URL = process.env.DEFAULT_BASE_URL || envConfig.DEFAULT_BASE_URL;
-export const DEFAULT_API_KEY = process.env.DEFAULT_API_KEY || envConfig.DEFAULT_API_KEY;
+export const DEFAULT_MODEL =
+  process.env.DEFAULT_MODEL || envConfig.DEFAULT_MODEL;
+export const DEFAULT_BASE_URL =
+  process.env.DEFAULT_BASE_URL || envConfig.DEFAULT_BASE_URL;
+export const DEFAULT_API_KEY =
+  process.env.DEFAULT_API_KEY || envConfig.DEFAULT_API_KEY;
 export const POLL_INTERVAL = 2000;
 export const SCHEDULER_POLL_INTERVAL = 60000;
 

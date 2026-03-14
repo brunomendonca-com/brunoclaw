@@ -212,7 +212,10 @@ function buildVolumeMounts(
   );
   if (!fs.existsSync(groupAgentRunnerDir) && fs.existsSync(agentRunnerSrc)) {
     fs.cpSync(agentRunnerSrc, groupAgentRunnerDir, { recursive: true });
-  } else if (fs.existsSync(agentRunnerSrc) && fs.existsSync(groupAgentRunnerDir)) {
+  } else if (
+    fs.existsSync(agentRunnerSrc) &&
+    fs.existsSync(groupAgentRunnerDir)
+  ) {
     // Always overwrite framework file so MCP server updates propagate
     const ipcSrc = path.join(agentRunnerSrc, 'ipc-mcp-stdio.ts');
     const ipcDst = path.join(groupAgentRunnerDir, 'ipc-mcp-stdio.ts');
@@ -248,7 +251,8 @@ function buildContainerArgs(
   args.push('-e', `TZ=${TIMEZONE}`);
 
   // Route API traffic through the credential proxy or a custom endpoint
-  const customBaseUrl = group.containerConfig?.customBaseUrl || DEFAULT_BASE_URL;
+  const customBaseUrl =
+    group.containerConfig?.customBaseUrl || DEFAULT_BASE_URL;
   if (customBaseUrl) {
     args.push('-e', `ANTHROPIC_BASE_URL=${customBaseUrl}`);
   } else {
@@ -360,10 +364,12 @@ export async function runContainerAgent(
     let stderrTruncated = false;
 
     // Add the dynamic model option from group overrides or env defaults
-    container.stdin.write(JSON.stringify({
-      ...input,
-      model: group.containerConfig?.model || DEFAULT_MODEL
-    }));
+    container.stdin.write(
+      JSON.stringify({
+        ...input,
+        model: group.containerConfig?.model || DEFAULT_MODEL,
+      }),
+    );
     container.stdin.end();
 
     // Streaming output: parse OUTPUT_START/END marker pairs as they arrive
