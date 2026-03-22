@@ -14,8 +14,14 @@
  *   Final marker after loop ends signals completion.
  */
 
-import { createAgentSession, SessionManager } from "@mariozechner/pi-coding-agent";
-import { streamSimple } from "@mariozechner/pi-ai";
+import {
+  createAgentSession,
+  createCodingTools,
+  createExtensionRuntime,
+  type ResourceLoader,
+  SessionManager,
+  type Skill,
+} from "@mariozechner/pi-coding-agent";
 import fs from "fs";
 import path from "path";
 
@@ -206,46 +212,65 @@ async function main(): Promise<void> {
     maxTokens: 8192,
   };
 
+  const WORKSPACE = "/workspace";
   const SESSION_FILE = "/workspace/pi/session.jsonl";
   const sessionManager = SessionManager.open(SESSION_FILE);
 
-  // Load skill files
+  // Load skill files from the pi/skills directory mounted into the container.
+  // Pi discovers skills from <cwd>/.pi/skills/, but our skills are mounted at
+  // /workspace/pi/skills/ (no dot prefix), so we load them manually here.
   const skillsDirs = [
-    path.join(GROUP_DIR, ".pi", "skills"),
-    path.join("/home", "node", ".pi", "skills"),
+    path.join(GROUP_DIR, "pi", "skills"),
+    "/workspace/pi/skills",
   ];
-  const skills = loadSkills(skillsDirs);
-  const fullSystemPrompt = systemPrompt + (skills ? `\n\n## Skills\n${skills}` : "");
+  const skillsText = loadSkills(skillsDirs);
+  const fullSystemPrompt = systemPrompt + (skillsText ? `\n\n## Skills\n${skillsText}` : "");
 
-  // Start the IPC MCP server as a subprocess — exposes send_message, schedule_task, etc.
-  const agentRunnerSrc = path.join(
-    process.cwd(),
-    "container", "agent-runner", "src",
-  );
-  const mcpServerPath = path.join(agentRunnerSrc, "ipc-mcp-stdio.js");
+  // Build skills array for Pi's ResourceLoader from our manually loaded skill text.
+  // We inject all skill content as a single virtual skill so Pi includes it in the
+  // system prompt without needing to discover files from the standard .pi/skills/ path.
+  const piSkills: Skill[] = skillsText
+    ? [
+        {
+          name: "pipipiclaw-skills",
+          description: "Loaded skills for this session",
+          filePath: "/virtual/SKILL.md",
+          baseDir: "/virtual",
+          source: "path" as const,
+          disableModelInvocation: false,
+        },
+      ]
+    : [];
+
+  // Custom ResourceLoader: inject system prompt and skills explicitly.
+  // Pi's createAgentSession does not accept systemPrompt or mcpServers directly —
+  // system prompt goes through the ResourceLoader interface.
+  //
+  // NOTE: Pi has no built-in MCP support. The IPC tools (send_message,
+  // schedule_task, etc.) from ipc-mcp-stdio.ts are not available via
+  // createAgentSession. Until a Pi extension is built to wrap MCP, the agent
+  // must invoke IPC operations via bash (e.g. node /app/dist/ipc-mcp-stdio.js).
+  const resourceLoader: ResourceLoader = {
+    getExtensions: () => ({ extensions: [], errors: [], runtime: createExtensionRuntime() }),
+    getSkills: () => ({ skills: piSkills, diagnostics: [] }),
+    getPrompts: () => ({ prompts: [], diagnostics: [] }),
+    getThemes: () => ({ themes: [], diagnostics: [] }),
+    getAgentsFiles: () => ({ agentsFiles: [] }),
+    getSystemPrompt: () => fullSystemPrompt,
+    getAppendSystemPrompt: () => [],
+    getPathMetadata: () => new Map(),
+    extendResources: () => {},
+    reload: async () => {},
+  };
 
   const { session } = await createAgentSession({
+    cwd: WORKSPACE,
     model,
-    streamFn: streamSimple,
+    resourceLoader,
     sessionManager,
-    systemPrompt: fullSystemPrompt,
-    tools: [
-      "read",
-      "write",
-      "edit",
-      "bash",
-    ],
-    mcpServers: {
-      nanoclaw: {
-        command: "node",
-        args: [mcpServerPath],
-        env: {
-          IPC_DIR: "/workspace/ipc",
-          IS_MAIN_GROUP: containerInput.isMain ? "1" : "0",
-          GROUP_FOLDER: containerInput.groupFolder,
-        },
-      },
-    },
+    // createCodingTools(cwd) ensures read/write/edit/bash resolve paths
+    // relative to /workspace, not /app where this process runs.
+    tools: createCodingTools(WORKSPACE),
   });
 
   // Subscribe to the event stream
