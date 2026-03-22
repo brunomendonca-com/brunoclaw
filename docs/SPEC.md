@@ -1,6 +1,6 @@
-# NanoClaw Specification
+# PipipiClaw Specification
 
-A personal Claude assistant with multi-channel support, persistent memory per conversation, scheduled tasks, and container-isolated agent execution.
+A personal AI assistant with multi-channel support, persistent memory per conversation, scheduled tasks, and container-isolated agent execution. This is a fork of NanoClaw that replaces the Anthropic Agent SDK with the Pi agent framework, making it provider-agnostic.
 
 ---
 

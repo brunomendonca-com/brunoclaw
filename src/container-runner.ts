@@ -130,14 +130,9 @@ function buildVolumeMounts(
     }
   }
 
-  // Per-group Claude sessions directory (isolated from other groups)
-  // Each group gets their own .claude/ to prevent cross-group session access
-  const groupSessionsDir = path.join(
-    DATA_DIR,
-    'sessions',
-    group.folder,
-    '.claude',
-  );
+  // Per-group Pi sessions directory (isolated from other groups)
+  // Each group gets their own pi/ to prevent cross-group session access
+  const groupSessionsDir = path.join(DATA_DIR, 'sessions', group.folder, 'pi');
   fs.mkdirSync(groupSessionsDir, { recursive: true });
   const settingsFile = path.join(groupSessionsDir, 'settings.json');
   if (!fs.existsSync(settingsFile)) {
@@ -176,7 +171,7 @@ function buildVolumeMounts(
   }
   mounts.push({
     hostPath: groupSessionsDir,
-    containerPath: '/home/node/.claude',
+    containerPath: '/workspace/pi',
     readonly: false,
   });
 
@@ -246,21 +241,26 @@ function buildContainerArgs(
   // Pass host timezone so container's local time matches the user's
   args.push('-e', `TZ=${TIMEZONE}`);
 
+  // Inject Pi model configuration
+  args.push('-e', `PI_MODEL=${process.env.PI_MODEL || 'default'}`);
+  args.push('-e', `PI_BASE_URL=${process.env.PI_BASE_URL || ''}`);
+  args.push('-e', `PI_API_KEY=${process.env.PI_API_KEY || ''}`);
+
   // Route API traffic through the credential proxy (containers never see real secrets)
   args.push(
     '-e',
-    `ANTHROPIC_BASE_URL=http://${CONTAINER_HOST_GATEWAY}:${CREDENTIAL_PROXY_PORT}`,
+    `OPENAI_BASE_URL=http://${CONTAINER_HOST_GATEWAY}:${CREDENTIAL_PROXY_PORT}`,
   );
 
   // Mirror the host's auth method with a placeholder value.
   // API key mode: SDK sends x-api-key, proxy replaces with real key.
-  // OAuth mode:   SDK exchanges placeholder token for temp API key,
+  // OAuth mode:   Container CLI exchanges placeholder token for temp API key,
   //               proxy injects real OAuth token on that exchange request.
   const authMode = detectAuthMode();
   if (authMode === 'api-key') {
-    args.push('-e', 'ANTHROPIC_API_KEY=placeholder');
+    args.push('-e', 'OPENAI_API_KEY=placeholder');
   } else {
-    args.push('-e', 'CLAUDE_CODE_OAUTH_TOKEN=placeholder');
+    args.push('-e', 'OPENAI_OAUTH_TOKEN=placeholder');
   }
 
   // Inject fal.ai API key if configured
