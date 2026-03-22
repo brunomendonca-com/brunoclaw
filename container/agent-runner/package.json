@@ -12,6 +12,7 @@
     "@mariozechner/pi-ai": "latest",
     "@mariozechner/pi-coding-agent": "latest",
     "@modelcontextprotocol/sdk": "^1.12.1",
+    "mcporter": "latest",
     "zod": "^4.0.0"
   },
   "devDependencies": {

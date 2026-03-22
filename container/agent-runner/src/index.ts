@@ -22,6 +22,8 @@ import {
   SessionManager,
   type Skill,
 } from "@mariozechner/pi-coding-agent";
+import { createRuntime, type Runtime } from "mcporter";
+import type { ServerDefinition } from "mcporter";
 import fs from "fs";
 import path from "path";
 
@@ -243,13 +245,8 @@ async function main(): Promise<void> {
     : [];
 
   // Custom ResourceLoader: inject system prompt and skills explicitly.
-  // Pi's createAgentSession does not accept systemPrompt or mcpServers directly —
+  // Pi's createAgentSession does not accept systemPrompt directly —
   // system prompt goes through the ResourceLoader interface.
-  //
-  // NOTE: Pi has no built-in MCP support. The IPC tools (send_message,
-  // schedule_task, etc.) from ipc-mcp-stdio.ts are not available via
-  // createAgentSession. Until a Pi extension is built to wrap MCP, the agent
-  // must invoke IPC operations via bash (e.g. node /app/dist/ipc-mcp-stdio.js).
   const resourceLoader: ResourceLoader = {
     getExtensions: () => ({ extensions: [], errors: [], runtime: createExtensionRuntime() }),
     getSkills: () => ({ skills: piSkills, diagnostics: [] }),
@@ -263,6 +260,47 @@ async function main(): Promise<void> {
     reload: async () => {},
   };
 
+  // Bridge the IPC MCP server into Pi using MCPorter.
+  // Pi has no native MCP support; MCPorter spawns the stdio server as a
+  // subprocess and exposes its tools as Pi customTools.
+  const ipcServerDef: ServerDefinition = {
+    name: "pipipiclaw-ipc",
+    command: {
+      kind: "stdio",
+      command: "node",
+      args: ["/app/dist/ipc-mcp-stdio.js"],
+      cwd: "/app",
+    },
+    env: {
+      NANOCLAW_CHAT_JID: containerInput.chatJid,
+      NANOCLAW_GROUP_FOLDER: containerInput.groupFolder,
+      NANOCLAW_IS_MAIN: containerInput.isMain ? "1" : "0",
+    },
+  };
+
+  const mcpRuntime: Runtime = await createRuntime({ servers: [ipcServerDef] });
+  const mcpToolInfos = await mcpRuntime.listTools("pipipiclaw-ipc", {
+    includeSchema: true,
+  });
+  log(`IPC tools loaded: ${mcpToolInfos.map((t) => t.name).join(", ")}`);
+
+  const ipcCustomTools = mcpToolInfos.map((tool) => ({
+    name: tool.name,
+    label: tool.name.replace(/_/g, " "),
+    description: tool.description ?? "",
+    // MCPorter returns standard JSON Schema; cast to any since Pi's ToolDefinition
+    // expects a TypeBox TSchema (which is a superset of JSON Schema at runtime).
+    parameters: (tool.inputSchema ?? { type: "object", properties: {} }) as any,
+    execute: async (_toolCallId: string, params: unknown) => {
+      const result = await mcpRuntime.callTool("pipipiclaw-ipc", tool.name, {
+        args: params as Record<string, unknown>,
+      });
+      const content = (result as { content?: Array<{ type: string; text: string }> })
+        .content ?? [{ type: "text", text: String(result) }];
+      return { content, details: {} };
+    },
+  }));
+
   const { session } = await createAgentSession({
     cwd: WORKSPACE,
     model,
@@ -271,6 +309,7 @@ async function main(): Promise<void> {
     // createCodingTools(cwd) ensures read/write/edit/bash resolve paths
     // relative to /workspace, not /app where this process runs.
     tools: createCodingTools(WORKSPACE),
+    customTools: ipcCustomTools,
   });
 
   // Subscribe to the event stream
@@ -289,6 +328,9 @@ async function main(): Promise<void> {
 
   // Follow-up message loop
   await pollFollowUps(session);
+
+  // Clean up MCPorter subprocess
+  await mcpRuntime.close().catch(() => {});
 }
 
 async function runPrompt(session: any, prompt: string): Promise<string> {
