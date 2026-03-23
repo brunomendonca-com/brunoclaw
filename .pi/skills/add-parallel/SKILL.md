@@ -1,3 +1,7 @@
+---
+description: Add Parallel AI MCP integration to NanoClaw for web search and deep research capabilities.
+---
+
 # Add Parallel AI Integration
 
 Adds Parallel AI MCP integration to NanoClaw for advanced web research capabilities.
