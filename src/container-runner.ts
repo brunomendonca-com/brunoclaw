@@ -136,14 +136,7 @@ function buildVolumeMounts(
   fs.mkdirSync(groupSessionsDir, { recursive: true });
   const settingsFile = path.join(groupSessionsDir, 'settings.json');
   if (!fs.existsSync(settingsFile)) {
-    fs.writeFileSync(
-      settingsFile,
-      JSON.stringify(
-        {},
-        null,
-        2,
-      ) + '\n',
-    );
+    fs.writeFileSync(settingsFile, JSON.stringify({}, null, 2) + '\n');
   }
 
   // Sync skills from container/skills/ into each group's pi/skills/
