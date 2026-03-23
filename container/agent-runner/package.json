@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@mariozechner/pi-ai": "latest",
+    "cron-parser": "^5.0.0",
     "@mariozechner/pi-coding-agent": "latest",
     "@modelcontextprotocol/sdk": "^1.12.1",
     "mcporter": "latest",
