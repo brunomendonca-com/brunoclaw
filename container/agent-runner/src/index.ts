@@ -39,6 +39,7 @@ interface ContainerInput {
   isMain: boolean;
   isScheduledTask?: boolean;
   assistantName?: string;
+  timezone?: string;
 }
 
 interface ContainerOutput {
@@ -208,7 +209,7 @@ async function main(): Promise<void> {
     provider: "custom",
     baseUrl: process.env.OPENAI_BASE_URL + "",
     reasoning: false,
-    input: ["text"] as const,
+    input: ["text"] as ("text" | "image")[],
     cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
     contextWindow: 200000,
     maxTokens: 8192,
@@ -238,7 +239,13 @@ async function main(): Promise<void> {
           description: "Loaded skills for this session",
           filePath: "/virtual/SKILL.md",
           baseDir: "/virtual",
-          source: "path" as const,
+          sourceInfo: {
+            path: "/virtual/SKILL.md",
+            source: "path",
+            scope: "project" as const,
+            origin: "top-level" as const,
+            baseDir: "/virtual",
+          },
           disableModelInvocation: false,
         },
       ]
@@ -255,7 +262,6 @@ async function main(): Promise<void> {
     getAgentsFiles: () => ({ agentsFiles: [] }),
     getSystemPrompt: () => fullSystemPrompt,
     getAppendSystemPrompt: () => [],
-    getPathMetadata: () => new Map(),
     extendResources: () => {},
     reload: async () => {},
   };
@@ -295,8 +301,8 @@ async function main(): Promise<void> {
       const result = await mcpRuntime.callTool("pipipiclaw-ipc", tool.name, {
         args: params as Record<string, unknown>,
       });
-      const content = (result as { content?: Array<{ type: string; text: string }> })
-        .content ?? [{ type: "text", text: String(result) }];
+      const content = (result as { content?: Array<{ type: "text"; text: string }> })
+        .content ?? [{ type: "text" as const, text: String(result) }];
       return { content, details: {} };
     },
   }));
