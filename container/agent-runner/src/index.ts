@@ -244,7 +244,6 @@ async function main(): Promise<void> {
             source: "path",
             scope: "project" as const,
             origin: "top-level" as const,
-            baseDir: "/virtual",
           },
           disableModelInvocation: false,
         },

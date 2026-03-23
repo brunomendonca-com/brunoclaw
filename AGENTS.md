@@ -1,32 +1,80 @@
-# Raph
+# Pipipiclaw
 
-You are *Raph*, a personal assistant. Your name is *Raph* — never call yourself "Claw" or any other name.
+Personal Claude assistant. See README.md for philosophy and setup. See docs/REQUIREMENTS.md for architecture decisions.
 
-## What You Can Do
+## Quick Context
 
-- Answer questions and have conversations
-- Search the web and fetch content from URLs
-- Browse the web with `agent-browser`
-- Generate images with fal.ai
-- Read and write files in your workspace
-- Run bash commands
-- Schedule tasks
-- Send messages back to the chat
+Single Node.js process with skill-based channel system. Channels (WhatsApp, Telegram, Slack, Discord, Gmail) are skills that self-register at startup.
+Messages route to Pi coding agent running in containers (Linux VMs). Each group has isolated filesystem and memory.
 
-## Communication
+## Key Files
 
-Your output is sent to the user or group. You are *Raph*.
+| File | Purpose |
+|---|---|
+| src/index.ts | Orchestrator: state, message loop, agent invocation |
+| src/channels/registry.ts | Channel registry (self-registration at startup) |
+| src/ipc.ts | IPC watcher and task processing |
+| src/router.ts | Message formatting and outbound routing |
+| src/config.ts | Trigger pattern, paths, intervals |
+| src/container-runner.ts | Spawns agent containers with mounts |
+| src/task-scheduler.ts | Runs scheduled tasks |
+| src/db.ts | SQLite operations |
+| groups/{name}/AGENTS.md | Per-group memory (isolated) |
+| container/skills/agent-browser.md | Browser automation tool (available to all agents via Bash) |
 
-- **Tone:** Humor and sarcasm (healthy, elegant, not rude)
-- **Context:** General WhatsApp group
-- **Notes:** Prefers relaxed interactions, but always professional
+## Skills
 
-## Message Formatting
+| Skill | When to Use |
+|---|---|
+| /setup | First-time installation, authentication, service configuration |
+| /customize | Adding channels, integrations, changing behavior |
+| /debug | Container issues, logs, troubleshooting |
+| /update-nanoclaw | Bring upstream updates into a customized Pipipiclaw install |
+| /update-skills | Check for and apply updates to installed skill branches from upstream |
+| /qodo-pr-resolver | Fetch and fix Qodo PR review issues interactively or in batch |
+| /get-qodo-rules | Load org- and repo-level coding rules from Qodo before code tasks |
 
-NEVER use markdown. Only use WhatsApp/Telegram formatting:
-- *single asterisks* for bold (NEVER **double asterisks**)
-- _underscores_ for italic
-- • bullet points
-- ```triple backticks``` for code
+## Setup Process
 
-No ## headings. No [links](url). No **double stars**.
+Setup runs automatically via `bash setup.sh` followed by `npx tsx setup/index.ts --step <name>`. It includes:
+
+1. **Git & Fork Setup** - Ensures you have a fork with upstream configured
+2. **Bootstrap** - Installs Node.js 22 and dependencies
+3. **Container Runtime** - Sets up Docker or Apple Container
+4. **Claude Authentication** - Pro/Max subscription or API key
+5. **Channels** - WhatsApp, Telegram, Slack, Discord (each via its own skill)
+6. **Mount Allowlist** - Configures agent file access
+7. **Start Service** - Launches background service
+8. **Verify** - Confirms everything works
+
+## Development
+
+Run commands directly—don't tell the user to run them.
+
+```bash
+npm run dev          # Run with hot reload
+npm run build        # Compile TypeScript
+./container/build.sh # Rebuild agent container
+```
+
+Service management:
+
+```bash
+# macOS (launchd)
+launchctl load ~/Library/LaunchAgents/com.pipipiclaw.plist
+launchctl unload ~/Library/LaunchAgents/com.pipipiclaw.plist
+launchctl kickstart -k gui/$(id -u)/com.pipipiclaw  # restart
+
+# Linux (systemd)
+systemctl --user start pipipiclaw
+systemctl --user stop pipipiclaw
+systemctl --user restart pipipiclaw
+```
+
+## Troubleshooting
+
+WhatsApp not connecting: WhatsApp is a separate channel skill. Run /add-whatsapp to install it. Existing auth credentials and groups are preserved.
+
+## Container Build Cache
+
+The container buildkit caches the build context aggressively. `--no-cache` alone does NOT invalidate COPY steps — the builder's volume retains stale files. To force a truly clean rebuild, prune the builder then re-run `./container/build.sh`.
