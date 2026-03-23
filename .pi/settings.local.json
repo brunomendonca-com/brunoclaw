@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bash setup.sh:*)",
+      "Bash(npm run build:*)",
+      "Bash(launchctl kickstart -k gui/*/com.nanoclaw:*)",
+      "Read(//tmp/**)",
+      "Read(//private/tmp/**)",
+      "Read(//Users/brunomendonca/Library/Logs/**)",
+      "Read(//Users/brunomendonca/Library/LaunchAgents/**)",
+      "Bash(container info:*)",
+      "Bash(docker info:*)",
+      "Bash(node -e \"require\\(''minimatch''\\)\")",
+      "Bash(git fetch:*)"
+    ]
+  }
+}

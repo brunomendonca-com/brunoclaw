@@ -40,8 +40,8 @@ describe('readonlyMountArgs', () => {
 
 describe('stopContainer', () => {
   it('returns stop command using CONTAINER_RUNTIME_BIN', () => {
-    expect(stopContainer('nanoclaw-test-123')).toBe(
-      `${CONTAINER_RUNTIME_BIN} stop nanoclaw-test-123`,
+    expect(stopContainer('pipipiclaw-test-123')).toBe(
+      `${CONTAINER_RUNTIME_BIN} stop pipipiclaw-test-123`,
     );
   });
 });

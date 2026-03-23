@@ -11,7 +11,7 @@ Host (macOS / Windows WSL)
     │   ├── Channel adapters (WhatsApp, Telegram, etc.)
     │   └── Container spawner → nested Docker daemon
     └── Docker-in-Docker
-        └── nanoclaw-agent containers
+        └── pipipiclaw-agent containers
             └── Claude Agent SDK
 ```
 
@@ -316,7 +316,7 @@ npm config set strict-ssl false
 docker build \
   --build-arg http_proxy=$http_proxy \
   --build-arg https_proxy=$https_proxy \
-  -t nanoclaw-agent:latest container/
+  -t pipipiclaw-agent:latest container/
 ```
 
 ### Agent containers fail with "path not shared"

@@ -129,6 +129,31 @@ function registerGroup(jid: string, group: RegisteredGroup): void {
 }
 
 /**
+ * Migrate CLAUDE.md to AGENTS.md at startup.
+ */
+function migrateGroupMemory(): void {
+  const GROUPS_DIR = process.env.GROUPS_DIR || 'groups';
+  const dataDir = process.env.DATA_DIR || 'data';
+
+  try {
+    const groups = fs.readdirSync(GROUPS_DIR);
+    for (const groupFolder of groups) {
+      if (groupFolder === 'global') continue;
+
+      const claudeMdPath = path.join(GROUPS_DIR, groupFolder, 'CLAUDE.md');
+      const agentsMdPath = path.join(GROUPS_DIR, groupFolder, 'AGENTS.md');
+
+      if (fs.existsSync(claudeMdPath) && !fs.existsSync(agentsMdPath)) {
+        fs.copyFileSync(claudeMdPath, agentsMdPath);
+        logger.info({ groupFolder }, 'Migrated CLAUDE.md → AGENTS.md');
+      }
+    }
+  } catch (err) {
+    logger.warn({ err }, 'Migration failed, continuing');
+  }
+}
+
+/**
  * Get available groups list for the agent.
  * Returns groups ordered by most recent activity.
  */
@@ -546,6 +571,9 @@ async function main(): Promise<void> {
   startSearchExporter();
   loadState();
   restoreRemoteControl();
+
+  // Migrate CLAUDE.md to AGENTS.md at startup
+  migrateGroupMemory();
 
   // Start credential proxy (containers route API calls through this)
   const proxyServer = await startCredentialProxy(
