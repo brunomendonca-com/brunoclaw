@@ -223,9 +223,7 @@ function buildContainerArgs(
   args.push('-e', `TZ=${TIMEZONE}`);
 
   // Inject Pi model configuration
-  args.push('-e', `PI_MODEL=${process.env.PI_MODEL || 'default'}`);
-  args.push('-e', `PI_BASE_URL=${process.env.PI_BASE_URL || ''}`);
-  args.push('-e', `PI_API_KEY=${process.env.PI_API_KEY || ''}`);
+  args.push('-e', `OPENAI_MODEL=${process.env.OPENAI_MODEL || 'default'}`);
 
   // Route API traffic through the credential proxy (containers never see real secrets)
   args.push(

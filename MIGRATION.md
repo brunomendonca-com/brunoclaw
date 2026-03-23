@@ -22,9 +22,7 @@ ANTHROPIC_MODEL=...
 
 **After:**
 ```bash
-PI_API_KEY=...
-PI_BASE_URL=...
-PI_MODEL=...
+OPENAI_MODEL=...
 OPENAI_API_KEY=placeholder
 OPENAI_BASE_URL=http://host.docker.internal:3001
 ```
@@ -49,7 +47,7 @@ OPENAI_BASE_URL=http://host.docker.internal:3001
 ### 6. Container Runner
 - Updated `src/container-runner.ts` to pass Pi env vars
 - Changed mount path from `/home/node/.claude` to `/workspace/pi`
-- Updated container args to include `PI_MODEL`, `PI_BASE_URL`, `PI_API_KEY`
+- Updated container args to include `OPENAI_MODEL`, `OPENAI_BASE_URL`, `OPENAI_API_KEY`
 
 ### 7. Skill Files
 - Created `container/skills/web-search.md` for web search capability

@@ -101,8 +101,8 @@ launchctl kickstart -k gui/$(id -u)/com.nanoclaw  # macOS
 ### Validation on Fresh Clone
 
 ```bash
-git clone <your-fork> /tmp/nanoclaw-test
-cd /tmp/nanoclaw-test
+git clone <your-fork> /tmp/pipipiclaw-test
+cd /tmp/pipipiclaw-test
 claude  # then run /add-compact
 npm run build
 npm test

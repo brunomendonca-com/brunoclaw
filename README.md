@@ -193,9 +193,9 @@ We don't want configuration sprawl. Every user should customize PipipiClaw so th
 Yes. PipipiClaw supports any OpenAI-compatible model endpoint. Set these environment variables in your `.env` file:
 
 ```bash
-PI_BASE_URL=https://your-openai-compatible-endpoint/v1
-PI_API_KEY=your-api-key
-PI_MODEL=claude-sonnet-4-6
+OPENAI_BASE_URL=https://your-openai-compatible-endpoint/v1
+OPENAI_API_KEY=your-api-key
+OPENAI_MODEL=qwen3.5-35b
 ```
 
 This allows you to use:

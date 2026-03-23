@@ -406,7 +406,7 @@ If MCP tools not found in container:
 ./container/build.sh 2>&1 | grep -i skill
 
 # Check container has the file
-docker run nanoclaw-agent ls -la /app/src/skills/
+docker run pipipiclaw-agent ls -la /app/src/skills/
 ```
 
 ## Security

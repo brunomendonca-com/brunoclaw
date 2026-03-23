@@ -10,7 +10,7 @@ vi.mock('../speech.js', () => ({
 
 // Mock config
 vi.mock('../config.js', () => ({
-  STORE_DIR: '/tmp/nanoclaw-test-store',
+  STORE_DIR: '/tmp/pipipiclaw-test-store',
   ASSISTANT_NAME: 'Andy',
   ASSISTANT_HAS_OWN_NUMBER: false,
   GROUPS_DIR: '/tmp/test-groups',

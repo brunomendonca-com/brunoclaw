@@ -28,8 +28,6 @@ export function startCredentialProxy(
   host = '127.0.0.1',
 ): Promise<Server> {
   const secrets = readEnvFile([
-    'PI_API_KEY',
-    'PI_BASE_URL',
     'OPENAI_API_KEY',
     'OPENAI_OAUTH_TOKEN',
     'OPENAI_BASE_URL',
@@ -39,9 +37,7 @@ export function startCredentialProxy(
   const oauthToken = secrets.OPENAI_OAUTH_TOKEN || secrets.OPENAI_BASE_URL;
 
   const upstreamUrl = new URL(
-    secrets.OPENAI_BASE_URL ||
-      process.env.PI_BASE_URL ||
-      'https://api.openai.com',
+    secrets.OPENAI_BASE_URL || 'https://api.openai.com',
   );
   const isHttps = upstreamUrl.protocol === 'https:';
   const makeRequest = isHttps ? httpsRequest : httpRequest;
@@ -122,6 +118,6 @@ export function startCredentialProxy(
 
 /** Detect which auth mode the host is configured for. */
 export function detectAuthMode(): AuthMode {
-  const secrets = readEnvFile(['PI_API_KEY']);
-  return secrets.PI_API_KEY ? 'api-key' : 'oauth';
+  const secrets = readEnvFile(['OPENAI_API_KEY']);
+  return secrets.OPENAI_API_KEY ? 'api-key' : 'oauth';
 }

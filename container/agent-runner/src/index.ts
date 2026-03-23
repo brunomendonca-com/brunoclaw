@@ -21,14 +21,14 @@ import {
   type ResourceLoader,
   SessionManager,
   type Skill,
-} from "@mariozechner/pi-coding-agent";
-import { createRuntime, type Runtime } from "mcporter";
-import type { ServerDefinition } from "mcporter";
-import fs from "fs";
-import path from "path";
+} from '@mariozechner/pi-coding-agent';
+import { createRuntime, type Runtime } from 'mcporter';
+import type { ServerDefinition } from 'mcporter';
+import fs from 'fs';
+import path from 'path';
 
-const IPC_INPUT_DIR = "/workspace/ipc/input";
-const IPC_INPUT_CLOSE_SENTINEL = path.join(IPC_INPUT_DIR, "_close");
+const IPC_INPUT_DIR = '/workspace/ipc/input';
+const IPC_INPUT_CLOSE_SENTINEL = path.join(IPC_INPUT_DIR, '_close');
 const IPC_POLL_MS = 500;
 
 interface ContainerInput {
@@ -43,14 +43,14 @@ interface ContainerInput {
 }
 
 interface ContainerOutput {
-  status: "success" | "error";
+  status: 'success' | 'error';
   result: string | null;
   newSessionId?: string;
   error?: string;
 }
 
-const OUTPUT_START_MARKER = "___RESULT_START___";
-const OUTPUT_END_MARKER = "___RESULT_END___";
+const OUTPUT_START_MARKER = '___RESULT_START___';
+const OUTPUT_END_MARKER = '___RESULT_END___';
 
 function writeOutput(output: ContainerOutput): void {
   console.log(OUTPUT_START_MARKER);
@@ -64,13 +64,13 @@ function log(message: string): void {
 
 async function readStdin(): Promise<string> {
   return new Promise((resolve, reject) => {
-    let data = "";
-    process.stdin.setEncoding("utf8");
-    process.stdin.on("data", (chunk) => {
+    let data = '';
+    process.stdin.setEncoding('utf8');
+    process.stdin.on('data', (chunk) => {
       data += chunk;
     });
-    process.stdin.on("end", () => resolve(data));
-    process.stdin.on("error", reject);
+    process.stdin.on('end', () => resolve(data));
+    process.stdin.on('error', reject);
   });
 }
 
@@ -98,16 +98,16 @@ function drainIpcInput(): string[] {
     fs.mkdirSync(IPC_INPUT_DIR, { recursive: true });
     const files = fs
       .readdirSync(IPC_INPUT_DIR)
-      .filter((f) => f.endsWith(".json"))
+      .filter((f) => f.endsWith('.json'))
       .sort();
 
     const messages: string[] = [];
     for (const file of files) {
       const filePath = path.join(IPC_INPUT_DIR, file);
       try {
-        const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
+        const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
         fs.unlinkSync(filePath);
-        if (data.type === "message" && data.text) {
+        if (data.type === 'message' && data.text) {
           messages.push(data.text);
         }
       } catch (err) {
@@ -141,7 +141,7 @@ function waitForIpcMessage(): Promise<string | null> {
       }
       const messages = drainIpcInput();
       if (messages.length > 0) {
-        resolve(messages.join("\n"));
+        resolve(messages.join('\n'));
         return;
       }
       setTimeout(poll, IPC_POLL_MS);
@@ -158,13 +158,13 @@ function loadSkills(skillsDirs: string[]): string {
   for (const dir of skillsDirs) {
     if (!fs.existsSync(dir)) continue;
     for (const name of fs.readdirSync(dir)) {
-      const skillMd = path.join(dir, name, "SKILL.md");
+      const skillMd = path.join(dir, name, 'SKILL.md');
       if (fs.existsSync(skillMd)) {
-        skills.push(fs.readFileSync(skillMd, "utf8"));
+        skills.push(fs.readFileSync(skillMd, 'utf8'));
       }
     }
   }
-  return skills.join("\n\n---\n\n");
+  return skills.join('\n\n---\n\n');
 }
 
 async function main(): Promise<void> {
@@ -174,14 +174,14 @@ async function main(): Promise<void> {
     const stdinData = await readStdin();
     containerInput = JSON.parse(stdinData);
     try {
-      fs.unlinkSync("/tmp/input.json");
+      fs.unlinkSync('/tmp/input.json');
     } catch {
       /* may not exist */
     }
     log(`Received input for group: ${containerInput.groupFolder}`);
   } catch (err) {
     writeOutput({
-      status: "error",
+      status: 'error',
       result: null,
       error: `Failed to parse input: ${err instanceof Error ? err.message : String(err)}`,
     });
@@ -189,45 +189,46 @@ async function main(): Promise<void> {
   }
 
   // Load AGENTS.md for system prompt memory
-  const GROUP_DIR = "/workspace/group";
-  const agentsMdPath = path.join(GROUP_DIR, "AGENTS.md");
+  const GROUP_DIR = '/workspace/group';
+  const agentsMdPath = path.join(GROUP_DIR, 'AGENTS.md');
   const memory = fs.existsSync(agentsMdPath)
-    ? fs.readFileSync(agentsMdPath, "utf8")
-    : "";
+    ? fs.readFileSync(agentsMdPath, 'utf8')
+    : '';
 
   const systemPrompt = [
-    `You are ${containerInput.assistantName ?? "Assistant"}, a helpful AI assistant.`,
-    `Current timezone: ${containerInput.timezone ?? "UTC"}`,
-    memory ? `\n\n## Context and instructions\n${memory}` : "",
-  ].join("\n");
+    `You are ${containerInput.assistantName ?? 'Assistant'}, a helpful AI assistant.`,
+    `Current timezone: ${containerInput.timezone ?? 'UTC'}`,
+    memory ? `\n\n## Context and instructions\n${memory}` : '',
+  ].join('\n');
 
   // Model descriptor — Pi talks to our proxy as an OpenAI-compatible endpoint
   const model = {
-    id: process.env.PI_MODEL ?? "default",
-    name: process.env.PI_MODEL ?? "default",
-    api: "openai-completions" as const,
-    provider: "custom",
-    baseUrl: process.env.OPENAI_BASE_URL + "",
+    id: process.env.OPENAI_MODEL ?? 'default',
+    name: process.env.OPENAI_MODEL ?? 'default',
+    api: 'openai-completions' as const,
+    provider: 'custom',
+    baseUrl: process.env.OPENAI_BASE_URL + '',
     reasoning: false,
-    input: ["text"] as ("text" | "image")[],
+    input: ['text'] as ('text' | 'image')[],
     cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
     contextWindow: 200000,
     maxTokens: 8192,
   };
 
-  const WORKSPACE = "/workspace";
-  const SESSION_FILE = "/workspace/pi/session.jsonl";
+  const WORKSPACE = '/workspace';
+  const SESSION_FILE = '/workspace/pi/session.jsonl';
   const sessionManager = SessionManager.open(SESSION_FILE);
 
   // Load skill files from the pi/skills directory mounted into the container.
   // Pi discovers skills from <cwd>/.pi/skills/, but our skills are mounted at
   // /workspace/pi/skills/ (no dot prefix), so we load them manually here.
   const skillsDirs = [
-    path.join(GROUP_DIR, "pi", "skills"),
-    "/workspace/pi/skills",
+    path.join(GROUP_DIR, 'pi', 'skills'),
+    '/workspace/pi/skills',
   ];
   const skillsText = loadSkills(skillsDirs);
-  const fullSystemPrompt = systemPrompt + (skillsText ? `\n\n## Skills\n${skillsText}` : "");
+  const fullSystemPrompt =
+    systemPrompt + (skillsText ? `\n\n## Skills\n${skillsText}` : '');
 
   // Build skills array for Pi's ResourceLoader from our manually loaded skill text.
   // We inject all skill content as a single virtual skill so Pi includes it in the
@@ -235,15 +236,15 @@ async function main(): Promise<void> {
   const piSkills: Skill[] = skillsText
     ? [
         {
-          name: "pipipiclaw-skills",
-          description: "Loaded skills for this session",
-          filePath: "/virtual/SKILL.md",
-          baseDir: "/virtual",
+          name: 'pipipiclaw-skills',
+          description: 'Loaded skills for this session',
+          filePath: '/virtual/SKILL.md',
+          baseDir: '/virtual',
           sourceInfo: {
-            path: "/virtual/SKILL.md",
-            source: "path",
-            scope: "project" as const,
-            origin: "top-level" as const,
+            path: '/virtual/SKILL.md',
+            source: 'path',
+            scope: 'project' as const,
+            origin: 'top-level' as const,
           },
           disableModelInvocation: false,
         },
@@ -254,7 +255,11 @@ async function main(): Promise<void> {
   // Pi's createAgentSession does not accept systemPrompt directly —
   // system prompt goes through the ResourceLoader interface.
   const resourceLoader: ResourceLoader = {
-    getExtensions: () => ({ extensions: [], errors: [], runtime: createExtensionRuntime() }),
+    getExtensions: () => ({
+      extensions: [],
+      errors: [],
+      runtime: createExtensionRuntime(),
+    }),
     getSkills: () => ({ skills: piSkills, diagnostics: [] }),
     getPrompts: () => ({ prompts: [], diagnostics: [] }),
     getThemes: () => ({ themes: [], diagnostics: [] }),
@@ -269,39 +274,40 @@ async function main(): Promise<void> {
   // Pi has no native MCP support; MCPorter spawns the stdio server as a
   // subprocess and exposes its tools as Pi customTools.
   const ipcServerDef: ServerDefinition = {
-    name: "pipipiclaw-ipc",
+    name: 'pipipiclaw-ipc',
     command: {
-      kind: "stdio",
-      command: "node",
-      args: ["/app/dist/ipc-mcp-stdio.js"],
-      cwd: "/app",
+      kind: 'stdio',
+      command: 'node',
+      args: ['/app/dist/ipc-mcp-stdio.js'],
+      cwd: '/app',
     },
     env: {
       NANOCLAW_CHAT_JID: containerInput.chatJid,
       NANOCLAW_GROUP_FOLDER: containerInput.groupFolder,
-      NANOCLAW_IS_MAIN: containerInput.isMain ? "1" : "0",
+      NANOCLAW_IS_MAIN: containerInput.isMain ? '1' : '0',
     },
   };
 
   const mcpRuntime: Runtime = await createRuntime({ servers: [ipcServerDef] });
-  const mcpToolInfos = await mcpRuntime.listTools("pipipiclaw-ipc", {
+  const mcpToolInfos = await mcpRuntime.listTools('pipipiclaw-ipc', {
     includeSchema: true,
   });
-  log(`IPC tools loaded: ${mcpToolInfos.map((t) => t.name).join(", ")}`);
+  log(`IPC tools loaded: ${mcpToolInfos.map((t) => t.name).join(', ')}`);
 
   const ipcCustomTools = mcpToolInfos.map((tool) => ({
     name: tool.name,
-    label: tool.name.replace(/_/g, " "),
-    description: tool.description ?? "",
+    label: tool.name.replace(/_/g, ' '),
+    description: tool.description ?? '',
     // MCPorter returns standard JSON Schema; cast to any since Pi's ToolDefinition
     // expects a TypeBox TSchema (which is a superset of JSON Schema at runtime).
-    parameters: (tool.inputSchema ?? { type: "object", properties: {} }) as any,
+    parameters: (tool.inputSchema ?? { type: 'object', properties: {} }) as any,
     execute: async (_toolCallId: string, params: unknown) => {
-      const result = await mcpRuntime.callTool("pipipiclaw-ipc", tool.name, {
+      const result = await mcpRuntime.callTool('pipipiclaw-ipc', tool.name, {
         args: params as Record<string, unknown>,
       });
-      const content = (result as { content?: Array<{ type: "text"; text: string }> })
-        .content ?? [{ type: "text" as const, text: String(result) }];
+      const content = (
+        result as { content?: Array<{ type: 'text'; text: string }> }
+      ).content ?? [{ type: 'text' as const, text: String(result) }];
       return { content, details: {} };
     },
   }));
@@ -319,11 +325,13 @@ async function main(): Promise<void> {
 
   // Subscribe to the event stream
   session.subscribe((event: any) => {
-    if (event.type === "tool_execution_start") {
+    if (event.type === 'tool_execution_start') {
       process.stderr.write(`[tool:start] ${event.toolName}\n`);
     }
-    if (event.type === "tool_execution_end") {
-      process.stderr.write(`[tool:end] ${event.toolName} ${event.isError ? "ERROR" : "OK"}\n`);
+    if (event.type === 'tool_execution_end') {
+      process.stderr.write(
+        `[tool:end] ${event.toolName} ${event.isError ? 'ERROR' : 'OK'}\n`,
+      );
     }
   });
 
@@ -339,11 +347,11 @@ async function main(): Promise<void> {
 }
 
 async function runPrompt(session: any, prompt: string): Promise<string> {
-  let buffer = "";
+  let buffer = '';
   const unsub = session.subscribe((event: any) => {
     if (
-      event.type === "message_update" &&
-      event.assistantMessageEvent.type === "text_delta"
+      event.type === 'message_update' &&
+      event.assistantMessageEvent.type === 'text_delta'
     ) {
       buffer += event.assistantMessageEvent.delta;
     }
@@ -359,15 +367,17 @@ async function pollFollowUps(session: any): Promise<void> {
     const files = fs.readdirSync(IPC_INPUT_DIR).sort();
     for (const file of files) {
       const filePath = path.join(IPC_INPUT_DIR, file);
-      if (file === "_close") {
+      if (file === '_close') {
         await session.close();
         process.exit(0);
       }
-      const msg = JSON.parse(fs.readFileSync(filePath, "utf8"));
+      const msg = JSON.parse(fs.readFileSync(filePath, 'utf8'));
       fs.unlinkSync(filePath);
-      if (msg.type === "message") {
+      if (msg.type === 'message') {
         const buffer = await runPrompt(session, msg.text);
-        process.stdout.write(`___RESULT_START___\n${buffer}\n___RESULT_END___\n`);
+        process.stdout.write(
+          `___RESULT_START___\n${buffer}\n___RESULT_END___\n`,
+        );
       }
     }
   }
