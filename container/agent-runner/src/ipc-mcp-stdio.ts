@@ -14,6 +14,7 @@ import { CronExpressionParser } from 'cron-parser';
 const IPC_DIR = '/workspace/ipc';
 const MESSAGES_DIR = path.join(IPC_DIR, 'messages');
 const TASKS_DIR = path.join(IPC_DIR, 'tasks');
+const COMMANDS_DIR = path.join(IPC_DIR, 'commands');
 
 // Context from environment variables (set by the agent runner)
 const chatJid = process.env.NANOCLAW_CHAT_JID!;
@@ -477,6 +478,84 @@ Use available_groups.json to find the JID for a group. The folder name must be c
 
     return {
       content: [{ type: 'text' as const, text: `Group "${args.name}" registered. It will start receiving messages immediately.` }],
+    };
+  },
+);
+
+server.tool(
+  'google_workspace',
+  'Execute a Google Workspace CLI (gws) command. Only allowed services and resources can be accessed. Requires Google Workspace integration to be configured for this group.',
+  {
+    service: z.string().describe('The Google Workspace service, e.g., "drive", "sheets", "docs".'),
+    command_args: z.array(z.string()).describe('List of CLI arguments to pass to the service command, e.g. ["files", "list", "--params", "{\\"q\\":\\"name=\'test\'\\"}"]'),
+    resource_id: z.string().optional().describe('The ID of the specific drive, folder, or file being accessed (if applicable/known). Required for accessing specific Google Drive files/folders securely.'),
+  },
+  async (args) => {
+    fs.mkdirSync(COMMANDS_DIR, { recursive: true });
+    
+    // Validate inputs
+    if (args.command_args.some(arg => arg.includes(';') || arg.includes('&') || arg.includes('|') || arg.includes('$'))) {
+      return {
+        content: [{ type: 'text' as const, text: 'Invalid characters in command arguments.' }],
+        isError: true,
+      };
+    }
+
+    const commandId = `cmd-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    const requestFile = path.join(COMMANDS_DIR, `${commandId}.json`);
+    const resultFile = path.join(COMMANDS_DIR, `${commandId}-result.json`);
+
+    const data = {
+      type: 'google_workspace',
+      commandId,
+      service: args.service,
+      commandArgs: args.command_args,
+      resourceId: args.resource_id,
+      groupFolder,
+      timestamp: new Date().toISOString(),
+    };
+
+    const tempPath = `${requestFile}.tmp`;
+    fs.writeFileSync(tempPath, JSON.stringify(data, null, 2));
+    fs.renameSync(tempPath, requestFile);
+
+    const pollInterval = 500;
+    const maxWaitTime = 60000;
+    const startTime = Date.now();
+
+    while (Date.now() - startTime < maxWaitTime) {
+      if (fs.existsSync(resultFile)) {
+        try {
+          const resultData = JSON.parse(fs.readFileSync(resultFile, 'utf-8'));
+          
+          try { fs.unlinkSync(resultFile); } catch {}
+          try { fs.unlinkSync(requestFile); } catch {}
+          try { fs.unlinkSync(`${requestFile}.processing`); } catch {}
+
+          let outputText = '';
+          if (resultData.stdout) outputText += `${resultData.stdout}\n`;
+          if (resultData.stderr) outputText += `${resultData.stderr}\n`;
+          
+          return {
+            content: [{ type: 'text' as const, text: outputText.trim() || 'Command completed with no output.' }],
+            isError: resultData.exitCode !== 0,
+          };
+        } catch (err) {
+          return {
+            content: [{ type: 'text' as const, text: `Failed to read result: ${err instanceof Error ? err.message : String(err)}` }],
+            isError: true,
+          };
+        }
+      }
+      
+      await new Promise(r => setTimeout(r, pollInterval));
+    }
+
+    try { fs.unlinkSync(requestFile); } catch {}
+    
+    return {
+      content: [{ type: 'text' as const, text: `Command timed out after ${maxWaitTime / 1000}s.` }],
+      isError: true,
     };
   },
 );

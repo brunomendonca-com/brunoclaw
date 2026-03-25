@@ -27,9 +27,16 @@ export interface AllowedRoot {
   description?: string;
 }
 
+export interface GoogleWorkspaceConfig {
+  allowedServices: string[];
+  allowedDrives?: string[];
+  allowedFolders?: string[];
+}
+
 export interface ContainerConfig {
   additionalMounts?: AdditionalMount[];
   timeout?: number; // Default: 300000 (5 minutes)
+  googleWorkspace?: GoogleWorkspaceConfig;
 }
 
 export interface RegisteredGroup {
