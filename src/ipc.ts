@@ -96,7 +96,12 @@ export function startIpcWatcher(deps: IpcDeps): void {
         if (fs.existsSync(commandsDir)) {
           const commandFiles = fs
             .readdirSync(commandsDir)
-            .filter((f) => f.endsWith('.json') && !f.endsWith('-result.json') && !f.endsWith('.processing'));
+            .filter(
+              (f) =>
+                f.endsWith('.json') &&
+                !f.endsWith('-result.json') &&
+                !f.endsWith('.processing'),
+            );
           for (const file of commandFiles) {
             const filePath = path.join(commandsDir, file);
             const processingPath = `${filePath}.processing`;
@@ -109,25 +114,36 @@ export function startIpcWatcher(deps: IpcDeps): void {
             // Process asynchronously so we don't block the IPC watcher
             (async () => {
               try {
-                const data = JSON.parse(fs.readFileSync(processingPath, 'utf-8'));
+                const data = JSON.parse(
+                  fs.readFileSync(processingPath, 'utf-8'),
+                );
                 if (data.type === 'google_workspace' && data.commandId) {
                   const groupConfig = Object.values(registeredGroups).find(
                     (g) => g.folder === sourceGroup,
                   );
-                  
+
                   const result = await executeGoogleWorkspaceCommand(
                     groupConfig?.containerConfig?.googleWorkspace,
                     data.service,
                     data.commandArgs || [],
-                    data.resourceId
+                    data.resourceId,
                   );
-                  
-                  const resultFile = path.join(commandsDir, `${data.commandId}-result.json`);
+
+                  const resultFile = path.join(
+                    commandsDir,
+                    `${data.commandId}-result.json`,
+                  );
                   fs.writeFileSync(resultFile, JSON.stringify(result));
-                  logger.info({ sourceGroup, commandId: data.commandId }, 'IPC command executed');
+                  logger.info(
+                    { sourceGroup, commandId: data.commandId },
+                    'IPC command executed',
+                  );
                 }
               } catch (err) {
-                logger.error({ file, sourceGroup, err }, 'Error processing IPC command');
+                logger.error(
+                  { file, sourceGroup, err },
+                  'Error processing IPC command',
+                );
                 const errorDir = path.join(ipcBaseDir, 'errors');
                 fs.mkdirSync(errorDir, { recursive: true });
                 fs.copyFileSync(
@@ -143,7 +159,10 @@ export function startIpcWatcher(deps: IpcDeps): void {
           }
         }
       } catch (err) {
-        logger.error({ err, sourceGroup }, 'Error reading IPC commands directory');
+        logger.error(
+          { err, sourceGroup },
+          'Error reading IPC commands directory',
+        );
       }
 
       // Process messages from this group's IPC directory

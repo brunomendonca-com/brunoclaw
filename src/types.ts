@@ -28,7 +28,7 @@ export interface AllowedRoot {
 }
 
 export interface GoogleWorkspaceConfig {
-  allowedServices: string[];
+  allowedServices?: string[]; // Default: ['drive'] when omitted
   allowedDrives?: string[];
   allowedFolders?: string[];
 }
