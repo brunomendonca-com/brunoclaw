@@ -129,7 +129,12 @@ export function setChannelRequestGate(fn: ChannelRequestGateFn): void {
   channelRequestGate = fn;
 }
 
-function safeParseContent(raw: string): { text?: string; sender?: string; senderId?: string } {
+function safeParseContent(raw: string): {
+  text?: string;
+  sender?: string;
+  senderId?: string;
+  transcript?: string;
+} {
   try {
     return JSON.parse(raw);
   } catch {
@@ -250,7 +255,10 @@ export async function routeInbound(event: InboundEvent): Promise<void> {
   //    re-subscribe (chat.subscribe is idempotent anyway, but the flag
   //    avoids the extra await).
   const parsed = safeParseContent(event.message.content);
-  const messageText = parsed.text ?? '';
+  // Engage matching considers transcribed audio so voice-only messages can
+  // still trigger 'pattern' wirings (e.g., a regex containing the trigger
+  // word matches the spoken transcript).
+  const messageText = [parsed.text, parsed.transcript].filter(Boolean).join(' ');
 
   let engagedCount = 0;
   let accumulatedCount = 0;
@@ -260,7 +268,15 @@ export async function routeInbound(event: InboundEvent): Promise<void> {
     const agentGroup = getAgentGroup(agent.agent_group_id);
     if (!agentGroup) continue;
 
-    const engages = evaluateEngage(agent, messageText, isMention, mg, event.threadId);
+    const engages = evaluateEngage(
+      agent,
+      messageText,
+      isMention,
+      mg,
+      event.threadId,
+      agents.length === 1,
+      !!parsed.transcript,
+    );
 
     const accessOk = engages && (!accessGate || accessGate(event, userId, mg, agent.agent_group_id).allowed);
     const scopeOk = engages && (!senderScopeGate || senderScopeGate(event, userId, mg, agent).allowed);
@@ -342,13 +358,26 @@ function evaluateEngage(
   isMention: boolean,
   mg: MessagingGroup,
   threadId: string | null,
+  singleAgentInChat: boolean,
+  hasVoice: boolean,
 ): boolean {
   switch (agent.engage_mode) {
     case 'pattern': {
       const pat = agent.engage_pattern ?? '.';
       if (pat === '.') return true;
+      // Voice messages bypass the trigger pattern — a successful transcript
+      // means the user clearly wanted the agent to hear it, and forcing the
+      // trigger word into spoken audio is awkward. Mirrors v1 behavior
+      // (commit 65f01e3: "trigger bypass for forwarded audio").
+      if (hasVoice) return true;
       try {
-        return new RegExp(pat).test(text);
+        if (new RegExp(pat, 'i').test(text)) return true;
+        // WhatsApp-style platform mentions may not preserve the visible alias
+        // in message text. If this chat is wired to exactly one agent and the
+        // platform confirms the bot was mentioned, engage even when the regex
+        // alias doesn't appear verbatim in `text`.
+        if (isMention && singleAgentInChat) return true;
+        return false;
       } catch {
         // Bad regex: fail open so admin sees the agent responding + can fix.
         return true;

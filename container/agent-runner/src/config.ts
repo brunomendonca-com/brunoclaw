@@ -7,6 +7,8 @@
  */
 import fs from 'fs';
 
+import type { PromptBundle } from './providers/types.js';
+
 const CONFIG_PATH = '/workspace/agent/container.json';
 
 export interface RunnerConfig {
@@ -16,6 +18,7 @@ export interface RunnerConfig {
   agentGroupId: string;
   maxMessagesPerPrompt: number;
   mcpServers: Record<string, { command: string; args: string[]; env: Record<string, string> }>;
+  promptBundle?: PromptBundle;
 }
 
 const DEFAULT_MAX_MESSAGES = 10;
@@ -43,6 +46,7 @@ export function loadConfig(): RunnerConfig {
     agentGroupId: (raw.agentGroupId as string) || '',
     maxMessagesPerPrompt: (raw.maxMessagesPerPrompt as number) || DEFAULT_MAX_MESSAGES,
     mcpServers: (raw.mcpServers as RunnerConfig['mcpServers']) || {},
+    promptBundle: (raw.promptBundle as PromptBundle) || undefined,
   };
 
   return _config;

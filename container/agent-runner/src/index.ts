@@ -47,10 +47,8 @@ async function main(): Promise<void> {
 
   // Runtime-generated system-prompt addendum: agent identity (name) plus
   // the live destinations map. Everything else (capabilities, per-module
-  // instructions, per-channel formatting) is loaded by Claude Code from
-  // /workspace/agent/CLAUDE.md — the composed entry imports the shared
-  // base (/app/CLAUDE.md) and each enabled module's fragment. Per-group
-  // memory lives in /workspace/agent/CLAUDE.local.md (auto-loaded).
+  // instructions, per-channel formatting) is provided by the host in the
+  // promptBundle. Claude Code also auto-loads /workspace/agent/CLAUDE.md.
   const instructions = buildSystemPromptAddendum(config.assistantName || undefined);
 
   // Discover additional directories mounted at /workspace/extra/*
@@ -96,7 +94,10 @@ async function main(): Promise<void> {
   await runPollLoop({
     provider,
     cwd: CWD,
-    systemContext: { instructions },
+    systemContext: {
+      instructions,
+      promptBundle: config.promptBundle,
+    },
   });
 }
 

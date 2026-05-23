@@ -9,7 +9,9 @@ import './core.js';
 import './scheduling.js';
 import './interactive.js';
 import './agents.js';
+import './group-management.js';
 import './self-mod.js';
+import './search.js';
 import { startMcpServer } from './server.js';
 
 function log(msg: string): void {

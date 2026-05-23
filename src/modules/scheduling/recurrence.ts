@@ -16,11 +16,25 @@ import type Database from 'better-sqlite3';
 import { TIMEZONE } from '../../config.js';
 import { log } from '../../log.js';
 import type { Session } from '../../types.js';
-import { clearRecurrence, getCompletedRecurring, insertRecurrence } from './db.js';
+import {
+  clearRecurrence,
+  getCompletedRecurring,
+  getFailedRecurring,
+  insertRecurrence,
+  type RecurringMessage,
+} from './db.js';
 
 export async function handleRecurrence(inDb: Database.Database, session: Session): Promise<void> {
-  const recurring = getCompletedRecurring(inDb);
+  await cloneRecurringRows(inDb, session, getCompletedRecurring(inDb), 'completed');
+  await cloneRecurringRows(inDb, session, getFailedRecurring(inDb), 'failed');
+}
 
+async function cloneRecurringRows(
+  inDb: Database.Database,
+  session: Session,
+  recurring: RecurringMessage[],
+  sourceStatus: 'completed' | 'failed',
+): Promise<void> {
   for (const msg of recurring) {
     try {
       const { CronExpressionParser } = await import('cron-parser');
@@ -36,12 +50,14 @@ export async function handleRecurrence(inDb: Database.Database, session: Session
       insertRecurrence(inDb, msg, newId, nextRun);
       clearRecurrence(inDb, msg.id);
 
-      log.info('Inserted next recurrence', {
+      const event = sourceStatus === 'failed' ? 'Recovered failed recurring task' : 'Inserted next recurrence';
+      log[sourceStatus === 'failed' ? 'warn' : 'info'](event, {
         originalId: msg.id,
         newId,
         seriesId: msg.series_id,
         nextRun,
         sessionId: session.id,
+        sourceStatus,
       });
     } catch (err) {
       log.error('Failed to compute next recurrence', {

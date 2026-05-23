@@ -7,9 +7,9 @@
 import path from 'path';
 
 import { DATA_DIR } from './config.js';
-import { migrateGroupsToClaudeLocal } from './claude-md-compose.js';
 import { initDb } from './db/connection.js';
 import { runMigrations } from './db/migrations/index.js';
+import { upsertKnownChat } from './db/known-chats.js';
 import { ensureContainerRuntimeRunning, cleanupOrphans } from './container-runtime.js';
 import { startActiveDeliveryPoll, startSweepDeliveryPoll, setDeliveryAdapter, stopDeliveryPolls } from './delivery.js';
 import { startHostSweep, stopHostSweep } from './host-sweep.js';
@@ -64,9 +64,6 @@ async function main(): Promise<void> {
   runMigrations(db);
   log.info('Central DB ready', { path: dbPath });
 
-  // 1b. One-time filesystem cutover — idempotent, no-op after first run.
-  migrateGroupsToClaudeLocal();
-
   // 2. Container runtime
   ensureContainerRuntimeRunning();
   cleanupOrphans();
@@ -105,6 +102,13 @@ async function main(): Promise<void> {
           platformId,
           name,
           isGroup,
+        });
+        upsertKnownChat({
+          channel_type: adapter.channelType,
+          platform_id: platformId,
+          name: name ?? null,
+          is_group: isGroup ? 1 : 0,
+          last_seen: new Date().toISOString(),
         });
       },
       onAction(questionId, selectedOption, userId) {

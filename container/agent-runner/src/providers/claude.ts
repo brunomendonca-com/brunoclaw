@@ -263,7 +263,21 @@ export class ClaudeProvider implements AgentProvider {
     const stream = new MessageStream();
     stream.push(input.prompt);
 
-    const instructions = input.systemContext?.instructions;
+    const bundle = input.systemContext?.promptBundle;
+    const pieces: string[] = [];
+    if (bundle) {
+      if (bundle.globalInstructions) pieces.push(bundle.globalInstructions);
+      // If Claude DOES NOT use the workspace prompt (unlikely for Claude Code),
+      // we'd inject the group instructions here.
+      if (!bundle.claudeUsesWorkspacePrompt && bundle.groupInstructions) {
+        pieces.push(bundle.groupInstructions);
+      }
+    }
+    if (input.systemContext?.instructions) {
+      pieces.push(input.systemContext.instructions);
+    }
+
+    const instructions = pieces.length > 0 ? pieces.join('\n\n---\n\n') : undefined;
 
     const sdkResult = sdkQuery({
       prompt: stream,

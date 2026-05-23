@@ -1,5 +1,6 @@
 import { findByRouting } from './destinations.js';
 import type { MessageInRow } from './db/messages-in.js';
+import { getSessionRouting } from './db/session-routing.js';
 import { TIMEZONE, formatLocalTime } from './timezone.js';
 
 /**
@@ -90,14 +91,32 @@ export interface RoutingContext {
 
 /**
  * Extract routing context from a batch of messages.
- * Uses the first message's routing fields.
+ *
+ * Uses the first message's routing fields, falling back to the session's
+ * default routing (`session_routing` table, written by the host on every
+ * wake) when the message itself has none. Tasks scheduled before the
+ * MCP tool started capturing the originating routing — and any task row
+ * inserted with NULL platform/channel — would otherwise produce a
+ * routing-less batch and silently drop the agent's reply in
+ * `dispatchResultText`.
  */
 export function extractRouting(messages: MessageInRow[]): RoutingContext {
   const first = messages[0];
+  let platformId = first?.platform_id ?? null;
+  let channelType = first?.channel_type ?? null;
+  let threadId = first?.thread_id ?? null;
+
+  if (!platformId || !channelType) {
+    const fallback = getSessionRouting();
+    platformId = platformId ?? fallback.platform_id;
+    channelType = channelType ?? fallback.channel_type;
+    threadId = threadId ?? fallback.thread_id;
+  }
+
   return {
-    platformId: first?.platform_id ?? null,
-    channelType: first?.channel_type ?? null,
-    threadId: first?.thread_id ?? null,
+    platformId,
+    channelType,
+    threadId,
     inReplyTo: first?.id ?? null,
   };
 }
@@ -163,6 +182,7 @@ function formatSingleChat(msg: MessageInRow): string {
   const idAttr = msg.seq != null ? ` id="${msg.seq}"` : '';
   const replyAttr = content.replyTo?.id ? ` reply_to="${escapeXml(String(content.replyTo.id))}"` : '';
   const replyPrefix = formatReplyContext(content.replyTo);
+  const transcriptPrefix = formatTranscript(content.transcript);
   const attachmentsSuffix = formatAttachments(content.attachments);
 
   // Look up the destination name for the origin (reverse map lookup).
@@ -176,7 +196,18 @@ function formatSingleChat(msg: MessageInRow): string {
       ? ` from="unknown:${escapeXml(msg.channel_type || '')}:${escapeXml(msg.platform_id || '')}"`
       : '';
 
-  return `<message${idAttr}${fromAttr} sender="${escapeXml(sender)}" time="${escapeXml(time)}"${replyAttr}>${replyPrefix}${escapeXml(text)}${attachmentsSuffix}</message>`;
+  return `<message${idAttr}${fromAttr} sender="${escapeXml(sender)}" time="${escapeXml(time)}"${replyAttr}>${replyPrefix}${transcriptPrefix}${escapeXml(text)}${attachmentsSuffix}</message>`;
+}
+
+/**
+ * Render a transcribed voice/audio attachment inside the <message> body.
+ * Adapters (e.g. WhatsApp via Google STT) put the transcript on
+ * `content.transcript`; the actual audio file still appears in
+ * `content.attachments`.
+ */
+function formatTranscript(transcript: unknown): string {
+  if (typeof transcript !== 'string' || !transcript.trim()) return '';
+  return `\n  <voice_transcript>${escapeXml(transcript)}</voice_transcript>\n`;
 }
 
 function formatTaskMessage(msg: MessageInRow): string {

@@ -12,7 +12,7 @@ import { OneCLI } from '@onecli-sh/sdk';
 import { CONTAINER_IMAGE, DATA_DIR, GROUPS_DIR, ONECLI_API_KEY, ONECLI_URL, TIMEZONE } from './config.js';
 import { readContainerConfig, writeContainerConfig } from './container-config.js';
 import { CONTAINER_RUNTIME_BIN, hostGatewayArgs, readonlyMountArgs, stopContainer } from './container-runtime.js';
-import { composeGroupClaudeMd } from './claude-md-compose.js';
+import { composePromptBundle } from './prompt-compose.js';
 import { getAgentGroup } from './db/agent-groups.js';
 import { getDb, hasTable } from './db/connection.js';
 import { initGroupFilesystem } from './group-init.js';
@@ -33,7 +33,20 @@ import type { AgentGroup, Session } from './types.js';
 const onecli = new OneCLI({ url: ONECLI_URL, apiKey: ONECLI_API_KEY });
 
 /** Active containers tracked by session ID. */
-const activeContainers = new Map<string, { process: ChildProcess; containerName: string }>();
+// process is null for adopted containers (running from a previous host
+// process — we have no ChildProcess handle, but stopContainer-by-name still
+// works). For freshly spawned containers it's the live spawn() handle.
+const activeContainers = new Map<string, { process: ChildProcess | null; containerName: string }>();
+
+/**
+ * Register a running container that was started by a previous host process
+ * but is still alive (fresh heartbeat). Allows killContainer / sweep to
+ * address it by name even though we don't own the spawn handle.
+ */
+export function adoptRunningContainer(sessionId: string, containerName: string): void {
+  if (activeContainers.has(sessionId)) return;
+  activeContainers.set(sessionId, { process: null, containerName });
+}
 
 /**
  * In-flight wake promises, keyed by session id. Deduplicates concurrent
@@ -118,6 +131,7 @@ async function spawnContainer(session: Session): Promise<void> {
     provider,
     contribution,
     agentIdentifier,
+    session.id,
   );
 
   log.info('Spawning container', { sessionId: session.id, agentGroup: agentGroup.name, containerName });
@@ -166,7 +180,7 @@ export function killContainer(sessionId: string, reason: string): void {
   try {
     stopContainer(entry.containerName);
   } catch {
-    entry.process.kill('SIGKILL');
+    entry.process?.kill('SIGKILL');
   }
 }
 
@@ -204,10 +218,6 @@ function buildMounts(
   const claudeDir = path.join(DATA_DIR, 'v2-sessions', agentGroup.id, '.claude-shared');
   syncSkillSymlinks(claudeDir, containerConfig);
 
-  // Compose CLAUDE.md fresh every spawn from the shared base, enabled skill
-  // fragments, and MCP server instructions. See `claude-md-compose.ts`.
-  composeGroupClaudeMd(agentGroup);
-
   const mounts: VolumeMount[] = [];
   const sessDir = sessionDir(agentGroup.id, session.id);
   const groupDir = path.resolve(GROUPS_DIR, agentGroup.folder);
@@ -215,7 +225,7 @@ function buildMounts(
   // Session folder at /workspace (contains inbound.db, outbound.db, outbox/, .claude/)
   mounts.push({ hostPath: sessDir, containerPath: '/workspace', readonly: false });
 
-  // Agent group folder at /workspace/agent (RW for working files + CLAUDE.local.md)
+  // Agent group folder at /workspace/agent (RW for working files + CLAUDE.md)
   mounts.push({ hostPath: groupDir, containerPath: '/workspace/agent', readonly: false });
 
   // container.json — nested RO mount on top of RW group dir so the agent
@@ -225,33 +235,10 @@ function buildMounts(
     mounts.push({ hostPath: containerJsonPath, containerPath: '/workspace/agent/container.json', readonly: true });
   }
 
-  // Composer-managed CLAUDE.md artifacts — nested RO mounts. These are
-  // regenerated from the shared base + fragments on every spawn; any
-  // agent-side writes would be clobbered, so enforce read-only. Only
-  // CLAUDE.local.md (per-group memory) remains RW via the group-dir mount.
-  // `.claude-shared.md` is a symlink whose target (`/app/CLAUDE.md`) is
-  // already RO-mounted, so writes through it fail regardless — no need for
-  // a nested mount there.
-  const composedClaudeMd = path.join(groupDir, 'CLAUDE.md');
-  if (fs.existsSync(composedClaudeMd)) {
-    mounts.push({ hostPath: composedClaudeMd, containerPath: '/workspace/agent/CLAUDE.md', readonly: true });
-  }
-  const fragmentsDir = path.join(groupDir, '.claude-fragments');
-  if (fs.existsSync(fragmentsDir)) {
-    mounts.push({ hostPath: fragmentsDir, containerPath: '/workspace/agent/.claude-fragments', readonly: true });
-  }
-
   // Global memory directory — always read-only.
   const globalDir = path.join(GROUPS_DIR, 'global');
   if (fs.existsSync(globalDir)) {
     mounts.push({ hostPath: globalDir, containerPath: '/workspace/global', readonly: true });
-  }
-
-  // Shared CLAUDE.md — read-only, imported by the composed entry point via
-  // the `.claude-shared.md` symlink inside the group dir.
-  const sharedClaudeMd = path.join(process.cwd(), 'container', 'CLAUDE.md');
-  if (fs.existsSync(sharedClaudeMd)) {
-    mounts.push({ hostPath: sharedClaudeMd, containerPath: '/app/CLAUDE.md', readonly: true });
   }
 
   // Per-group .claude-shared at /home/node/.claude (Claude state, settings,
@@ -363,10 +350,21 @@ function ensureRuntimeFields(
     containerConfig.groupName = agentGroup.name;
     dirty = true;
   }
-  if (containerConfig.assistantName !== agentGroup.name) {
+  // Preserve per-group assistant personas (e.g. groupName "Adribot"
+  // with assistantName "Dri"). Only backfill when the field is missing.
+  if (!containerConfig.assistantName?.trim()) {
     containerConfig.assistantName = agentGroup.name;
     dirty = true;
   }
+
+  // Composed prompt bundle — all providers use this instead of reading files.
+  // Claude Code still auto-loads CLAUDE.md from the workspace.
+  const promptBundle = composePromptBundle(agentGroup);
+  if (JSON.stringify(containerConfig.promptBundle) !== JSON.stringify(promptBundle)) {
+    containerConfig.promptBundle = promptBundle;
+    dirty = true;
+  }
+
   if (dirty) {
     writeContainerConfig(agentGroup.folder, containerConfig);
   }
@@ -380,12 +378,24 @@ async function buildContainerArgs(
   provider: string,
   providerContribution: ProviderContainerContribution,
   agentIdentifier?: string,
+  sessionId?: string,
 ): Promise<string[]> {
   const args: string[] = ['run', '--rm', '--name', containerName];
 
+  // Identification labels — read by cleanupOrphans / adopt at host startup
+  // to tell our containers apart from anything else and to map a container
+  // back to its session without parsing the (folder-only) container name.
+  args.push('--label', 'nanoclaw=1');
+  args.push('--label', `nanoclaw-agent-group-id=${agentGroup.id}`);
+  if (sessionId) {
+    args.push('--label', `nanoclaw-session-id=${sessionId}`);
+  }
+
   // Environment — only vars read by code we don't own.
-  // Everything NanoClaw-specific is in container.json (read by runner at startup).
+  // Everything NanoClaw-specific is in container.json (read by runner at startup),
+  // except a few small bootstrap flags the runner/provider need before prompt assembly.
   args.push('-e', `TZ=${TIMEZONE}`);
+  args.push('-e', `NANOCLAW_IS_MAIN=${containerConfig.isMain ? '1' : '0'}`);
 
   // Provider-contributed env vars (e.g. XDG_DATA_HOME, OPENCODE_*, NO_PROXY).
   if (providerContribution.env) {
@@ -395,7 +405,13 @@ async function buildContainerArgs(
   }
 
   // OneCLI gateway — injects HTTPS_PROXY + certs so container API calls
-  // are routed through the agent vault for credential injection.
+  // are routed through the agent vault for credential injection. If the
+  // operator has OneCLI configured, a gateway failure means the container
+  // has no API credentials and will die almost immediately. Fail the spawn
+  // here instead of silently starting a doomed container — that turns into
+  // a 5-second exit loop that only surfaces as "container not running"
+  // after MAX_TRIES, with the real cause buried in WARN logs.
+  const onecliConfigured = Boolean(ONECLI_URL && ONECLI_API_KEY);
   try {
     if (agentIdentifier) {
       await onecli.ensureAgent({ name: agentGroup.name, identifier: agentIdentifier });
@@ -403,10 +419,16 @@ async function buildContainerArgs(
     const onecliApplied = await onecli.applyContainerConfig(args, { addHostMapping: false, agent: agentIdentifier });
     if (onecliApplied) {
       log.info('OneCLI gateway applied', { containerName });
+    } else if (onecliConfigured) {
+      throw new Error('OneCLI gateway returned no config — refusing to spawn doomed container');
     } else {
       log.warn('OneCLI gateway not applied — container will have no credentials', { containerName });
     }
   } catch (err) {
+    if (onecliConfigured) {
+      log.error('OneCLI gateway error — aborting container spawn', { containerName, err });
+      throw err;
+    }
     log.warn('OneCLI gateway error — container will have no credentials', { containerName, err });
   }
 

@@ -5,6 +5,8 @@ export interface AgentGroup {
   name: string;
   folder: string;
   agent_provider: string | null;
+  /** Main/admin control group. Optional for pre-migration callers/tests. */
+  is_main?: number; // 0 | 1
   created_at: string;
 }
 
@@ -111,6 +113,14 @@ export interface Session {
   created_at: string;
 }
 
+export interface KnownChat {
+  channel_type: string;
+  platform_id: string;
+  name: string | null;
+  is_group: number; // 0 | 1
+  last_seen: string;
+}
+
 // ── Session DB entities ──
 
 export type MessageInKind = 'chat' | 'chat-sdk' | 'task' | 'webhook' | 'system';
@@ -186,4 +196,12 @@ export interface AgentDestination {
   target_type: 'channel' | 'agent';
   target_id: string;
   created_at: string;
+}
+
+// ── Prompt Bundle ──
+
+export interface PromptBundle {
+  globalInstructions: string;
+  groupInstructions: string;
+  claudeUsesWorkspacePrompt: boolean;
 }

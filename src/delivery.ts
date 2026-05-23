@@ -12,6 +12,7 @@ import type Database from 'better-sqlite3';
 import { getRunningSessions, getActiveSessions, createPendingQuestion } from './db/sessions.js';
 import { getAgentGroup } from './db/agent-groups.js';
 import { getDb, hasTable } from './db/connection.js';
+import { readContainerConfig } from './container-config.js';
 import { getMessagingGroupByPlatform } from './db/messaging-groups.js';
 import {
   getDueOutboundMessages,
@@ -29,10 +30,29 @@ import type { Session } from './types.js';
 
 const ACTIVE_POLL_MS = 1000;
 const SWEEP_POLL_MS = 60_000;
-const MAX_DELIVERY_ATTEMPTS = 3;
 
-/** Track delivery attempt counts. Resets on process restart (gives failed messages a fresh chance). */
-const deliveryAttempts = new Map<string, number>();
+// Pre-fix this was 3 attempts back-to-back, no backoff. WhatsApp 428/503
+// disconnects routinely take 5–30s to reconnect; under the old policy a
+// 3-second outage permanently dropped the message. With the schedule
+// below (2s, 4s, 8s, 16s, 32s, 64s, 128s, 256s, capped at 300s) eight
+// attempts span ~8.5 minutes — long enough to ride out typical transient
+// WhatsApp outages, short enough that a genuinely broken message
+// (unknown chat, banned account, etc.) doesn't churn forever.
+const MAX_DELIVERY_ATTEMPTS = 8;
+const RETRY_BASE_MS = 2_000;
+const RETRY_CAP_MS = 5 * 60_000;
+
+interface DeliveryAttempt {
+  attempts: number;
+  nextRetryAt: number; // epoch ms; 0 = never failed yet, eligible immediately
+}
+
+/** Track delivery attempt counts + backoff. Resets on process restart (gives failed messages a fresh chance). */
+const deliveryAttempts = new Map<string, DeliveryAttempt>();
+
+function nextBackoffMs(attempts: number): number {
+  return Math.min(RETRY_BASE_MS * Math.pow(2, attempts - 1), RETRY_CAP_MS);
+}
 
 /**
  * Sessions whose outbound queue is currently being drained.
@@ -181,7 +201,16 @@ async function drainSession(session: Session): Promise<void> {
 
     // Filter out already-delivered messages using inbound.db's delivered table
     const delivered = getDeliveredIds(inDb);
-    const undelivered = allDue.filter((m) => !delivered.has(m.id));
+    const now = Date.now();
+    const undelivered = allDue
+      .filter((m) => !delivered.has(m.id))
+      // Honor backoff: a message that just failed is held back until its
+      // nextRetryAt window opens. Without this gate the 1s active poll
+      // burns all retries in a few seconds during any transient outage.
+      .filter((m) => {
+        const tracked = deliveryAttempts.get(m.id);
+        return !tracked || tracked.nextRetryAt <= now;
+      });
     if (undelivered.length === 0) return;
 
     // Ensure platform_message_id column exists (migration for existing sessions)
@@ -203,8 +232,8 @@ async function drainSession(session: Session): Promise<void> {
           pauseTypingRefreshAfterDelivery(session.id);
         }
       } catch (err) {
-        const attempts = (deliveryAttempts.get(msg.id) ?? 0) + 1;
-        deliveryAttempts.set(msg.id, attempts);
+        const prior = deliveryAttempts.get(msg.id)?.attempts ?? 0;
+        const attempts = prior + 1;
         if (attempts >= MAX_DELIVERY_ATTEMPTS) {
           log.error('Message delivery failed permanently, giving up', {
             messageId: msg.id,
@@ -215,11 +244,14 @@ async function drainSession(session: Session): Promise<void> {
           markDeliveryFailed(inDb, msg.id);
           deliveryAttempts.delete(msg.id);
         } else {
+          const backoffMs = nextBackoffMs(attempts);
+          deliveryAttempts.set(msg.id, { attempts, nextRetryAt: Date.now() + backoffMs });
           log.warn('Message delivery failed, will retry', {
             messageId: msg.id,
             sessionId: session.id,
             attempt: attempts,
             maxAttempts: MAX_DELIVERY_ATTEMPTS,
+            backoffMs,
             err,
           });
         }
@@ -229,6 +261,20 @@ async function drainSession(session: Session): Promise<void> {
     outDb.close();
     inDb.close();
   }
+}
+
+function resolveDeliveryAgentName(session: Session): string | undefined {
+  const agentGroup = getAgentGroup(session.agent_group_id);
+  if (!agentGroup) return undefined;
+  const config = readContainerConfig(agentGroup.folder);
+  const assistantName = config.assistantName?.trim();
+  return assistantName || agentGroup.name;
+}
+
+function enrichOutboundContent(session: Session, content: Record<string, unknown>): Record<string, unknown> {
+  const agentName = resolveDeliveryAgentName(session);
+  if (!agentName || typeof content.agentName === 'string') return content;
+  return { ...content, agentName };
 }
 
 async function deliverMessage(
@@ -248,7 +294,7 @@ async function deliverMessage(
     return;
   }
 
-  const content = JSON.parse(msg.content);
+  const content = enrichOutboundContent(session, JSON.parse(msg.content) as Record<string, unknown>);
 
   // System actions — handle internally (schedule_task, cancel_task, etc.)
   if (msg.kind === 'system') {
@@ -314,15 +360,16 @@ async function deliverMessage(
   // exist and we skip persistence — the card still delivers to the user,
   // but the response path has nowhere to land and will log unclaimed.
   if (content.type === 'ask_question' && content.questionId && hasTable(getDb(), 'pending_questions')) {
+    const questionId = content.questionId as string;
     const title = content.title as string | undefined;
     const rawOptions = content.options as unknown;
     if (!title || !Array.isArray(rawOptions)) {
       log.error('ask_question missing required title/options — not persisting', {
-        questionId: content.questionId,
+        questionId,
       });
     } else {
       createPendingQuestion({
-        question_id: content.questionId,
+        question_id: questionId,
         session_id: session.id,
         message_out_id: msg.id,
         platform_id: msg.platform_id,
@@ -332,7 +379,7 @@ async function deliverMessage(
         options: normalizeOptions(rawOptions as never),
         created_at: new Date().toISOString(),
       });
-      log.info('Pending question created', { questionId: content.questionId, sessionId: session.id });
+      log.info('Pending question created', { questionId, sessionId: session.id });
     }
   }
 
@@ -355,7 +402,7 @@ async function deliverMessage(
     msg.platform_id,
     msg.thread_id,
     msg.kind,
-    msg.content,
+    JSON.stringify(content),
     files,
   );
   log.info('Message delivered', {

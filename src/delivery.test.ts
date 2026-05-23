@@ -24,6 +24,10 @@ vi.mock('./config.js', async () => {
   return { ...actual, DATA_DIR: '/tmp/nanoclaw-test-delivery' };
 });
 
+vi.mock('./container-config.js', () => ({
+  readContainerConfig: vi.fn(() => ({ assistantName: 'Zibot' })),
+}));
+
 const TEST_DIR = '/tmp/nanoclaw-test-delivery';
 
 import { initTestDb, closeDb, runMigrations, createAgentGroup, createMessagingGroup } from './db/index.js';
@@ -119,6 +123,26 @@ describe('deliverSessionMessages — concurrent invocations', () => {
     insertOutbound('ag-1', session.id, 'out-second');
     await deliverSessionMessages(session);
     expect(calls).toHaveLength(2);
+  });
+
+  it('passes the per-group assistant name through to adapters', async () => {
+    seedAgentAndChannel();
+    const { session } = resolveSession('ag-1', 'mg-1', null, 'shared');
+    insertOutbound('ag-1', session.id, 'out-name');
+
+    const delivered: Array<Record<string, unknown>> = [];
+    setDeliveryAdapter({
+      async deliver(_channelType, _platformId, _threadId, _kind, content) {
+        delivered.push(JSON.parse(content) as Record<string, unknown>);
+        return 'plat-msg-name';
+      },
+    });
+
+    await deliverSessionMessages(session);
+
+    expect(delivered).toHaveLength(1);
+    expect(delivered[0].text).toBe('hello');
+    expect(delivered[0].agentName).toBe('Zibot');
   });
 
   it('does not re-deliver when retried after a successful send (cleanup-after-send safety)', async () => {

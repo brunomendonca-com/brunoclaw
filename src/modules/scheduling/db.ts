@@ -125,6 +125,12 @@ export function getCompletedRecurring(db: Database.Database): RecurringMessage[]
     .all() as RecurringMessage[];
 }
 
+export function getFailedRecurring(db: Database.Database): RecurringMessage[] {
+  return db
+    .prepare("SELECT * FROM messages_in WHERE status = 'failed' AND recurrence IS NOT NULL")
+    .all() as RecurringMessage[];
+}
+
 export function insertRecurrence(
   db: Database.Database,
   msg: RecurringMessage,

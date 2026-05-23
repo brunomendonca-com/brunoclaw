@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+QMD_DIR="${QMD_DIR:-/workspace/agent/qmd}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$QMD_DIR/xdg-cache}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$QMD_DIR/xdg-config}"
+export NODE_NO_WARNINGS="${NODE_NO_WARNINGS:-1}"
+
+if [ ! -x "$QMD_DIR/node_modules/.bin/qmd" ]; then
+  echo "QMD is not installed at $QMD_DIR/node_modules/.bin/qmd" >&2
+  exit 127
+fi
+
+cmd="${1:-}"
+if [ -z "$cmd" ]; then
+  echo "Usage: qmd-brain <search|query|vsearch|get|status|update|embed> ..." >&2
+  exit 2
+fi
+shift || true
+
+to_qmd_uri() {
+  case "$1" in
+    brain/wiki/*) printf 'qmd://brain/%s\n' "${1#brain/wiki/}" ;;
+    /workspace/agent/brain/wiki/*) printf 'qmd://brain/%s\n' "${1#/workspace/agent/brain/wiki/}" ;;
+    qmd://*) printf '%s\n' "$1" ;;
+    *) printf '%s\n' "$1" ;;
+  esac
+}
+
+normalize_paths() {
+  sed -E 's#qmd://brain/#brain/wiki/#g'
+}
+
+normalize_search_results() {
+  normalize_paths | sed -E 's@^(brain/wiki/[^[:space:]]+(:[0-9]+)?) #[0-9a-f]+$@File: \1@'
+}
+
+case "$cmd" in
+  search|query|vsearch)
+    cd "$QMD_DIR"
+    bash node_modules/.bin/qmd "$cmd" "$@" --collection brain | normalize_search_results
+    ;;
+  get)
+    target="${1:-}"
+    if [ -z "$target" ]; then
+      echo "Usage: qmd-brain get brain/wiki/file.md" >&2
+      exit 2
+    fi
+    shift || true
+    cd "$QMD_DIR"
+    bash node_modules/.bin/qmd get "$(to_qmd_uri "$target")" "$@" | normalize_paths
+    ;;
+  status)
+    cd "$QMD_DIR"
+    bash node_modules/.bin/qmd status | normalize_paths
+    ;;
+  update)
+    cd "$QMD_DIR"
+    bash node_modules/.bin/qmd collection add /workspace/agent/brain/wiki --name brain >/dev/null 2>&1 || true
+    bash node_modules/.bin/qmd update --collection brain | normalize_paths
+    ;;
+  embed)
+    cd "$QMD_DIR"
+    bash node_modules/.bin/qmd embed --collection brain | normalize_paths
+    ;;
+  *)
+    echo "Unknown qmd-brain command: $cmd" >&2
+    exit 2
+    ;;
+esac

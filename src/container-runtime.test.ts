@@ -17,6 +17,23 @@ vi.mock('child_process', () => ({
   execSync: (...args: unknown[]) => mockExecSync(...args),
 }));
 
+// Mock fs.statSync so heartbeat freshness can be controlled per test.
+const mockStatSync = vi.fn();
+vi.mock('fs', () => ({
+  default: { statSync: (...args: unknown[]) => mockStatSync(...args) },
+  statSync: (...args: unknown[]) => mockStatSync(...args),
+}));
+
+// Avoid pulling the real session-manager / container-runner (DB, child_process,
+// onecli) into the test graph — only the symbols cleanupOrphans uses matter.
+vi.mock('./session-manager.js', () => ({
+  heartbeatPath: (agentGroupId: string, sessionId: string) => `/tmp/${agentGroupId}/${sessionId}/.heartbeat`,
+}));
+const mockAdopt = vi.fn();
+vi.mock('./container-runner.js', () => ({
+  adoptRunningContainer: (sessionId: string, containerName: string) => mockAdopt(sessionId, containerName),
+}));
+
 import {
   CONTAINER_RUNTIME_BIN,
   readonlyMountArgs,
@@ -84,16 +101,25 @@ describe('ensureContainerRuntimeRunning', () => {
 // --- cleanupOrphans ---
 
 describe('cleanupOrphans', () => {
-  it('stops orphaned nanoclaw containers', () => {
-    // docker ps returns container names, one per line
-    mockExecSync.mockReturnValueOnce('nanoclaw-group1-111\nnanoclaw-group2-222\n');
+  beforeEach(() => {
+    mockStatSync.mockReset();
+    mockAdopt.mockReset();
+  });
+
+  it('stops orphaned nanoclaw containers with stale heartbeats', () => {
+    // labeled ps + legacy ps + 2 stops
+    mockExecSync.mockReturnValueOnce('nanoclaw-group1-111\tsess-1\tag-1\nnanoclaw-group2-222\tsess-2\tag-2\n');
+    // both heartbeats stale (>5min)
+    mockStatSync.mockReturnValue({ mtimeMs: Date.now() - 10 * 60 * 1000 });
+    // legacy ps returns nothing
+    mockExecSync.mockReturnValueOnce('');
     // stop calls succeed
     mockExecSync.mockReturnValue('');
 
     cleanupOrphans();
 
-    // ps + 2 stop calls
-    expect(mockExecSync).toHaveBeenCalledTimes(3);
+    // labeled ps + legacy ps + 2 stops
+    expect(mockExecSync).toHaveBeenCalledTimes(4);
     expect(mockExecSync).toHaveBeenNthCalledWith(2, `${CONTAINER_RUNTIME_BIN} stop -t 1 nanoclaw-group1-111`, {
       stdio: 'pipe',
     });
@@ -104,14 +130,53 @@ describe('cleanupOrphans', () => {
       count: 2,
       names: ['nanoclaw-group1-111', 'nanoclaw-group2-222'],
     });
+    expect(mockAdopt).not.toHaveBeenCalled();
   });
 
-  it('does nothing when no orphans exist', () => {
+  it('adopts containers with fresh heartbeats instead of stopping', () => {
+    mockExecSync.mockReturnValueOnce('nanoclaw-group1-111\tsess-1\tag-1\n');
+    // fresh heartbeat
+    mockStatSync.mockReturnValue({ mtimeMs: Date.now() - 5_000 });
+    // legacy ps empty
     mockExecSync.mockReturnValueOnce('');
 
     cleanupOrphans();
 
-    expect(mockExecSync).toHaveBeenCalledTimes(1);
+    expect(mockAdopt).toHaveBeenCalledWith('sess-1', 'nanoclaw-group1-111');
+    // labeled ps + legacy ps, no stops
+    expect(mockExecSync).toHaveBeenCalledTimes(2);
+    expect(log.info).toHaveBeenCalledWith('Adopted running containers', {
+      count: 1,
+      names: ['nanoclaw-group1-111'],
+    });
+  });
+
+  it('stops legacy containers (no labels) discovered by name prefix', () => {
+    // labeled ps empty
+    mockExecSync.mockReturnValueOnce('');
+    // legacy ps finds an unlabeled container
+    mockExecSync.mockReturnValueOnce('nanoclaw-old-999\n');
+    mockExecSync.mockReturnValueOnce('');
+
+    cleanupOrphans();
+
+    // labeled ps (1), legacy ps (2), stop legacy (3)
+    expect(mockExecSync).toHaveBeenNthCalledWith(3, `${CONTAINER_RUNTIME_BIN} stop -t 1 nanoclaw-old-999`, {
+      stdio: 'pipe',
+    });
+    expect(log.info).toHaveBeenCalledWith('Stopped orphaned containers', {
+      count: 1,
+      names: ['nanoclaw-old-999'],
+    });
+  });
+
+  it('does nothing when no containers exist', () => {
+    mockExecSync.mockReturnValueOnce('');
+    mockExecSync.mockReturnValueOnce('');
+
+    cleanupOrphans();
+
+    expect(mockExecSync).toHaveBeenCalledTimes(2);
     expect(log.info).not.toHaveBeenCalled();
   });
 
@@ -129,17 +194,19 @@ describe('cleanupOrphans', () => {
   });
 
   it('continues stopping remaining containers when one stop fails', () => {
-    mockExecSync.mockReturnValueOnce('nanoclaw-a-1\nnanoclaw-b-2\n');
+    mockExecSync.mockReturnValueOnce('nanoclaw-a-1\tsess-a\tag-a\nnanoclaw-b-2\tsess-b\tag-b\n');
+    mockStatSync.mockReturnValue({ mtimeMs: Date.now() - 10 * 60 * 1000 });
     // First stop fails
     mockExecSync.mockImplementationOnce(() => {
       throw new Error('already stopped');
     });
     // Second stop succeeds
     mockExecSync.mockReturnValueOnce('');
+    // legacy ps empty
+    mockExecSync.mockReturnValueOnce('');
 
     cleanupOrphans(); // should not throw
 
-    expect(mockExecSync).toHaveBeenCalledTimes(3);
     expect(log.info).toHaveBeenCalledWith('Stopped orphaned containers', {
       count: 2,
       names: ['nanoclaw-a-1', 'nanoclaw-b-2'],

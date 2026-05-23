@@ -1,0 +1,25 @@
+#!/bin/bash
+set -euo pipefail
+
+# pdf-writer — Generate PDFs from HTML/Markdown using Chromium/Playwright
+# Usage: pdf-writer <input_html> <output_pdf>
+
+SKILL_DIR="/app/src/container/skills/pdf-writer"
+
+if [[ $# -lt 2 ]]; then
+  echo "Usage: pdf-writer <input_html_file> <output_pdf_file>"
+  exit 1
+fi
+
+INPUT="$1"
+OUTPUT="$2"
+
+# Ensure input file exists
+if [[ ! -f "$INPUT" ]]; then
+  echo "Error: Input file not found: $INPUT"
+  exit 1
+fi
+
+# Run using bun (already in the container)
+# Note: In the container, /app/src is the mount point for the host source
+bun run "$SKILL_DIR/pdf-writer.ts" "$INPUT" "$OUTPUT"

@@ -394,6 +394,28 @@ describe('router', () => {
     expect(rows[0].trigger).toBe(0);
   });
 
+  it('matches pattern triggers case-insensitively', async () => {
+    const { routeInbound } = await import('./router.js');
+    const { wakeContainer } = await import('./container-runner.js');
+    (wakeContainer as unknown as ReturnType<typeof vi.fn>).mockClear();
+
+    const { updateMessagingGroupAgent } = await import('./db/messaging-groups.js');
+    updateMessagingGroupAgent('mga-1', {
+      engage_mode: 'pattern',
+      engage_pattern: '@Jhoma\\b',
+      ignored_message_policy: 'drop',
+    });
+
+    await routeInbound({
+      channelType: 'discord',
+      platformId: 'chan-123',
+      threadId: null,
+      message: { id: 'msg-case', kind: 'chat', content: JSON.stringify({ text: '@jhoma hey' }), timestamp: now() },
+    });
+
+    expect(wakeContainer).toHaveBeenCalledTimes(1);
+  });
+
   it('drops silently when engage fails + ignored_message_policy=drop', async () => {
     const { routeInbound } = await import('./router.js');
     const { wakeContainer } = await import('./container-runner.js');

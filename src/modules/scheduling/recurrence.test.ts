@@ -95,4 +95,41 @@ describe('handleRecurrence', () => {
     const count = (db.prepare(`SELECT COUNT(*) AS c FROM messages_in`).get() as { c: number }).c;
     expect(count).toBe(1);
   });
+
+  it('recovers a failed recurring task by cloning the next occurrence', async () => {
+    const db = freshDb();
+    insertTask(db, {
+      id: 'task-1',
+      processAfter: '2020-01-01T00:00:00.000Z',
+      recurrence: '17 * * * *',
+      platformId: null,
+      channelType: null,
+      threadId: null,
+      content: JSON.stringify({ prompt: 'hourly watcher' }),
+    });
+    db.prepare(`UPDATE messages_in SET status='failed', tries=5 WHERE id='task-1'`).run();
+
+    await handleRecurrence(db, fakeSession());
+
+    const rows = db
+      .prepare(`SELECT id, status, process_after, recurrence, series_id, tries FROM messages_in ORDER BY seq`)
+      .all() as Array<{
+      id: string;
+      status: string;
+      process_after: string;
+      recurrence: string | null;
+      series_id: string;
+      tries: number;
+    }>;
+    expect(rows).toHaveLength(2);
+    const failed = rows.find((r) => r.id === 'task-1')!;
+    const follow = rows.find((r) => r.id !== 'task-1')!;
+    expect(failed.status).toBe('failed');
+    expect(failed.recurrence).toBeNull();
+    expect(follow.status).toBe('pending');
+    expect(follow.tries).toBe(0);
+    expect(follow.recurrence).toBe('17 * * * *');
+    expect(follow.series_id).toBe('task-1');
+    expect(new Date(follow.process_after).getTime()).toBeGreaterThan(Date.now());
+  });
 });

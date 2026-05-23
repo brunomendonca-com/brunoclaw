@@ -27,6 +27,12 @@ export interface ProviderOptions {
   additionalDirectories?: string[];
 }
 
+export interface PromptBundle {
+  globalInstructions: string;
+  groupInstructions: string;
+  claudeUsesWorkspacePrompt: boolean;
+}
+
 export interface QueryInput {
   /** Initial prompt (already formatted by agent-runner). */
   prompt: string;
@@ -46,6 +52,7 @@ export interface QueryInput {
    */
   systemContext?: {
     instructions?: string;
+    promptBundle?: PromptBundle;
   };
 }
 
