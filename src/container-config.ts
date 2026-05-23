@@ -13,7 +13,6 @@ import fs from 'fs';
 import path from 'path';
 
 import { GROUPS_DIR } from './config.js';
-import type { PromptBundle } from './types.js';
 
 export interface McpServerConfig {
   command: string;
@@ -48,10 +47,6 @@ export interface ContainerConfig {
   agentGroupId?: string;
   /** Max messages per prompt. Falls back to code default if unset. */
   maxMessagesPerPrompt?: number;
-  /** Main/admin control group. Enables extra main-only tooling in the container. */
-  isMain?: boolean;
-  /** Composed prompt bundle — written by host at spawn, read by runner. */
-  promptBundle?: PromptBundle;
 }
 
 function emptyConfig(): ContainerConfig {
@@ -92,8 +87,6 @@ export function readContainerConfig(folder: string): ContainerConfig {
       assistantName: raw.assistantName,
       agentGroupId: raw.agentGroupId,
       maxMessagesPerPrompt: raw.maxMessagesPerPrompt,
-      isMain: raw.isMain,
-      promptBundle: raw.promptBundle,
     };
   } catch (err) {
     console.error(`[container-config] failed to parse ${p}: ${String(err)}`);

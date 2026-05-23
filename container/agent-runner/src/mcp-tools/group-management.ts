@@ -119,6 +119,4 @@ const listKnownChats: McpToolDefinition = {
   },
 };
 
-if (process.env.NANOCLAW_IS_MAIN === '1') {
-  registerTools([registerGroup, listKnownChats]);
-}
+registerTools([registerGroup, listKnownChats]);

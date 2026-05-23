@@ -3,6 +3,7 @@ import type Database from 'better-sqlite3';
 import { wakeContainer } from '../../container-runner.js';
 import { readContainerConfig, writeContainerConfig } from '../../container-config.js';
 import { createAgentGroup, getAgentGroup, getAgentGroupByFolder, updateAgentGroup } from '../../db/agent-groups.js';
+import { getDb, hasTable } from '../../db/connection.js';
 import { listKnownChats } from '../../db/known-chats.js';
 import {
   createMessagingGroup,
@@ -26,6 +27,7 @@ import {
   normalizeName,
 } from '../agent-to-agent/db/agent-destinations.js';
 import { writeDestinations } from '../agent-to-agent/write-destinations.js';
+import { hasAdminPrivilege } from '../permissions/db/user-roles.js';
 
 function generateId(prefix: string): string {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -48,15 +50,78 @@ function notifySystem(session: Session, action: string, status: 'success' | 'err
   wakeContainer(session).catch((err) => log.error('Failed to wake container after system response', { action, err }));
 }
 
-function requireMainGroup(session: Session, action: 'register_group' | 'list_known_chats') {
-  const group = getAgentGroup(session.agent_group_id);
-  if (!group || group.is_main !== 1) {
+function extractUserId(rawContent: string, channelType: string | null): string | null {
+  let content: Record<string, unknown>;
+  try {
+    content = JSON.parse(rawContent) as Record<string, unknown>;
+  } catch {
+    return null;
+  }
+
+  const author =
+    typeof content.author === 'object' && content.author !== null
+      ? (content.author as Record<string, unknown>)
+      : undefined;
+  const raw =
+    (typeof content.senderId === 'string' ? content.senderId : undefined) ??
+    (typeof author?.userId === 'string' ? (author.userId as string) : undefined) ??
+    (typeof content.sender === 'string' ? content.sender : undefined);
+
+  if (!raw || raw === 'system') return null;
+  if (raw.includes(':')) return raw;
+  return channelType ? `${channelType}:${raw}` : null;
+}
+
+function latestActorUserId(inDb: Database.Database): string | null {
+  const rows = inDb
+    .prepare(
+      `SELECT content, channel_type
+         FROM messages_in
+        WHERE kind IN ('chat', 'chat-sdk')
+        ORDER BY seq DESC
+        LIMIT 20`,
+    )
+    .all() as Array<{ content: string; channel_type: string | null }>;
+
+  for (const row of rows) {
+    const userId = extractUserId(row.content, row.channel_type);
+    if (userId) return userId;
+  }
+  return null;
+}
+
+function authorizeGroupManagement(
+  session: Session,
+  inDb: Database.Database,
+  action: 'register_group' | 'list_known_chats',
+) {
+  if (!hasTable(getDb(), 'user_roles')) {
     notifySystem(session, action, 'error', {
-      error: 'main_group_only',
-      message: 'Only the main/admin group can use main-channel group-management tools.',
+      error: 'permissions_unavailable',
+      message: 'Group-management actions require the user_roles permission table.',
     });
     return null;
   }
+
+  const actorUserId = latestActorUserId(inDb);
+  if (!actorUserId || !hasAdminPrivilege(actorUserId, session.agent_group_id)) {
+    notifySystem(session, action, 'error', {
+      error: 'admin_required',
+      message: 'Group-management actions require owner or admin access for this agent group.',
+      actorUserId,
+    });
+    return null;
+  }
+
+  const group = getAgentGroup(session.agent_group_id);
+  if (!group) {
+    notifySystem(session, action, 'error', {
+      error: 'source_group_missing',
+      message: 'The source agent group no longer exists.',
+    });
+    return null;
+  }
+
   return group;
 }
 
@@ -117,9 +182,9 @@ function ensureMainDestination(
 export async function handleListKnownChats(
   content: Record<string, unknown>,
   session: Session,
-  _inDb: Database.Database,
+  inDb: Database.Database,
 ): Promise<void> {
-  if (!requireMainGroup(session, 'list_known_chats')) return;
+  if (!authorizeGroupManagement(session, inDb, 'list_known_chats')) return;
 
   const channelType = typeof content.channelType === 'string' ? content.channelType : undefined;
   const search = typeof content.search === 'string' ? content.search.trim() || undefined : undefined;
@@ -138,9 +203,9 @@ export async function handleListKnownChats(
 export async function handleRegisterGroup(
   content: Record<string, unknown>,
   session: Session,
-  _inDb: Database.Database,
+  inDb: Database.Database,
 ): Promise<void> {
-  const sourceGroup = requireMainGroup(session, 'register_group');
+  const sourceGroup = authorizeGroupManagement(session, inDb, 'register_group');
   if (!sourceGroup) return;
 
   try {
@@ -203,12 +268,11 @@ export async function handleRegisterGroup(
         name,
         folder,
         agent_provider: provider,
-        is_main: 0,
         created_at: createdAt,
       });
       agentGroup = getAgentGroupByFolder(folder);
     } else {
-      updateAgentGroup(agentGroup.id, { name, agent_provider: provider, is_main: 0 });
+      updateAgentGroup(agentGroup.id, { name, agent_provider: provider });
       agentGroup = getAgentGroupByFolder(folder);
     }
 
@@ -229,7 +293,6 @@ export async function handleRegisterGroup(
       groupName: currentConfig.groupName ?? name,
       assistantName: currentConfig.assistantName ?? assistantName,
       agentGroupId: agentGroup.id,
-      isMain: currentConfig.isMain ?? false,
     });
 
     let messagingGroup = getMessagingGroupByPlatform(channelType, platformId);

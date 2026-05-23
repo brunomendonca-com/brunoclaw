@@ -373,7 +373,7 @@ setRegisteredGroup("1234567890@g.us", {
 });
 ```
 
-Folder names follow the convention `{channel}_{group-name}` (e.g., `whatsapp_family-chat`, `telegram_dev-team`). The main group has `isMain: true` set during registration.
+Folder names follow the convention `{channel}_{group-name}` (e.g., `whatsapp_family-chat`, `telegram_dev-team`). Privilege is resolved from `user_roles`; per-group container config does not carry admin authority.
 
 Additional mounts appear at `/workspace/extra/{containerPath}` inside the container.
 

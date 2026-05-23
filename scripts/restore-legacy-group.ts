@@ -5,7 +5,7 @@ import Database from 'better-sqlite3';
 
 import { GROUPS_DIR } from '../src/config.js';
 import { readContainerConfig, writeContainerConfig, type ContainerConfig } from '../src/container-config.js';
-import { createAgentGroup, getAgentGroupByFolder, getAllAgentGroups, updateAgentGroup } from '../src/db/agent-groups.js';
+import { createAgentGroup, getAgentGroupByFolder, updateAgentGroup } from '../src/db/agent-groups.js';
 import { initDb } from '../src/db/connection.js';
 import {
   createMessagingGroup,
@@ -16,7 +16,6 @@ import {
 import { runMigrations } from '../src/db/migrations/index.js';
 import { getSession } from '../src/db/sessions.js';
 import { initGroupFilesystem } from '../src/group-init.js';
-import { createDestination, getDestinationByName, getDestinationByTarget, normalizeName } from '../src/modules/agent-to-agent/db/agent-destinations.js';
 import { pauseTask, insertTask } from '../src/modules/scheduling/db.js';
 import { openInboundDb, resolveSession, writeSessionRouting } from '../src/session-manager.js';
 import type { MessagingGroup, MessagingGroupAgent } from '../src/types.js';
@@ -196,7 +195,6 @@ function mergeContainerConfig(
   agentGroupId: string,
   agentName: string,
   assistantName: string,
-  isMain: boolean,
 ): ContainerConfig & Record<string, unknown> {
   const current = readContainerConfig(folder) as ContainerConfig & Record<string, unknown>;
   const merged = {
@@ -210,7 +208,6 @@ function mergeContainerConfig(
     groupName: current.groupName ?? agentName,
     assistantName: current.assistantName ?? assistantName,
     agentGroupId,
-    isMain: current.isMain ?? isMain,
   } as ContainerConfig & Record<string, unknown>;
 
   if (drivePath) {
@@ -280,27 +277,6 @@ function shouldMigrateTask(task: LegacyTaskRow): boolean {
 
 function summarizeAction(prefix: string, value: string): void {
   console.log(`${prefix}: ${value}`);
-}
-
-function ensureMainDestination(mainAgentGroupId: string, messagingGroupId: string, baseName: string, createdAt: string): void {
-  const existingByTarget = getDestinationByTarget(mainAgentGroupId, 'channel', messagingGroupId);
-  if (existingByTarget) return;
-
-  const base = normalizeName(baseName) || `chat-${messagingGroupId.slice(0, 8)}`;
-  let localName = base;
-  let suffix = 2;
-  while (getDestinationByName(mainAgentGroupId, localName)) {
-    localName = `${base}-${suffix}`;
-    suffix++;
-  }
-
-  createDestination({
-    agent_group_id: mainAgentGroupId,
-    local_name: localName,
-    target_type: 'channel',
-    target_id: messagingGroupId,
-    created_at: createdAt,
-  });
 }
 
 function mountAllowlistWarning(mountPath: string | null): string | null {
@@ -406,7 +382,6 @@ function main(): void {
   runMigrations(db);
 
   const now = legacyGroup.added_at || new Date().toISOString();
-  const isMain = legacyGroup.is_main === 1;
   let agentGroup = getAgentGroupByFolder(legacyGroup.folder);
   if (!agentGroup) {
     createAgentGroup({
@@ -414,7 +389,6 @@ function main(): void {
       name: agentName,
       folder: legacyGroup.folder,
       agent_provider: 'codex',
-      is_main: isMain ? 1 : 0,
       created_at: now,
     });
     agentGroup = getAgentGroupByFolder(legacyGroup.folder);
@@ -422,7 +396,6 @@ function main(): void {
     updateAgentGroup(agentGroup.id, {
       name: args.agentName ?? agentGroup.name,
       agent_provider: agentGroup.agent_provider ?? 'codex',
-      is_main: isMain ? 1 : agentGroup.is_main ?? 0,
     });
     agentGroup = getAgentGroupByFolder(legacyGroup.folder);
   }
@@ -445,7 +418,6 @@ function main(): void {
     agentGroup.id,
     agentName,
     assistantName,
-    isMain,
   );
   writeContainerConfig(legacyGroup.folder, mergedConfig);
   summarizeAction('container config', path.join('groups', legacyGroup.folder, 'container.json'));
@@ -492,12 +464,6 @@ function main(): void {
     throw new Error(`Failed to create or load wiring for ${legacyGroup.folder}`);
   }
   summarizeAction('wiring', `${wiring.id} (${wiring.engage_mode}${wiring.engage_pattern ? ` ${wiring.engage_pattern}` : ''})`);
-
-  const mainAgentGroup = getAllAgentGroups().find((row) => row.is_main === 1);
-  if (mainAgentGroup && mainAgentGroup.id !== agentGroup.id) {
-    ensureMainDestination(mainAgentGroup.id, messagingGroup.id, agentName, now);
-    summarizeAction('main destination', `${mainAgentGroup.folder} -> ${legacyGroup.folder}`);
-  }
 
   const { session } = resolveSession(agentGroup.id, messagingGroup.id, null, 'shared');
   writeSessionRouting(agentGroup.id, session.id);

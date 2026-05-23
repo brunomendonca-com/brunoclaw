@@ -109,9 +109,10 @@ async function spawnContainer(session: Session): Promise<void> {
   // buildMounts, and buildContainerArgs so we don't re-read the file.
   const containerConfig = readContainerConfig(agentGroup.folder);
 
-  // Ensure container.json has the agent group identity fields the runner needs.
-  // Written at spawn time so the runner can read them from the RO mount.
+  // Ensure container.json has durable identity fields. Generated prompt
+  // state is written separately into the session runtime directory.
   ensureRuntimeFields(containerConfig, agentGroup);
+  writePromptBundleArtifact(agentGroup, session);
 
   // Resolve the effective provider + any host-side contribution it declares
   // (extra mounts, env passthrough). Computed once and threaded through both
@@ -332,10 +333,10 @@ function syncSkillSymlinks(claudeDir: string, containerConfig: import('./contain
 }
 
 /**
- * Ensure container.json has the runtime identity fields the runner needs.
- * Written at spawn time so they're always current even if the DB values
- * change (e.g. group rename). Only writes if values differ to avoid
- * unnecessary file churn.
+ * Ensure container.json has the durable identity fields the runner needs.
+ * Written at spawn time so they're current even if the DB values change
+ * (e.g. group rename). Only writes if values differ to avoid unnecessary
+ * file churn.
  */
 function ensureRuntimeFields(
   containerConfig: import('./container-config.js').ContainerConfig,
@@ -357,17 +358,15 @@ function ensureRuntimeFields(
     dirty = true;
   }
 
-  // Composed prompt bundle — all providers use this instead of reading files.
-  // Claude Code still auto-loads CLAUDE.md from the workspace.
-  const promptBundle = composePromptBundle(agentGroup);
-  if (JSON.stringify(containerConfig.promptBundle) !== JSON.stringify(promptBundle)) {
-    containerConfig.promptBundle = promptBundle;
-    dirty = true;
-  }
-
   if (dirty) {
     writeContainerConfig(agentGroup.folder, containerConfig);
   }
+}
+
+function writePromptBundleArtifact(agentGroup: AgentGroup, session: Session): void {
+  const promptBundle = composePromptBundle(agentGroup);
+  const target = path.join(sessionDir(agentGroup.id, session.id), 'prompt-bundle.json');
+  fs.writeFileSync(target, JSON.stringify(promptBundle, null, 2) + '\n');
 }
 
 async function buildContainerArgs(
@@ -391,11 +390,9 @@ async function buildContainerArgs(
     args.push('--label', `nanoclaw-session-id=${sessionId}`);
   }
 
-  // Environment — only vars read by code we don't own.
-  // Everything NanoClaw-specific is in container.json (read by runner at startup),
-  // except a few small bootstrap flags the runner/provider need before prompt assembly.
+  // Environment — only vars read by code we don't own. NanoClaw-specific
+  // config is read from container.json and generated session artifacts.
   args.push('-e', `TZ=${TIMEZONE}`);
-  args.push('-e', `NANOCLAW_IS_MAIN=${containerConfig.isMain ? '1' : '0'}`);
 
   // Provider-contributed env vars (e.g. XDG_DATA_HOME, OPENCODE_*, NO_PROXY).
   if (providerContribution.env) {

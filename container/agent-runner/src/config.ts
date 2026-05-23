@@ -10,6 +10,7 @@ import fs from 'fs';
 import type { PromptBundle } from './providers/types.js';
 
 const CONFIG_PATH = '/workspace/agent/container.json';
+const PROMPT_BUNDLE_PATH = '/workspace/prompt-bundle.json';
 
 export interface RunnerConfig {
   provider: string;
@@ -46,10 +47,18 @@ export function loadConfig(): RunnerConfig {
     agentGroupId: (raw.agentGroupId as string) || '',
     maxMessagesPerPrompt: (raw.maxMessagesPerPrompt as number) || DEFAULT_MAX_MESSAGES,
     mcpServers: (raw.mcpServers as RunnerConfig['mcpServers']) || {},
-    promptBundle: (raw.promptBundle as PromptBundle) || undefined,
+    promptBundle: loadPromptBundle(),
   };
 
   return _config;
+}
+
+function loadPromptBundle(): PromptBundle | undefined {
+  try {
+    return JSON.parse(fs.readFileSync(PROMPT_BUNDLE_PATH, 'utf8')) as PromptBundle;
+  } catch {
+    return undefined;
+  }
 }
 
 /** Get the loaded config. Throws if loadConfig() hasn't been called. */

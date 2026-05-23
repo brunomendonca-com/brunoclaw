@@ -39,8 +39,8 @@ import {
   readonlyMountArgs,
   stopContainer,
   ensureContainerRuntimeRunning,
-  cleanupOrphans,
 } from './container-runtime.js';
+import { cleanupOrphans } from './container-reconciler.js';
 import { log } from './log.js';
 
 beforeEach(() => {

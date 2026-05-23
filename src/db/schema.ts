@@ -35,6 +35,19 @@ CREATE TABLE messaging_groups (
   UNIQUE(channel_type, platform_id)
 );
 
+-- Platform chats discovered by adapters. This is metadata only; explicit
+-- wiring still lives in messaging_groups + messaging_group_agents.
+CREATE TABLE known_chats (
+  channel_type TEXT NOT NULL,
+  platform_id  TEXT NOT NULL,
+  name         TEXT,
+  is_group     INTEGER NOT NULL DEFAULT 0,
+  last_seen    TEXT NOT NULL,
+  PRIMARY KEY (channel_type, platform_id)
+);
+CREATE INDEX idx_known_chats_name ON known_chats(channel_type, is_group, name);
+CREATE INDEX idx_known_chats_last_seen ON known_chats(last_seen DESC);
+
 -- Which agent groups handle which messaging groups.
 -- engage_mode / engage_pattern / sender_scope / ignored_message_policy are
 -- the four orthogonal axes that together replace v1's opaque trigger_rules

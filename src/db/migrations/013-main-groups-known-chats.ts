@@ -1,21 +1,9 @@
-import type Database from 'better-sqlite3';
-
 import type { Migration } from './index.js';
-
-function hasColumn(db: Database.Database, table: string, column: string): boolean {
-  const rows = db.prepare(`PRAGMA table_info(${table})`).all() as Array<{ name: string }>;
-  return rows.some((row) => row.name === column);
-}
 
 export const migration013: Migration = {
   version: 13,
-  name: '013-main-groups-known-chats',
+  name: '013-known-chats',
   up(db) {
-    if (!hasColumn(db, 'agent_groups', 'is_main')) {
-      db.exec(`ALTER TABLE agent_groups ADD COLUMN is_main INTEGER NOT NULL DEFAULT 0;`);
-    }
-    db.exec(`CREATE INDEX IF NOT EXISTS idx_agent_groups_is_main ON agent_groups(is_main);`);
-
     db.exec(`
       CREATE TABLE IF NOT EXISTS known_chats (
         channel_type TEXT NOT NULL,

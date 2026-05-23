@@ -5,8 +5,6 @@ export interface AgentGroup {
   name: string;
   folder: string;
   agent_provider: string | null;
-  /** Main/admin control group. Optional for pre-migration callers/tests. */
-  is_main?: number; // 0 | 1
   created_at: string;
 }
 

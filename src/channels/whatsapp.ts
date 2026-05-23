@@ -40,27 +40,11 @@ import { transcribeAudio } from '../transcription.js';
 import { registerChannelAdapter } from './channel-registry.js';
 import { normalizeOptions, type NormalizedOption } from './ask-question.js';
 import type { ChannelAdapter, ChannelSetup, ConversationInfo, InboundMessage, OutboundMessage } from './adapter.js';
+import { patchBaileysPairingPlatformId, proto } from './whatsapp/baileys-patch.js';
+import { formatOutboundText, optionToCommand } from './whatsapp/format.js';
+import { buildMediaMessage, extractQuotedText } from './whatsapp/media.js';
 
-// Baileys v6 bug: getPlatformId sends charCode (49) instead of enum value (1).
-// Fixed in Baileys 7.x but not backported. Without this, pairing codes fail with
-// "couldn't link device" because WhatsApp receives an invalid platform ID.
-// Must use createRequire — ESM `import *` creates a read-only namespace.
-// proto is not available as a named ESM export — use createRequire (same as v1)
-import { createRequire } from 'module';
-const _require = createRequire(import.meta.url);
-const { proto } = _require('@whiskeysockets/baileys') as { proto: any };
-try {
-  const _generics = _require('@whiskeysockets/baileys/lib/Utils/generics') as Record<string, unknown>;
-  _generics.getPlatformId = (browser: string): string => {
-    const platformType =
-      proto.DeviceProps.PlatformType[browser.toUpperCase() as keyof typeof proto.DeviceProps.PlatformType];
-    return platformType ? platformType.toString() : '1';
-  };
-} catch {
-  // If CJS require fails (Node version mismatch), pairing codes may not work
-  // but QR auth will still function fine.
-  log.warn('Could not patch getPlatformId — pairing code auth may fail');
-}
+patchBaileysPairingPlatformId();
 
 const baileysLogger = pino({ level: 'silent' });
 
@@ -70,115 +54,6 @@ const GROUP_METADATA_CACHE_TTL_MS = 60_000; // 1 min for outbound sends
 const SENT_MESSAGE_CACHE_MAX = 256;
 const RECONNECT_DELAY_MS = 5000;
 const PENDING_QUESTIONS_MAX = 64;
-
-/** Normalize an option label to a slash command: "Approve" → "/approve" */
-function optionToCommand(option: string): string {
-  return '/' + option.toLowerCase().replace(/\s+/g, '-');
-}
-
-// --- Markdown → WhatsApp formatting ---
-
-interface TextSegment {
-  content: string;
-  isProtected: boolean;
-}
-
-/** Split text into code-block-protected and unprotected regions. */
-function splitProtectedRegions(text: string): TextSegment[] {
-  const segments: TextSegment[] = [];
-  const codeBlockRegex = /```[\s\S]*?```|`[^`\n]+`/g;
-  let lastIndex = 0;
-  let match: RegExpExecArray | null;
-
-  while ((match = codeBlockRegex.exec(text)) !== null) {
-    if (match.index > lastIndex) {
-      segments.push({ content: text.slice(lastIndex, match.index), isProtected: false });
-    }
-    segments.push({ content: match[0], isProtected: true });
-    lastIndex = match.index + match[0].length;
-  }
-
-  if (lastIndex < text.length) {
-    segments.push({ content: text.slice(lastIndex), isProtected: false });
-  }
-
-  return segments;
-}
-
-/** Apply WhatsApp-native formatting to an unprotected text segment. */
-function transformForWhatsApp(text: string): string {
-  // Order matters: italic before bold to avoid **bold** → *bold* → _bold_
-  // 1. Italic: *text* (not **) → _text_
-  text = text.replace(/(?<!\*)\*(?=[^\s*])([^*\n]+?)(?<=[^\s*])\*(?!\*)/g, '_$1_');
-  // 2. Bold: **text** → *text*
-  text = text.replace(/\*\*(?=[^\s*])([^*]+?)(?<=[^\s*])\*\*/g, '*$1*');
-  // 3. Headings: ## Title → *Title*
-  text = text.replace(/^#{1,6}\s+(.+)$/gm, '*$1*');
-  // 4. Links: [text](url) → text (url)
-  text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1 ($2)');
-  // 5. Horizontal rules: --- / *** / ___ → stripped
-  text = text.replace(/^(-{3,}|\*{3,}|_{3,})$/gm, '');
-  return text;
-}
-
-/** Convert Claude's markdown to WhatsApp-native formatting. */
-function formatWhatsApp(text: string): string {
-  const segments = splitProtectedRegions(text);
-  return segments.map(({ content, isProtected }) => (isProtected ? content : transformForWhatsApp(content))).join('');
-}
-
-function resolveOutboundAgentName(content: Record<string, unknown>): string {
-  const agentName = typeof content.agentName === 'string' ? content.agentName.trim() : '';
-  return agentName || ASSISTANT_NAME;
-}
-
-function formatOutboundText(text: string, content: Record<string, unknown>): string {
-  const formatted = formatWhatsApp(text);
-  if (ASSISTANT_HAS_OWN_NUMBER) return formatted;
-  return `${resolveOutboundAgentName(content)}: ${formatted}`;
-}
-
-/** Extract a previewable text snippet from a quoted (replied-to) message body. */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function extractQuotedText(quoted: any): string {
-  if (!quoted) return '';
-  const text =
-    quoted.conversation ||
-    quoted.extendedTextMessage?.text ||
-    quoted.imageMessage?.caption ||
-    quoted.videoMessage?.caption ||
-    quoted.documentMessage?.caption ||
-    '';
-  let attachmentLabel = '';
-  if (quoted.imageMessage) attachmentLabel = '[image]';
-  else if (quoted.videoMessage) attachmentLabel = '[video]';
-  else if (quoted.audioMessage) attachmentLabel = '[audio]';
-  else if (quoted.stickerMessage) attachmentLabel = '[sticker]';
-  else if (quoted.documentMessage) {
-    attachmentLabel = `[document: ${quoted.documentMessage.fileName || 'file'}]`;
-  }
-  return [attachmentLabel, text].filter(Boolean).join(' ').trim();
-}
-
-/** Map file extension to Baileys media message type. */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function buildMediaMessage(data: Buffer, filename: string, ext: string, caption?: string): any {
-  const imageExts = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
-  const videoExts = ['.mp4', '.mov', '.avi', '.mkv'];
-  const audioExts = ['.mp3', '.ogg', '.m4a', '.wav', '.aac', '.opus'];
-
-  if (imageExts.includes(ext)) {
-    return { image: data, caption, mimetype: `image/${ext.slice(1) === 'jpg' ? 'jpeg' : ext.slice(1)}` };
-  }
-  if (videoExts.includes(ext)) {
-    return { video: data, caption, mimetype: `video/${ext.slice(1)}` };
-  }
-  if (audioExts.includes(ext)) {
-    return { audio: data, mimetype: `audio/${ext.slice(1) === 'mp3' ? 'mpeg' : ext.slice(1)}` };
-  }
-  // Default: send as document
-  return { document: data, fileName: filename, caption, mimetype: 'application/octet-stream' };
-}
 
 registerChannelAdapter('whatsapp', {
   factory: () => {
