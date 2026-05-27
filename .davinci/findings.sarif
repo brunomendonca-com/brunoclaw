@@ -4778,62 +4778,6 @@
           "ruleId": "js.ssrf-fetch"
         },
         {
-          "level": "note",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "setup/channels/teams.ts"
-                },
-                "region": {
-                  "startColumn": 15,
-                  "startLine": 465
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "High-entropy string may be a hardcoded password"
-          },
-          "properties": {
-            "adapter": "secret-scan",
-            "category": "secrets",
-            "confidence": "low",
-            "cwe": "CWE-798",
-            "owasp": "A07:2021",
-            "provenance": "source"
-          },
-          "ruleId": "secret.high-entropy-password"
-        },
-        {
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "setup/environment.test.ts"
-                },
-                "region": {
-                  "startColumn": 34,
-                  "startLine": 78
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Potential hardcoded API key or secret"
-          },
-          "properties": {
-            "adapter": "secret-scan",
-            "category": "secrets",
-            "confidence": "low",
-            "cwe": "CWE-798",
-            "owasp": "A07:2021",
-            "provenance": "source"
-          },
-          "ruleId": "secret.generic-api-key"
-        },
-        {
           "level": "error",
           "locations": [
             {
@@ -4972,90 +4916,6 @@
             "provenance": "source"
           },
           "ruleId": "js.ssrf-fetch"
-        },
-        {
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/config.ts"
-                },
-                "region": {
-                  "startColumn": 21,
-                  "startLine": 29
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Potential hardcoded API key or secret"
-          },
-          "properties": {
-            "adapter": "secret-scan",
-            "category": "secrets",
-            "confidence": "low",
-            "cwe": "CWE-798",
-            "owasp": "A07:2021",
-            "provenance": "source"
-          },
-          "ruleId": "secret.generic-api-key"
-        },
-        {
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/container-runner.ts"
-                },
-                "region": {
-                  "startColumn": 46,
-                  "startLine": 33
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Potential hardcoded API key or secret"
-          },
-          "properties": {
-            "adapter": "secret-scan",
-            "category": "secrets",
-            "confidence": "low",
-            "cwe": "CWE-798",
-            "owasp": "A07:2021",
-            "provenance": "source"
-          },
-          "ruleId": "secret.generic-api-key"
-        },
-        {
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/modules/approvals/onecli-approvals.ts"
-                },
-                "region": {
-                  "startColumn": 46,
-                  "startLine": 39
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Potential hardcoded API key or secret"
-          },
-          "properties": {
-            "adapter": "secret-scan",
-            "category": "secrets",
-            "confidence": "low",
-            "cwe": "CWE-798",
-            "owasp": "A07:2021",
-            "provenance": "source"
-          },
-          "ruleId": "secret.generic-api-key"
         },
         {
           "level": "warning",
@@ -8327,44 +8187,6 @@
               },
               "shortDescription": {
                 "text": "Potential SSRF via fetch with user input"
-              }
-            },
-            {
-              "defaultConfiguration": {
-                "level": "note"
-              },
-              "id": "secret.high-entropy-password",
-              "name": "secret.high-entropy-password",
-              "properties": {
-                "category": "secrets",
-                "cwe": "CWE-798",
-                "owasp": "A07:2021",
-                "tags": [
-                  "CWE-798",
-                  "A07:2021"
-                ]
-              },
-              "shortDescription": {
-                "text": "High-entropy string may be a hardcoded password"
-              }
-            },
-            {
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "id": "secret.generic-api-key",
-              "name": "secret.generic-api-key",
-              "properties": {
-                "category": "secrets",
-                "cwe": "CWE-798",
-                "owasp": "A07:2021",
-                "tags": [
-                  "CWE-798",
-                  "A07:2021"
-                ]
-              },
-              "shortDescription": {
-                "text": "Potential hardcoded API key or secret"
               }
             },
             {

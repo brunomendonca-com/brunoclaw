@@ -127,7 +127,7 @@
         "bytes": 316798,
         "component": "setup",
         "files": 60,
-        "findings": 55,
+        "findings": 53,
         "generated_or_vendor_files": 0,
         "lines": 9582,
         "risk_files": 3,
@@ -147,7 +147,7 @@
         "bytes": 194079,
         "component": "src/modules",
         "files": 43,
-        "findings": 3,
+        "findings": 2,
         "generated_or_vendor_files": 0,
         "lines": 5094,
         "risk_files": 3,
@@ -157,7 +157,7 @@
         "bytes": 166573,
         "component": "src",
         "files": 26,
-        "findings": 10,
+        "findings": 8,
         "generated_or_vendor_files": 0,
         "lines": 4608,
         "risk_files": 7,
@@ -596,11 +596,11 @@
     }
   ],
   "meta": {
-    "duration_secs": 1.6373438,
+    "duration_secs": 1.5634665,
     "profile": "exhaustive",
     "repo_path": "[repo]",
     "scope": "Full",
-    "timestamp": "2026-05-27T20:35:23.623435800+00:00"
+    "timestamp": "2026-05-27T21:49:47.457727500+00:00"
   },
   "positioning": {
     "non_llm": true,
@@ -745,11 +745,11 @@
       "source_load_skipped_file_count": 0
     },
     "degradation_summary": [],
-    "findings_count": 180,
+    "findings_count": 175,
     "health_score": 50.0,
     "hotspots_detected": 0,
-    "non_production_findings": 54,
-    "production_findings": 126,
+    "non_production_findings": 53,
+    "production_findings": 122,
     "top_finding_rules": [
       {
         "count": 40,
@@ -815,17 +815,16 @@
   },
   "schema_version": "2.33.0",
   "security_triage": {
-    "actionable_findings_count": 179,
+    "actionable_findings_count": 175,
     "false_positive_watchlist": {
-      "low_signal_or_non_primary_findings": 54,
+      "low_signal_or_non_primary_findings": 53,
       "note": "Counts are deterministic triage signals. They are not final exploitability judgments.",
-      "secret_scan_findings": 5,
-      "secrets_false_positive_estimate": 0.85
+      "secret_scan_findings": 0,
+      "secrets_false_positive_estimate": -0.0
     },
     "finding_context_counts": {
       "docs": 53,
-      "production": 126,
-      "test": 1
+      "production": 122
     },
     "finding_rule_summary": [
       {
@@ -889,16 +888,16 @@
         "severity": "low"
       },
       {
-        "count": 3,
+        "count": 1,
         "path_context": "production",
-        "rule_id": "secret.generic-api-key",
+        "rule_id": "supply-chain.container.remote-build-script",
         "severity": "high"
       },
       {
         "count": 1,
         "path_context": "production",
-        "rule_id": "supply-chain.container.remote-build-script",
-        "severity": "high"
+        "rule_id": "supply-chain.container.mutable-image-ref",
+        "severity": "low"
       }
     ],
     "top_actionable_findings": [

@@ -1388,13 +1388,6 @@
       "type": "reports_finding"
     },
     {
-      "id": "file:243109ce51fee5ac->reports_finding->finding:4327d9348fa9fc66",
-      "properties": {},
-      "source": "file:243109ce51fee5ac",
-      "target": "finding:4327d9348fa9fc66",
-      "type": "reports_finding"
-    },
-    {
       "id": "file:243109ce51fee5ac->reports_finding->finding:da3a37db2d13cc9f",
       "properties": {},
       "source": "file:243109ce51fee5ac",
@@ -1442,13 +1435,6 @@
       "source": "file:243d265549b64962",
       "target": "symbol:f09505daa02ad932",
       "type": "contains"
-    },
-    {
-      "id": "file:243d265549b64962->reports_finding->finding:70d6fcdbacebe43b",
-      "properties": {},
-      "source": "file:243d265549b64962",
-      "target": "finding:70d6fcdbacebe43b",
-      "type": "reports_finding"
     },
     {
       "id": "file:243d265549b64962->reports_wiring_gap->wiring_gap:01500e00d3f60da8",
@@ -1875,13 +1861,6 @@
       "properties": {},
       "source": "file:28c685aaa8bf28fb",
       "target": "finding:a0e46ca151cbf11c",
-      "type": "reports_finding"
-    },
-    {
-      "id": "file:28c685aaa8bf28fb->reports_finding->finding:de792ffd90537f6e",
-      "properties": {},
-      "source": "file:28c685aaa8bf28fb",
-      "target": "finding:de792ffd90537f6e",
       "type": "reports_finding"
     },
     {
@@ -3369,13 +3348,6 @@
       "type": "contains"
     },
     {
-      "id": "file:570e803d806f8b0c->reports_finding->finding:ac349fc6cdd0c69f",
-      "properties": {},
-      "source": "file:570e803d806f8b0c",
-      "target": "finding:ac349fc6cdd0c69f",
-      "type": "reports_finding"
-    },
-    {
       "id": "file:570e803d806f8b0c->reports_wiring_gap->wiring_gap:ff7eeb474cd65158",
       "properties": {},
       "source": "file:570e803d806f8b0c",
@@ -3437,13 +3409,6 @@
       "source": "file:5efc9d845ec348d7",
       "target": "wiring_gap:5fe0ae89ee9f89d0",
       "type": "reports_wiring_gap"
-    },
-    {
-      "id": "file:5f3a480b71ff3ba5->reports_finding->finding:24db96aa1932ab45",
-      "properties": {},
-      "source": "file:5f3a480b71ff3ba5",
-      "target": "finding:24db96aa1932ab45",
-      "type": "reports_finding"
     },
     {
       "id": "file:5f3a480b71ff3ba5->reports_wiring_gap->wiring_gap:4ca7335d028d2a91",
@@ -12526,20 +12491,6 @@
       "type": "finding"
     },
     {
-      "adapter": "secret-scan",
-      "column": 34,
-      "confidence": "low",
-      "id": "finding:24db96aa1932ab45",
-      "label": "secret.generic-api-key",
-      "line": 78,
-      "message": "Potential hardcoded API key or secret",
-      "path": "setup/environment.test.ts",
-      "provenance": "source",
-      "rule_id": "secret.generic-api-key",
-      "severity": "high",
-      "type": "finding"
-    },
-    {
       "adapter": "adaptability",
       "column": 19,
       "confidence": "medium",
@@ -12816,20 +12767,6 @@
       "path": ".claude/skills/add-gchat/SKILL.md",
       "provenance": "source",
       "rule_id": "supply-chain.agent-instructions.secret-access",
-      "severity": "high",
-      "type": "finding"
-    },
-    {
-      "adapter": "secret-scan",
-      "column": 46,
-      "confidence": "low",
-      "id": "finding:4327d9348fa9fc66",
-      "label": "secret.generic-api-key",
-      "line": 33,
-      "message": "Potential hardcoded API key or secret",
-      "path": "src/container-runner.ts",
-      "provenance": "source",
-      "rule_id": "secret.generic-api-key",
       "severity": "high",
       "type": "finding"
     },
@@ -13237,20 +13174,6 @@
       "provenance": "source",
       "rule_id": "adaptability.hardcoded-resource-cap",
       "severity": "low",
-      "type": "finding"
-    },
-    {
-      "adapter": "secret-scan",
-      "column": 21,
-      "confidence": "low",
-      "id": "finding:70d6fcdbacebe43b",
-      "label": "secret.generic-api-key",
-      "line": 29,
-      "message": "Potential hardcoded API key or secret",
-      "path": "src/config.ts",
-      "provenance": "source",
-      "rule_id": "secret.generic-api-key",
-      "severity": "high",
       "type": "finding"
     },
     {
@@ -13842,20 +13765,6 @@
       "type": "finding"
     },
     {
-      "adapter": "secret-scan",
-      "column": 46,
-      "confidence": "low",
-      "id": "finding:ac349fc6cdd0c69f",
-      "label": "secret.generic-api-key",
-      "line": 39,
-      "message": "Potential hardcoded API key or secret",
-      "path": "src/modules/approvals/onecli-approvals.ts",
-      "provenance": "source",
-      "rule_id": "secret.generic-api-key",
-      "severity": "high",
-      "type": "finding"
-    },
-    {
       "adapter": "adaptability",
       "column": 36,
       "confidence": "medium",
@@ -14343,20 +14252,6 @@
       "provenance": "source",
       "rule_id": "supply-chain.agent-instructions.secret-access",
       "severity": "high",
-      "type": "finding"
-    },
-    {
-      "adapter": "secret-scan",
-      "column": 15,
-      "confidence": "low",
-      "id": "finding:de792ffd90537f6e",
-      "label": "secret.high-entropy-password",
-      "line": 465,
-      "message": "High-entropy string may be a hardcoded password",
-      "path": "setup/channels/teams.ts",
-      "provenance": "source",
-      "rule_id": "secret.high-entropy-password",
-      "severity": "low",
       "type": "finding"
     },
     {
@@ -24784,7 +24679,7 @@
     "fingerprint": {
       "complexity_tier": "small",
       "dominant_language": "typescript",
-      "findings_hash": "f1cff93f439a52d7",
+      "findings_hash": "afab0e9183ca7808",
       "has_ci": false,
       "has_docker": true,
       "has_tests": true,
@@ -24807,7 +24702,7 @@
     "profile": "exhaustive",
     "repo_path": "[repo]",
     "scan_schema_version": "2.33.0",
-    "scan_timestamp": "2026-05-27T20:35:23.623435800+00:00",
+    "scan_timestamp": "2026-05-27T21:49:47.457727500+00:00",
     "scope": "Full"
   },
   "schema_contract": {
@@ -24853,8 +24748,8 @@
         "limit": 5000
       },
       "findings": {
-        "considered": 180,
-        "emitted": 180,
+        "considered": 175,
+        "emitted": 175,
         "limit": 10000
       },
       "limit_source": "evidence_graph_static_policy",
@@ -24877,14 +24772,14 @@
       "wiring_gaps": false
     },
     "cycles_total": 0,
-    "edges": 1217,
+    "edges": 1212,
     "evidence_packs_total": 12,
     "filtered_by_scope": {
       "boundary": "Filtered counts are deterministic evidence-focus selection, not cap truncation. The graph intentionally emits symbols only for selected evidence files.",
       "files_not_selected": 37,
       "symbols_not_emitted_because_file_not_selected": 21
     },
-    "findings_total": 180,
+    "findings_total": 175,
     "limits": {
       "max_cycle_nodes": 1000,
       "max_file_nodes": 5000,
@@ -24892,7 +24787,7 @@
       "max_symbol_nodes": 15000,
       "max_wiring_gap_nodes": 5000
     },
-    "nodes": 1221,
+    "nodes": 1216,
     "source_files_total": 260,
     "supply_chain_findings": 67,
     "symbols_total": 668,

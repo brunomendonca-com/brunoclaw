@@ -9,7 +9,7 @@ Boundary: deterministic portfolio assessment over existing DaVinci artifacts. It
 | repos | 1 |
 | files | 260 |
 | loaded_lines | 41581 |
-| findings | 180 |
+| findings | 175 |
 | supply_chain_findings | 67 |
 | degradation_events | 0 |
 | average_health | 50.0 |
@@ -18,7 +18,7 @@ Boundary: deterministic portfolio assessment over existing DaVinci artifacts. It
 
 | Repo | Stage | Recommendation | Health | Maturity | Findings | High/Error | Supply Chain | Degradations | Dossier |
 |---|---|---|---:|---:|---:|---:|---:|---:|---|
-| [repo] | active_development | continue_with_backlog | 50.0 | 69.05 | 180 | 71 | 67 | 0 | [repo:_repo_] |
+| [repo] | active_development | continue_with_backlog | 50.0 | 69.09 | 175 | 67 | 67 | 0 | [repo:_repo_] |
 
 ## Stage Counts
 
@@ -31,8 +31,8 @@ Boundary: deterministic portfolio assessment over existing DaVinci artifacts. It
 | theme | priority | repo_count | finding_count | high_or_error_count | sample_repos |
 |---|---|---|---|---|---|
 | supply_chain_and_ci | 1 | 1 | 67 | 50 | [repo] |
-| secrets_hygiene | 1 | 1 | 5 | 4 | [repo] |
 | command_execution_risk | 2 | 1 | 13 | 13 | [repo] |
+| input_and_injection_risk | 2 | 1 | 4 | 4 | [repo] |
 
 ## Recommended Next Steps
 

@@ -73,10 +73,10 @@ Personal Claude assistant. Lightweight, secure, customizable.
 
 | component | files | lines | findings | risk_files |
 |---|---|---|---|---|
-| setup | 60 | 9582 | 55 | 3 |
+| setup | 60 | 9582 | 53 | 3 |
 | container | 49 | 5130 | 15 | 4 |
-| src/modules | 43 | 5094 | 3 | 3 |
-| src | 26 | 4608 | 10 | 7 |
+| src/modules | 43 | 5094 | 2 | 3 |
+| src | 26 | 4608 | 8 | 7 |
 | src/db | 21 | 2280 | 1 | 0 |
 | docs | 21 | 6438 | 0 | 0 |
 | scripts | 10 | 1639 | 15 | 1 |
@@ -154,9 +154,9 @@ Personal Claude assistant. Lightweight, secure, customizable.
 | Field | Value |
 |---|---:|
 | health_score | 50 |
-| findings_count | 180 |
-| production_findings | 126 |
-| non_production_findings | 54 |
+| findings_count | 175 |
+| production_findings | 122 |
+| non_production_findings | 53 |
 | hotspots_detected | 0 |
 | degradation_count | 0 |
 

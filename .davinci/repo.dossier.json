@@ -144,12 +144,6 @@
         "path": "setup/register-claude-token.sh",
         "reason": "Representative high finding `bash.command-substitution-injection`.",
         "source": "high_severity_finding"
-      },
-      {
-        "line": 29,
-        "path": "src/config.ts",
-        "reason": "Representative high finding `secret.generic-api-key`.",
-        "source": "high_severity_finding"
       }
     ],
     "secondary_context_files": [
@@ -260,14 +254,6 @@
       "theme": "supply_chain_and_ci"
     },
     {
-      "finding_count": 5,
-      "high_or_error_count": 4,
-      "priority": 1,
-      "recommended_action": "Validate whether hits are real secrets, rotate exposed credentials, and suppress only verified placeholders or generated report copies.",
-      "representative_rule": "secret.generic-api-key",
-      "theme": "secrets_hygiene"
-    },
-    {
       "finding_count": 13,
       "high_or_error_count": 13,
       "priority": 2,
@@ -327,35 +313,35 @@
     "ci_score": 30.0,
     "coverage_score": 100.0,
     "documentation_score": 95.0,
-    "maturity_score": 69.05,
+    "maturity_score": 69.09,
     "packaging_score": 87.0,
-    "risk_adjusted_score": 47.16,
+    "risk_adjusted_score": 47.32,
     "scoring_note": "Maturity is deterministic readiness evidence across docs, tests, CI, packaging, structure, coverage, and risk. It is separate from security health.",
     "structure_score": 70.0,
     "test_score": 73.86
   },
   "meta": {
-    "duration_secs": 1.6373438,
+    "duration_secs": 1.5634665,
     "profile": "exhaustive",
     "repo_path": "[repo]",
     "scope": "Full",
-    "timestamp": "2026-05-27T20:35:23.623435800+00:00"
+    "timestamp": "2026-05-27T21:49:47.457727500+00:00"
   },
   "noise_context": {
     "docs_findings": 53,
     "fixture_findings": 0,
-    "non_primary_finding_ratio": 0.3,
+    "non_primary_finding_ratio": 0.3029,
     "note": "Noise indicators demote review priority; they do not delete findings from full-scope evidence.",
     "report_artifact_findings": 0,
-    "secrets_false_positive_estimate": 0.85,
-    "test_findings": 1
+    "secrets_false_positive_estimate": -0.0,
+    "test_findings": 0
   },
   "non_llm": true,
   "recommendations": [
     {
       "action": "triage_high_or_error_findings",
       "priority": 1,
-      "reason": "71 high/error findings need owner validation before productization."
+      "reason": "67 high/error findings need owner validation before productization."
     },
     {
       "action": "review_supply_chain_exposure",
@@ -379,17 +365,17 @@
     "cycles": 0,
     "degradation_events": 0,
     "files_in_cycles": 0,
-    "finding_density_per_kloc": 4.33,
-    "findings_total": 180,
+    "finding_density_per_kloc": 4.21,
+    "findings_total": 175,
     "health_score": 50.0,
-    "high_or_error_findings": 71,
+    "high_or_error_findings": 67,
     "hotspots": 0,
     "maintenance_score": 75.0,
-    "non_production_findings": 54,
+    "non_production_findings": 53,
     "parse_coverage_ratio": 1.0,
-    "production_findings": 126,
+    "production_findings": 122,
     "security_degraded_ratio": 0.0,
-    "security_score": 60.0,
+    "security_score": 61.0,
     "source_load_coverage_ratio": 1.0,
     "supply_chain_findings": 67,
     "supply_chain_ioc_hits": 0,
@@ -432,15 +418,15 @@
       },
       {
         "count": 4,
-        "rule_id": "secret.generic-api-key"
-      },
-      {
-        "count": 4,
         "rule_id": "supply-chain.agent-instructions.hidden-unicode.variation-selector"
       },
       {
         "count": 1,
-        "rule_id": "secret.high-entropy-password"
+        "rule_id": "supply-chain.container.mutable-image-ref"
+      },
+      {
+        "count": 1,
+        "rule_id": "supply-chain.container.remote-build-script"
       }
     ],
     "wiring_score": 35.0
@@ -451,17 +437,17 @@
     "edges": 668,
     "files_in_cycles": 0,
     "files_scanned": 260,
-    "findings_count": 180,
+    "findings_count": 175,
     "health_score": 50.0,
     "hotspots_detected": 0,
     "import_edges_resolved": 0,
-    "lean_report_tokens": 61418,
+    "lean_report_tokens": 60478,
     "loaded_bytes": 1572495,
     "loaded_line_count": 41581,
     "nodes": 842,
     "severity_breakdown": {
-      "high": 71,
-      "low": 69,
+      "high": 67,
+      "low": 68,
       "medium": 40
     }
   }

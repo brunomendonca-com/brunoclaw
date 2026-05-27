@@ -3860,46 +3860,6 @@
       "start_byte": 12654
     },
     {
-      "adapter": "secret-scan",
-      "column": 15,
-      "confidence": "Low",
-      "end_byte": 16837,
-      "line": 465,
-      "message": "High-entropy string may be a hardcoded password",
-      "path": "setup/channels/teams.ts",
-      "remediation": {
-        "action": "extract_to_env",
-        "extracted": true,
-        "find_pattern": "PASSWORD: collected.appPassword",
-        "matched_text": "PASSWORD: collected.appPassword",
-        "rationale": "Passwords in source code compromise security of entire system",
-        "replace_with": "password = os.environ.get('DB_PASSWORD')  # load from env or secrets manager"
-      },
-      "rule_id": "secret.high-entropy-password",
-      "severity": "Low",
-      "start_byte": 16806
-    },
-    {
-      "adapter": "secret-scan",
-      "column": 34,
-      "confidence": "Low",
-      "end_byte": 2162,
-      "line": 78,
-      "message": "Potential hardcoded API key or secret",
-      "path": "setup/environment.test.ts",
-      "remediation": {
-        "action": "extract_to_env",
-        "extracted": true,
-        "find_pattern": "API_KEY=sk-ant-test123",
-        "matched_text": "API_KEY=sk-ant-test123",
-        "rationale": "API keys in source code are exposed to anyone with repo access",
-        "replace_with": "api_key = os.environ.get('API_KEY')  # load from env or secrets manager"
-      },
-      "rule_id": "secret.generic-api-key",
-      "severity": "High",
-      "start_byte": 2140
-    },
-    {
       "adapter": "bash-security",
       "column": 8,
       "confidence": "Medium",
@@ -3998,72 +3958,12 @@
       "rule_id": "js.ssrf-fetch",
       "severity": "High",
       "start_byte": 22185
-    },
-    {
-      "adapter": "secret-scan",
-      "column": 21,
-      "confidence": "Low",
-      "end_byte": 1623,
-      "line": 29,
-      "message": "Potential hardcoded API key or secret",
-      "path": "src/config.ts",
-      "remediation": {
-        "action": "extract_to_env",
-        "extracted": true,
-        "find_pattern": "API_KEY = process.env.ONECLI_API_KEY",
-        "matched_text": "API_KEY = process.env.ONECLI_API_KEY",
-        "rationale": "API keys in source code are exposed to anyone with repo access",
-        "replace_with": "api_key = os.environ.get('API_KEY')  # load from env or secrets manager"
-      },
-      "rule_id": "secret.generic-api-key",
-      "severity": "High",
-      "start_byte": 1587
-    },
-    {
-      "adapter": "secret-scan",
-      "column": 46,
-      "confidence": "Low",
-      "end_byte": 1605,
-      "line": 33,
-      "message": "Potential hardcoded API key or secret",
-      "path": "src/container-runner.ts",
-      "remediation": {
-        "action": "extract_to_env",
-        "extracted": true,
-        "find_pattern": "apiKey: ONECLI_API_KEY",
-        "matched_text": "apiKey: ONECLI_API_KEY",
-        "rationale": "API keys in source code are exposed to anyone with repo access",
-        "replace_with": "api_key = os.environ.get('API_KEY')  # load from env or secrets manager"
-      },
-      "rule_id": "secret.generic-api-key",
-      "severity": "High",
-      "start_byte": 1583
-    },
-    {
-      "adapter": "secret-scan",
-      "column": 46,
-      "confidence": "Low",
-      "end_byte": 1770,
-      "line": 39,
-      "message": "Potential hardcoded API key or secret",
-      "path": "src/modules/approvals/onecli-approvals.ts",
-      "remediation": {
-        "action": "extract_to_env",
-        "extracted": true,
-        "find_pattern": "apiKey: ONECLI_API_KEY",
-        "matched_text": "apiKey: ONECLI_API_KEY",
-        "rationale": "API keys in source code are exposed to anyone with repo access",
-        "replace_with": "api_key = os.environ.get('API_KEY')  # load from env or secrets manager"
-      },
-      "rule_id": "secret.generic-api-key",
-      "severity": "High",
-      "start_byte": 1748
     }
   ],
   "fingerprint": {
     "complexity_tier": "small",
     "dominant_language": "typescript",
-    "findings_hash": "f1cff93f439a52d7",
+    "findings_hash": "afab0e9183ca7808",
     "has_ci": false,
     "has_docker": true,
     "has_tests": true,
@@ -4087,7 +3987,7 @@
     "architecture": 10.0,
     "maintenance": 75.0,
     "score": 50.0,
-    "security": 60.0,
+    "security": 61.0,
     "simulation": 100.0,
     "wiring": 35.0
   },
@@ -4122,11 +4022,11 @@
     "skip_low_value_parse_paths": false
   },
   "meta": {
-    "duration_secs": 1.6373438,
+    "duration_secs": 1.5634665,
     "profile": "exhaustive",
     "repo_path": "[repo]",
     "scope": "Full",
-    "timestamp": "2026-05-27T20:35:23.623435800+00:00"
+    "timestamp": "2026-05-27T21:49:47.457727500+00:00"
   },
   "quality_signal": {
     "adaptability": {
@@ -4191,7 +4091,7 @@
           "limit": 200000,
           "ratio": 0.001,
           "status": "ok",
-          "used": 180
+          "used": 175
         },
         "source_bytes": {
           "limit": 2000000000,
@@ -4214,18 +4114,17 @@
       }
     },
     "confidence_calibration": {
-      "actionable_findings": 180,
-      "average_actionable_confidence_weight": 0.44,
+      "actionable_findings": 175,
+      "average_actionable_confidence_weight": 0.448,
       "boundary": "Rule confidence is deterministic rule calibration and source-context evidence, not a semantic exploitability verdict.",
       "counts": {
         "high": 14,
-        "low": 5,
         "medium": 161
       },
       "schema_version": "1.0.0"
     },
-    "confidence_weighted_penalty": 246.3500000000004,
-    "docs_share_of_findings": 0.29,
+    "confidence_weighted_penalty": 243.2000000000004,
+    "docs_share_of_findings": 0.3,
     "fixture_share_of_findings": 0.0,
     "mcp_security": {
       "findings": 0,
@@ -4235,14 +4134,13 @@
     },
     "path_context_counts": {
       "docs": 53,
-      "production": 126,
-      "test": 1
+      "production": 122
     },
     "primary_security": {
       "excluded_fixture_findings": 0,
-      "excluded_non_primary_findings": 54,
-      "excluded_test_findings": 1,
-      "findings": 126,
+      "excluded_non_primary_findings": 53,
+      "excluded_test_findings": 0,
+      "findings": 122,
       "note": "Primary security scoring excludes tests and synthetic fixtures; full findings remain available for explicit full-scope review.",
       "rule_counts": {
         "adaptability.hardcoded-external-endpoint": 30,
@@ -4251,8 +4149,6 @@
         "adaptability.hardcoded-timeout": 25,
         "bash.command-substitution-injection": 13,
         "js.ssrf-fetch": 4,
-        "secret.generic-api-key": 3,
-        "secret.high-entropy-password": 1,
         "supply-chain.container.mutable-image-ref": 1,
         "supply-chain.container.remote-build-script": 1,
         "supply-chain.package.lifecycle-script-risk": 1,
@@ -4261,9 +4157,9 @@
       "scope": "production_paths"
     },
     "production_share_of_findings": 0.7,
-    "secrets_false_positive_estimate": 0.85,
-    "secrets_share_of_findings": 0.03,
-    "signal_weighted_penalty": 131.66000000000003,
+    "secrets_false_positive_estimate": -0.0,
+    "secrets_share_of_findings": 0.0,
+    "signal_weighted_penalty": 129.26000000000002,
     "supply_chain": {
       "boundary": "DaVinci supply-chain findings are deterministic static repo exposure evidence. They do not prove endpoint compromise, extension installation, secret exfiltration, or repository cloning unless supplied audit/log evidence supports that conclusion.",
       "findings": 67,
@@ -4294,7 +4190,7 @@
         }
       ]
     },
-    "tests_share_of_findings": 0.01
+    "tests_share_of_findings": 0.0
   },
   "scan_plan": {
     "adaptability": {
@@ -4371,7 +4267,7 @@
           "limit": 200000,
           "ratio": 0.001,
           "status": "ok",
-          "used": 180
+          "used": 175
         },
         "source_bytes": {
           "limit": 2000000000,
@@ -4592,34 +4488,34 @@
   ],
   "schema_version": "2.33.0",
   "stage_timings": {
-    "adaptability": 0.030915,
+    "adaptability": 0.0323652,
     "cache_lookup": 0.0,
-    "dependency_scan": 0.0000141,
-    "git_history": 3.6e-6,
-    "graph": 0.0034471,
-    "index": 0.9661767,
-    "parser": 0.1229969,
-    "preflight": 0.1995193,
-    "report_generation": 0.0140503,
-    "sim": 0.3131439,
-    "supply_chain": 0.1276995
+    "dependency_scan": 0.0000231,
+    "git_history": 4.8e-6,
+    "graph": 0.0038804,
+    "index": 0.9239123,
+    "parser": 0.1207911,
+    "preflight": 0.2562488,
+    "report_generation": 0.0142706,
+    "sim": 0.2253057,
+    "supply_chain": 0.1860813
   },
   "summary": {
     "degradation_count": 0,
     "edges": 668,
     "files_in_cycles": 0,
     "files_scanned": 260,
-    "findings_count": 180,
+    "findings_count": 175,
     "health_score": 50.0,
     "hotspots_detected": 0,
     "import_edges_resolved": 0,
-    "lean_report_tokens": 61418,
+    "lean_report_tokens": 60478,
     "loaded_bytes": 1572495,
     "loaded_line_count": 41581,
     "nodes": 842,
     "severity_breakdown": {
-      "high": 71,
-      "low": 69,
+      "high": 67,
+      "low": 68,
       "medium": 40
     }
   },
@@ -5596,22 +5492,21 @@
     "non_llm": true,
     "schema_version": "1.0.0",
     "validation_summary": {
-      "average_grounding_score": 0.79,
-      "average_review_priority_score": 0.563,
+      "average_grounding_score": 0.784,
+      "average_review_priority_score": 0.561,
       "deterministic_challenge_status_counts": {
-        "context_demoted": 1,
         "downgraded_unverified": 63,
         "needs_exploitability_review": 3,
-        "upheld_candidate": 113
+        "upheld_candidate": 109
       },
       "false_positive_likelihood_counts": {
-        "high": 51,
-        "low": 113,
+        "high": 50,
+        "low": 109,
         "medium": 16
       },
-      "findings_validated": 180,
+      "findings_validated": 175,
       "grounding_status_counts": {
-        "grounded": 117,
+        "grounded": 112,
         "unmatched_file": 63
       }
     }

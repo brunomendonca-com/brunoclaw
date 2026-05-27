@@ -8,13 +8,13 @@
     "selected_files": 260,
     "source_load_coverage_ratio": 1.0
   },
-  "estimated_tokens": 2769,
+  "estimated_tokens": 2764,
   "meta": {
-    "duration_secs": 1.6373438,
+    "duration_secs": 1.5634665,
     "profile": "exhaustive",
     "repo_path": "[repo]",
     "scope": "Full",
-    "timestamp": "2026-05-27T20:35:23.623435800+00:00"
+    "timestamp": "2026-05-27T21:49:47.457727500+00:00"
   },
   "modes": {
     "dependency_scan": "cache-only",
@@ -39,17 +39,16 @@
   "summary": {
     "degradation_count": 0,
     "files_scanned": 260,
-    "findings_count": 180,
+    "findings_count": 175,
     "health_score": 50.0,
     "hotspots_detected": 0,
     "loaded_line_count": 41581,
-    "non_production_findings": 54,
+    "non_production_findings": 53,
     "path_context_counts": {
       "docs": 53,
-      "production": 126,
-      "test": 1
+      "production": 122
     },
-    "production_findings": 126,
+    "production_findings": 122,
     "supply_chain_findings": 67,
     "wiring_gaps_count": 151
   },

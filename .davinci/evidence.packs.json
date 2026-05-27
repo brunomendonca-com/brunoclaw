@@ -1480,51 +1480,6 @@
     {
       "challenge_status": "upheld_candidate",
       "cluster_id": "FCL-027",
-      "count": 1,
-      "false_positive_likelihood": "low",
-      "lines": [
-        29
-      ],
-      "max_review_priority_score": 0.77,
-      "path": "src/config.ts",
-      "path_context": "production",
-      "representative_message": "Potential hardcoded API key or secret",
-      "rule_id": "secret.generic-api-key",
-      "severity": "high"
-    },
-    {
-      "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-028",
-      "count": 1,
-      "false_positive_likelihood": "low",
-      "lines": [
-        33
-      ],
-      "max_review_priority_score": 0.77,
-      "path": "src/container-runner.ts",
-      "path_context": "production",
-      "representative_message": "Potential hardcoded API key or secret",
-      "rule_id": "secret.generic-api-key",
-      "severity": "high"
-    },
-    {
-      "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-029",
-      "count": 1,
-      "false_positive_likelihood": "low",
-      "lines": [
-        39
-      ],
-      "max_review_priority_score": 0.77,
-      "path": "src/modules/approvals/onecli-approvals.ts",
-      "path_context": "production",
-      "representative_message": "Potential hardcoded API key or secret",
-      "rule_id": "secret.generic-api-key",
-      "severity": "high"
-    },
-    {
-      "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-030",
       "count": 4,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1542,7 +1497,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-031",
+      "cluster_id": "FCL-028",
       "count": 3,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1559,7 +1514,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-032",
+      "cluster_id": "FCL-029",
       "count": 3,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1576,7 +1531,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-033",
+      "cluster_id": "FCL-030",
       "count": 3,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1593,7 +1548,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-034",
+      "cluster_id": "FCL-031",
       "count": 3,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1610,7 +1565,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-035",
+      "cluster_id": "FCL-032",
       "count": 3,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1627,7 +1582,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-036",
+      "cluster_id": "FCL-033",
       "count": 3,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1644,7 +1599,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-037",
+      "cluster_id": "FCL-034",
       "count": 3,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1661,7 +1616,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-038",
+      "cluster_id": "FCL-035",
       "count": 2,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1677,7 +1632,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-039",
+      "cluster_id": "FCL-036",
       "count": 2,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1693,7 +1648,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-040",
+      "cluster_id": "FCL-037",
       "count": 2,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1709,7 +1664,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-041",
+      "cluster_id": "FCL-038",
       "count": 2,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1725,7 +1680,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-042",
+      "cluster_id": "FCL-039",
       "count": 2,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1741,7 +1696,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-043",
+      "cluster_id": "FCL-040",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1756,7 +1711,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-044",
+      "cluster_id": "FCL-041",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1771,7 +1726,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-045",
+      "cluster_id": "FCL-042",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1786,7 +1741,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-046",
+      "cluster_id": "FCL-043",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1801,7 +1756,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-047",
+      "cluster_id": "FCL-044",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1816,7 +1771,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-048",
+      "cluster_id": "FCL-045",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1831,7 +1786,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-049",
+      "cluster_id": "FCL-046",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1846,7 +1801,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-050",
+      "cluster_id": "FCL-047",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1858,28 +1813,72 @@
       "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
       "rule_id": "adaptability.hardcoded-external-endpoint",
       "severity": "low"
+    },
+    {
+      "challenge_status": "upheld_candidate",
+      "cluster_id": "FCL-048",
+      "count": 1,
+      "false_positive_likelihood": "low",
+      "lines": [
+        528
+      ],
+      "max_review_priority_score": 0.695,
+      "path": "src/channels/chat-sdk-bridge.ts",
+      "path_context": "production",
+      "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+      "rule_id": "adaptability.hardcoded-external-endpoint",
+      "severity": "low"
+    },
+    {
+      "challenge_status": "upheld_candidate",
+      "cluster_id": "FCL-049",
+      "count": 1,
+      "false_positive_likelihood": "low",
+      "lines": [
+        35
+      ],
+      "max_review_priority_score": 0.695,
+      "path": "src/webhook-server.ts",
+      "path_context": "production",
+      "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+      "rule_id": "adaptability.hardcoded-external-endpoint",
+      "severity": "low"
+    },
+    {
+      "challenge_status": "upheld_candidate",
+      "cluster_id": "FCL-050",
+      "count": 1,
+      "false_positive_likelihood": "low",
+      "lines": [
+        37
+      ],
+      "max_review_priority_score": 0.695,
+      "path": "container/agent-runner/src/mcp-tools/self-mod.ts",
+      "path_context": "production",
+      "representative_message": "Static resource-cap rigidity: Fixed caps and batch sizes can silently limit scale or waste memory when repo size and hardware vary.",
+      "rule_id": "adaptability.hardcoded-resource-cap",
+      "severity": "low"
     }
   ],
   "kind": "deterministic_validated_evidence",
   "non_llm": true,
   "schema_version": "1.0.0",
   "validation_summary": {
-    "average_grounding_score": 0.79,
-    "average_review_priority_score": 0.563,
+    "average_grounding_score": 0.784,
+    "average_review_priority_score": 0.561,
     "deterministic_challenge_status_counts": {
-      "context_demoted": 1,
       "downgraded_unverified": 63,
       "needs_exploitability_review": 3,
-      "upheld_candidate": 113
+      "upheld_candidate": 109
     },
     "false_positive_likelihood_counts": {
-      "high": 51,
-      "low": 113,
+      "high": 50,
+      "low": 109,
       "medium": 16
     },
-    "findings_validated": 180,
+    "findings_validated": 175,
     "grounding_status_counts": {
-      "grounded": 117,
+      "grounded": 112,
       "unmatched_file": 63
     }
   }

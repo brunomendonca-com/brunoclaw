@@ -3,7 +3,7 @@
 **Repository:** [repo]  
 **Profile:** exhaustive  
 **Scope:** Full  
-**Duration:** 1.64s  
+**Duration:** 1.56s  
 **Files Scanned:** 260
 
 ## Health Score: 50/100
@@ -11,7 +11,7 @@
 | Component | Score |
 |-----------|-------|
 | Overall | 50 |
-| Security | 60 |
+| Security | 61 |
 | Architecture | 10 |
 | Wiring | 35 |
 | Simulation | 100 |
@@ -46,28 +46,28 @@ Caveats:
 
 ## Summary
 
-- **Findings:** 180
+- **Findings:** 175
 - **Degradations:** 0
 - **Nodes:** 842
 - **Edges:** 668
 - **Import Edges Resolved:** 0
 - **Hotspots Detected:** 0
 - **Files in Cycles:** 0
-- **Lean Report Tokens:** 61418
+- **Lean Report Tokens:** 60478
 
 ## Validated Evidence
 
 | Metric | Value |
 |--------|------:|
-| Findings validated | 180 |
+| Findings validated | 175 |
 | Evidence packs | 12 |
 | Finding clusters | 50 |
-| Average grounding score | 0.790 |
-| Average review priority score | 0.563 |
+| Average grounding score | 0.784 |
+| Average review priority score | 0.561 |
 
-False-positive likelihood counts: `{"high":51,"low":113,"medium":16}`
+False-positive likelihood counts: `{"high":50,"low":109,"medium":16}`
 
-Deterministic challenge counts: `{"context_demoted":1,"downgraded_unverified":63,"needs_exploitability_review":3,"upheld_candidate":113}`
+Deterministic challenge counts: `{"downgraded_unverified":63,"needs_exploitability_review":3,"upheld_candidate":109}`
 
 | Cluster | Rule | Count | Context | FP likelihood | Challenge | File |
 |---------|------|------:|---------|---------------|-----------|------|
@@ -137,7 +137,7 @@ Adaptive policy evidence explains budget utilization and next-run recommendation
 | `source_files` | 260 | 250000 | 0.001 | `ok` |
 | `source_bytes` | 1572495 | 2000000000 | 0.001 | `ok` |
 | `parse_files` | 260 | 100000 | 0.003 | `ok` |
-| `security_findings` | 180 | 200000 | 0.001 | `ok` |
+| `security_findings` | 175 | 200000 | 0.001 | `ok` |
 | `symbol_graph_nodes` | 668 | 250000 | 0.003 | `ok` |
 
 ## Degradation File Context
@@ -168,19 +168,19 @@ _Upper bound only; parser/security/source-load categories can overlap on the sam
 
 | Stage | Seconds |
 |-------|---------|
-| adaptability | 0.031 |
+| adaptability | 0.032 |
 | cache_lookup | 0.000 |
 | dependency_scan | 0.000 |
 | git_history | 0.000 |
-| graph | 0.003 |
-| index | 0.966 |
-| parser | 0.123 |
-| preflight | 0.200 |
+| graph | 0.004 |
+| index | 0.924 |
+| parser | 0.121 |
+| preflight | 0.256 |
 | report_generation | 0.014 |
-| sim | 0.313 |
-| supply_chain | 0.128 |
+| sim | 0.225 |
+| supply_chain | 0.186 |
 
-## Findings (180)
+## Findings (175)
 
 | Severity | Confidence | Context | Provenance | Rule | File | Line | Message |
 |----------|------------|---------|------------|------|------|------|---------|
@@ -354,16 +354,11 @@ _Upper bound only; parser/security/source-load categories can overlap on the sam
 | high | medium | production | source | `bash.command-substitution-injection` | `setup/add-telegram.sh` | 130 | Command substitution with potential injection |
 | high | high | production | source | `js.ssrf-fetch` | `setup/channels/discord.ts` | 197 | Potential SSRF via fetch with user input |
 | high | high | production | source | `js.ssrf-fetch` | `setup/channels/discord.ts` | 386 | Potential SSRF via fetch with user input |
-| low | low | production | source | `secret.high-entropy-password` | `setup/channels/teams.ts` | 465 | High-entropy string may be a hardcoded password |
-| high | low | test | source | `secret.generic-api-key` | `setup/environment.test.ts` | 78 | Potential hardcoded API key or secret |
 | high | medium | production | source | `bash.command-substitution-injection` | `setup/lib/diagnostics.sh` | 25 | Command substitution with potential injection |
 | high | high | production | source | `js.ssrf-fetch` | `setup/lib/diagnostics.ts` | 62 | Potential SSRF via fetch with user input |
 | high | medium | production | source | `bash.command-substitution-injection` | `setup/probe.sh` | 49 | Command substitution with potential injection |
 | high | medium | production | source | `bash.command-substitution-injection` | `setup/register-claude-token.sh` | 83 | Command substitution with potential injection |
 | high | high | production | source | `js.ssrf-fetch` | `src/channels/chat-sdk-bridge.ts` | 528 | Potential SSRF via fetch with user input |
-| high | low | production | source | `secret.generic-api-key` | `src/config.ts` | 29 | Potential hardcoded API key or secret |
-| high | low | production | source | `secret.generic-api-key` | `src/container-runner.ts` | 33 | Potential hardcoded API key or secret |
-| high | low | production | source | `secret.generic-api-key` | `src/modules/approvals/onecli-approvals.ts` | 39 | Potential hardcoded API key or secret |
 
 ## Top Risks
 
@@ -434,9 +429,6 @@ _Upper bound only; parser/security/source-load categories can overlap on the sam
 | 4 | adaptability | `adaptability.hardcoded-platform-path` | `src/container-runner.ts` | externalize_or_normalize_path |
 | 4 | adaptability | `adaptability.hardcoded-platform-path` | `src/container-runner.ts` | externalize_or_normalize_path |
 | 4 | adaptability | `adaptability.hardcoded-platform-path` | `src/modules/permissions/user-dm.ts` | externalize_or_normalize_path |
-| 4 | security | `secret.generic-api-key` | `src/config.ts` | extract_to_env |
-| 4 | security | `secret.generic-api-key` | `src/container-runner.ts` | extract_to_env |
-| 4 | security | `secret.generic-api-key` | `src/modules/approvals/onecli-approvals.ts` | extract_to_env |
 | 4 | architecture | `orphaned_module` | `container/agent-runner/src/config.ts` | review_or_remove |
 | 4 | architecture | `orphaned_module` | `container/agent-runner/src/db/connection.ts` | review_or_remove |
 | 4 | architecture | `orphaned_module` | `container/agent-runner/src/db/messages-in.ts` | review_or_remove |
@@ -444,6 +436,9 @@ _Upper bound only; parser/security/source-load categories can overlap on the sam
 | 4 | architecture | `orphaned_module` | `container/agent-runner/src/db/session-routing.ts` | review_or_remove |
 | 4 | architecture | `orphaned_module` | `container/agent-runner/src/db/session-state.ts` | review_or_remove |
 | 4 | architecture | `orphaned_module` | `container/agent-runner/src/destinations.ts` | review_or_remove |
+| 4 | architecture | `orphaned_module` | `container/agent-runner/src/formatter.ts` | review_or_remove |
+| 4 | architecture | `orphaned_module` | `container/agent-runner/src/mcp-tools/agents.ts` | review_or_remove |
+| 4 | architecture | `orphaned_module` | `container/agent-runner/src/mcp-tools/core.ts` | review_or_remove |
 
 ---
 *Generated by DaVinci v0.3.0 — schema 2.33.0*

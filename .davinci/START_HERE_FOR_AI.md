@@ -5,9 +5,9 @@ Repository: `[repo]`
 Profile: `exhaustive`  
 Scope: `Full`  
 Schema: `2.33.0`  
-Duration: `1.64s`  
+Duration: `1.56s`  
 Files / LOC: `260` / `41581`  
-Findings: `180`  
+Findings: `175`  
 Health: `50/100`  
 Index mode: `full` (`full`)
 
