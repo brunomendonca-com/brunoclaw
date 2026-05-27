@@ -1,0 +1,39 @@
+{
+  "path_mode": "redacted",
+  "schema_version": "1.1.0",
+  "timings": {
+    "artifact_manifest_json_write_secs": 0.0013075,
+    "artifact_write_timings_json_write_secs": 0.0004482,
+    "evidence_graph_json_write_secs": 0.0078805,
+    "evidence_packs_json_write_secs": 0.0008155,
+    "findings_sarif_write_secs": 0.003928,
+    "repo_brief_json_write_secs": 0.0014676,
+    "repo_brief_md_write_secs": 0.0005275,
+    "repo_dossier_json_write_secs": 0.0007339,
+    "repo_dossier_md_write_secs": 0.0004136,
+    "report_agent_json_write_secs": 0.0021544,
+    "report_digest_json_write_secs": 0.000861,
+    "report_json_write_secs": 0.0092292,
+    "report_lean_json_write_secs": 0.0032568,
+    "report_md_write_secs": 0.0006908,
+    "start_here_for_ai_md_write_secs": 0.0004426,
+    "total_artifact_write_secs": 1.5340243
+  },
+  "write_status": {
+    "artifact_manifest_json": "written",
+    "artifact_write_timings_json": "written",
+    "evidence_graph_json": "written",
+    "evidence_packs_json": "written",
+    "findings_sarif": "written",
+    "repo_brief_json": "written",
+    "repo_brief_md": "written",
+    "repo_dossier_json": "written",
+    "repo_dossier_md": "written",
+    "report_agent_json": "written",
+    "report_digest_json": "written",
+    "report_json": "written",
+    "report_lean_json": "written",
+    "report_md": "written",
+    "start_here_for_ai_md": "written"
+  }
+}

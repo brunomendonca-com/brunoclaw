@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "source_kind": "remote_git_https",
+  "remote_url": "[redacted-remote-url]",
+  "remote_url_redacted": true,
+  "remote_url_fingerprint": "1270e32ee12b13267055a9b08b49526a1939ee04c187ef7bfaa3d49ddddd4516",
+  "remote_url_fingerprint_algorithm": "blake3",
+  "remote_host": "github.com",
+  "requested_ref": null,
+  "resolved_head": "601fc7c39678462d94098c8915ef320da1dfe466",
+  "resolved_branch": "main",
+  "clone_strategy": "shallow_single_branch_depth_1",
+  "full_history": false,
+  "github_repo": "[redacted-github-repo]",
+  "github_repo_inferred": false,
+  "source_retention": "delete_after_scan",
+  "temp_source_path": "[temporary-checkout-deleted]",
+  "cleanup_policy": "delete_temp_checkout_on_command_exit",
+  "boundary": "DaVinci analyzed a temporary local checkout created from a remote Git URL. Source bytes were still fetched locally; this is not API-only remote code analysis."
+}

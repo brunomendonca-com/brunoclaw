@@ -1,0 +1,1139 @@
+{
+  "architecture_map": {
+    "central_files": [
+      {
+        "centrality": 0.6486486196517944,
+        "path": "src/channels/chat-sdk-bridge.ts",
+        "reason": "central top-risk file",
+        "risk": 0.7894239111760104
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "container/agent-runner/scripts/sdk-signal-probe.ts",
+        "reason": "central top-risk file",
+        "risk": 0.755674124834645
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "container/agent-runner/src/formatter.ts",
+        "reason": "central top-risk file",
+        "risk": 0.6929045184698732
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "setup/whatsapp-auth.ts",
+        "reason": "central top-risk file",
+        "risk": 0.6741428629508722
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "scripts/init-first-agent.ts",
+        "reason": "central top-risk file",
+        "risk": 0.6494805634491018
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "setup/index.ts",
+        "reason": "central top-risk file",
+        "risk": 0.6494805634491018
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "setup/lib/tz-from-claude.ts",
+        "reason": "central top-risk file",
+        "risk": 0.6494805634491018
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "src/container-runner.ts",
+        "reason": "central top-risk file",
+        "risk": 0.6494805634491018
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "src/host-sweep.ts",
+        "reason": "central top-risk file",
+        "risk": 0.6494805634491018
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "src/modules/approvals/primitive.ts",
+        "reason": "central top-risk file",
+        "risk": 0.6494805634491018
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "src/modules/permissions/index.ts",
+        "reason": "central top-risk file",
+        "risk": 0.6494805634491018
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "src/modules/approvals/onecli-approvals.ts",
+        "reason": "central top-risk file",
+        "risk": 0.6474043082613496
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "container/agent-runner/src/mcp-tools/interactive.ts",
+        "reason": "central top-risk file",
+        "risk": 0.6461731219634312
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "src/webhook-server.ts",
+        "reason": "central top-risk file",
+        "risk": 0.6365309379459752
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "src/delivery.ts",
+        "reason": "central top-risk file",
+        "risk": 0.6342198773473624
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "src/router.ts",
+        "reason": "central top-risk file",
+        "risk": 0.6320591569941297
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "src/index.ts",
+        "reason": "central top-risk file",
+        "risk": 0.6318721426657876
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "container/agent-runner/src/mcp-tools/core.ts",
+        "reason": "central top-risk file",
+        "risk": 0.6228989822810364
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "src/channels/cli.ts",
+        "reason": "central top-risk file",
+        "risk": 0.6116938674792427
+      },
+      {
+        "centrality": 0.6486486196517944,
+        "path": "src/session-manager.ts",
+        "reason": "central top-risk file",
+        "risk": 0.609724362137184
+      }
+    ],
+    "component_clusters": [
+      {
+        "bytes": 316798,
+        "component": "setup",
+        "files": 60,
+        "findings": 55,
+        "generated_or_vendor_files": 0,
+        "lines": 9582,
+        "risk_files": 3,
+        "test_files": 3
+      },
+      {
+        "bytes": 197414,
+        "component": "container",
+        "files": 49,
+        "findings": 15,
+        "generated_or_vendor_files": 0,
+        "lines": 5130,
+        "risk_files": 4,
+        "test_files": 5
+      },
+      {
+        "bytes": 194079,
+        "component": "src/modules",
+        "files": 43,
+        "findings": 3,
+        "generated_or_vendor_files": 0,
+        "lines": 5094,
+        "risk_files": 3,
+        "test_files": 6
+      },
+      {
+        "bytes": 166573,
+        "component": "src",
+        "files": 26,
+        "findings": 10,
+        "generated_or_vendor_files": 0,
+        "lines": 4608,
+        "risk_files": 7,
+        "test_files": 6
+      },
+      {
+        "bytes": 84325,
+        "component": "src/db",
+        "files": 21,
+        "findings": 1,
+        "generated_or_vendor_files": 0,
+        "lines": 2280,
+        "risk_files": 0,
+        "test_files": 2
+      },
+      {
+        "bytes": 289224,
+        "component": "docs",
+        "files": 21,
+        "findings": 0,
+        "generated_or_vendor_files": 0,
+        "lines": 6438,
+        "risk_files": 0,
+        "test_files": 1
+      },
+      {
+        "bytes": 53378,
+        "component": "scripts",
+        "files": 10,
+        "findings": 15,
+        "generated_or_vendor_files": 0,
+        "lines": 1639,
+        "risk_files": 1,
+        "test_files": 0
+      },
+      {
+        "bytes": 56172,
+        "component": "src/channels",
+        "files": 8,
+        "findings": 3,
+        "generated_or_vendor_files": 0,
+        "lines": 1493,
+        "risk_files": 2,
+        "test_files": 2
+      },
+      {
+        "bytes": 10484,
+        "component": "repo-tokens",
+        "files": 2,
+        "findings": 3,
+        "generated_or_vendor_files": 0,
+        "lines": 299,
+        "risk_files": 0,
+        "test_files": 0
+      },
+      {
+        "bytes": 2525,
+        "component": "src/providers",
+        "files": 2,
+        "findings": 0,
+        "generated_or_vendor_files": 0,
+        "lines": 64,
+        "risk_files": 0,
+        "test_files": 0
+      },
+      {
+        "bytes": 10625,
+        "component": "nanoclaw.sh",
+        "files": 1,
+        "findings": 9,
+        "generated_or_vendor_files": 0,
+        "lines": 251,
+        "risk_files": 0,
+        "test_files": 0
+      },
+      {
+        "bytes": 18613,
+        "component": "CLAUDE.md",
+        "files": 1,
+        "findings": 3,
+        "generated_or_vendor_files": 0,
+        "lines": 247,
+        "risk_files": 0,
+        "test_files": 0
+      },
+      {
+        "bytes": 1469,
+        "component": "package.json",
+        "files": 1,
+        "findings": 1,
+        "generated_or_vendor_files": 0,
+        "lines": 51,
+        "risk_files": 0,
+        "test_files": 0
+      },
+      {
+        "bytes": 6910,
+        "component": "setup.sh",
+        "files": 1,
+        "findings": 1,
+        "generated_or_vendor_files": 0,
+        "lines": 233,
+        "risk_files": 0,
+        "test_files": 0
+      },
+      {
+        "bytes": 7657,
+        "component": "CHANGELOG.md",
+        "files": 1,
+        "findings": 0,
+        "generated_or_vendor_files": 0,
+        "lines": 163,
+        "risk_files": 0,
+        "test_files": 0
+      },
+      {
+        "bytes": 5352,
+        "component": "CODE_OF_CONDUCT.md",
+        "files": 1,
+        "findings": 0,
+        "generated_or_vendor_files": 0,
+        "lines": 128,
+        "risk_files": 0,
+        "test_files": 0
+      },
+      {
+        "bytes": 6448,
+        "component": "CONTRIBUTING.md",
+        "files": 1,
+        "findings": 0,
+        "generated_or_vendor_files": 0,
+        "lines": 147,
+        "risk_files": 0,
+        "test_files": 0
+      },
+      {
+        "bytes": 1364,
+        "component": "CONTRIBUTORS.md",
+        "files": 1,
+        "findings": 0,
+        "generated_or_vendor_files": 0,
+        "lines": 26,
+        "risk_files": 0,
+        "test_files": 0
+      },
+      {
+        "bytes": 13048,
+        "component": "README.md",
+        "files": 1,
+        "findings": 0,
+        "generated_or_vendor_files": 0,
+        "lines": 194,
+        "risk_files": 0,
+        "test_files": 0
+      },
+      {
+        "bytes": 15854,
+        "component": "README_ja.md",
+        "files": 1,
+        "findings": 0,
+        "generated_or_vendor_files": 0,
+        "lines": 234,
+        "risk_files": 0,
+        "test_files": 0
+      },
+      {
+        "bytes": 10765,
+        "component": "README_zh.md",
+        "files": 1,
+        "findings": 0,
+        "generated_or_vendor_files": 0,
+        "lines": 204,
+        "risk_files": 0,
+        "test_files": 0
+      },
+      {
+        "bytes": 500,
+        "component": "config-examples",
+        "files": 1,
+        "findings": 0,
+        "generated_or_vendor_files": 0,
+        "lines": 25,
+        "risk_files": 0,
+        "test_files": 0
+      },
+      {
+        "bytes": 1016,
+        "component": "eslint.config.js",
+        "files": 1,
+        "findings": 0,
+        "generated_or_vendor_files": 0,
+        "lines": 32,
+        "risk_files": 0,
+        "test_files": 0
+      },
+      {
+        "bytes": 100823,
+        "component": "pnpm-lock.yaml",
+        "files": 1,
+        "findings": 0,
+        "generated_or_vendor_files": 0,
+        "lines": 2975,
+        "risk_files": 0,
+        "test_files": 0
+      },
+      {
+        "bytes": 120,
+        "component": "pnpm-workspace.yaml",
+        "files": 1,
+        "findings": 0,
+        "generated_or_vendor_files": 0,
+        "lines": 8,
+        "risk_files": 0,
+        "test_files": 0
+      }
+    ],
+    "cycle_summary": {
+      "bridge_edges": [],
+      "cycle_count": 0,
+      "largest_cycle_size": 0
+    },
+    "graph_summary": {
+      "edges": 668,
+      "files_in_cycles": 0,
+      "hotspots_detected": 0,
+      "import_edges_resolved": 0,
+      "nodes": 842
+    }
+  },
+  "brief_schema_version": "1.0.0",
+  "capability_tags": [
+    "agent",
+    "api-server",
+    "identity-auth",
+    "mcp"
+  ],
+  "decision_support": {
+    "boundary": "DaVinci does not assert final functional intent or exploitability; downstream human or AI review should verify.",
+    "orientation_factors": [
+      {
+        "factor": "readme",
+        "points": 15.0,
+        "present": true
+      },
+      {
+        "factor": "package_metadata",
+        "points": 15.0,
+        "present": true
+      },
+      {
+        "factor": "entrypoints",
+        "points": 15.0,
+        "present": true
+      },
+      {
+        "factor": "ci_detected",
+        "points": 5.0,
+        "present": true
+      },
+      {
+        "factor": "tests_detected",
+        "points": 5.0,
+        "present": true
+      },
+      {
+        "factor": "docker_detected",
+        "points": 5.0,
+        "present": true
+      },
+      {
+        "factor": "health_adjustment",
+        "points": 0.0,
+        "reason": "small bounded adjustment from DaVinci health score"
+      }
+    ],
+    "orientation_readiness_score": 95.0,
+    "recommended_next_reader_action": "Read the read_first_files first, then use report.agent.json for top risks and report.json for full evidence."
+  },
+  "entrypoints": [
+    {
+      "command": "tsc",
+      "kind": "package_script",
+      "name": "build",
+      "path": "package.json",
+      "reason": "declared package script"
+    },
+    {
+      "command": "tsx src/index.ts",
+      "kind": "package_script",
+      "name": "dev",
+      "path": "package.json",
+      "reason": "declared package script"
+    },
+    {
+      "command": "node dist/index.js",
+      "kind": "package_script",
+      "name": "start",
+      "path": "package.json",
+      "reason": "declared package script"
+    },
+    {
+      "command": "vitest run",
+      "kind": "package_script",
+      "name": "test",
+      "path": "package.json",
+      "reason": "declared package script"
+    },
+    {
+      "kind": "mcp_server",
+      "language": "typescript",
+      "path": "container/agent-runner/src/mcp-tools/index.ts",
+      "reason": "entrypoint-like path convention"
+    },
+    {
+      "kind": "mcp_server",
+      "language": "typescript",
+      "path": "container/agent-runner/src/mcp-tools/server.ts",
+      "reason": "entrypoint-like path convention"
+    },
+    {
+      "kind": "application_entrypoint",
+      "language": "typescript",
+      "path": "src/channels/cli.ts",
+      "reason": "entrypoint-like path convention"
+    },
+    {
+      "kind": "application_entrypoint",
+      "language": "typescript",
+      "path": "src/index.ts",
+      "reason": "entrypoint-like path convention"
+    }
+  ],
+  "installability": {
+    "has_ci": true,
+    "has_docker": true,
+    "has_tests": true,
+    "manifest_count": 2,
+    "package_managers": [
+      "docker",
+      "npm"
+    ],
+    "package_metadata_files": [
+      "package.json"
+    ]
+  },
+  "key_files": [
+    {
+      "centrality": 0.6486486196517944,
+      "path": "src/channels/chat-sdk-bridge.ts",
+      "reason": "top risk by deterministic scoring",
+      "risk": 0.7894239111760104
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "path": "container/agent-runner/scripts/sdk-signal-probe.ts",
+      "reason": "top risk by deterministic scoring",
+      "risk": 0.755674124834645
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "path": "container/agent-runner/src/formatter.ts",
+      "reason": "top risk by deterministic scoring",
+      "risk": 0.6929045184698732
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "path": "setup/whatsapp-auth.ts",
+      "reason": "top risk by deterministic scoring",
+      "risk": 0.6741428629508722
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "path": "scripts/init-first-agent.ts",
+      "reason": "top risk by deterministic scoring",
+      "risk": 0.6494805634491018
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "path": "setup/index.ts",
+      "reason": "top risk by deterministic scoring",
+      "risk": 0.6494805634491018
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "path": "setup/lib/tz-from-claude.ts",
+      "reason": "top risk by deterministic scoring",
+      "risk": 0.6494805634491018
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "path": "src/container-runner.ts",
+      "reason": "top risk by deterministic scoring",
+      "risk": 0.6494805634491018
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "path": "src/host-sweep.ts",
+      "reason": "top risk by deterministic scoring",
+      "risk": 0.6494805634491018
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "path": "src/modules/approvals/primitive.ts",
+      "reason": "top risk by deterministic scoring",
+      "risk": 0.6494805634491018
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "path": "src/modules/permissions/index.ts",
+      "reason": "top risk by deterministic scoring",
+      "risk": 0.6494805634491018
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "path": "src/modules/approvals/onecli-approvals.ts",
+      "reason": "top risk by deterministic scoring",
+      "risk": 0.6474043082613496
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "path": "container/agent-runner/src/mcp-tools/interactive.ts",
+      "reason": "top risk by deterministic scoring",
+      "risk": 0.6461731219634312
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "path": "src/webhook-server.ts",
+      "reason": "top risk by deterministic scoring",
+      "risk": 0.6365309379459752
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "path": "src/delivery.ts",
+      "reason": "top risk by deterministic scoring",
+      "risk": 0.6342198773473624
+    }
+  ],
+  "meta": {
+    "duration_secs": 1.6373438,
+    "profile": "exhaustive",
+    "repo_path": "[repo]",
+    "scope": "Full",
+    "timestamp": "2026-05-27T20:35:23.623435800+00:00"
+  },
+  "positioning": {
+    "non_llm": true,
+    "note": "This brief is generated from repository files, manifests, paths, graph centrality, and scan evidence. It is orientation evidence, not a semantic product summary.",
+    "role": "deterministic_functional_orientation"
+  },
+  "provenance": {
+    "branch": "main",
+    "checkout_status": "valid",
+    "commit_sha": "601fc7c39678462d94098c8915ef320da1dfe466",
+    "dirty": false,
+    "error": null,
+    "last_commit_at": "2026-04-23T09:33:39+03:00",
+    "remote_origin_url": "https://github.com/brunomendonca-com/brunoclaw"
+  },
+  "purpose_evidence": {
+    "best_effort_description": "Personal Claude assistant. Lightweight, secure, customizable.",
+    "package_metadata": [
+      {
+        "description": "Personal Claude assistant. Lightweight, secure, customizable.",
+        "kind": "npm",
+        "name": "nanoclaw",
+        "path": "package.json",
+        "scripts": {
+          "build": "tsc",
+          "dev": "tsx src/index.ts",
+          "start": "node dist/index.js",
+          "test": "vitest run"
+        }
+      }
+    ],
+    "readme": [
+      {
+        "excerpt": "<img src=\"assets/nanoclaw-logo.png\" alt=\"NanoClaw\" width=\"400\"> </p> An AI assistant that runs agents securely in their own containers. Lightweight, built to be easily understood and completely customized for your needs.",
+        "path": "README.md",
+        "title": ""
+      }
+    ]
+  },
+  "read_first_files": [
+    {
+      "path": "README.md",
+      "reason": "project orientation"
+    },
+    {
+      "path": "package.json",
+      "reason": "installability and metadata"
+    },
+    {
+      "path": "container/agent-runner/src/mcp-tools/index.ts",
+      "reason": "runtime entrypoint"
+    },
+    {
+      "path": "container/agent-runner/src/mcp-tools/server.ts",
+      "reason": "runtime entrypoint"
+    },
+    {
+      "path": "src/channels/cli.ts",
+      "reason": "runtime entrypoint"
+    },
+    {
+      "path": "src/index.ts",
+      "reason": "runtime entrypoint"
+    },
+    {
+      "path": "src/channels/chat-sdk-bridge.ts",
+      "reason": "high-impact file"
+    },
+    {
+      "path": "container/agent-runner/scripts/sdk-signal-probe.ts",
+      "reason": "high-impact file"
+    },
+    {
+      "path": "container/agent-runner/src/formatter.ts",
+      "reason": "high-impact file"
+    },
+    {
+      "path": "setup/whatsapp-auth.ts",
+      "reason": "high-impact file"
+    },
+    {
+      "path": "scripts/init-first-agent.ts",
+      "reason": "high-impact file"
+    },
+    {
+      "path": "setup/index.ts",
+      "reason": "high-impact file"
+    },
+    {
+      "path": "setup/lib/tz-from-claude.ts",
+      "reason": "high-impact file"
+    },
+    {
+      "path": "src/container-runner.ts",
+      "reason": "high-impact file"
+    },
+    {
+      "path": "src/host-sweep.ts",
+      "reason": "high-impact file"
+    },
+    {
+      "path": "src/modules/approvals/primitive.ts",
+      "reason": "high-impact file"
+    }
+  ],
+  "repo_shape": {
+    "complexity_tier": "small",
+    "dominant_language": "typescript",
+    "language_counts": {
+      "bash": 30,
+      "javascript": 1,
+      "json": 5,
+      "markdown": 48,
+      "typescript": 173,
+      "yaml": 3
+    },
+    "line_count_basis": "git_index_size_estimate",
+    "total_files": 260,
+    "total_lines": 19526
+  },
+  "report_kind": "functional_brief",
+  "risk_summary": {
+    "degradation_count": 0,
+    "degradation_file_summary": {
+      "affected_file_upper_bound": 0,
+      "affected_file_upper_bound_note": "Upper bound only; parser/security/source-load categories can overlap on the same file.",
+      "event_detail_truncated": false,
+      "exact_degradation_event_count": 0,
+      "loaded_file_count": 260,
+      "parse_coverage_ratio": 1.0,
+      "parse_skip_ratio": 0.0,
+      "parse_skipped_file_count": 0,
+      "parsed_file_count": 260,
+      "retained_degradation_event_count": 0,
+      "security_degraded_ratio": 0.0,
+      "security_retention_skipped_file_count": 0,
+      "security_scan_degraded_file_count": 0,
+      "security_scan_skipped_file_count": 0,
+      "selected_file_count": 260,
+      "source_load_coverage_ratio": 1.0,
+      "source_load_failed_file_count": 0,
+      "source_load_skipped_file_count": 0
+    },
+    "degradation_summary": [],
+    "findings_count": 180,
+    "health_score": 50.0,
+    "hotspots_detected": 0,
+    "non_production_findings": 54,
+    "production_findings": 126,
+    "top_finding_rules": [
+      {
+        "count": 40,
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.secret-access",
+        "severity": "high"
+      },
+      {
+        "count": 30,
+        "path_context": "production",
+        "rule_id": "adaptability.hardcoded-external-endpoint",
+        "severity": "low"
+      },
+      {
+        "count": 28,
+        "path_context": "production",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium"
+      },
+      {
+        "count": 25,
+        "path_context": "production",
+        "rule_id": "adaptability.hardcoded-timeout",
+        "severity": "low"
+      },
+      {
+        "count": 13,
+        "path_context": "production",
+        "rule_id": "bash.command-substitution-injection",
+        "severity": "high"
+      },
+      {
+        "count": 11,
+        "path_context": "production",
+        "rule_id": "supply-chain.workflow.mutable-action-ref",
+        "severity": "medium"
+      },
+      {
+        "count": 9,
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+        "severity": "high"
+      },
+      {
+        "count": 8,
+        "path_context": "production",
+        "rule_id": "adaptability.hardcoded-resource-cap",
+        "severity": "low"
+      },
+      {
+        "count": 4,
+        "path_context": "production",
+        "rule_id": "js.ssrf-fetch",
+        "severity": "high"
+      },
+      {
+        "count": 4,
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.hidden-unicode.variation-selector",
+        "severity": "low"
+      }
+    ]
+  },
+  "schema_version": "2.33.0",
+  "security_triage": {
+    "actionable_findings_count": 179,
+    "false_positive_watchlist": {
+      "low_signal_or_non_primary_findings": 54,
+      "note": "Counts are deterministic triage signals. They are not final exploitability judgments.",
+      "secret_scan_findings": 5,
+      "secrets_false_positive_estimate": 0.85
+    },
+    "finding_context_counts": {
+      "docs": 53,
+      "production": 126,
+      "test": 1
+    },
+    "finding_rule_summary": [
+      {
+        "count": 40,
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.secret-access",
+        "severity": "high"
+      },
+      {
+        "count": 30,
+        "path_context": "production",
+        "rule_id": "adaptability.hardcoded-external-endpoint",
+        "severity": "low"
+      },
+      {
+        "count": 28,
+        "path_context": "production",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium"
+      },
+      {
+        "count": 25,
+        "path_context": "production",
+        "rule_id": "adaptability.hardcoded-timeout",
+        "severity": "low"
+      },
+      {
+        "count": 13,
+        "path_context": "production",
+        "rule_id": "bash.command-substitution-injection",
+        "severity": "high"
+      },
+      {
+        "count": 11,
+        "path_context": "production",
+        "rule_id": "supply-chain.workflow.mutable-action-ref",
+        "severity": "medium"
+      },
+      {
+        "count": 9,
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+        "severity": "high"
+      },
+      {
+        "count": 8,
+        "path_context": "production",
+        "rule_id": "adaptability.hardcoded-resource-cap",
+        "severity": "low"
+      },
+      {
+        "count": 4,
+        "path_context": "production",
+        "rule_id": "js.ssrf-fetch",
+        "severity": "high"
+      },
+      {
+        "count": 4,
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.hidden-unicode.variation-selector",
+        "severity": "low"
+      },
+      {
+        "count": 3,
+        "path_context": "production",
+        "rule_id": "secret.generic-api-key",
+        "severity": "high"
+      },
+      {
+        "count": 1,
+        "path_context": "production",
+        "rule_id": "supply-chain.container.remote-build-script",
+        "severity": "high"
+      }
+    ],
+    "top_actionable_findings": [
+      {
+        "adapter": "supply-chain",
+        "confidence": "high",
+        "line": 69,
+        "message": "Container build or compose command downloads remote code and executes it in the same step.",
+        "path": "container/Dockerfile",
+        "path_context": "production",
+        "rule_id": "supply-chain.container.remote-build-script",
+        "severity": "high",
+        "signal_weight": 1.0
+      },
+      {
+        "adapter": "js-frontend",
+        "confidence": "high",
+        "line": 197,
+        "message": "Potential SSRF via fetch with user input",
+        "path": "setup/channels/discord.ts",
+        "path_context": "production",
+        "rule_id": "js.ssrf-fetch",
+        "severity": "high",
+        "signal_weight": 1.0
+      },
+      {
+        "adapter": "js-frontend",
+        "confidence": "high",
+        "line": 386,
+        "message": "Potential SSRF via fetch with user input",
+        "path": "setup/channels/discord.ts",
+        "path_context": "production",
+        "rule_id": "js.ssrf-fetch",
+        "severity": "high",
+        "signal_weight": 1.0
+      },
+      {
+        "adapter": "js-frontend",
+        "confidence": "high",
+        "line": 62,
+        "message": "Potential SSRF via fetch with user input",
+        "path": "setup/lib/diagnostics.ts",
+        "path_context": "production",
+        "rule_id": "js.ssrf-fetch",
+        "severity": "high",
+        "signal_weight": 1.0
+      },
+      {
+        "adapter": "js-frontend",
+        "confidence": "high",
+        "line": 528,
+        "message": "Potential SSRF via fetch with user input",
+        "path": "src/channels/chat-sdk-bridge.ts",
+        "path_context": "production",
+        "rule_id": "js.ssrf-fetch",
+        "severity": "high",
+        "signal_weight": 1.0
+      },
+      {
+        "adapter": "supply-chain",
+        "confidence": "high",
+        "line": 79,
+        "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+        "path": ".claude/skills/add-opencode/SKILL.md",
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+        "severity": "high",
+        "signal_weight": 0.1
+      },
+      {
+        "adapter": "supply-chain",
+        "confidence": "high",
+        "line": 1,
+        "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+        "path": ".claude/skills/add-vercel/SKILL.md",
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+        "severity": "high",
+        "signal_weight": 0.1
+      },
+      {
+        "adapter": "supply-chain",
+        "confidence": "high",
+        "line": 48,
+        "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+        "path": ".claude/skills/get-qodo-rules/SKILL.md",
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+        "severity": "high",
+        "signal_weight": 0.1
+      },
+      {
+        "adapter": "supply-chain",
+        "confidence": "high",
+        "line": 10,
+        "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+        "path": ".claude/skills/get-qodo-rules/references/repository-scope.md",
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+        "severity": "high",
+        "signal_weight": 0.1
+      },
+      {
+        "adapter": "supply-chain",
+        "confidence": "high",
+        "line": 114,
+        "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+        "path": ".claude/skills/init-first-agent/SKILL.md",
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+        "severity": "high",
+        "signal_weight": 0.1
+      },
+      {
+        "adapter": "supply-chain",
+        "confidence": "high",
+        "line": 1,
+        "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+        "path": ".claude/skills/init-onecli/SKILL.md",
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+        "severity": "high",
+        "signal_weight": 0.1
+      },
+      {
+        "adapter": "supply-chain",
+        "confidence": "high",
+        "line": 10,
+        "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+        "path": ".claude/skills/migrate-from-openclaw/SKILL.md",
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+        "severity": "high",
+        "signal_weight": 0.1
+      },
+      {
+        "adapter": "supply-chain",
+        "confidence": "high",
+        "line": 199,
+        "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+        "path": ".claude/skills/update-nanoclaw/SKILL.md",
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+        "severity": "high",
+        "signal_weight": 0.1
+      },
+      {
+        "adapter": "supply-chain",
+        "confidence": "high",
+        "line": 1,
+        "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+        "path": "CLAUDE.md",
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+        "severity": "high",
+        "signal_weight": 0.1
+      },
+      {
+        "adapter": "bash-security",
+        "confidence": "medium",
+        "line": 121,
+        "message": "Command substitution with potential injection",
+        "path": "nanoclaw.sh",
+        "path_context": "production",
+        "rule_id": "bash.command-substitution-injection",
+        "severity": "high",
+        "signal_weight": 1.0
+      },
+      {
+        "adapter": "bash-security",
+        "confidence": "medium",
+        "line": 122,
+        "message": "Command substitution with potential injection",
+        "path": "nanoclaw.sh",
+        "path_context": "production",
+        "rule_id": "bash.command-substitution-injection",
+        "severity": "high",
+        "signal_weight": 1.0
+      },
+      {
+        "adapter": "bash-security",
+        "confidence": "medium",
+        "line": 123,
+        "message": "Command substitution with potential injection",
+        "path": "nanoclaw.sh",
+        "path_context": "production",
+        "rule_id": "bash.command-substitution-injection",
+        "severity": "high",
+        "signal_weight": 1.0
+      },
+      {
+        "adapter": "bash-security",
+        "confidence": "medium",
+        "line": 236,
+        "message": "Command substitution with potential injection",
+        "path": "nanoclaw.sh",
+        "path_context": "production",
+        "rule_id": "bash.command-substitution-injection",
+        "severity": "high",
+        "signal_weight": 1.0
+      },
+      {
+        "adapter": "bash-security",
+        "confidence": "medium",
+        "line": 237,
+        "message": "Command substitution with potential injection",
+        "path": "nanoclaw.sh",
+        "path_context": "production",
+        "rule_id": "bash.command-substitution-injection",
+        "severity": "high",
+        "signal_weight": 1.0
+      },
+      {
+        "adapter": "bash-security",
+        "confidence": "medium",
+        "line": 37,
+        "message": "Command substitution with potential injection",
+        "path": "scripts/cleanup-sessions.sh",
+        "path_context": "production",
+        "rule_id": "bash.command-substitution-injection",
+        "severity": "high",
+        "signal_weight": 1.0
+      }
+    ],
+    "triage_policy": {
+      "boundary": "DaVinci ranks candidate evidence; downstream review confirms exploitability and remediation.",
+      "excluded_from_actionable_default": [
+        "test",
+        "docs",
+        "generated",
+        "vendor",
+        "rule_eval_fixture",
+        "security_fixture"
+      ],
+      "primary_scope": "production-like paths with source provenance"
+    }
+  }
+}

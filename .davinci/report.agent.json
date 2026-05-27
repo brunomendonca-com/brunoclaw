@@ -1,0 +1,3632 @@
+{
+  "cycle_bridges": [],
+  "decision_brief": {
+    "boundary": "This is deterministic prioritization. It ranks evidence for review but does not prove exploitability or business impact.",
+    "coverage_gate": {
+      "degradation_events": 0,
+      "event_detail_truncated": false,
+      "parse_coverage_ratio": 1.0,
+      "source_load_coverage_ratio": 1.0
+    },
+    "primary_reader_goal": "Use compact artifacts to choose the smallest justified source set before opening code.",
+    "readiness": "review_required",
+    "recommended_first_artifacts": [
+      "START_HERE_FOR_AI.md",
+      "repo.dossier.json",
+      "repo.dossier.md",
+      "repo.brief.json",
+      "report.digest.json",
+      "report.agent.json",
+      "evidence.graph.json",
+      "evidence.packs.json",
+      "artifact-manifest.json"
+    ],
+    "why_this_repo_needs_attention": {
+      "high_or_error_findings": 71,
+      "hotspots": 0,
+      "non_production_findings": 54,
+      "priority_1_or_2_action_items": 5,
+      "production_findings": 126,
+      "supply_chain_findings": 67
+    }
+  },
+  "fingerprint": {
+    "complexity_tier": "small",
+    "dominant_language": "typescript",
+    "findings_hash": "f1cff93f439a52d7",
+    "has_ci": false,
+    "has_docker": true,
+    "has_tests": true,
+    "language_counts": {
+      "bash": 30,
+      "javascript": 1,
+      "json": 5,
+      "markdown": 48,
+      "typescript": 173,
+      "yaml": 3
+    },
+    "line_count_basis": "git_index_size_estimate",
+    "manifests": [
+      "docker",
+      "npm"
+    ],
+    "total_files": 260,
+    "total_lines": 19526
+  },
+  "meta": {
+    "duration_secs": 1.6373438,
+    "profile": "exhaustive",
+    "repo_path": "[repo]",
+    "scope": "Full",
+    "timestamp": "2026-05-27T20:35:23.623435800+00:00"
+  },
+  "next_best_actions": [
+    {
+      "agent_reader_action": "Open `container/Dockerfile` only if this supply-chain.container.remote-build-script item is relevant to the current task; validate path context and evidence pack before editing.",
+      "category": "security",
+      "evidence_pointer": "report.agent.json/top_action_items plus evidence.packs.json when a matching pack exists",
+      "file": "container/Dockerfile",
+      "issue": "supply-chain.container.remote-build-script",
+      "line": 69,
+      "message": null,
+      "priority": 2
+    },
+    {
+      "agent_reader_action": "Open `setup/channels/discord.ts` only if this js.ssrf-fetch item is relevant to the current task; validate path context and evidence pack before editing.",
+      "category": "security",
+      "evidence_pointer": "report.agent.json/top_action_items plus evidence.packs.json when a matching pack exists",
+      "file": "setup/channels/discord.ts",
+      "issue": "js.ssrf-fetch",
+      "line": 197,
+      "message": null,
+      "priority": 2
+    },
+    {
+      "agent_reader_action": "Open `setup/channels/discord.ts` only if this js.ssrf-fetch item is relevant to the current task; validate path context and evidence pack before editing.",
+      "category": "security",
+      "evidence_pointer": "report.agent.json/top_action_items plus evidence.packs.json when a matching pack exists",
+      "file": "setup/channels/discord.ts",
+      "issue": "js.ssrf-fetch",
+      "line": 386,
+      "message": null,
+      "priority": 2
+    },
+    {
+      "agent_reader_action": "Open `setup/lib/diagnostics.ts` only if this js.ssrf-fetch item is relevant to the current task; validate path context and evidence pack before editing.",
+      "category": "security",
+      "evidence_pointer": "report.agent.json/top_action_items plus evidence.packs.json when a matching pack exists",
+      "file": "setup/lib/diagnostics.ts",
+      "issue": "js.ssrf-fetch",
+      "line": 62,
+      "message": null,
+      "priority": 2
+    },
+    {
+      "agent_reader_action": "Open `src/channels/chat-sdk-bridge.ts` only if this js.ssrf-fetch item is relevant to the current task; validate path context and evidence pack before editing.",
+      "category": "security",
+      "evidence_pointer": "report.agent.json/top_action_items plus evidence.packs.json when a matching pack exists",
+      "file": "src/channels/chat-sdk-bridge.ts",
+      "issue": "js.ssrf-fetch",
+      "line": 528,
+      "message": null,
+      "priority": 2
+    },
+    {
+      "agent_reader_action": "Open `nanoclaw.sh` only if this bash.command-substitution-injection item is relevant to the current task; validate path context and evidence pack before editing.",
+      "category": "security",
+      "evidence_pointer": "report.agent.json/top_action_items plus evidence.packs.json when a matching pack exists",
+      "file": "nanoclaw.sh",
+      "issue": "bash.command-substitution-injection",
+      "line": 121,
+      "message": null,
+      "priority": 3
+    },
+    {
+      "agent_reader_action": "Open `nanoclaw.sh` only if this bash.command-substitution-injection item is relevant to the current task; validate path context and evidence pack before editing.",
+      "category": "security",
+      "evidence_pointer": "report.agent.json/top_action_items plus evidence.packs.json when a matching pack exists",
+      "file": "nanoclaw.sh",
+      "issue": "bash.command-substitution-injection",
+      "line": 236,
+      "message": null,
+      "priority": 3
+    },
+    {
+      "agent_reader_action": "Open `scripts/cleanup-sessions.sh` only if this bash.command-substitution-injection item is relevant to the current task; validate path context and evidence pack before editing.",
+      "category": "security",
+      "evidence_pointer": "report.agent.json/top_action_items plus evidence.packs.json when a matching pack exists",
+      "file": "scripts/cleanup-sessions.sh",
+      "issue": "bash.command-substitution-injection",
+      "line": 37,
+      "message": null,
+      "priority": 3
+    },
+    {
+      "agent_reader_action": "Open `scripts/cleanup-sessions.sh` only if this bash.command-substitution-injection item is relevant to the current task; validate path context and evidence pack before editing.",
+      "category": "security",
+      "evidence_pointer": "report.agent.json/top_action_items plus evidence.packs.json when a matching pack exists",
+      "file": "scripts/cleanup-sessions.sh",
+      "issue": "bash.command-substitution-injection",
+      "line": 62,
+      "message": null,
+      "priority": 3
+    },
+    {
+      "agent_reader_action": "Open `setup.sh` only if this bash.command-substitution-injection item is relevant to the current task; validate path context and evidence pack before editing.",
+      "category": "security",
+      "evidence_pointer": "report.agent.json/top_action_items plus evidence.packs.json when a matching pack exists",
+      "file": "setup.sh",
+      "issue": "bash.command-substitution-injection",
+      "line": 112,
+      "message": null,
+      "priority": 3
+    }
+  ],
+  "performance": {
+    "duration_secs": 1.6373438,
+    "heavy_scan_cache": {
+      "cache_path": ".davinci-cache/heavy-scan-cache.json",
+      "cache_scope": "output_dir",
+      "cache_scope_note": "reuse requires the same output directory plus a matching cache key",
+      "cache_version": "2",
+      "key_hash": "f10e0fe90bda2135f912282634e3902da5c0b27845e99b3f5e88329b32cb951c",
+      "max_age_seconds": 86400,
+      "reused_stages": [],
+      "source_report_timestamp": null,
+      "status": "bypass_force"
+    },
+    "stage_timings": {
+      "adaptability": 0.030915,
+      "cache_lookup": 0.0,
+      "dependency_scan": 0.0000141,
+      "git_history": 3.6e-6,
+      "graph": 0.0034471,
+      "index": 0.9661767,
+      "parser": 0.1229969,
+      "preflight": 0.1995193,
+      "report_generation": 0.0140503,
+      "sim": 0.3131439,
+      "supply_chain": 0.1276995
+    }
+  },
+  "quality": {
+    "degradation_file_summary": {
+      "affected_file_upper_bound": 0,
+      "affected_file_upper_bound_note": "Upper bound only; parser/security/source-load categories can overlap on the same file.",
+      "event_detail_truncated": false,
+      "exact_degradation_event_count": 0,
+      "loaded_file_count": 260,
+      "parse_coverage_ratio": 1.0,
+      "parse_skip_ratio": 0.0,
+      "parse_skipped_file_count": 0,
+      "parsed_file_count": 260,
+      "retained_degradation_event_count": 0,
+      "security_degraded_ratio": 0.0,
+      "security_retention_skipped_file_count": 0,
+      "security_scan_degraded_file_count": 0,
+      "security_scan_skipped_file_count": 0,
+      "selected_file_count": 260,
+      "source_load_coverage_ratio": 1.0,
+      "source_load_failed_file_count": 0,
+      "source_load_skipped_file_count": 0
+    },
+    "degradation_summary": [],
+    "finding_path_context_counts": {
+      "docs": 53,
+      "production": 126,
+      "test": 1
+    },
+    "finding_rule_summary": [
+      {
+        "count": 40,
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.secret-access",
+        "severity": "high"
+      },
+      {
+        "count": 30,
+        "path_context": "production",
+        "rule_id": "adaptability.hardcoded-external-endpoint",
+        "severity": "low"
+      },
+      {
+        "count": 28,
+        "path_context": "production",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium"
+      },
+      {
+        "count": 25,
+        "path_context": "production",
+        "rule_id": "adaptability.hardcoded-timeout",
+        "severity": "low"
+      },
+      {
+        "count": 13,
+        "path_context": "production",
+        "rule_id": "bash.command-substitution-injection",
+        "severity": "high"
+      },
+      {
+        "count": 11,
+        "path_context": "production",
+        "rule_id": "supply-chain.workflow.mutable-action-ref",
+        "severity": "medium"
+      },
+      {
+        "count": 9,
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+        "severity": "high"
+      },
+      {
+        "count": 8,
+        "path_context": "production",
+        "rule_id": "adaptability.hardcoded-resource-cap",
+        "severity": "low"
+      },
+      {
+        "count": 4,
+        "path_context": "production",
+        "rule_id": "js.ssrf-fetch",
+        "severity": "high"
+      },
+      {
+        "count": 4,
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.hidden-unicode.variation-selector",
+        "severity": "low"
+      },
+      {
+        "count": 3,
+        "path_context": "production",
+        "rule_id": "secret.generic-api-key",
+        "severity": "high"
+      },
+      {
+        "count": 1,
+        "path_context": "production",
+        "rule_id": "supply-chain.container.remote-build-script",
+        "severity": "high"
+      },
+      {
+        "count": 1,
+        "path_context": "production",
+        "rule_id": "secret.high-entropy-password",
+        "severity": "low"
+      },
+      {
+        "count": 1,
+        "path_context": "production",
+        "rule_id": "supply-chain.container.mutable-image-ref",
+        "severity": "low"
+      },
+      {
+        "count": 1,
+        "path_context": "production",
+        "rule_id": "supply-chain.package.lifecycle-script-risk",
+        "severity": "medium"
+      }
+    ],
+    "health": {
+      "architecture": 10.0,
+      "maintenance": 75.0,
+      "score": 50.0,
+      "security": 60.0,
+      "simulation": 100.0,
+      "wiring": 35.0
+    },
+    "quality_signal": {
+      "adaptability": {
+        "boundary": "DaVinci adaptability findings are deterministic static evidence of rigidity or fail-fast assumptions. They do not prove the code is wrong; they identify places where scale, portability, or resilience may depend on fixed values instead of policy, telemetry, or runtime adaptation.",
+        "files_scanned": 183,
+        "findings": 91,
+        "rule_counts": {
+          "adaptability.hardcoded-external-endpoint": 30,
+          "adaptability.hardcoded-platform-path": 28,
+          "adaptability.hardcoded-resource-cap": 8,
+          "adaptability.hardcoded-timeout": 25
+        },
+        "schema_version": "1.0.0",
+        "top_rigidity_classes": [
+          {
+            "class": "service_binding",
+            "count": 30,
+            "max_severity": "low"
+          },
+          {
+            "class": "platform_portability",
+            "count": 28,
+            "max_severity": "medium"
+          },
+          {
+            "class": "static_timeout",
+            "count": 25,
+            "max_severity": "low"
+          },
+          {
+            "class": "static_resource_cap",
+            "count": 8,
+            "max_severity": "low"
+          }
+        ]
+      },
+      "adaptive_policy": {
+        "boundary": "Adaptive policy evidence explains budget utilization and next-run recommendations. DaVinci does not silently mutate scan limits during a run; users, CI, or signed budget files remain the control plane.",
+        "budget_file": null,
+        "mode": "deterministic_recommendations",
+        "non_llm": true,
+        "observed": {
+          "degradation_count": 0,
+          "loaded_file_count": 260,
+          "parse_skipped_file_count": 0,
+          "security_degraded_file_count": 0,
+          "security_skipped_file_count": 0,
+          "selected_file_count": 260
+        },
+        "policy_source": "profile",
+        "profile": "exhaustive",
+        "recommendations": [],
+        "schema_version": "1.0.0",
+        "utilization": {
+          "parse_files": {
+            "limit": 100000,
+            "ratio": 0.003,
+            "status": "ok",
+            "used": 260
+          },
+          "security_findings": {
+            "limit": 200000,
+            "ratio": 0.001,
+            "status": "ok",
+            "used": 180
+          },
+          "source_bytes": {
+            "limit": 2000000000,
+            "ratio": 0.001,
+            "status": "ok",
+            "used": 1572495
+          },
+          "source_files": {
+            "limit": 250000,
+            "ratio": 0.001,
+            "status": "ok",
+            "used": 260
+          },
+          "symbol_graph_nodes": {
+            "limit": 250000,
+            "ratio": 0.003,
+            "status": "ok",
+            "used": 668
+          }
+        }
+      },
+      "confidence_calibration": {
+        "actionable_findings": 180,
+        "average_actionable_confidence_weight": 0.44,
+        "boundary": "Rule confidence is deterministic rule calibration and source-context evidence, not a semantic exploitability verdict.",
+        "counts": {
+          "high": 14,
+          "low": 5,
+          "medium": 161
+        },
+        "schema_version": "1.0.0"
+      },
+      "confidence_weighted_penalty": 246.3500000000004,
+      "docs_share_of_findings": 0.29,
+      "fixture_share_of_findings": 0.0,
+      "mcp_security": {
+        "findings": 0,
+        "high_risk_paths": [],
+        "report_section": "agent_mcp_risky_tool_exposure",
+        "rule_counts": {}
+      },
+      "path_context_counts": {
+        "docs": 53,
+        "production": 126,
+        "test": 1
+      },
+      "primary_security": {
+        "excluded_fixture_findings": 0,
+        "excluded_non_primary_findings": 54,
+        "excluded_test_findings": 1,
+        "findings": 126,
+        "note": "Primary security scoring excludes tests and synthetic fixtures; full findings remain available for explicit full-scope review.",
+        "rule_counts": {
+          "adaptability.hardcoded-external-endpoint": 30,
+          "adaptability.hardcoded-platform-path": 28,
+          "adaptability.hardcoded-resource-cap": 8,
+          "adaptability.hardcoded-timeout": 25,
+          "bash.command-substitution-injection": 13,
+          "js.ssrf-fetch": 4,
+          "secret.generic-api-key": 3,
+          "secret.high-entropy-password": 1,
+          "supply-chain.container.mutable-image-ref": 1,
+          "supply-chain.container.remote-build-script": 1,
+          "supply-chain.package.lifecycle-script-risk": 1,
+          "supply-chain.workflow.mutable-action-ref": 11
+        },
+        "scope": "production_paths"
+      },
+      "production_share_of_findings": 0.7,
+      "secrets_false_positive_estimate": 0.85,
+      "secrets_share_of_findings": 0.03,
+      "signal_weighted_penalty": 131.66000000000003,
+      "supply_chain": {
+        "boundary": "DaVinci supply-chain findings are deterministic static repo exposure evidence. They do not prove endpoint compromise, extension installation, secret exfiltration, or repository cloning unless supplied audit/log evidence supports that conclusion.",
+        "findings": 67,
+        "input_scope": "current",
+        "ioc_hits": 0,
+        "optional_evidence_hits": 0,
+        "static_exposures": 67,
+        "top_exposure_classes": [
+          {
+            "class": "agent-instructions",
+            "count": 53,
+            "max_severity": "high"
+          },
+          {
+            "class": "container",
+            "count": 2,
+            "max_severity": "high"
+          },
+          {
+            "class": "workflow",
+            "count": 11,
+            "max_severity": "medium"
+          },
+          {
+            "class": "package",
+            "count": 1,
+            "max_severity": "medium"
+          }
+        ]
+      },
+      "tests_share_of_findings": 0.01
+    },
+    "supply_chain": {
+      "boundary": "DaVinci supply-chain findings are deterministic static repo exposure evidence. They do not prove endpoint compromise, extension installation, secret exfiltration, or repository cloning unless supplied audit/log evidence supports that conclusion.",
+      "evidence_inputs": [],
+      "non_llm": true,
+      "notes": [
+        "Repository supply-chain input scope is `current`. `current` uses tracked plus untracked non-ignored Git files; `tracked` uses Git-index-only evidence; `all` walks the filesystem and can include ignored local artifacts.",
+        "V1 is offline and public-core: no live IOC download, package tarball download, marketplace lookup, model inference, or cloud API is used.",
+        "Generic exposure rules are intentionally conservative; exact known-bad IOC hits carry higher severity than hygiene findings."
+      ],
+      "schema_version": "1.2.0",
+      "summary": {
+        "agent_instruction_files_scanned": 78,
+        "binary_artifact_findings": 0,
+        "container_files_scanned": 1,
+        "error": 0,
+        "evidence_files_scanned": 0,
+        "findings": 67,
+        "high": 50,
+        "info": 0,
+        "ioc_hits": 0,
+        "low": 5,
+        "medium": 12,
+        "optional_evidence_hits": 0,
+        "package_files_scanned": 6,
+        "repo_input_bytes_considered": 503774,
+        "repo_input_files_considered": 89,
+        "repo_input_scope": "current",
+        "repo_input_truncated": false,
+        "static_exposures": 67,
+        "workflow_files_scanned": 4
+      },
+      "top_exposure_classes": [
+        {
+          "class": "agent-instructions",
+          "count": 53,
+          "max_severity": "high"
+        },
+        {
+          "class": "container",
+          "count": 2,
+          "max_severity": "high"
+        },
+        {
+          "class": "workflow",
+          "count": 11,
+          "max_severity": "medium"
+        },
+        {
+          "class": "package",
+          "count": 1,
+          "max_severity": "medium"
+        }
+      ]
+    },
+    "validated_evidence": {
+      "boundary": "Evidence packs are deterministic scan context. They are not final exploitability judgments and do not invoke models.",
+      "evidence_packs": [
+        {
+          "evidence": {
+            "file_risk": null,
+            "related_findings_same_file": [
+              {
+                "confidence": "high",
+                "line": 386,
+                "rule_id": "js.ssrf-fetch",
+                "severity": "high"
+              }
+            ],
+            "source_excerpt": {
+              "available": true,
+              "end_line": 201,
+              "start_line": 193,
+              "text": "193:   const s = p.spinner();\n194:   const start = Date.now();\n195:   s.start('Checking your bot token…');\n196:   try {\n197:     const res = await fetch(`${DISCORD_API}/users/@me`, {\n198:       headers: { Authorization: `Bot ${token}` },\n199:     });\n200:     const data = (await res.json()) as {\n201:       id?: string;"
+            },
+            "symbol_context": [
+              {
+                "is_exported": false,
+                "kind": "function",
+                "line_end": 237,
+                "line_start": 192,
+                "symbol": "validateDiscordToken"
+              },
+              {
+                "is_exported": false,
+                "kind": "function",
+                "line_end": 190,
+                "line_start": 168,
+                "symbol": "collectDiscordToken"
+              },
+              {
+                "is_exported": false,
+                "kind": "function",
+                "line_end": 166,
+                "line_start": 143,
+                "symbol": "walkThroughBotCreation"
+              },
+              {
+                "is_exported": false,
+                "kind": "function",
+                "line_end": 297,
+                "line_start": 239,
+                "symbol": "fetchApplicationInfo"
+              },
+              {
+                "is_exported": false,
+                "kind": "function",
+                "line_end": 141,
+                "line_start": 130,
+                "symbol": "askHasBotToken"
+              }
+            ]
+          },
+          "finding": {
+            "adapter": "js-frontend",
+            "column": 23,
+            "confidence": "high",
+            "line": 197,
+            "message": "Potential SSRF via fetch with user input",
+            "path": "setup/channels/discord.ts",
+            "path_context": "production",
+            "provenance": "source",
+            "rule_id": "js.ssrf-fetch",
+            "severity": "high",
+            "signal_weight": 1.0
+          },
+          "kind": "security_finding",
+          "next_reader_action": "inspect the cited source range and decide fix priority",
+          "pack_id": "EV-001",
+          "review_priority_score": 0.924,
+          "validation": {
+            "confidence": {
+              "reasons": [
+                "rule confidence high contributes 1.00",
+                "finding path is present in scan inventory",
+                "finding line is within known file bounds",
+                "source was loaded during scan"
+              ],
+              "score": 1.0
+            },
+            "deterministic_challenge": {
+              "checks": [
+                "grounding_status=grounded",
+                "path_context=production signal_weight=1.00",
+                "false_positive_likelihood=low"
+              ],
+              "status": "upheld_candidate"
+            },
+            "false_positive_context": {
+              "likelihood": "low",
+              "reasons": [
+                "production source finding with no deterministic demotion factor"
+              ],
+              "score": 0.0
+            },
+            "grounding": {
+              "file_in_inventory": true,
+              "line_in_range": true,
+              "score": 1.0,
+              "source_loaded": true,
+              "status": "grounded"
+            }
+          }
+        },
+        {
+          "evidence": {
+            "file_risk": null,
+            "related_findings_same_file": [
+              {
+                "confidence": "high",
+                "line": 197,
+                "rule_id": "js.ssrf-fetch",
+                "severity": "high"
+              }
+            ],
+            "source_excerpt": {
+              "available": true,
+              "end_line": 390,
+              "start_line": 382,
+              "text": "382:   const s = p.spinner();\n383:   const start = Date.now();\n384:   s.start('Opening a DM channel…');\n385:   try {\n386:     const res = await fetch(`${DISCORD_API}/users/@me/channels`, {\n387:       method: 'POST',\n388:       headers: {\n389:         Authorization: `Bot ${token}`,\n390:         'Content-Type': 'application/json',"
+            },
+            "symbol_context": [
+              {
+                "is_exported": false,
+                "kind": "function",
+                "line_end": 426,
+                "line_start": 381,
+                "symbol": "openDmChannel"
+              },
+              {
+                "is_exported": false,
+                "kind": "function",
+                "line_end": 379,
+                "line_start": 350,
+                "symbol": "promptInviteBot"
+              },
+              {
+                "is_exported": false,
+                "kind": "function",
+                "line_end": 348,
+                "line_start": 321,
+                "symbol": "promptForUserIdWithDevMode"
+              },
+              {
+                "is_exported": false,
+                "kind": "function",
+                "line_end": 444,
+                "line_start": 428,
+                "symbol": "resolveAgentName"
+              },
+              {
+                "is_exported": false,
+                "kind": "function",
+                "line_end": 319,
+                "line_start": 299,
+                "symbol": "resolveOwnerUserId"
+              }
+            ]
+          },
+          "finding": {
+            "adapter": "js-frontend",
+            "column": 23,
+            "confidence": "high",
+            "line": 386,
+            "message": "Potential SSRF via fetch with user input",
+            "path": "setup/channels/discord.ts",
+            "path_context": "production",
+            "provenance": "source",
+            "rule_id": "js.ssrf-fetch",
+            "severity": "high",
+            "signal_weight": 1.0
+          },
+          "kind": "security_finding",
+          "next_reader_action": "inspect the cited source range and decide fix priority",
+          "pack_id": "EV-002",
+          "review_priority_score": 0.924,
+          "validation": {
+            "confidence": {
+              "reasons": [
+                "rule confidence high contributes 1.00",
+                "finding path is present in scan inventory",
+                "finding line is within known file bounds",
+                "source was loaded during scan"
+              ],
+              "score": 1.0
+            },
+            "deterministic_challenge": {
+              "checks": [
+                "grounding_status=grounded",
+                "path_context=production signal_weight=1.00",
+                "false_positive_likelihood=low"
+              ],
+              "status": "upheld_candidate"
+            },
+            "false_positive_context": {
+              "likelihood": "low",
+              "reasons": [
+                "production source finding with no deterministic demotion factor"
+              ],
+              "score": 0.0
+            },
+            "grounding": {
+              "file_in_inventory": true,
+              "line_in_range": true,
+              "score": 1.0,
+              "source_loaded": true,
+              "status": "grounded"
+            }
+          }
+        },
+        {
+          "evidence": {
+            "file_risk": null,
+            "related_findings_same_file": [],
+            "source_excerpt": {
+              "available": true,
+              "end_line": 66,
+              "start_line": 58,
+              "text": "58:   });\n59: \n60:   const ctrl = new AbortController();\n61:   const timer = setTimeout(() => ctrl.abort(), 3000);\n62:   void fetch(POSTHOG_URL, {\n63:     method: 'POST',\n64:     headers: { 'Content-Type': 'application/json' },\n65:     body,\n66:     signal: ctrl.signal,"
+            },
+            "symbol_context": [
+              {
+                "is_exported": true,
+                "kind": "function",
+                "line_end": 70,
+                "line_start": 41,
+                "symbol": "emit"
+              },
+              {
+                "is_exported": true,
+                "kind": "function",
+                "line_end": 39,
+                "line_start": 19,
+                "symbol": "installId"
+              }
+            ]
+          },
+          "finding": {
+            "adapter": "js-frontend",
+            "column": 8,
+            "confidence": "high",
+            "line": 62,
+            "message": "Potential SSRF via fetch with user input",
+            "path": "setup/lib/diagnostics.ts",
+            "path_context": "production",
+            "provenance": "source",
+            "rule_id": "js.ssrf-fetch",
+            "severity": "high",
+            "signal_weight": 1.0
+          },
+          "kind": "security_finding",
+          "next_reader_action": "inspect the cited source range and decide fix priority",
+          "pack_id": "EV-003",
+          "review_priority_score": 0.924,
+          "validation": {
+            "confidence": {
+              "reasons": [
+                "rule confidence high contributes 1.00",
+                "finding path is present in scan inventory",
+                "finding line is within known file bounds",
+                "source was loaded during scan"
+              ],
+              "score": 1.0
+            },
+            "deterministic_challenge": {
+              "checks": [
+                "grounding_status=grounded",
+                "path_context=production signal_weight=1.00",
+                "false_positive_likelihood=low"
+              ],
+              "status": "upheld_candidate"
+            },
+            "false_positive_context": {
+              "likelihood": "low",
+              "reasons": [
+                "production source finding with no deterministic demotion factor"
+              ],
+              "score": 0.0
+            },
+            "grounding": {
+              "file_in_inventory": true,
+              "line_in_range": true,
+              "score": 1.0,
+              "source_loaded": true,
+              "status": "grounded"
+            }
+          }
+        },
+        {
+          "evidence": {
+            "file_risk": {
+              "centrality": 0.649,
+              "churn": 0.0,
+              "complexity": 5.0,
+              "coupling": 1.413,
+              "is_hotspot": false,
+              "risk": 0.789
+            },
+            "related_findings_same_file": [],
+            "source_excerpt": {
+              "available": true,
+              "end_line": 532,
+              "start_line": 524,
+              "text": "524:       const cardTitle = render?.title ?? ((originalEmbeds[0]?.title as string) || '❓ Question');\n525:       const matchedOpt = render?.options.find((o) => o.value === selectedOption);\n526:       const selectedLabel = matchedOpt?.selectedLabel ?? selectedOption ?? customId;\n527:       try {\n528:         await fetch(`https://discord.com/api/v10/interactions/${interactionId}/${interactionToken}/callback`, {\n529:           method: 'POST',\n530:           headers: { 'Content-Type': 'application/json' },\n531:           body: JSON.stringify({\n532:             type: 7, // UPDATE_MESSAGE — acknowledge + update in one call"
+            },
+            "symbol_context": [
+              {
+                "is_exported": false,
+                "kind": "function",
+                "line_end": 566,
+                "line_start": 485,
+                "symbol": "handleForwardedEvent"
+              },
+              {
+                "is_exported": false,
+                "kind": "function",
+                "line_end": 483,
+                "line_start": 452,
+                "symbol": "startLocalWebhookServer"
+              },
+              {
+                "is_exported": true,
+                "kind": "function",
+                "line_end": 444,
+                "line_start": 100,
+                "symbol": "createChatSdkBridge"
+              },
+              {
+                "is_exported": false,
+                "kind": "function",
+                "line_end": 166,
+                "line_start": 108,
+                "symbol": "messageToInbound"
+              },
+              {
+                "is_exported": true,
+                "kind": "function",
+                "line_end": 98,
+                "line_start": 84,
+                "symbol": "splitForLimit"
+              }
+            ]
+          },
+          "finding": {
+            "adapter": "js-frontend",
+            "column": 15,
+            "confidence": "high",
+            "line": 528,
+            "message": "Potential SSRF via fetch with user input",
+            "path": "src/channels/chat-sdk-bridge.ts",
+            "path_context": "production",
+            "provenance": "source",
+            "rule_id": "js.ssrf-fetch",
+            "severity": "high",
+            "signal_weight": 1.0
+          },
+          "kind": "security_finding",
+          "next_reader_action": "inspect the cited source range and decide fix priority",
+          "pack_id": "EV-004",
+          "review_priority_score": 0.924,
+          "validation": {
+            "confidence": {
+              "reasons": [
+                "rule confidence high contributes 1.00",
+                "finding path is present in scan inventory",
+                "finding line is within known file bounds",
+                "source was loaded during scan"
+              ],
+              "score": 1.0
+            },
+            "deterministic_challenge": {
+              "checks": [
+                "grounding_status=grounded",
+                "path_context=production signal_weight=1.00",
+                "false_positive_likelihood=low"
+              ],
+              "status": "upheld_candidate"
+            },
+            "false_positive_context": {
+              "likelihood": "low",
+              "reasons": [
+                "production source finding with no deterministic demotion factor"
+              ],
+              "score": 0.0
+            },
+            "grounding": {
+              "file_in_inventory": true,
+              "line_in_range": true,
+              "score": 1.0,
+              "source_loaded": true,
+              "status": "grounded"
+            }
+          }
+        },
+        {
+          "evidence": {
+            "file_risk": null,
+            "related_findings_same_file": [
+              {
+                "confidence": "medium",
+                "line": 122,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 123,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 236,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 237,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              }
+            ],
+            "source_excerpt": {
+              "available": true,
+              "end_line": 125,
+              "start_line": 117,
+              "text": "117: }\n118: clear_line() { use_ansi && printf '\\r\\033[2K' || printf '\\n'; }\n119: \n120: spinner_start()   { printf '%s  %s…' \"$(gray '◒')\" \"$1\"; }\n121: spinner_update()  { clear_line; printf '%s  %s… %s' \"$(gray '◒')\" \"$1\" \"$(dim \"(${2}s)\")\"; }\n122: spinner_success() { clear_line; printf '%s  %s %s\\n' \"$(gray '◇')\" \"$1\" \"$(dim \"(${2}s)\")\"; }\n123: spinner_failure() { clear_line; printf '%s  %s %s\\n' \"$(red '✗')\"  \"$1\" \"$(dim \"(${2}s)\")\"; }\n124: \n125: # ─── fresh-run setup ────────────────────────────────────────────────────"
+            },
+            "symbol_context": []
+          },
+          "finding": {
+            "adapter": "bash-security",
+            "column": 77,
+            "confidence": "medium",
+            "line": 121,
+            "message": "Command substitution with potential injection",
+            "path": "nanoclaw.sh",
+            "path_context": "production",
+            "provenance": "source",
+            "rule_id": "bash.command-substitution-injection",
+            "severity": "high",
+            "signal_weight": 1.0
+          },
+          "kind": "security_finding",
+          "next_reader_action": "inspect the cited source range and decide fix priority",
+          "pack_id": "EV-005",
+          "review_priority_score": 0.847,
+          "validation": {
+            "confidence": {
+              "reasons": [
+                "rule confidence medium contributes 0.65",
+                "finding path is present in scan inventory",
+                "finding line is within known file bounds",
+                "source was loaded during scan"
+              ],
+              "score": 0.65
+            },
+            "deterministic_challenge": {
+              "checks": [
+                "grounding_status=grounded",
+                "path_context=production signal_weight=1.00",
+                "false_positive_likelihood=low"
+              ],
+              "status": "upheld_candidate"
+            },
+            "false_positive_context": {
+              "likelihood": "low",
+              "reasons": [
+                "shell finding appears in operational script; verify user-controlled input"
+              ],
+              "score": 0.2
+            },
+            "grounding": {
+              "file_in_inventory": true,
+              "line_in_range": true,
+              "score": 1.0,
+              "source_loaded": true,
+              "status": "grounded"
+            }
+          }
+        },
+        {
+          "evidence": {
+            "file_risk": null,
+            "related_findings_same_file": [
+              {
+                "confidence": "medium",
+                "line": 121,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 123,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 236,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 237,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              }
+            ],
+            "source_excerpt": {
+              "available": true,
+              "end_line": 126,
+              "start_line": 118,
+              "text": "118: clear_line() { use_ansi && printf '\\r\\033[2K' || printf '\\n'; }\n119: \n120: spinner_start()   { printf '%s  %s…' \"$(gray '◒')\" \"$1\"; }\n121: spinner_update()  { clear_line; printf '%s  %s… %s' \"$(gray '◒')\" \"$1\" \"$(dim \"(${2}s)\")\"; }\n122: spinner_success() { clear_line; printf '%s  %s %s\\n' \"$(gray '◇')\" \"$1\" \"$(dim \"(${2}s)\")\"; }\n123: spinner_failure() { clear_line; printf '%s  %s %s\\n' \"$(red '✗')\"  \"$1\" \"$(dim \"(${2}s)\")\"; }\n124: \n125: # ─── fresh-run setup ────────────────────────────────────────────────────\n126: "
+            },
+            "symbol_context": []
+          },
+          "finding": {
+            "adapter": "bash-security",
+            "column": 76,
+            "confidence": "medium",
+            "line": 122,
+            "message": "Command substitution with potential injection",
+            "path": "nanoclaw.sh",
+            "path_context": "production",
+            "provenance": "source",
+            "rule_id": "bash.command-substitution-injection",
+            "severity": "high",
+            "signal_weight": 1.0
+          },
+          "kind": "security_finding",
+          "next_reader_action": "inspect the cited source range and decide fix priority",
+          "pack_id": "EV-006",
+          "review_priority_score": 0.847,
+          "validation": {
+            "confidence": {
+              "reasons": [
+                "rule confidence medium contributes 0.65",
+                "finding path is present in scan inventory",
+                "finding line is within known file bounds",
+                "source was loaded during scan"
+              ],
+              "score": 0.65
+            },
+            "deterministic_challenge": {
+              "checks": [
+                "grounding_status=grounded",
+                "path_context=production signal_weight=1.00",
+                "false_positive_likelihood=low"
+              ],
+              "status": "upheld_candidate"
+            },
+            "false_positive_context": {
+              "likelihood": "low",
+              "reasons": [
+                "shell finding appears in operational script; verify user-controlled input"
+              ],
+              "score": 0.2
+            },
+            "grounding": {
+              "file_in_inventory": true,
+              "line_in_range": true,
+              "score": 1.0,
+              "source_loaded": true,
+              "status": "grounded"
+            }
+          }
+        },
+        {
+          "evidence": {
+            "file_risk": null,
+            "related_findings_same_file": [
+              {
+                "confidence": "medium",
+                "line": 121,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 122,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 236,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 237,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              }
+            ],
+            "source_excerpt": {
+              "available": true,
+              "end_line": 127,
+              "start_line": 119,
+              "text": "119: \n120: spinner_start()   { printf '%s  %s…' \"$(gray '◒')\" \"$1\"; }\n121: spinner_update()  { clear_line; printf '%s  %s… %s' \"$(gray '◒')\" \"$1\" \"$(dim \"(${2}s)\")\"; }\n122: spinner_success() { clear_line; printf '%s  %s %s\\n' \"$(gray '◇')\" \"$1\" \"$(dim \"(${2}s)\")\"; }\n123: spinner_failure() { clear_line; printf '%s  %s %s\\n' \"$(red '✗')\"  \"$1\" \"$(dim \"(${2}s)\")\"; }\n124: \n125: # ─── fresh-run setup ────────────────────────────────────────────────────\n126: \n127: rm -rf \"$STEPS_DIR\""
+            },
+            "symbol_context": []
+          },
+          "finding": {
+            "adapter": "bash-security",
+            "column": 76,
+            "confidence": "medium",
+            "line": 123,
+            "message": "Command substitution with potential injection",
+            "path": "nanoclaw.sh",
+            "path_context": "production",
+            "provenance": "source",
+            "rule_id": "bash.command-substitution-injection",
+            "severity": "high",
+            "signal_weight": 1.0
+          },
+          "kind": "security_finding",
+          "next_reader_action": "inspect the cited source range and decide fix priority",
+          "pack_id": "EV-007",
+          "review_priority_score": 0.847,
+          "validation": {
+            "confidence": {
+              "reasons": [
+                "rule confidence medium contributes 0.65",
+                "finding path is present in scan inventory",
+                "finding line is within known file bounds",
+                "source was loaded during scan"
+              ],
+              "score": 0.65
+            },
+            "deterministic_challenge": {
+              "checks": [
+                "grounding_status=grounded",
+                "path_context=production signal_weight=1.00",
+                "false_positive_likelihood=low"
+              ],
+              "status": "upheld_candidate"
+            },
+            "false_positive_context": {
+              "likelihood": "low",
+              "reasons": [
+                "shell finding appears in operational script; verify user-controlled input"
+              ],
+              "score": 0.2
+            },
+            "grounding": {
+              "file_in_inventory": true,
+              "line_in_range": true,
+              "score": 1.0,
+              "source_loaded": true,
+              "status": "grounded"
+            }
+          }
+        },
+        {
+          "evidence": {
+            "file_risk": null,
+            "related_findings_same_file": [
+              {
+                "confidence": "medium",
+                "line": 121,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 122,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 123,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 237,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              }
+            ],
+            "source_excerpt": {
+              "available": true,
+              "end_line": 240,
+              "start_line": 232,
+              "text": "232:   echo\n233:   echo \"$(dim '── last 40 lines of ')$(dim \"$BOOTSTRAP_RAW\")$(dim ' ──')\"\n234:   tail -40 \"$BOOTSTRAP_RAW\"\n235:   echo\n236:   echo \"$(dim \"Full raw log: $BOOTSTRAP_RAW\")\"\n237:   echo \"$(dim \"Progression:  $PROGRESS_LOG\")\"\n238:   exit 1\n239: fi\n240: "
+            },
+            "symbol_context": []
+          },
+          "finding": {
+            "adapter": "bash-security",
+            "column": 9,
+            "confidence": "medium",
+            "line": 236,
+            "message": "Command substitution with potential injection",
+            "path": "nanoclaw.sh",
+            "path_context": "production",
+            "provenance": "source",
+            "rule_id": "bash.command-substitution-injection",
+            "severity": "high",
+            "signal_weight": 1.0
+          },
+          "kind": "security_finding",
+          "next_reader_action": "inspect the cited source range and decide fix priority",
+          "pack_id": "EV-008",
+          "review_priority_score": 0.847,
+          "validation": {
+            "confidence": {
+              "reasons": [
+                "rule confidence medium contributes 0.65",
+                "finding path is present in scan inventory",
+                "finding line is within known file bounds",
+                "source was loaded during scan"
+              ],
+              "score": 0.65
+            },
+            "deterministic_challenge": {
+              "checks": [
+                "grounding_status=grounded",
+                "path_context=production signal_weight=1.00",
+                "false_positive_likelihood=low"
+              ],
+              "status": "upheld_candidate"
+            },
+            "false_positive_context": {
+              "likelihood": "low",
+              "reasons": [
+                "shell finding appears in operational script; verify user-controlled input"
+              ],
+              "score": 0.2
+            },
+            "grounding": {
+              "file_in_inventory": true,
+              "line_in_range": true,
+              "score": 1.0,
+              "source_loaded": true,
+              "status": "grounded"
+            }
+          }
+        },
+        {
+          "evidence": {
+            "file_risk": null,
+            "related_findings_same_file": [
+              {
+                "confidence": "medium",
+                "line": 121,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 122,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 123,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 236,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              }
+            ],
+            "source_excerpt": {
+              "available": true,
+              "end_line": 241,
+              "start_line": 233,
+              "text": "233:   echo \"$(dim '── last 40 lines of ')$(dim \"$BOOTSTRAP_RAW\")$(dim ' ──')\"\n234:   tail -40 \"$BOOTSTRAP_RAW\"\n235:   echo\n236:   echo \"$(dim \"Full raw log: $BOOTSTRAP_RAW\")\"\n237:   echo \"$(dim \"Progression:  $PROGRESS_LOG\")\"\n238:   exit 1\n239: fi\n240: \n241: # ─── hand off to setup:auto ────────────────────────────────────────────"
+            },
+            "symbol_context": []
+          },
+          "finding": {
+            "adapter": "bash-security",
+            "column": 9,
+            "confidence": "medium",
+            "line": 237,
+            "message": "Command substitution with potential injection",
+            "path": "nanoclaw.sh",
+            "path_context": "production",
+            "provenance": "source",
+            "rule_id": "bash.command-substitution-injection",
+            "severity": "high",
+            "signal_weight": 1.0
+          },
+          "kind": "security_finding",
+          "next_reader_action": "inspect the cited source range and decide fix priority",
+          "pack_id": "EV-009",
+          "review_priority_score": 0.847,
+          "validation": {
+            "confidence": {
+              "reasons": [
+                "rule confidence medium contributes 0.65",
+                "finding path is present in scan inventory",
+                "finding line is within known file bounds",
+                "source was loaded during scan"
+              ],
+              "score": 0.65
+            },
+            "deterministic_challenge": {
+              "checks": [
+                "grounding_status=grounded",
+                "path_context=production signal_weight=1.00",
+                "false_positive_likelihood=low"
+              ],
+              "status": "upheld_candidate"
+            },
+            "false_positive_context": {
+              "likelihood": "low",
+              "reasons": [
+                "shell finding appears in operational script; verify user-controlled input"
+              ],
+              "score": 0.2
+            },
+            "grounding": {
+              "file_in_inventory": true,
+              "line_in_range": true,
+              "score": 1.0,
+              "source_loaded": true,
+              "status": "grounded"
+            }
+          }
+        },
+        {
+          "evidence": {
+            "file_risk": null,
+            "related_findings_same_file": [
+              {
+                "confidence": "medium",
+                "line": 47,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 62,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              }
+            ],
+            "source_excerpt": {
+              "available": true,
+              "end_line": 41,
+              "start_line": 33,
+              "text": "33:   if $DRY_RUN; then\n34:     if [ -d \"$target\" ]; then\n35:       size=$(du -sk \"$target\" 2>/dev/null | cut -f1)\n36:     else\n37:       size=$(wc -c < \"$target\" 2>/dev/null || echo 0)\n38:       size=$((size / 1024))\n39:     fi\n40:     TOTAL_FREED=$((TOTAL_FREED + size))\n41:     log \"would remove: $target (${size}K)\""
+            },
+            "symbol_context": []
+          },
+          "finding": {
+            "adapter": "bash-security",
+            "column": 12,
+            "confidence": "medium",
+            "line": 37,
+            "message": "Command substitution with potential injection",
+            "path": "scripts/cleanup-sessions.sh",
+            "path_context": "production",
+            "provenance": "source",
+            "rule_id": "bash.command-substitution-injection",
+            "severity": "high",
+            "signal_weight": 1.0
+          },
+          "kind": "security_finding",
+          "next_reader_action": "inspect the cited source range and decide fix priority",
+          "pack_id": "EV-010",
+          "review_priority_score": 0.847,
+          "validation": {
+            "confidence": {
+              "reasons": [
+                "rule confidence medium contributes 0.65",
+                "finding path is present in scan inventory",
+                "finding line is within known file bounds",
+                "source was loaded during scan"
+              ],
+              "score": 0.65
+            },
+            "deterministic_challenge": {
+              "checks": [
+                "grounding_status=grounded",
+                "path_context=production signal_weight=1.00",
+                "false_positive_likelihood=low"
+              ],
+              "status": "upheld_candidate"
+            },
+            "false_positive_context": {
+              "likelihood": "low",
+              "reasons": [
+                "shell finding appears in operational script; verify user-controlled input"
+              ],
+              "score": 0.2
+            },
+            "grounding": {
+              "file_in_inventory": true,
+              "line_in_range": true,
+              "score": 1.0,
+              "source_loaded": true,
+              "status": "grounded"
+            }
+          }
+        },
+        {
+          "evidence": {
+            "file_risk": null,
+            "related_findings_same_file": [
+              {
+                "confidence": "medium",
+                "line": 37,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 62,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              }
+            ],
+            "source_excerpt": {
+              "available": true,
+              "end_line": 51,
+              "start_line": 43,
+              "text": "43:     if [ -d \"$target\" ]; then\n44:       size=$(du -sk \"$target\" 2>/dev/null | cut -f1)\n45:       rm -rf \"$target\"\n46:     else\n47:       size=$(wc -c < \"$target\" 2>/dev/null || echo 0)\n48:       size=$((size / 1024))\n49:       rm -f \"$target\"\n50:     fi\n51:     TOTAL_FREED=$((TOTAL_FREED + size))"
+            },
+            "symbol_context": []
+          },
+          "finding": {
+            "adapter": "bash-security",
+            "column": 12,
+            "confidence": "medium",
+            "line": 47,
+            "message": "Command substitution with potential injection",
+            "path": "scripts/cleanup-sessions.sh",
+            "path_context": "production",
+            "provenance": "source",
+            "rule_id": "bash.command-substitution-injection",
+            "severity": "high",
+            "signal_weight": 1.0
+          },
+          "kind": "security_finding",
+          "next_reader_action": "inspect the cited source range and decide fix priority",
+          "pack_id": "EV-011",
+          "review_priority_score": 0.847,
+          "validation": {
+            "confidence": {
+              "reasons": [
+                "rule confidence medium contributes 0.65",
+                "finding path is present in scan inventory",
+                "finding line is within known file bounds",
+                "source was loaded during scan"
+              ],
+              "score": 0.65
+            },
+            "deterministic_challenge": {
+              "checks": [
+                "grounding_status=grounded",
+                "path_context=production signal_weight=1.00",
+                "false_positive_likelihood=low"
+              ],
+              "status": "upheld_candidate"
+            },
+            "false_positive_context": {
+              "likelihood": "low",
+              "reasons": [
+                "shell finding appears in operational script; verify user-controlled input"
+              ],
+              "score": 0.2
+            },
+            "grounding": {
+              "file_in_inventory": true,
+              "line_in_range": true,
+              "score": 1.0,
+              "source_loaded": true,
+              "status": "grounded"
+            }
+          }
+        },
+        {
+          "evidence": {
+            "file_risk": null,
+            "related_findings_same_file": [
+              {
+                "confidence": "medium",
+                "line": 37,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              },
+              {
+                "confidence": "medium",
+                "line": 47,
+                "rule_id": "bash.command-substitution-injection",
+                "severity": "high"
+              }
+            ],
+            "source_excerpt": {
+              "available": true,
+              "end_line": 66,
+              "start_line": 58,
+              "text": "58:   log \"ERROR: database not found at $STORE_DB\"\n59:   exit 1\n60: fi\n61: \n62: ACTIVE_IDS=$(sqlite3 \"$STORE_DB\" \"SELECT session_id FROM sessions;\" 2>/dev/null || true)\n63: \n64: is_active() {\n65:   echo \"$ACTIVE_IDS\" | grep -qF \"$1\"\n66: }"
+            },
+            "symbol_context": []
+          },
+          "finding": {
+            "adapter": "bash-security",
+            "column": 12,
+            "confidence": "medium",
+            "line": 62,
+            "message": "Command substitution with potential injection",
+            "path": "scripts/cleanup-sessions.sh",
+            "path_context": "production",
+            "provenance": "source",
+            "rule_id": "bash.command-substitution-injection",
+            "severity": "high",
+            "signal_weight": 1.0
+          },
+          "kind": "security_finding",
+          "next_reader_action": "inspect the cited source range and decide fix priority",
+          "pack_id": "EV-012",
+          "review_priority_score": 0.847,
+          "validation": {
+            "confidence": {
+              "reasons": [
+                "rule confidence medium contributes 0.65",
+                "finding path is present in scan inventory",
+                "finding line is within known file bounds",
+                "source was loaded during scan"
+              ],
+              "score": 0.65
+            },
+            "deterministic_challenge": {
+              "checks": [
+                "grounding_status=grounded",
+                "path_context=production signal_weight=1.00",
+                "false_positive_likelihood=low"
+              ],
+              "status": "upheld_candidate"
+            },
+            "false_positive_context": {
+              "likelihood": "low",
+              "reasons": [
+                "shell finding appears in operational script; verify user-controlled input"
+              ],
+              "score": 0.2
+            },
+            "grounding": {
+              "file_in_inventory": true,
+              "line_in_range": true,
+              "score": 1.0,
+              "source_loaded": true,
+              "status": "grounded"
+            }
+          }
+        }
+      ],
+      "finding_clusters": [
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-001",
+          "count": 2,
+          "false_positive_likelihood": "low",
+          "lines": [
+            197,
+            386
+          ],
+          "max_review_priority_score": 0.924,
+          "path": "setup/channels/discord.ts",
+          "path_context": "production",
+          "representative_message": "Potential SSRF via fetch with user input",
+          "rule_id": "js.ssrf-fetch",
+          "severity": "high"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-002",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            62
+          ],
+          "max_review_priority_score": 0.924,
+          "path": "setup/lib/diagnostics.ts",
+          "path_context": "production",
+          "representative_message": "Potential SSRF via fetch with user input",
+          "rule_id": "js.ssrf-fetch",
+          "severity": "high"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-003",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            528
+          ],
+          "max_review_priority_score": 0.924,
+          "path": "src/channels/chat-sdk-bridge.ts",
+          "path_context": "production",
+          "representative_message": "Potential SSRF via fetch with user input",
+          "rule_id": "js.ssrf-fetch",
+          "severity": "high"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-004",
+          "count": 5,
+          "false_positive_likelihood": "low",
+          "lines": [
+            121,
+            122,
+            123,
+            236,
+            237
+          ],
+          "max_review_priority_score": 0.847,
+          "path": "nanoclaw.sh",
+          "path_context": "production",
+          "representative_message": "Command substitution with potential injection",
+          "rule_id": "bash.command-substitution-injection",
+          "severity": "high"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-005",
+          "count": 3,
+          "false_positive_likelihood": "low",
+          "lines": [
+            37,
+            47,
+            62
+          ],
+          "max_review_priority_score": 0.847,
+          "path": "scripts/cleanup-sessions.sh",
+          "path_context": "production",
+          "representative_message": "Command substitution with potential injection",
+          "rule_id": "bash.command-substitution-injection",
+          "severity": "high"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-006",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            112
+          ],
+          "max_review_priority_score": 0.847,
+          "path": "setup.sh",
+          "path_context": "production",
+          "representative_message": "Command substitution with potential injection",
+          "rule_id": "bash.command-substitution-injection",
+          "severity": "high"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-007",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            130
+          ],
+          "max_review_priority_score": 0.847,
+          "path": "setup/add-telegram.sh",
+          "path_context": "production",
+          "representative_message": "Command substitution with potential injection",
+          "rule_id": "bash.command-substitution-injection",
+          "severity": "high"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-008",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            25
+          ],
+          "max_review_priority_score": 0.847,
+          "path": "setup/lib/diagnostics.sh",
+          "path_context": "production",
+          "representative_message": "Command substitution with potential injection",
+          "rule_id": "bash.command-substitution-injection",
+          "severity": "high"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-009",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            49
+          ],
+          "max_review_priority_score": 0.847,
+          "path": "setup/probe.sh",
+          "path_context": "production",
+          "representative_message": "Command substitution with potential injection",
+          "rule_id": "bash.command-substitution-injection",
+          "severity": "high"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-010",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            83
+          ],
+          "max_review_priority_score": 0.847,
+          "path": "setup/register-claude-token.sh",
+          "path_context": "production",
+          "representative_message": "Command substitution with potential injection",
+          "rule_id": "bash.command-substitution-injection",
+          "severity": "high"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-011",
+          "count": 4,
+          "false_positive_likelihood": "low",
+          "lines": [
+            10,
+            17,
+            176,
+            197
+          ],
+          "max_review_priority_score": 0.771,
+          "path": "setup/channels/discord.ts",
+          "path_context": "production",
+          "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-012",
+          "count": 3,
+          "false_positive_likelihood": "low",
+          "lines": [
+            8,
+            14,
+            16
+          ],
+          "max_review_priority_score": 0.771,
+          "path": "container/entrypoint.sh",
+          "path_context": "production",
+          "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-013",
+          "count": 3,
+          "false_positive_likelihood": "low",
+          "lines": [
+            73,
+            76,
+            81
+          ],
+          "max_review_priority_score": 0.771,
+          "path": "setup/platform.ts",
+          "path_context": "production",
+          "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-014",
+          "count": 3,
+          "false_positive_likelihood": "low",
+          "lines": [
+            291,
+            295,
+            380
+          ],
+          "max_review_priority_score": 0.771,
+          "path": "setup/service.ts",
+          "path_context": "production",
+          "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-015",
+          "count": 3,
+          "false_positive_likelihood": "low",
+          "lines": [
+            257,
+            259,
+            460
+          ],
+          "max_review_priority_score": 0.771,
+          "path": "src/container-runner.ts",
+          "path_context": "production",
+          "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-016",
+          "count": 2,
+          "false_positive_likelihood": "low",
+          "lines": [
+            210,
+            777
+          ],
+          "max_review_priority_score": 0.771,
+          "path": "setup/auto.ts",
+          "path_context": "production",
+          "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-017",
+          "count": 2,
+          "false_positive_likelihood": "low",
+          "lines": [
+            20,
+            67
+          ],
+          "max_review_priority_score": 0.771,
+          "path": "setup/register-claude-token.sh",
+          "path_context": "production",
+          "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-018",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            21
+          ],
+          "max_review_priority_score": 0.771,
+          "path": "container/agent-runner/src/index.ts",
+          "path_context": "production",
+          "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-019",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            157
+          ],
+          "max_review_priority_score": 0.771,
+          "path": "nanoclaw.sh",
+          "path_context": "production",
+          "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-020",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            10
+          ],
+          "max_review_priority_score": 0.771,
+          "path": "scripts/test-v2-agent.ts",
+          "path_context": "production",
+          "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-021",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            13
+          ],
+          "max_review_priority_score": 0.771,
+          "path": "scripts/test-v2-channel-e2e.ts",
+          "path_context": "production",
+          "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-022",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            15
+          ],
+          "max_review_priority_score": 0.771,
+          "path": "scripts/test-v2-host.ts",
+          "path_context": "production",
+          "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-023",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            132
+          ],
+          "max_review_priority_score": 0.771,
+          "path": "setup/container.ts",
+          "path_context": "production",
+          "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-024",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            5
+          ],
+          "max_review_priority_score": 0.771,
+          "path": "setup/run-suggested.sh",
+          "path_context": "production",
+          "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-025",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            30
+          ],
+          "max_review_priority_score": 0.771,
+          "path": "src/modules/permissions/user-dm.ts",
+          "path_context": "production",
+          "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-026",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            16
+          ],
+          "max_review_priority_score": 0.771,
+          "path": "package.json",
+          "path_context": "production",
+          "representative_message": "Package lifecycle script executes during install or publish and should be reviewed for supply-chain risk.",
+          "rule_id": "supply-chain.package.lifecycle-script-risk",
+          "severity": "medium"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-027",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            29
+          ],
+          "max_review_priority_score": 0.77,
+          "path": "src/config.ts",
+          "path_context": "production",
+          "representative_message": "Potential hardcoded API key or secret",
+          "rule_id": "secret.generic-api-key",
+          "severity": "high"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-028",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            33
+          ],
+          "max_review_priority_score": 0.77,
+          "path": "src/container-runner.ts",
+          "path_context": "production",
+          "representative_message": "Potential hardcoded API key or secret",
+          "rule_id": "secret.generic-api-key",
+          "severity": "high"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-029",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            39
+          ],
+          "max_review_priority_score": 0.77,
+          "path": "src/modules/approvals/onecli-approvals.ts",
+          "path_context": "production",
+          "representative_message": "Potential hardcoded API key or secret",
+          "rule_id": "secret.generic-api-key",
+          "severity": "high"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-030",
+          "count": 4,
+          "false_positive_likelihood": "low",
+          "lines": [
+            46,
+            128,
+            129,
+            141
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "setup/channels/teams.ts",
+          "path_context": "production",
+          "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+          "rule_id": "adaptability.hardcoded-external-endpoint",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-031",
+          "count": 3,
+          "false_positive_likelihood": "low",
+          "lines": [
+            158,
+            172,
+            179
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "nanoclaw.sh",
+          "path_context": "production",
+          "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+          "rule_id": "adaptability.hardcoded-external-endpoint",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-032",
+          "count": 3,
+          "false_positive_likelihood": "low",
+          "lines": [
+            117,
+            151,
+            153
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "repo-tokens/action.yml",
+          "path_context": "production",
+          "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+          "rule_id": "adaptability.hardcoded-external-endpoint",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-033",
+          "count": 3,
+          "false_positive_likelihood": "low",
+          "lines": [
+            35,
+            144,
+            355
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "setup/channels/discord.ts",
+          "path_context": "production",
+          "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+          "rule_id": "adaptability.hardcoded-external-endpoint",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-034",
+          "count": 3,
+          "false_positive_likelihood": "low",
+          "lines": [
+            45,
+            49,
+            175
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "setup/channels/telegram.ts",
+          "path_context": "production",
+          "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+          "rule_id": "adaptability.hardcoded-external-endpoint",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-035",
+          "count": 3,
+          "false_positive_likelihood": "low",
+          "lines": [
+            109,
+            120,
+            145
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "container/agent-runner/scripts/sdk-signal-probe.ts",
+          "path_context": "production",
+          "representative_message": "Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value.",
+          "rule_id": "adaptability.hardcoded-timeout",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-036",
+          "count": 3,
+          "false_positive_likelihood": "low",
+          "lines": [
+            195,
+            205,
+            222
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "scripts/test-v2-channel-e2e.ts",
+          "path_context": "production",
+          "representative_message": "Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value.",
+          "rule_id": "adaptability.hardcoded-timeout",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-037",
+          "count": 3,
+          "false_positive_likelihood": "low",
+          "lines": [
+            108,
+            128,
+            136
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "scripts/test-v2-host.ts",
+          "path_context": "production",
+          "representative_message": "Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value.",
+          "rule_id": "adaptability.hardcoded-timeout",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-038",
+          "count": 2,
+          "false_positive_likelihood": "low",
+          "lines": [
+            26,
+            34
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "setup/install-docker.sh",
+          "path_context": "production",
+          "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+          "rule_id": "adaptability.hardcoded-external-endpoint",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-039",
+          "count": 2,
+          "false_positive_likelihood": "low",
+          "lines": [
+            25,
+            33
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "setup/install-node.sh",
+          "path_context": "production",
+          "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+          "rule_id": "adaptability.hardcoded-external-endpoint",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-040",
+          "count": 2,
+          "false_positive_likelihood": "low",
+          "lines": [
+            51,
+            52
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "container/agent-runner/src/db/messages-out.ts",
+          "path_context": "production",
+          "representative_message": "Static resource-cap rigidity: Fixed caps and batch sizes can silently limit scale or waste memory when repo size and hardware vary.",
+          "rule_id": "adaptability.hardcoded-resource-cap",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-041",
+          "count": 2,
+          "false_positive_likelihood": "low",
+          "lines": [
+            65,
+            124
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "container/agent-runner/src/mcp-tools/interactive.ts",
+          "path_context": "production",
+          "representative_message": "Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value.",
+          "rule_id": "adaptability.hardcoded-timeout",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-042",
+          "count": 2,
+          "false_positive_likelihood": "low",
+          "lines": [
+            208,
+            214
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "setup/service.ts",
+          "path_context": "production",
+          "representative_message": "Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value.",
+          "rule_id": "adaptability.hardcoded-timeout",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-043",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            131
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "setup/add-telegram.sh",
+          "path_context": "production",
+          "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+          "rule_id": "adaptability.hardcoded-external-endpoint",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-044",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            32
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "setup/install-claude.sh",
+          "path_context": "production",
+          "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+          "rule_id": "adaptability.hardcoded-external-endpoint",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-045",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            36
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "setup/lib/channels-remote.sh",
+          "path_context": "production",
+          "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+          "rule_id": "adaptability.hardcoded-external-endpoint",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-046",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            14
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "setup/lib/diagnostics.sh",
+          "path_context": "production",
+          "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+          "rule_id": "adaptability.hardcoded-external-endpoint",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-047",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            14
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "setup/lib/diagnostics.ts",
+          "path_context": "production",
+          "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+          "rule_id": "adaptability.hardcoded-external-endpoint",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-048",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            25
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "setup/lib/teams-manifest.ts",
+          "path_context": "production",
+          "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+          "rule_id": "adaptability.hardcoded-external-endpoint",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-049",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            36
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "setup/register-claude-token.sh",
+          "path_context": "production",
+          "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+          "rule_id": "adaptability.hardcoded-external-endpoint",
+          "severity": "low"
+        },
+        {
+          "challenge_status": "upheld_candidate",
+          "cluster_id": "FCL-050",
+          "count": 1,
+          "false_positive_likelihood": "low",
+          "lines": [
+            86
+          ],
+          "max_review_priority_score": 0.695,
+          "path": "setup/service.ts",
+          "path_context": "production",
+          "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+          "rule_id": "adaptability.hardcoded-external-endpoint",
+          "severity": "low"
+        }
+      ],
+      "kind": "deterministic_validated_evidence",
+      "non_llm": true,
+      "schema_version": "1.0.0",
+      "validation_summary": {
+        "average_grounding_score": 0.79,
+        "average_review_priority_score": 0.563,
+        "deterministic_challenge_status_counts": {
+          "context_demoted": 1,
+          "downgraded_unverified": 63,
+          "needs_exploitability_review": 3,
+          "upheld_candidate": 113
+        },
+        "false_positive_likelihood_counts": {
+          "high": 51,
+          "low": 113,
+          "medium": 16
+        },
+        "findings_validated": 180,
+        "grounding_status_counts": {
+          "grounded": 117,
+          "unmatched_file": 63
+        }
+      }
+    },
+    "wiring_summary": [
+      {
+        "count": 151,
+        "gap_type": "orphaned_module",
+        "severity": "medium"
+      }
+    ]
+  },
+  "report_kind": "agent",
+  "scan_plan": {
+    "adaptive_policy": {
+      "boundary": "Adaptive policy evidence explains budget utilization and next-run recommendations. DaVinci does not silently mutate scan limits during a run; users, CI, or signed budget files remain the control plane.",
+      "budget_file": null,
+      "mode": "deterministic_recommendations",
+      "non_llm": true,
+      "observed": {
+        "degradation_count": 0,
+        "loaded_file_count": 260,
+        "parse_skipped_file_count": 0,
+        "security_degraded_file_count": 0,
+        "security_skipped_file_count": 0,
+        "selected_file_count": 260
+      },
+      "policy_source": "profile",
+      "profile": "exhaustive",
+      "recommendations": [],
+      "schema_version": "1.0.0",
+      "utilization": {
+        "parse_files": {
+          "limit": 100000,
+          "ratio": 0.003,
+          "status": "ok",
+          "used": 260
+        },
+        "security_findings": {
+          "limit": 200000,
+          "ratio": 0.001,
+          "status": "ok",
+          "used": 180
+        },
+        "source_bytes": {
+          "limit": 2000000000,
+          "ratio": 0.001,
+          "status": "ok",
+          "used": 1572495
+        },
+        "source_files": {
+          "limit": 250000,
+          "ratio": 0.001,
+          "status": "ok",
+          "used": 260
+        },
+        "symbol_graph_nodes": {
+          "limit": 250000,
+          "ratio": 0.003,
+          "status": "ok",
+          "used": 668
+        }
+      }
+    },
+    "dependency_scan": {
+      "api_base_url": "https://api.osv.dev/v1",
+      "boundary": "Dependency intelligence mode controls CVE lookup only. Source, supply-chain, parser, graph, and rules still run normally.",
+      "dependency_count": 0,
+      "max_dependency_scan_seconds": 120,
+      "max_osv_dependency_queries": 5000,
+      "max_osv_detail_fetches": 512,
+      "mode": "cache-only",
+      "osv_request_timeout_secs": 10,
+      "provider": "osv",
+      "provider_mode": "sqlite_cache_only",
+      "status": "no_dependencies"
+    },
+    "focus_areas": [
+      "test_coverage",
+      "dependency_vulnerabilities",
+      "container_security"
+    ],
+    "git_history": {
+      "churn_enabled": false,
+      "current_checkout_metadata": true,
+      "expensive_history_scan": false,
+      "mode": "metadata",
+      "note": "Churn/co-change mining is disabled by default; use history_mode=churn for explicit historical change-risk analysis.",
+      "status": "metadata_only"
+    },
+    "graph": {
+      "detail_mode": "full_symbol",
+      "edges": 668,
+      "file_nodes": 174,
+      "files_in_cycles": 0,
+      "import_edges_resolved": 0,
+      "max_symbol_graph_nodes": 250000,
+      "nodes": 842,
+      "symbol_nodes_projected": 668,
+      "symbol_nodes_retained": 668
+    },
+    "rationale": "260 files, dominant=typescript, manifests=3",
+    "recommended_depth": "deep",
+    "recommended_scope": "production",
+    "supply_chain": {
+      "agent_instruction_files_scanned": 78,
+      "boundary": "DaVinci supply-chain findings are deterministic static repo exposure evidence. They do not prove endpoint compromise, extension installation, secret exfiltration, or repository cloning unless supplied audit/log evidence supports that conclusion.",
+      "container_files_scanned": 1,
+      "evidence_files_scanned": 0,
+      "findings": 67,
+      "input_fingerprint_count": 89,
+      "input_scope": "current",
+      "package_files_scanned": 6,
+      "schema_version": "1.2.0",
+      "status": "completed",
+      "workflow_files_scanned": 4
+    }
+  },
+  "schema_version": "2.33.0",
+  "summary": {
+    "action_items_count": 50,
+    "agent_report_tokens_estimate": 33392,
+    "degradation_count": 0,
+    "degradation_file_summary": {
+      "affected_file_upper_bound": 0,
+      "affected_file_upper_bound_note": "Upper bound only; parser/security/source-load categories can overlap on the same file.",
+      "event_detail_truncated": false,
+      "exact_degradation_event_count": 0,
+      "loaded_file_count": 260,
+      "parse_coverage_ratio": 1.0,
+      "parse_skip_ratio": 0.0,
+      "parse_skipped_file_count": 0,
+      "parsed_file_count": 260,
+      "retained_degradation_event_count": 0,
+      "security_degraded_ratio": 0.0,
+      "security_retention_skipped_file_count": 0,
+      "security_scan_degraded_file_count": 0,
+      "security_scan_skipped_file_count": 0,
+      "selected_file_count": 260,
+      "source_load_coverage_ratio": 1.0,
+      "source_load_failed_file_count": 0,
+      "source_load_skipped_file_count": 0
+    },
+    "edges": 668,
+    "files_in_cycles": 0,
+    "files_scanned": 260,
+    "findings_count": 180,
+    "health_score": 50.0,
+    "import_edges_resolved": 0,
+    "lean_report_tokens": 61418,
+    "loaded_bytes": 1572495,
+    "loaded_line_count": 41581,
+    "nodes": 842,
+    "non_production_findings": 54,
+    "production_findings": 126,
+    "supply_chain_findings": 67,
+    "supply_chain_ioc_hits": 0,
+    "wiring_gaps_count": 151
+  },
+  "top_action_items": [
+    {
+      "action": "Replace remote installer pipes with pinned package-manager steps or verified downloads with checksum/signature validation before execution.",
+      "category": "security",
+      "confidence": "high",
+      "effort": "low",
+      "file": "container/Dockerfile",
+      "impact": "high",
+      "issue": "supply-chain.container.remote-build-script",
+      "line": 69,
+      "path_context": "production",
+      "priority": 2,
+      "remediation": {
+        "find_pattern": "RUN curl -fsSL https://bun.sh/install | bash -s \"bun-v${BUN_VERSION}\" && \\",
+        "rationale": "This is deterministic static exposure evidence. Validate runtime exploitability before treating it as compromise.",
+        "replace_with": "harden supply-chain configuration"
+      },
+      "risk_score": 5.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "category": "security",
+      "confidence": "high",
+      "effort": "low",
+      "file": "setup/channels/discord.ts",
+      "impact": "high",
+      "issue": "js.ssrf-fetch",
+      "line": 197,
+      "path_context": "production",
+      "priority": 2,
+      "remediation": {
+        "find_pattern": "fetch(`${DISCORD_API}/user",
+        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
+        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
+      },
+      "risk_score": 5.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "category": "security",
+      "confidence": "high",
+      "effort": "low",
+      "file": "setup/channels/discord.ts",
+      "impact": "high",
+      "issue": "js.ssrf-fetch",
+      "line": 386,
+      "path_context": "production",
+      "priority": 2,
+      "remediation": {
+        "find_pattern": "fetch(`${DISCORD_API}/users/@me/channels`, {\r\n      method: 'POST',\r\n      headers: {\r\n        Authorization: `Bot ${token}`,\r\n        'Content-Type': 'application/json',\r\n      },\r\n      body: JSON.stringify({ recipient_id: user",
+        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
+        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
+      },
+      "risk_score": 5.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "category": "security",
+      "confidence": "high",
+      "effort": "low",
+      "file": "setup/lib/diagnostics.ts",
+      "impact": "high",
+      "issue": "js.ssrf-fetch",
+      "line": 62,
+      "path_context": "production",
+      "priority": 2,
+      "remediation": {
+        "find_pattern": "fetch(POSTHOG_URL, {\r\n    method: 'POST',\r\n    headers: { 'Content-Type': 'application/json' },\r\n    body",
+        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
+        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
+      },
+      "risk_score": 5.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "category": "security",
+      "confidence": "high",
+      "effort": "low",
+      "file": "src/channels/chat-sdk-bridge.ts",
+      "impact": "high",
+      "issue": "js.ssrf-fetch",
+      "line": 528,
+      "path_context": "production",
+      "priority": 2,
+      "remediation": {
+        "find_pattern": "fetch(`https://discord.com/api/v10/interactions/${interactionId}/${interactionToken}/callback`, {\r\n          method: 'POST',\r\n          headers: { 'Content-Type': 'application/json' },\r\n          body",
+        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
+        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
+      },
+      "risk_score": 5.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "additional_lines": [
+        122,
+        123
+      ],
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "nanoclaw.sh",
+      "impact": "medium",
+      "issue": "bash.command-substitution-injection",
+      "line": 121,
+      "path_context": "production",
+      "priority": 3,
+      "remediation": {
+        "find_pattern": "$(dim \"(${2}s)",
+        "rationale": "Command substitution with dynamic input enables command injection",
+        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
+      },
+      "risk_score": 2.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "additional_lines": [
+        237
+      ],
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "nanoclaw.sh",
+      "impact": "medium",
+      "issue": "bash.command-substitution-injection",
+      "line": 236,
+      "path_context": "production",
+      "priority": 3,
+      "remediation": {
+        "find_pattern": "$(dim \"Full raw log: $BOOTSTRAP_RAW\")",
+        "rationale": "Command substitution with dynamic input enables command injection",
+        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
+      },
+      "risk_score": 2.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "additional_lines": [
+        47
+      ],
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "scripts/cleanup-sessions.sh",
+      "impact": "medium",
+      "issue": "bash.command-substitution-injection",
+      "line": 37,
+      "path_context": "production",
+      "priority": 3,
+      "remediation": {
+        "find_pattern": "$(wc -c < \"$target\" 2>/dev/null || echo 0)",
+        "rationale": "Command substitution with dynamic input enables command injection",
+        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
+      },
+      "risk_score": 2.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "scripts/cleanup-sessions.sh",
+      "impact": "medium",
+      "issue": "bash.command-substitution-injection",
+      "line": 62,
+      "path_context": "production",
+      "priority": 3,
+      "remediation": {
+        "find_pattern": "$(sqlite3 \"$STORE_DB\" \"SELECT session_id FROM sessions;\" 2>/dev/null || true)",
+        "rationale": "Command substitution with dynamic input enables command injection",
+        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
+      },
+      "risk_score": 2.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "setup.sh",
+      "impact": "medium",
+      "issue": "bash.command-substitution-injection",
+      "line": 112,
+      "path_context": "production",
+      "priority": 3,
+      "remediation": {
+        "find_pattern": "$(grep -E '\"packageManager\"' \"$PROJECT_ROOT/package.json\" 2>/dev/null \\\r\n      | head -1 \\\r\n      | sed -E 's/.*\"pnpm@([^\"]+)",
+        "rationale": "Command substitution with dynamic input enables command injection",
+        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
+      },
+      "risk_score": 2.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "setup/add-telegram.sh",
+      "impact": "medium",
+      "issue": "bash.command-substitution-injection",
+      "line": 130,
+      "path_context": "production",
+      "priority": 3,
+      "remediation": {
+        "find_pattern": "$(curl -fsS --max-time 8 \\\r\n  \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe\" 2>/dev/null || true)",
+        "rationale": "Command substitution with dynamic input enables command injection",
+        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
+      },
+      "risk_score": 2.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "setup/lib/diagnostics.sh",
+      "impact": "medium",
+      "issue": "bash.command-substitution-injection",
+      "line": 25,
+      "path_context": "production",
+      "priority": 3,
+      "remediation": {
+        "find_pattern": "$(uuidgen 2>/dev/null \\\r\n      || cat /proc/sys/kernel/random/uuid 2>/dev/null \\\r\n      || printf 'fallback-%s-%s' \"$(date +%s)",
+        "rationale": "Command substitution with dynamic input enables command injection",
+        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
+      },
+      "risk_score": 2.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "setup/probe.sh",
+      "impact": "medium",
+      "issue": "bash.command-substitution-injection",
+      "line": 49,
+      "path_context": "production",
+      "priority": 3,
+      "remediation": {
+        "find_pattern": "$(grep -E \"^${name}=\" \"$envfile\" 2>/dev/null | head -n1)",
+        "rationale": "Command substitution with dynamic input enables command injection",
+        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
+      },
+      "risk_score": 2.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "setup/register-claude-token.sh",
+      "impact": "medium",
+      "issue": "bash.command-substitution-injection",
+      "line": 83,
+      "path_context": "production",
+      "priority": 3,
+      "remediation": {
+        "find_pattern": "$(sed $'s/\\x1b\\\\[[0-9;]*[a-zA-Z]//g' \"$tmpfile\" \\\r\n        | tr -d '\\n\\r' \\\r\n        | perl -ne 'print \"$1\\n\" while /(sk-ant-oat[A-Za-z0-9_-]{80,500}AA)",
+        "rationale": "Command substitution with dynamic input enables command injection",
+        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
+      },
+      "risk_score": 2.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.",
+      "additional_lines": [
+        19,
+        23
+      ],
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": ".github/workflows/bump-version.yml",
+      "impact": "low",
+      "issue": "supply-chain.workflow.mutable-action-ref",
+      "line": 13,
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "- uses: actions/create-github-app-token@v1",
+        "rationale": "This is deterministic static exposure evidence. Validate runtime exploitability before treating it as compromise.",
+        "replace_with": "harden supply-chain configuration"
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.",
+      "additional_lines": [
+        12,
+        13,
+        17
+      ],
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": ".github/workflows/ci.yml",
+      "impact": "low",
+      "issue": "supply-chain.workflow.mutable-action-ref",
+      "line": 11,
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "- uses: actions/checkout@v4",
+        "rationale": "This is deterministic static exposure evidence. Validate runtime exploitability before treating it as compromise.",
+        "replace_with": "harden supply-chain configuration"
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.",
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": ".github/workflows/label-pr.yml",
+      "impact": "low",
+      "issue": "supply-chain.workflow.mutable-action-ref",
+      "line": 13,
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "- uses: actions/github-script@v7",
+        "rationale": "This is deterministic static exposure evidence. Validate runtime exploitability before treating it as compromise.",
+        "replace_with": "harden supply-chain configuration"
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.",
+      "additional_lines": [
+        20,
+        24
+      ],
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": ".github/workflows/update-tokens.yml",
+      "impact": "low",
+      "issue": "supply-chain.workflow.mutable-action-ref",
+      "line": 14,
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "- uses: actions/create-github-app-token@v1",
+        "rationale": "This is deterministic static exposure evidence. Validate runtime exploitability before treating it as compromise.",
+        "replace_with": "harden supply-chain configuration"
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "externalize_or_normalize_path",
+      "category": "adaptability",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "container/agent-runner/src/index.ts",
+      "impact": "low",
+      "issue": "adaptability.hardcoded-platform-path",
+      "line": 21,
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "*   /home/node/.claude/ ← Claude SDK state + skill symlinks (RW)",
+        "rationale": "Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "externalize_or_normalize_path",
+      "additional_lines": [
+        14,
+        16
+      ],
+      "category": "adaptability",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "container/entrypoint.sh",
+      "impact": "low",
+      "issue": "adaptability.hardcoded-platform-path",
+      "line": 8,
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "# We capture stdin to a file first so /tmp/input.json is available for",
+        "rationale": "Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0
+    }
+  ],
+  "top_findings": [
+    {
+      "confidence": "high",
+      "line": 69,
+      "message": "Container build or compose command downloads remote code and executes it in the same step.",
+      "path": "container/Dockerfile",
+      "path_context": "production",
+      "provenance": "source",
+      "rule_id": "supply-chain.container.remote-build-script",
+      "severity": "high",
+      "signal_weight": 1.0
+    },
+    {
+      "confidence": "high",
+      "line": 197,
+      "message": "Potential SSRF via fetch with user input",
+      "path": "setup/channels/discord.ts",
+      "path_context": "production",
+      "provenance": "source",
+      "rule_id": "js.ssrf-fetch",
+      "severity": "high",
+      "signal_weight": 1.0
+    },
+    {
+      "confidence": "high",
+      "line": 386,
+      "message": "Potential SSRF via fetch with user input",
+      "path": "setup/channels/discord.ts",
+      "path_context": "production",
+      "provenance": "source",
+      "rule_id": "js.ssrf-fetch",
+      "severity": "high",
+      "signal_weight": 1.0
+    },
+    {
+      "confidence": "high",
+      "line": 62,
+      "message": "Potential SSRF via fetch with user input",
+      "path": "setup/lib/diagnostics.ts",
+      "path_context": "production",
+      "provenance": "source",
+      "rule_id": "js.ssrf-fetch",
+      "severity": "high",
+      "signal_weight": 1.0
+    },
+    {
+      "confidence": "high",
+      "line": 528,
+      "message": "Potential SSRF via fetch with user input",
+      "path": "src/channels/chat-sdk-bridge.ts",
+      "path_context": "production",
+      "provenance": "source",
+      "rule_id": "js.ssrf-fetch",
+      "severity": "high",
+      "signal_weight": 1.0
+    },
+    {
+      "confidence": "high",
+      "line": 79,
+      "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+      "path": ".claude/skills/add-opencode/SKILL.md",
+      "path_context": "docs",
+      "provenance": "source",
+      "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+      "severity": "high",
+      "signal_weight": 0.1
+    },
+    {
+      "confidence": "high",
+      "line": 1,
+      "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+      "path": ".claude/skills/add-vercel/SKILL.md",
+      "path_context": "docs",
+      "provenance": "source",
+      "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+      "severity": "high",
+      "signal_weight": 0.1
+    },
+    {
+      "confidence": "high",
+      "line": 48,
+      "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+      "path": ".claude/skills/get-qodo-rules/SKILL.md",
+      "path_context": "docs",
+      "provenance": "source",
+      "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+      "severity": "high",
+      "signal_weight": 0.1
+    },
+    {
+      "confidence": "high",
+      "line": 10,
+      "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+      "path": ".claude/skills/get-qodo-rules/references/repository-scope.md",
+      "path_context": "docs",
+      "provenance": "source",
+      "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+      "severity": "high",
+      "signal_weight": 0.1
+    },
+    {
+      "confidence": "high",
+      "line": 114,
+      "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+      "path": ".claude/skills/init-first-agent/SKILL.md",
+      "path_context": "docs",
+      "provenance": "source",
+      "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+      "severity": "high",
+      "signal_weight": 0.1
+    },
+    {
+      "confidence": "high",
+      "line": 1,
+      "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+      "path": ".claude/skills/init-onecli/SKILL.md",
+      "path_context": "docs",
+      "provenance": "source",
+      "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+      "severity": "high",
+      "signal_weight": 0.1
+    },
+    {
+      "confidence": "high",
+      "line": 10,
+      "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+      "path": ".claude/skills/migrate-from-openclaw/SKILL.md",
+      "path_context": "docs",
+      "provenance": "source",
+      "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+      "severity": "high",
+      "signal_weight": 0.1
+    },
+    {
+      "confidence": "high",
+      "line": 199,
+      "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+      "path": ".claude/skills/update-nanoclaw/SKILL.md",
+      "path_context": "docs",
+      "provenance": "source",
+      "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+      "severity": "high",
+      "signal_weight": 0.1
+    },
+    {
+      "confidence": "high",
+      "line": 1,
+      "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+      "path": "CLAUDE.md",
+      "path_context": "docs",
+      "provenance": "source",
+      "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+      "severity": "high",
+      "signal_weight": 0.1
+    },
+    {
+      "confidence": "medium",
+      "line": 121,
+      "message": "Command substitution with potential injection",
+      "path": "nanoclaw.sh",
+      "path_context": "production",
+      "provenance": "source",
+      "rule_id": "bash.command-substitution-injection",
+      "severity": "high",
+      "signal_weight": 1.0
+    },
+    {
+      "confidence": "medium",
+      "line": 122,
+      "message": "Command substitution with potential injection",
+      "path": "nanoclaw.sh",
+      "path_context": "production",
+      "provenance": "source",
+      "rule_id": "bash.command-substitution-injection",
+      "severity": "high",
+      "signal_weight": 1.0
+    },
+    {
+      "confidence": "medium",
+      "line": 123,
+      "message": "Command substitution with potential injection",
+      "path": "nanoclaw.sh",
+      "path_context": "production",
+      "provenance": "source",
+      "rule_id": "bash.command-substitution-injection",
+      "severity": "high",
+      "signal_weight": 1.0
+    },
+    {
+      "confidence": "medium",
+      "line": 236,
+      "message": "Command substitution with potential injection",
+      "path": "nanoclaw.sh",
+      "path_context": "production",
+      "provenance": "source",
+      "rule_id": "bash.command-substitution-injection",
+      "severity": "high",
+      "signal_weight": 1.0
+    },
+    {
+      "confidence": "medium",
+      "line": 237,
+      "message": "Command substitution with potential injection",
+      "path": "nanoclaw.sh",
+      "path_context": "production",
+      "provenance": "source",
+      "rule_id": "bash.command-substitution-injection",
+      "severity": "high",
+      "signal_weight": 1.0
+    },
+    {
+      "confidence": "medium",
+      "line": 37,
+      "message": "Command substitution with potential injection",
+      "path": "scripts/cleanup-sessions.sh",
+      "path_context": "production",
+      "provenance": "source",
+      "rule_id": "bash.command-substitution-injection",
+      "severity": "high",
+      "signal_weight": 1.0
+    },
+    {
+      "confidence": "medium",
+      "line": 47,
+      "message": "Command substitution with potential injection",
+      "path": "scripts/cleanup-sessions.sh",
+      "path_context": "production",
+      "provenance": "source",
+      "rule_id": "bash.command-substitution-injection",
+      "severity": "high",
+      "signal_weight": 1.0
+    },
+    {
+      "confidence": "medium",
+      "line": 62,
+      "message": "Command substitution with potential injection",
+      "path": "scripts/cleanup-sessions.sh",
+      "path_context": "production",
+      "provenance": "source",
+      "rule_id": "bash.command-substitution-injection",
+      "severity": "high",
+      "signal_weight": 1.0
+    },
+    {
+      "confidence": "medium",
+      "line": 112,
+      "message": "Command substitution with potential injection",
+      "path": "setup.sh",
+      "path_context": "production",
+      "provenance": "source",
+      "rule_id": "bash.command-substitution-injection",
+      "severity": "high",
+      "signal_weight": 1.0
+    },
+    {
+      "confidence": "medium",
+      "line": 130,
+      "message": "Command substitution with potential injection",
+      "path": "setup/add-telegram.sh",
+      "path_context": "production",
+      "provenance": "source",
+      "rule_id": "bash.command-substitution-injection",
+      "severity": "high",
+      "signal_weight": 1.0
+    },
+    {
+      "confidence": "medium",
+      "line": 25,
+      "message": "Command substitution with potential injection",
+      "path": "setup/lib/diagnostics.sh",
+      "path_context": "production",
+      "provenance": "source",
+      "rule_id": "bash.command-substitution-injection",
+      "severity": "high",
+      "signal_weight": 1.0
+    }
+  ],
+  "top_risks": [
+    {
+      "centrality": 0.6486486196517944,
+      "churn": 0.0,
+      "complexity": 5.0,
+      "coupling": 1.4134275618374559,
+      "is_hotspot": false,
+      "path": "src/channels/chat-sdk-bridge.ts",
+      "risk": 0.7894239111760104
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "churn": 0.0,
+      "complexity": 4.745,
+      "coupling": 0.591715976331361,
+      "is_hotspot": false,
+      "path": "container/agent-runner/scripts/sdk-signal-probe.ts",
+      "risk": 0.755674124834645
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "churn": 0.0,
+      "complexity": 5.0,
+      "coupling": 1.1627906976744187,
+      "is_hotspot": false,
+      "path": "container/agent-runner/src/formatter.ts",
+      "risk": 0.6929045184698732
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "churn": 0.0,
+      "complexity": 5.0,
+      "coupling": 2.7149321266968327,
+      "is_hotspot": false,
+      "path": "setup/whatsapp-auth.ts",
+      "risk": 0.6741428629508722
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "churn": 0.0,
+      "complexity": 5.0,
+      "coupling": 3.0,
+      "is_hotspot": false,
+      "path": "scripts/init-first-agent.ts",
+      "risk": 0.6494805634491018
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "churn": 0.0,
+      "complexity": 5.0,
+      "coupling": 3.0,
+      "is_hotspot": false,
+      "path": "setup/index.ts",
+      "risk": 0.6494805634491018
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "churn": 0.0,
+      "complexity": 5.0,
+      "coupling": 3.0,
+      "is_hotspot": false,
+      "path": "setup/lib/tz-from-claude.ts",
+      "risk": 0.6494805634491018
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "churn": 0.0,
+      "complexity": 5.0,
+      "coupling": 3.0,
+      "is_hotspot": false,
+      "path": "src/container-runner.ts",
+      "risk": 0.6494805634491018
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "churn": 0.0,
+      "complexity": 5.0,
+      "coupling": 3.0,
+      "is_hotspot": false,
+      "path": "src/host-sweep.ts",
+      "risk": 0.6494805634491018
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "churn": 0.0,
+      "complexity": 5.0,
+      "coupling": 3.0,
+      "is_hotspot": false,
+      "path": "src/modules/approvals/primitive.ts",
+      "risk": 0.6494805634491018
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "churn": 0.0,
+      "complexity": 5.0,
+      "coupling": 3.0,
+      "is_hotspot": false,
+      "path": "src/modules/permissions/index.ts",
+      "risk": 0.6494805634491018
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "churn": 0.0,
+      "complexity": 5.0,
+      "coupling": 2.973977695167286,
+      "is_hotspot": false,
+      "path": "src/modules/approvals/onecli-approvals.ts",
+      "risk": 0.6474043082613496
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "churn": 0.0,
+      "complexity": 5.0,
+      "coupling": 2.9585798816568047,
+      "is_hotspot": false,
+      "path": "container/agent-runner/src/mcp-tools/interactive.ts",
+      "risk": 0.6461731219634312
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "churn": 0.0,
+      "complexity": 5.0,
+      "coupling": 2.2388059701492535,
+      "is_hotspot": false,
+      "path": "src/webhook-server.ts",
+      "risk": 0.6365309379459752
+    },
+    {
+      "centrality": 0.6486486196517944,
+      "churn": 0.0,
+      "complexity": 5.0,
+      "coupling": 2.810304449648712,
+      "is_hotspot": false,
+      "path": "src/delivery.ts",
+      "risk": 0.6342198773473624
+    }
+  ],
+  "top_wiring_gaps": [
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/config.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/config.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/db/connection.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/db/connection.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/db/messages-in.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/db/messages-in.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/db/messages-out.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/db/messages-out.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/db/session-routing.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/db/session-routing.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/db/session-state.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/db/session-state.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/destinations.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/destinations.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/formatter.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/formatter.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/mcp-tools/agents.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/mcp-tools/agents.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/mcp-tools/core.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/mcp-tools/core.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/mcp-tools/interactive.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/mcp-tools/interactive.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/mcp-tools/scheduling.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/mcp-tools/scheduling.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/mcp-tools/self-mod.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/mcp-tools/self-mod.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/mcp-tools/types.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/mcp-tools/types.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/poll-loop.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/poll-loop.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/providers/claude.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/providers/claude.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/providers/factory.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/providers/factory.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/providers/mock.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/providers/mock.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/providers/provider-registry.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/providers/provider-registry.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/providers/types.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/providers/types.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/scheduling/task-script.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/scheduling/task-script.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'container/agent-runner/src/timezone.ts' is not imported by any other module",
+      "path": "container/agent-runner/src/timezone.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'scripts/chat.ts' is not imported by any other module",
+      "path": "scripts/chat.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'scripts/init-cli-agent.ts' is not imported by any other module",
+      "path": "scripts/init-cli-agent.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    },
+    {
+      "gap_type": "orphaned_module",
+      "line": 1,
+      "message": "Module 'scripts/init-first-agent.ts' is not imported by any other module",
+      "path": "scripts/init-first-agent.ts",
+      "path_context": "production",
+      "severity": "medium",
+      "signal_weight": 1.0
+    }
+  ]
+}

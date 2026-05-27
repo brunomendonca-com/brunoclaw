@@ -1,0 +1,344 @@
+{
+  "boundary": "Fast deterministic digest for orientation and routing. It is not complete evidence; open report.agent.json, evidence.packs.json, or report.json before final decisions.",
+  "coverage": {
+    "affected_file_upper_bound": 0,
+    "event_detail_truncated": false,
+    "loaded_files": 260,
+    "parse_coverage_ratio": 1.0,
+    "selected_files": 260,
+    "source_load_coverage_ratio": 1.0
+  },
+  "estimated_tokens": 2769,
+  "meta": {
+    "duration_secs": 1.6373438,
+    "profile": "exhaustive",
+    "repo_path": "[repo]",
+    "scope": "Full",
+    "timestamp": "2026-05-27T20:35:23.623435800+00:00"
+  },
+  "modes": {
+    "dependency_scan": "cache-only",
+    "git_history": "metadata",
+    "index": "full"
+  },
+  "non_llm": true,
+  "read_first": [
+    "START_HERE_FOR_AI.md",
+    "repo.dossier.md",
+    "repo.brief.md",
+    "report.agent.json",
+    "evidence.graph.json",
+    "evidence.packs.json",
+    "report.lean.json",
+    "artifact-manifest.json",
+    "report.json"
+  ],
+  "report_kind": "digest",
+  "report_schema_version": "2.33.0",
+  "schema_version": "1.0.0",
+  "summary": {
+    "degradation_count": 0,
+    "files_scanned": 260,
+    "findings_count": 180,
+    "health_score": 50.0,
+    "hotspots_detected": 0,
+    "loaded_line_count": 41581,
+    "non_production_findings": 54,
+    "path_context_counts": {
+      "docs": 53,
+      "production": 126,
+      "test": 1
+    },
+    "production_findings": 126,
+    "supply_chain_findings": 67,
+    "wiring_gaps_count": 151
+  },
+  "top_action_items": [
+    {
+      "action": "Replace remote installer pipes with pinned package-manager steps or verified downloads with checksum/signature validation before execution.",
+      "category": "security",
+      "confidence": "high",
+      "effort": "low",
+      "file": "container/Dockerfile",
+      "impact": "high",
+      "issue": "supply-chain.container.remote-build-script",
+      "line": 69,
+      "path_context": "production",
+      "priority": 2,
+      "remediation": {
+        "find_pattern": "RUN curl -fsSL https://bun.sh/install | bash -s \"bun-v${BUN_VERSION}\" && \\",
+        "rationale": "This is deterministic static exposure evidence. Validate runtime exploitability before treating it as compromise.",
+        "replace_with": "harden supply-chain configuration"
+      },
+      "risk_score": 5.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "category": "security",
+      "confidence": "high",
+      "effort": "low",
+      "file": "setup/channels/discord.ts",
+      "impact": "high",
+      "issue": "js.ssrf-fetch",
+      "line": 197,
+      "path_context": "production",
+      "priority": 2,
+      "remediation": {
+        "find_pattern": "fetch(`${DISCORD_API}/user",
+        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
+        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
+      },
+      "risk_score": 5.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "category": "security",
+      "confidence": "high",
+      "effort": "low",
+      "file": "setup/channels/discord.ts",
+      "impact": "high",
+      "issue": "js.ssrf-fetch",
+      "line": 386,
+      "path_context": "production",
+      "priority": 2,
+      "remediation": {
+        "find_pattern": "fetch(`${DISCORD_API}/users/@me/channels`, {\r\n      method: 'POST',\r\n      headers: {\r\n        Authorization: `Bot ${token}`,\r\n        'Content-Type': 'application/json',\r\n      },\r\n      body: JSON.stringify({ recipient_id: user",
+        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
+        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
+      },
+      "risk_score": 5.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "category": "security",
+      "confidence": "high",
+      "effort": "low",
+      "file": "setup/lib/diagnostics.ts",
+      "impact": "high",
+      "issue": "js.ssrf-fetch",
+      "line": 62,
+      "path_context": "production",
+      "priority": 2,
+      "remediation": {
+        "find_pattern": "fetch(POSTHOG_URL, {\r\n    method: 'POST',\r\n    headers: { 'Content-Type': 'application/json' },\r\n    body",
+        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
+        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
+      },
+      "risk_score": 5.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "category": "security",
+      "confidence": "high",
+      "effort": "low",
+      "file": "src/channels/chat-sdk-bridge.ts",
+      "impact": "high",
+      "issue": "js.ssrf-fetch",
+      "line": 528,
+      "path_context": "production",
+      "priority": 2,
+      "remediation": {
+        "find_pattern": "fetch(`https://discord.com/api/v10/interactions/${interactionId}/${interactionToken}/callback`, {\r\n          method: 'POST',\r\n          headers: { 'Content-Type': 'application/json' },\r\n          body",
+        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
+        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
+      },
+      "risk_score": 5.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "additional_lines": [
+        122,
+        123
+      ],
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "nanoclaw.sh",
+      "impact": "medium",
+      "issue": "bash.command-substitution-injection",
+      "line": 121,
+      "path_context": "production",
+      "priority": 3,
+      "remediation": {
+        "find_pattern": "$(dim \"(${2}s)",
+        "rationale": "Command substitution with dynamic input enables command injection",
+        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
+      },
+      "risk_score": 2.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "additional_lines": [
+        237
+      ],
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "nanoclaw.sh",
+      "impact": "medium",
+      "issue": "bash.command-substitution-injection",
+      "line": 236,
+      "path_context": "production",
+      "priority": 3,
+      "remediation": {
+        "find_pattern": "$(dim \"Full raw log: $BOOTSTRAP_RAW\")",
+        "rationale": "Command substitution with dynamic input enables command injection",
+        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
+      },
+      "risk_score": 2.0,
+      "signal_weight": 1.0
+    },
+    {
+      "action": "validate",
+      "additional_lines": [
+        47
+      ],
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "scripts/cleanup-sessions.sh",
+      "impact": "medium",
+      "issue": "bash.command-substitution-injection",
+      "line": 37,
+      "path_context": "production",
+      "priority": 3,
+      "remediation": {
+        "find_pattern": "$(wc -c < \"$target\" 2>/dev/null || echo 0)",
+        "rationale": "Command substitution with dynamic input enables command injection",
+        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
+      },
+      "risk_score": 2.0,
+      "signal_weight": 1.0
+    }
+  ],
+  "top_findings": [
+    {
+      "confidence": "high",
+      "line": 69,
+      "message": "Container build or compose command downloads remote code and executes it in the same step.",
+      "path": "container/Dockerfile",
+      "path_context": "production",
+      "rule_id": "supply-chain.container.remote-build-script",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "line": 197,
+      "message": "Potential SSRF via fetch with user input",
+      "path": "setup/channels/discord.ts",
+      "path_context": "production",
+      "rule_id": "js.ssrf-fetch",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "line": 386,
+      "message": "Potential SSRF via fetch with user input",
+      "path": "setup/channels/discord.ts",
+      "path_context": "production",
+      "rule_id": "js.ssrf-fetch",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "line": 62,
+      "message": "Potential SSRF via fetch with user input",
+      "path": "setup/lib/diagnostics.ts",
+      "path_context": "production",
+      "rule_id": "js.ssrf-fetch",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "line": 528,
+      "message": "Potential SSRF via fetch with user input",
+      "path": "src/channels/chat-sdk-bridge.ts",
+      "path_context": "production",
+      "rule_id": "js.ssrf-fetch",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "line": 79,
+      "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+      "path": ".claude/skills/add-opencode/SKILL.md",
+      "path_context": "docs",
+      "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "line": 1,
+      "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+      "path": ".claude/skills/add-vercel/SKILL.md",
+      "path_context": "docs",
+      "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "line": 48,
+      "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+      "path": ".claude/skills/get-qodo-rules/SKILL.md",
+      "path_context": "docs",
+      "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+      "severity": "high"
+    }
+  ],
+  "top_risks": [
+    {
+      "centrality": 0.649,
+      "is_hotspot": false,
+      "path": "src/channels/chat-sdk-bridge.ts",
+      "risk": 0.789
+    },
+    {
+      "centrality": 0.649,
+      "is_hotspot": false,
+      "path": "container/agent-runner/scripts/sdk-signal-probe.ts",
+      "risk": 0.756
+    },
+    {
+      "centrality": 0.649,
+      "is_hotspot": false,
+      "path": "container/agent-runner/src/formatter.ts",
+      "risk": 0.693
+    },
+    {
+      "centrality": 0.649,
+      "is_hotspot": false,
+      "path": "setup/whatsapp-auth.ts",
+      "risk": 0.674
+    },
+    {
+      "centrality": 0.649,
+      "is_hotspot": false,
+      "path": "scripts/init-first-agent.ts",
+      "risk": 0.649
+    },
+    {
+      "centrality": 0.649,
+      "is_hotspot": false,
+      "path": "setup/index.ts",
+      "risk": 0.649
+    },
+    {
+      "centrality": 0.649,
+      "is_hotspot": false,
+      "path": "setup/lib/tz-from-claude.ts",
+      "risk": 0.649
+    },
+    {
+      "centrality": 0.649,
+      "is_hotspot": false,
+      "path": "src/container-runner.ts",
+      "risk": 0.649
+    }
+  ]
+}

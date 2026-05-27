@@ -1,0 +1,468 @@
+{
+  "ai_next_read_plan": {
+    "artifact_order": [
+      "START_HERE_FOR_AI.md",
+      "repo.dossier.md",
+      "repo.brief.md",
+      "report.digest.json",
+      "report.agent.json",
+      "evidence.packs.json",
+      "evidence.graph.json",
+      "artifact-manifest.json"
+    ],
+    "max_source_files_before_reassessment": 30,
+    "purpose": "Small deterministic source set for humans or AI agents before opening the whole repo.",
+    "read_first_files": [
+      {
+        "path": "src/channels/chat-sdk-bridge.ts",
+        "reason": "High deterministic file risk score; inspect before broad source reading.",
+        "score": 0.79,
+        "source": "top_risk"
+      },
+      {
+        "path": "container/agent-runner/scripts/sdk-signal-probe.ts",
+        "reason": "High deterministic file risk score; inspect before broad source reading.",
+        "score": 0.76,
+        "source": "top_risk"
+      },
+      {
+        "path": "container/agent-runner/src/formatter.ts",
+        "reason": "High deterministic file risk score; inspect before broad source reading.",
+        "score": 0.69,
+        "source": "top_risk"
+      },
+      {
+        "path": "setup/whatsapp-auth.ts",
+        "reason": "High deterministic file risk score; inspect before broad source reading.",
+        "score": 0.67,
+        "source": "top_risk"
+      },
+      {
+        "path": "scripts/init-first-agent.ts",
+        "reason": "High deterministic file risk score; inspect before broad source reading.",
+        "score": 0.65,
+        "source": "top_risk"
+      },
+      {
+        "path": "setup/index.ts",
+        "reason": "High deterministic file risk score; inspect before broad source reading.",
+        "score": 0.65,
+        "source": "top_risk"
+      },
+      {
+        "path": "setup/lib/tz-from-claude.ts",
+        "reason": "High deterministic file risk score; inspect before broad source reading.",
+        "score": 0.65,
+        "source": "top_risk"
+      },
+      {
+        "path": "src/container-runner.ts",
+        "reason": "High deterministic file risk score; inspect before broad source reading.",
+        "score": 0.65,
+        "source": "top_risk"
+      },
+      {
+        "path": "src/host-sweep.ts",
+        "reason": "High deterministic file risk score; inspect before broad source reading.",
+        "score": 0.65,
+        "source": "top_risk"
+      },
+      {
+        "path": "src/modules/approvals/primitive.ts",
+        "reason": "High deterministic file risk score; inspect before broad source reading.",
+        "score": 0.65,
+        "source": "top_risk"
+      },
+      {
+        "path": "src/modules/permissions/index.ts",
+        "reason": "High deterministic file risk score; inspect before broad source reading.",
+        "score": 0.65,
+        "source": "top_risk"
+      },
+      {
+        "path": "src/modules/approvals/onecli-approvals.ts",
+        "reason": "High deterministic file risk score; inspect before broad source reading.",
+        "score": 0.65,
+        "source": "top_risk"
+      },
+      {
+        "line": 69,
+        "path": "container/Dockerfile",
+        "reason": "Representative high finding `supply-chain.container.remote-build-script`.",
+        "source": "high_severity_finding"
+      },
+      {
+        "line": 121,
+        "path": "nanoclaw.sh",
+        "reason": "Representative high finding `bash.command-substitution-injection`.",
+        "source": "high_severity_finding"
+      },
+      {
+        "line": 37,
+        "path": "scripts/cleanup-sessions.sh",
+        "reason": "Representative high finding `bash.command-substitution-injection`.",
+        "source": "high_severity_finding"
+      },
+      {
+        "line": 112,
+        "path": "setup.sh",
+        "reason": "Representative high finding `bash.command-substitution-injection`.",
+        "source": "high_severity_finding"
+      },
+      {
+        "line": 130,
+        "path": "setup/add-telegram.sh",
+        "reason": "Representative high finding `bash.command-substitution-injection`.",
+        "source": "high_severity_finding"
+      },
+      {
+        "line": 197,
+        "path": "setup/channels/discord.ts",
+        "reason": "Representative high finding `js.ssrf-fetch`.",
+        "source": "high_severity_finding"
+      },
+      {
+        "line": 25,
+        "path": "setup/lib/diagnostics.sh",
+        "reason": "Representative high finding `bash.command-substitution-injection`.",
+        "source": "high_severity_finding"
+      },
+      {
+        "line": 62,
+        "path": "setup/lib/diagnostics.ts",
+        "reason": "Representative high finding `js.ssrf-fetch`.",
+        "source": "high_severity_finding"
+      },
+      {
+        "line": 49,
+        "path": "setup/probe.sh",
+        "reason": "Representative high finding `bash.command-substitution-injection`.",
+        "source": "high_severity_finding"
+      },
+      {
+        "line": 83,
+        "path": "setup/register-claude-token.sh",
+        "reason": "Representative high finding `bash.command-substitution-injection`.",
+        "source": "high_severity_finding"
+      },
+      {
+        "line": 29,
+        "path": "src/config.ts",
+        "reason": "Representative high finding `secret.generic-api-key`.",
+        "source": "high_severity_finding"
+      }
+    ],
+    "secondary_context_files": [
+      {
+        "line": 73,
+        "path": ".claude/skills/add-dashboard/SKILL.md",
+        "path_context": "docs",
+        "reason": "High/error finding `supply-chain.agent-instructions.secret-access` exists outside primary production context.",
+        "source": "non_primary_high_severity_finding"
+      },
+      {
+        "line": 75,
+        "path": ".claude/skills/add-discord/SKILL.md",
+        "path_context": "docs",
+        "reason": "High/error finding `supply-chain.agent-instructions.secret-access` exists outside primary production context.",
+        "source": "non_primary_high_severity_finding"
+      },
+      {
+        "line": 65,
+        "path": ".claude/skills/add-emacs/SKILL.md",
+        "path_context": "docs",
+        "reason": "High/error finding `supply-chain.agent-instructions.secret-access` exists outside primary production context.",
+        "source": "non_primary_high_severity_finding"
+      },
+      {
+        "line": 71,
+        "path": ".claude/skills/add-gchat/SKILL.md",
+        "path_context": "docs",
+        "reason": "High/error finding `supply-chain.agent-instructions.secret-access` exists outside primary production context.",
+        "source": "non_primary_high_severity_finding"
+      },
+      {
+        "line": 4,
+        "path": ".claude/skills/add-github/REMOVE.md",
+        "path_context": "docs",
+        "reason": "High/error finding `supply-chain.agent-instructions.secret-access` exists outside primary production context.",
+        "source": "non_primary_high_severity_finding"
+      },
+      {
+        "line": 84,
+        "path": ".claude/skills/add-github/SKILL.md",
+        "path_context": "docs",
+        "reason": "High/error finding `supply-chain.agent-instructions.secret-access` exists outside primary production context.",
+        "source": "non_primary_high_severity_finding"
+      },
+      {
+        "line": 83,
+        "path": ".claude/skills/add-imessage/SKILL.md",
+        "path_context": "docs",
+        "reason": "High/error finding `supply-chain.agent-instructions.secret-access` exists outside primary production context.",
+        "source": "non_primary_high_severity_finding"
+      },
+      {
+        "line": 81,
+        "path": ".claude/skills/add-karpathy-llm-wiki/SKILL.md",
+        "path_context": "docs",
+        "reason": "High/error finding `supply-chain.agent-instructions.secret-access` exists outside primary production context.",
+        "source": "non_primary_high_severity_finding"
+      },
+      {
+        "line": 4,
+        "path": ".claude/skills/add-linear/REMOVE.md",
+        "path_context": "docs",
+        "reason": "High/error finding `supply-chain.agent-instructions.secret-access` exists outside primary production context.",
+        "source": "non_primary_high_severity_finding"
+      },
+      {
+        "line": 114,
+        "path": ".claude/skills/add-linear/SKILL.md",
+        "path_context": "docs",
+        "reason": "High/error finding `supply-chain.agent-instructions.secret-access` exists outside primary production context.",
+        "source": "non_primary_high_severity_finding"
+      }
+    ]
+  },
+  "artifact_contract": {
+    "machine_readable": [
+      "repo.dossier.json",
+      "report.digest.json",
+      "report.agent.json",
+      "repo.brief.json",
+      "evidence.packs.json",
+      "evidence.graph.json",
+      "findings.sarif",
+      "artifact-manifest.json"
+    ],
+    "read_first": [
+      "START_HERE_FOR_AI.md",
+      "repo.dossier.md",
+      "repo.brief.md",
+      "report.digest.json",
+      "report.agent.json",
+      "evidence.packs.json",
+      "evidence.graph.json",
+      "artifact-manifest.json"
+    ],
+    "source_of_truth": "report.json"
+  },
+  "boundary": "Deterministic engineering-readiness dossier generated from DaVinci scan evidence. It is not an LLM semantic summary, exploitability proof, or final business decision.",
+  "dossier_schema_version": "1.0.0",
+  "engineering_backlog": [
+    {
+      "finding_count": 67,
+      "high_or_error_count": 50,
+      "priority": 1,
+      "recommended_action": "Pin mutable workflow/action/container references, review publish paths, and add provenance controls.",
+      "representative_rule": "supply-chain.agent-instructions.secret-access",
+      "theme": "supply_chain_and_ci"
+    },
+    {
+      "finding_count": 5,
+      "high_or_error_count": 4,
+      "priority": 1,
+      "recommended_action": "Validate whether hits are real secrets, rotate exposed credentials, and suppress only verified placeholders or generated report copies.",
+      "representative_rule": "secret.generic-api-key",
+      "theme": "secrets_hygiene"
+    },
+    {
+      "finding_count": 13,
+      "high_or_error_count": 13,
+      "priority": 2,
+      "recommended_action": "Remove shell interpolation where possible; otherwise isolate, allowlist, and quote arguments.",
+      "representative_rule": "bash.command-substitution-injection",
+      "theme": "command_execution_risk"
+    },
+    {
+      "finding_count": 4,
+      "high_or_error_count": 4,
+      "priority": 2,
+      "recommended_action": "Trace inputs to sinks and replace string-built queries/HTML/URLs with safe APIs.",
+      "representative_rule": "js.ssrf-fetch",
+      "theme": "input_and_injection_risk"
+    },
+    {
+      "finding_count": 91,
+      "high_or_error_count": 0,
+      "priority": 2,
+      "recommended_action": "Move fixed paths, endpoints, timeouts, and resource caps behind policy/config, and prefer degradation over fail-fast behavior.",
+      "representative_rule": "adaptability.hardcoded-external-endpoint",
+      "theme": "adaptability_and_resilience"
+    }
+  ],
+  "file_profile": {
+    "ci_files": 0,
+    "docs_files": 48,
+    "entrypoint_candidate_files": 19,
+    "files": 260,
+    "generated_or_vendor_files": 0,
+    "generated_or_vendor_ratio": 0.0,
+    "language_counts": {
+      "bash": 30,
+      "javascript": 1,
+      "json": 5,
+      "markdown": 48,
+      "typescript": 173,
+      "yaml": 3
+    },
+    "lines": 41581,
+    "manifest_files": 3,
+    "report_artifact_files": 0,
+    "report_artifact_ratio": 0.0,
+    "test_file_ratio": 0.0962,
+    "test_files": 25
+  },
+  "lifecycle": {
+    "confidence": "medium",
+    "decision_boundary": "Lifecycle is inferred from scan evidence. The owner remains the decision maker.",
+    "primary_user_goal": "Use the engineering backlog and AI next-read plan to guide development.",
+    "recommendation": "continue_with_backlog",
+    "stage": "active_development",
+    "why": "Repo appears in progress; evidence supports a prioritized backlog rather than release judgment."
+  },
+  "maturity": {
+    "artifact_noise_penalty": 0.0,
+    "ci_score": 30.0,
+    "coverage_score": 100.0,
+    "documentation_score": 95.0,
+    "maturity_score": 69.05,
+    "packaging_score": 87.0,
+    "risk_adjusted_score": 47.16,
+    "scoring_note": "Maturity is deterministic readiness evidence across docs, tests, CI, packaging, structure, coverage, and risk. It is separate from security health.",
+    "structure_score": 70.0,
+    "test_score": 73.86
+  },
+  "meta": {
+    "duration_secs": 1.6373438,
+    "profile": "exhaustive",
+    "repo_path": "[repo]",
+    "scope": "Full",
+    "timestamp": "2026-05-27T20:35:23.623435800+00:00"
+  },
+  "noise_context": {
+    "docs_findings": 53,
+    "fixture_findings": 0,
+    "non_primary_finding_ratio": 0.3,
+    "note": "Noise indicators demote review priority; they do not delete findings from full-scope evidence.",
+    "report_artifact_findings": 0,
+    "secrets_false_positive_estimate": 0.85,
+    "test_findings": 1
+  },
+  "non_llm": true,
+  "recommendations": [
+    {
+      "action": "triage_high_or_error_findings",
+      "priority": 1,
+      "reason": "71 high/error findings need owner validation before productization."
+    },
+    {
+      "action": "review_supply_chain_exposure",
+      "priority": 1,
+      "reason": "67 deterministic supply-chain exposure findings are present."
+    },
+    {
+      "action": "separate_primary_code_from_generated_reports",
+      "priority": 2,
+      "reason": "A large share of findings appears outside primary source. Review path context, suppress verified fixtures/generated artifacts, or use production scope for release review."
+    },
+    {
+      "action": "use_evidence_packs_before_editing",
+      "priority": 3,
+      "reason": "Treat findings as candidate evidence. Validate exploitability and path context before code changes."
+    }
+  ],
+  "report_kind": "repo_dossier",
+  "risk_context": {
+    "architecture_score": 10.0,
+    "cycles": 0,
+    "degradation_events": 0,
+    "files_in_cycles": 0,
+    "finding_density_per_kloc": 4.33,
+    "findings_total": 180,
+    "health_score": 50.0,
+    "high_or_error_findings": 71,
+    "hotspots": 0,
+    "maintenance_score": 75.0,
+    "non_production_findings": 54,
+    "parse_coverage_ratio": 1.0,
+    "production_findings": 126,
+    "security_degraded_ratio": 0.0,
+    "security_score": 60.0,
+    "source_load_coverage_ratio": 1.0,
+    "supply_chain_findings": 67,
+    "supply_chain_ioc_hits": 0,
+    "top_rule_families": [
+      {
+        "count": 40,
+        "rule_id": "supply-chain.agent-instructions.secret-access"
+      },
+      {
+        "count": 30,
+        "rule_id": "adaptability.hardcoded-external-endpoint"
+      },
+      {
+        "count": 28,
+        "rule_id": "adaptability.hardcoded-platform-path"
+      },
+      {
+        "count": 25,
+        "rule_id": "adaptability.hardcoded-timeout"
+      },
+      {
+        "count": 13,
+        "rule_id": "bash.command-substitution-injection"
+      },
+      {
+        "count": 11,
+        "rule_id": "supply-chain.workflow.mutable-action-ref"
+      },
+      {
+        "count": 9,
+        "rule_id": "supply-chain.agent-instructions.prompt-exfiltration"
+      },
+      {
+        "count": 8,
+        "rule_id": "adaptability.hardcoded-resource-cap"
+      },
+      {
+        "count": 4,
+        "rule_id": "js.ssrf-fetch"
+      },
+      {
+        "count": 4,
+        "rule_id": "secret.generic-api-key"
+      },
+      {
+        "count": 4,
+        "rule_id": "supply-chain.agent-instructions.hidden-unicode.variation-selector"
+      },
+      {
+        "count": 1,
+        "rule_id": "secret.high-entropy-password"
+      }
+    ],
+    "wiring_score": 35.0
+  },
+  "schema_version": "2.33.0",
+  "summary": {
+    "degradation_count": 0,
+    "edges": 668,
+    "files_in_cycles": 0,
+    "files_scanned": 260,
+    "findings_count": 180,
+    "health_score": 50.0,
+    "hotspots_detected": 0,
+    "import_edges_resolved": 0,
+    "lean_report_tokens": 61418,
+    "loaded_bytes": 1572495,
+    "loaded_line_count": 41581,
+    "nodes": 842,
+    "severity_breakdown": {
+      "high": 71,
+      "low": 69,
+      "medium": 40
+    }
+  }
+}
