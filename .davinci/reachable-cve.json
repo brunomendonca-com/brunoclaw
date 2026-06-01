@@ -1,0 +1,13 @@
+{
+  "boundary": "Reachability is computed from parsed imports and the file dependency graph seeded at detected entrypoints. It is deterministic triage evidence, not proof of exploitability. Granularity is package-import level, not function level; transitive and dynamically loaded dependencies are reported as unknown.",
+  "cves": [],
+  "kind": "deterministic_cve_reachability",
+  "non_llm": true,
+  "schema_version": "1.0.0",
+  "summary": {
+    "imported_not_reachable": 0,
+    "reachable": 0,
+    "total": 0,
+    "unknown": 0
+  }
+}

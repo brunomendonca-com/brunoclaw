@@ -1,0 +1,137 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
+  "bomFormat": "CycloneDX",
+  "components": [],
+  "compositions": [
+    {
+      "aggregate": "unknown",
+      "dependencies": [
+        "davinci:repo:bce6e1af8decde10"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "dependsOn": [],
+      "ref": "davinci:repo:bce6e1af8decde10"
+    }
+  ],
+  "metadata": {
+    "component": {
+      "bom-ref": "davinci:repo:bce6e1af8decde10",
+      "externalReferences": [
+        {
+          "comment": "DaVinci full scan evidence; source of truth for findings, limits, and provenance.",
+          "type": "other",
+          "url": "report.json"
+        },
+        {
+          "comment": "DaVinci CVE reachability companion artifact.",
+          "type": "other",
+          "url": "reachable-cve.json"
+        },
+        {
+          "comment": "CycloneDX VEX companion artifact; vulnerability state is intentionally separate from this SBOM.",
+          "type": "other",
+          "url": "vex.cdx.json"
+        }
+      ],
+      "name": "brunoclaw-davinci-pr",
+      "properties": [
+        {
+          "name": "davinci:profile",
+          "value": "exhaustive"
+        },
+        {
+          "name": "davinci:scope",
+          "value": "Full"
+        },
+        {
+          "name": "davinci:manifest_count",
+          "value": "2"
+        },
+        {
+          "name": "davinci:loaded_line_count",
+          "value": "41584"
+        },
+        {
+          "name": "davinci:degradation_count",
+          "value": "0"
+        }
+      ],
+      "type": "application"
+    },
+    "lifecycles": [
+      {
+        "phase": "pre-build"
+      }
+    ],
+    "properties": [
+      {
+        "name": "davinci:sbom_boundary",
+        "value": "source-manifest inventory; not a build-output or runtime/container image SBOM"
+      },
+      {
+        "name": "davinci:sbom_generation_context",
+        "value": "source_manifest_pre_build"
+      },
+      {
+        "name": "davinci:sbom_vulnerability_model",
+        "value": "vulnerability and reachability state emitted in companion VEX/reachable-cve artifacts"
+      },
+      {
+        "name": "davinci:report_schema_version",
+        "value": "2.37.0"
+      },
+      {
+        "name": "davinci:dependency_mode",
+        "value": "cache-only"
+      },
+      {
+        "name": "davinci:dependency_inventory_status",
+        "value": "no_dependencies"
+      }
+    ],
+    "timestamp": "2026-06-01T18:38:56.926532600+00:00",
+    "tools": {
+      "components": [
+        {
+          "group": "B1Brain",
+          "name": "DaVinci",
+          "properties": [
+            {
+              "name": "davinci:tool_role",
+              "value": "deterministic-local-first-repository-evidence-compiler"
+            },
+            {
+              "name": "davinci:models_invoked",
+              "value": "false"
+            }
+          ],
+          "type": "application",
+          "version": "0.3.0"
+        }
+      ]
+    }
+  },
+  "properties": [
+    {
+      "name": "davinci:non_llm",
+      "value": "true"
+    },
+    {
+      "name": "davinci:component_count",
+      "value": "0"
+    },
+    {
+      "name": "davinci:cve_reachability_count",
+      "value": "0"
+    },
+    {
+      "name": "davinci:companion_vex",
+      "value": "vex.cdx.json"
+    }
+  ],
+  "specVersion": "1.7",
+  "version": 1
+}

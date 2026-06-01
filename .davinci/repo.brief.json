@@ -127,7 +127,7 @@
         "bytes": 316798,
         "component": "setup",
         "files": 60,
-        "findings": 53,
+        "findings": 49,
         "generated_or_vendor_files": 0,
         "lines": 9582,
         "risk_files": 3,
@@ -187,17 +187,17 @@
         "bytes": 53378,
         "component": "scripts",
         "files": 10,
-        "findings": 15,
+        "findings": 12,
         "generated_or_vendor_files": 0,
         "lines": 1639,
         "risk_files": 1,
-        "test_files": 0
+        "test_files": 3
       },
       {
         "bytes": 56172,
         "component": "src/channels",
         "files": 8,
-        "findings": 3,
+        "findings": 2,
         "generated_or_vendor_files": 0,
         "lines": 1493,
         "risk_files": 2,
@@ -227,7 +227,7 @@
         "bytes": 10625,
         "component": "nanoclaw.sh",
         "files": 1,
-        "findings": 9,
+        "findings": 4,
         "generated_or_vendor_files": 0,
         "lines": 251,
         "risk_files": 0,
@@ -254,12 +254,12 @@
         "test_files": 0
       },
       {
-        "bytes": 6910,
-        "component": "setup.sh",
+        "bytes": 26,
+        "component": ".mcp.json",
         "files": 1,
-        "findings": 1,
+        "findings": 0,
         "generated_or_vendor_files": 0,
-        "lines": 233,
+        "lines": 3,
         "risk_files": 0,
         "test_files": 0
       },
@@ -387,6 +387,7 @@
       "nodes": 842
     }
   },
+  "boundary": "Deterministic functional orientation generated from repository evidence. It is not an LLM semantic summary or final product claim.",
   "brief_schema_version": "1.0.0",
   "capability_tags": [
     "agent",
@@ -429,7 +430,7 @@
       },
       {
         "factor": "health_adjustment",
-        "points": 0.0,
+        "points": 0.4,
         "reason": "small bounded adjustment from DaVinci health score"
       }
     ],
@@ -490,6 +491,52 @@
       "reason": "entrypoint-like path convention"
     }
   ],
+  "executive_orientation": {
+    "agent_route": [
+      {
+        "id": "brief.route.purpose",
+        "next_artifact": "repo.brief.json",
+        "next_query": "purpose_evidence.best_effort_description",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "repo intent and package evidence are understood"
+      },
+      {
+        "id": "brief.route.read_first",
+        "next_artifact": "repo.brief.json",
+        "next_query": "read_first_files",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "smallest justified source-file set is selected"
+      },
+      {
+        "id": "brief.route.risk_followup",
+        "next_artifact": "report.agent.json",
+        "next_query": "top_action_items",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": true,
+        "stop_condition": "candidate remediation work is backed by evidence packs or graph context"
+      }
+    ],
+    "one_line_assessment": "Start with actionable production evidence before broad code reading; this repo has deterministic findings that can mislead a raw orientation pass.",
+    "posture": "risk_first_orientation",
+    "recommended_reader_route": [
+      "Read the README and package/manifest evidence to establish intent.",
+      "Use Read First Files and Central Files for the smallest useful code pass.",
+      "Open report.agent.json and evidence.packs.json before assigning remediation work.",
+      "Use evidence.graph.json or davinci_impact for risky-file neighborhood review."
+    ],
+    "what_could_break": [
+      "Production-context findings can change release or remediation priority; inspect report.agent.json and evidence packs first.",
+      "67 supply-chain exposure findings need dependency, workflow, or container owner review."
+    ],
+    "what_matters": [
+      "typescript is the dominant language across 261 scanned files and 41584 loaded LOC.",
+      "Orientation readiness is 95/100 and health is 52.0/100.",
+      "Detected capability tags: agent, api-server, identity-auth, mcp.",
+      "161 findings are present; 99 are production-context and 152 are agent-actionable by default."
+    ]
+  },
   "installability": {
     "has_ci": true,
     "has_docker": true,
@@ -596,25 +643,26 @@
     }
   ],
   "meta": {
-    "duration_secs": 1.5634665,
+    "duration_secs": 1.1908616,
     "profile": "exhaustive",
     "repo_path": "[repo]",
     "scope": "Full",
-    "timestamp": "2026-05-27T21:49:47.457727500+00:00"
+    "timestamp": "2026-06-01T18:38:56.926532600+00:00"
   },
+  "non_llm": true,
   "positioning": {
     "non_llm": true,
     "note": "This brief is generated from repository files, manifests, paths, graph centrality, and scan evidence. It is orientation evidence, not a semantic product summary.",
     "role": "deterministic_functional_orientation"
   },
   "provenance": {
-    "branch": "main",
+    "branch": "codex/add-davinci-artifacts",
     "checkout_status": "valid",
-    "commit_sha": "601fc7c39678462d94098c8915ef320da1dfe466",
-    "dirty": false,
+    "commit_sha": "e5a235ab2f114aaccc88e7eadf9100ad28b657ee",
+    "dirty": true,
     "error": null,
-    "last_commit_at": "2026-04-23T09:33:39+03:00",
-    "remote_origin_url": "https://github.com/brunomendonca-com/brunoclaw"
+    "last_commit_at": "2026-05-27T17:55:39-04:00",
+    "remote_origin_url": "https://github.com/bernie-b1stAI/brunoclaw.git"
   },
   "purpose_evidence": {
     "best_effort_description": "Personal Claude assistant. Lightweight, secure, customizable.",
@@ -642,66 +690,226 @@
   },
   "read_first_files": [
     {
+      "agent_next_step": {
+        "id": "brief.read_first.df62d5fe6dea.next",
+        "next_artifact": "repo.brief.json",
+        "next_file": "README.md",
+        "next_query": "file:README.md",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "file purpose or entrypoint role is understood"
+      },
+      "id": "brief.read_first.df62d5fe6dea",
       "path": "README.md",
       "reason": "project orientation"
     },
     {
+      "agent_next_step": {
+        "id": "brief.read_first.1edae8cc0546.next",
+        "next_artifact": "repo.brief.json",
+        "next_file": "package.json",
+        "next_query": "file:package.json",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "file purpose or entrypoint role is understood"
+      },
+      "id": "brief.read_first.1edae8cc0546",
       "path": "package.json",
       "reason": "installability and metadata"
     },
     {
+      "agent_next_step": {
+        "id": "brief.read_first.8bc1b1dcab1c.next",
+        "next_artifact": "repo.brief.json",
+        "next_file": "container/agent-runner/src/mcp-tools/index.ts",
+        "next_query": "file:container/agent-runner/src/mcp-tools/index.ts",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "file purpose or entrypoint role is understood"
+      },
+      "id": "brief.read_first.8bc1b1dcab1c",
       "path": "container/agent-runner/src/mcp-tools/index.ts",
       "reason": "runtime entrypoint"
     },
     {
+      "agent_next_step": {
+        "id": "brief.read_first.66bf8d898abd.next",
+        "next_artifact": "repo.brief.json",
+        "next_file": "container/agent-runner/src/mcp-tools/server.ts",
+        "next_query": "file:container/agent-runner/src/mcp-tools/server.ts",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "file purpose or entrypoint role is understood"
+      },
+      "id": "brief.read_first.66bf8d898abd",
       "path": "container/agent-runner/src/mcp-tools/server.ts",
       "reason": "runtime entrypoint"
     },
     {
+      "agent_next_step": {
+        "id": "brief.read_first.69c8617a6c4e.next",
+        "next_artifact": "repo.brief.json",
+        "next_file": "src/channels/cli.ts",
+        "next_query": "file:src/channels/cli.ts",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "file purpose or entrypoint role is understood"
+      },
+      "id": "brief.read_first.69c8617a6c4e",
       "path": "src/channels/cli.ts",
       "reason": "runtime entrypoint"
     },
     {
+      "agent_next_step": {
+        "id": "brief.read_first.e3a95be39750.next",
+        "next_artifact": "repo.brief.json",
+        "next_file": "src/index.ts",
+        "next_query": "file:src/index.ts",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "file purpose or entrypoint role is understood"
+      },
+      "id": "brief.read_first.e3a95be39750",
       "path": "src/index.ts",
       "reason": "runtime entrypoint"
     },
     {
+      "agent_next_step": {
+        "id": "brief.read_first.d2bbc1d49af4.next",
+        "next_artifact": "repo.brief.json",
+        "next_file": "src/channels/chat-sdk-bridge.ts",
+        "next_query": "file:src/channels/chat-sdk-bridge.ts",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "file purpose or entrypoint role is understood"
+      },
+      "id": "brief.read_first.d2bbc1d49af4",
       "path": "src/channels/chat-sdk-bridge.ts",
       "reason": "high-impact file"
     },
     {
+      "agent_next_step": {
+        "id": "brief.read_first.6b6ac51edfcd.next",
+        "next_artifact": "repo.brief.json",
+        "next_file": "container/agent-runner/scripts/sdk-signal-probe.ts",
+        "next_query": "file:container/agent-runner/scripts/sdk-signal-probe.ts",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "file purpose or entrypoint role is understood"
+      },
+      "id": "brief.read_first.6b6ac51edfcd",
       "path": "container/agent-runner/scripts/sdk-signal-probe.ts",
       "reason": "high-impact file"
     },
     {
+      "agent_next_step": {
+        "id": "brief.read_first.315c0019bceb.next",
+        "next_artifact": "repo.brief.json",
+        "next_file": "container/agent-runner/src/formatter.ts",
+        "next_query": "file:container/agent-runner/src/formatter.ts",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "file purpose or entrypoint role is understood"
+      },
+      "id": "brief.read_first.315c0019bceb",
       "path": "container/agent-runner/src/formatter.ts",
       "reason": "high-impact file"
     },
     {
+      "agent_next_step": {
+        "id": "brief.read_first.9d5e76096f0b.next",
+        "next_artifact": "repo.brief.json",
+        "next_file": "setup/whatsapp-auth.ts",
+        "next_query": "file:setup/whatsapp-auth.ts",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "file purpose or entrypoint role is understood"
+      },
+      "id": "brief.read_first.9d5e76096f0b",
       "path": "setup/whatsapp-auth.ts",
       "reason": "high-impact file"
     },
     {
+      "agent_next_step": {
+        "id": "brief.read_first.0cca05c13542.next",
+        "next_artifact": "repo.brief.json",
+        "next_file": "scripts/init-first-agent.ts",
+        "next_query": "file:scripts/init-first-agent.ts",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "file purpose or entrypoint role is understood"
+      },
+      "id": "brief.read_first.0cca05c13542",
       "path": "scripts/init-first-agent.ts",
       "reason": "high-impact file"
     },
     {
+      "agent_next_step": {
+        "id": "brief.read_first.afd77a96d152.next",
+        "next_artifact": "repo.brief.json",
+        "next_file": "setup/index.ts",
+        "next_query": "file:setup/index.ts",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "file purpose or entrypoint role is understood"
+      },
+      "id": "brief.read_first.afd77a96d152",
       "path": "setup/index.ts",
       "reason": "high-impact file"
     },
     {
+      "agent_next_step": {
+        "id": "brief.read_first.9b4557ae2ac6.next",
+        "next_artifact": "repo.brief.json",
+        "next_file": "setup/lib/tz-from-claude.ts",
+        "next_query": "file:setup/lib/tz-from-claude.ts",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "file purpose or entrypoint role is understood"
+      },
+      "id": "brief.read_first.9b4557ae2ac6",
       "path": "setup/lib/tz-from-claude.ts",
       "reason": "high-impact file"
     },
     {
+      "agent_next_step": {
+        "id": "brief.read_first.61b12357303e.next",
+        "next_artifact": "repo.brief.json",
+        "next_file": "src/container-runner.ts",
+        "next_query": "file:src/container-runner.ts",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "file purpose or entrypoint role is understood"
+      },
+      "id": "brief.read_first.61b12357303e",
       "path": "src/container-runner.ts",
       "reason": "high-impact file"
     },
     {
+      "agent_next_step": {
+        "id": "brief.read_first.0c6a3c5b7743.next",
+        "next_artifact": "repo.brief.json",
+        "next_file": "src/host-sweep.ts",
+        "next_query": "file:src/host-sweep.ts",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "file purpose or entrypoint role is understood"
+      },
+      "id": "brief.read_first.0c6a3c5b7743",
       "path": "src/host-sweep.ts",
       "reason": "high-impact file"
     },
     {
+      "agent_next_step": {
+        "id": "brief.read_first.7b61f03a52ea.next",
+        "next_artifact": "repo.brief.json",
+        "next_file": "src/modules/approvals/primitive.ts",
+        "next_query": "file:src/modules/approvals/primitive.ts",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "file purpose or entrypoint role is understood"
+      },
+      "id": "brief.read_first.7b61f03a52ea",
       "path": "src/modules/approvals/primitive.ts",
       "reason": "high-impact file"
     }
@@ -712,14 +920,14 @@
     "language_counts": {
       "bash": 30,
       "javascript": 1,
-      "json": 5,
+      "json": 6,
       "markdown": 48,
       "typescript": 173,
       "yaml": 3
     },
-    "line_count_basis": "git_index_size_estimate",
-    "total_files": 260,
-    "total_lines": 19526
+    "line_count_basis": "filesystem_exact",
+    "total_files": 261,
+    "total_lines": 41584
   },
   "report_kind": "functional_brief",
   "risk_summary": {
@@ -727,180 +935,319 @@
     "degradation_file_summary": {
       "affected_file_upper_bound": 0,
       "affected_file_upper_bound_note": "Upper bound only; parser/security/source-load categories can overlap on the same file.",
+      "affected_file_upper_bound_ratio": 0.0,
+      "cause_counts": {},
+      "coverage_grade": "green",
+      "dimensions": [
+        {
+          "axis": "source_load_coverage",
+          "class": "integrity",
+          "grade": "green",
+          "metric_name": "loaded_over_selected_ratio",
+          "metric_value": 1.0,
+          "reason": "Source-load coverage is complete; analysis ran over the full selected input."
+        },
+        {
+          "axis": "parse_coverage",
+          "class": "bounded",
+          "grade": "green",
+          "metric_name": "parsed_over_loaded_ratio",
+          "metric_value": 1.0,
+          "reason": "Parse coverage is high across loaded files."
+        },
+        {
+          "axis": "security_coverage",
+          "class": "bounded",
+          "grade": "green",
+          "metric_name": "security_degraded_over_loaded_ratio",
+          "metric_value": 0.0,
+          "reason": "Security analysis covered nearly all loaded files."
+        },
+        {
+          "axis": "finding_retention",
+          "class": "bounded",
+          "grade": "green",
+          "metric_name": "retention_skipped_file_count",
+          "metric_value": 0.0,
+          "reason": "No findings were dropped by the retention cap."
+        },
+        {
+          "axis": "event_observability",
+          "class": "observability",
+          "grade": "green",
+          "metric_name": "event_detail_truncated",
+          "metric_value": 0.0,
+          "reason": "All degradation events were retained with full detail."
+        }
+      ],
+      "dominant_causes": [],
       "event_detail_truncated": false,
+      "event_kind_counts": {},
+      "event_stage_counts": {},
       "exact_degradation_event_count": 0,
-      "loaded_file_count": 260,
+      "grade": "green",
+      "grade_reason": "No material bounded-analysis caveat was detected.",
+      "integrity_grade": "green",
+      "loaded_file_count": 261,
       "parse_coverage_ratio": 1.0,
       "parse_skip_ratio": 0.0,
       "parse_skipped_file_count": 0,
-      "parsed_file_count": 260,
+      "parsed_file_count": 261,
       "retained_degradation_event_count": 0,
       "security_degraded_ratio": 0.0,
       "security_retention_skipped_file_count": 0,
       "security_scan_degraded_file_count": 0,
       "security_scan_skipped_file_count": 0,
-      "selected_file_count": 260,
+      "selected_file_count": 261,
       "source_load_coverage_ratio": 1.0,
       "source_load_failed_file_count": 0,
-      "source_load_skipped_file_count": 0
+      "source_load_skipped_file_count": 0,
+      "taxonomy_interpretation": "Scan integrity is intact: the full selected input was loaded. Analysis depth was applied broadly with no material bounding."
     },
     "degradation_summary": [],
-    "findings_count": 175,
-    "health_score": 50.0,
+    "findings_count": 161,
+    "health_score": 52.0,
     "hotspots_detected": 0,
-    "non_production_findings": 53,
-    "production_findings": 122,
+    "non_production_findings": 62,
+    "production_findings": 99,
     "top_finding_rules": [
       {
+        "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
         "count": 40,
         "path_context": "docs",
         "rule_id": "supply-chain.agent-instructions.secret-access",
-        "severity": "high"
+        "severity": "high",
+        "signal_class": "supply_chain_exposure"
       },
       {
-        "count": 30,
+        "claim_boundary": "Portability and resilience signal; not a vulnerability unless local threat model makes the hardcoded assumption security-sensitive.",
+        "count": 29,
         "path_context": "production",
         "rule_id": "adaptability.hardcoded-external-endpoint",
-        "severity": "low"
+        "severity": "low",
+        "signal_class": "adaptability_signal"
       },
       {
-        "count": 28,
-        "path_context": "production",
-        "rule_id": "adaptability.hardcoded-platform-path",
-        "severity": "medium"
-      },
-      {
+        "claim_boundary": "Portability and resilience signal; not a vulnerability unless local threat model makes the hardcoded assumption security-sensitive.",
         "count": 25,
         "path_context": "production",
-        "rule_id": "adaptability.hardcoded-timeout",
-        "severity": "low"
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium",
+        "signal_class": "adaptability_signal"
       },
       {
-        "count": 13,
+        "claim_boundary": "Portability and resilience signal; not a vulnerability unless local threat model makes the hardcoded assumption security-sensitive.",
+        "count": 19,
         "path_context": "production",
-        "rule_id": "bash.command-substitution-injection",
-        "severity": "high"
+        "rule_id": "adaptability.hardcoded-timeout",
+        "severity": "low",
+        "signal_class": "adaptability_signal"
       },
       {
+        "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
         "count": 11,
         "path_context": "production",
         "rule_id": "supply-chain.workflow.mutable-action-ref",
-        "severity": "medium"
+        "severity": "medium",
+        "signal_class": "supply_chain_exposure"
       },
       {
+        "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
         "count": 9,
         "path_context": "docs",
         "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
-        "severity": "high"
+        "severity": "high",
+        "signal_class": "supply_chain_exposure"
       },
       {
+        "claim_boundary": "Portability and resilience signal; not a vulnerability unless local threat model makes the hardcoded assumption security-sensitive.",
         "count": 8,
         "path_context": "production",
         "rule_id": "adaptability.hardcoded-resource-cap",
-        "severity": "low"
+        "severity": "low",
+        "signal_class": "adaptability_signal"
       },
       {
-        "count": 4,
-        "path_context": "production",
-        "rule_id": "js.ssrf-fetch",
-        "severity": "high"
-      },
-      {
+        "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
         "count": 4,
         "path_context": "docs",
         "rule_id": "supply-chain.agent-instructions.hidden-unicode.variation-selector",
-        "severity": "low"
+        "severity": "low",
+        "signal_class": "supply_chain_exposure"
+      },
+      {
+        "claim_boundary": "Source-code security candidate from deterministic rules; validate with local runtime and ownership context before claiming exploitability.",
+        "count": 3,
+        "path_context": "production",
+        "rule_id": "js.child-process-exec.tainted",
+        "severity": "error",
+        "signal_class": "source_security"
+      },
+      {
+        "claim_boundary": "Source-code security candidate from deterministic rules; validate with local runtime and ownership context before claiming exploitability.",
+        "count": 1,
+        "path_context": "production",
+        "rule_id": "bash.command-substitution-injection",
+        "severity": "high",
+        "signal_class": "source_security"
       }
     ]
   },
-  "schema_version": "2.33.0",
+  "schema_contract": {
+    "artifact": "repo.brief.json",
+    "artifact_schema_version": "1.0.0",
+    "boundary": "Schema contract validates deterministic artifact shape for agents and wrappers. It does not certify exploitability or replace report.json as source of truth.",
+    "contract_version": "1.0.0",
+    "models_invoked": false,
+    "schema_id": "https://b1brain.local/davinci/schemas/repo-brief-1.0.0.schema.json",
+    "stability": "stable"
+  },
+  "schema_version": "2.37.0",
   "security_triage": {
-    "actionable_findings_count": 175,
+    "actionable_findings_count": 152,
     "false_positive_watchlist": {
-      "low_signal_or_non_primary_findings": 53,
+      "low_signal_or_non_primary_findings": 62,
       "note": "Counts are deterministic triage signals. They are not final exploitability judgments.",
       "secret_scan_findings": 0,
       "secrets_false_positive_estimate": -0.0
     },
     "finding_context_counts": {
       "docs": 53,
-      "production": 122
+      "production": 99,
+      "test": 9
     },
     "finding_rule_summary": [
       {
+        "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
         "count": 40,
         "path_context": "docs",
         "rule_id": "supply-chain.agent-instructions.secret-access",
-        "severity": "high"
+        "severity": "high",
+        "signal_class": "supply_chain_exposure"
       },
       {
-        "count": 30,
+        "claim_boundary": "Portability and resilience signal; not a vulnerability unless local threat model makes the hardcoded assumption security-sensitive.",
+        "count": 29,
         "path_context": "production",
         "rule_id": "adaptability.hardcoded-external-endpoint",
-        "severity": "low"
+        "severity": "low",
+        "signal_class": "adaptability_signal"
       },
       {
-        "count": 28,
-        "path_context": "production",
-        "rule_id": "adaptability.hardcoded-platform-path",
-        "severity": "medium"
-      },
-      {
+        "claim_boundary": "Portability and resilience signal; not a vulnerability unless local threat model makes the hardcoded assumption security-sensitive.",
         "count": 25,
         "path_context": "production",
-        "rule_id": "adaptability.hardcoded-timeout",
-        "severity": "low"
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium",
+        "signal_class": "adaptability_signal"
       },
       {
-        "count": 13,
+        "claim_boundary": "Portability and resilience signal; not a vulnerability unless local threat model makes the hardcoded assumption security-sensitive.",
+        "count": 19,
         "path_context": "production",
-        "rule_id": "bash.command-substitution-injection",
-        "severity": "high"
+        "rule_id": "adaptability.hardcoded-timeout",
+        "severity": "low",
+        "signal_class": "adaptability_signal"
       },
       {
+        "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
         "count": 11,
         "path_context": "production",
         "rule_id": "supply-chain.workflow.mutable-action-ref",
-        "severity": "medium"
+        "severity": "medium",
+        "signal_class": "supply_chain_exposure"
       },
       {
+        "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
         "count": 9,
         "path_context": "docs",
         "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
-        "severity": "high"
+        "severity": "high",
+        "signal_class": "supply_chain_exposure"
       },
       {
+        "claim_boundary": "Portability and resilience signal; not a vulnerability unless local threat model makes the hardcoded assumption security-sensitive.",
         "count": 8,
         "path_context": "production",
         "rule_id": "adaptability.hardcoded-resource-cap",
-        "severity": "low"
+        "severity": "low",
+        "signal_class": "adaptability_signal"
       },
       {
-        "count": 4,
-        "path_context": "production",
-        "rule_id": "js.ssrf-fetch",
-        "severity": "high"
-      },
-      {
+        "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
         "count": 4,
         "path_context": "docs",
         "rule_id": "supply-chain.agent-instructions.hidden-unicode.variation-selector",
-        "severity": "low"
+        "severity": "low",
+        "signal_class": "supply_chain_exposure"
       },
       {
+        "claim_boundary": "Source-code security candidate from deterministic rules; validate with local runtime and ownership context before claiming exploitability.",
+        "count": 3,
+        "path_context": "production",
+        "rule_id": "js.child-process-exec.tainted",
+        "severity": "error",
+        "signal_class": "source_security"
+      },
+      {
+        "claim_boundary": "Source-code security candidate from deterministic rules; validate with local runtime and ownership context before claiming exploitability.",
+        "count": 1,
+        "path_context": "production",
+        "rule_id": "bash.command-substitution-injection",
+        "severity": "high",
+        "signal_class": "source_security"
+      },
+      {
+        "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
         "count": 1,
         "path_context": "production",
         "rule_id": "supply-chain.container.remote-build-script",
-        "severity": "high"
+        "severity": "high",
+        "signal_class": "supply_chain_exposure"
       },
       {
+        "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
         "count": 1,
         "path_context": "production",
         "rule_id": "supply-chain.container.mutable-image-ref",
-        "severity": "low"
+        "severity": "low",
+        "signal_class": "supply_chain_exposure"
       }
     ],
     "top_actionable_findings": [
+      {
+        "adapter": "js-ts-taint",
+        "confidence": "high",
+        "line": 263,
+        "message": "child_process exec with tainted command",
+        "path": "setup/verify.ts",
+        "path_context": "production",
+        "rule_id": "js.child-process-exec.tainted",
+        "severity": "error",
+        "signal_weight": 1.0
+      },
+      {
+        "adapter": "js-ts-taint",
+        "confidence": "high",
+        "line": 263,
+        "message": "child_process exec with tainted command",
+        "path": "setup/verify.ts",
+        "path_context": "production",
+        "rule_id": "js.child-process-exec.tainted",
+        "severity": "error",
+        "signal_weight": 1.0
+      },
+      {
+        "adapter": "js-ts-taint",
+        "confidence": "high",
+        "line": 263,
+        "message": "child_process exec with tainted command",
+        "path": "setup/verify.ts",
+        "path_context": "production",
+        "rule_id": "js.child-process-exec.tainted",
+        "severity": "error",
+        "signal_weight": 1.0
+      },
       {
         "adapter": "supply-chain",
         "confidence": "high",
@@ -909,50 +1256,6 @@
         "path": "container/Dockerfile",
         "path_context": "production",
         "rule_id": "supply-chain.container.remote-build-script",
-        "severity": "high",
-        "signal_weight": 1.0
-      },
-      {
-        "adapter": "js-frontend",
-        "confidence": "high",
-        "line": 197,
-        "message": "Potential SSRF via fetch with user input",
-        "path": "setup/channels/discord.ts",
-        "path_context": "production",
-        "rule_id": "js.ssrf-fetch",
-        "severity": "high",
-        "signal_weight": 1.0
-      },
-      {
-        "adapter": "js-frontend",
-        "confidence": "high",
-        "line": 386,
-        "message": "Potential SSRF via fetch with user input",
-        "path": "setup/channels/discord.ts",
-        "path_context": "production",
-        "rule_id": "js.ssrf-fetch",
-        "severity": "high",
-        "signal_weight": 1.0
-      },
-      {
-        "adapter": "js-frontend",
-        "confidence": "high",
-        "line": 62,
-        "message": "Potential SSRF via fetch with user input",
-        "path": "setup/lib/diagnostics.ts",
-        "path_context": "production",
-        "rule_id": "js.ssrf-fetch",
-        "severity": "high",
-        "signal_weight": 1.0
-      },
-      {
-        "adapter": "js-frontend",
-        "confidence": "high",
-        "line": 528,
-        "message": "Potential SSRF via fetch with user input",
-        "path": "src/channels/chat-sdk-bridge.ts",
-        "path_context": "production",
-        "rule_id": "js.ssrf-fetch",
         "severity": "high",
         "signal_weight": 1.0
       },
@@ -1058,68 +1361,79 @@
       {
         "adapter": "bash-security",
         "confidence": "medium",
-        "line": 121,
+        "line": 130,
         "message": "Command substitution with potential injection",
-        "path": "nanoclaw.sh",
+        "path": "setup/add-telegram.sh",
         "path_context": "production",
         "rule_id": "bash.command-substitution-injection",
         "severity": "high",
         "signal_weight": 1.0
       },
       {
-        "adapter": "bash-security",
+        "adapter": "supply-chain",
         "confidence": "medium",
-        "line": 122,
-        "message": "Command substitution with potential injection",
-        "path": "nanoclaw.sh",
-        "path_context": "production",
-        "rule_id": "bash.command-substitution-injection",
+        "line": 73,
+        "message": "Agent instruction file references secrets together with command execution and network transfer primitives.",
+        "path": ".claude/skills/add-dashboard/SKILL.md",
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.secret-access",
         "severity": "high",
-        "signal_weight": 1.0
+        "signal_weight": 0.1
       },
       {
-        "adapter": "bash-security",
+        "adapter": "supply-chain",
         "confidence": "medium",
-        "line": 123,
-        "message": "Command substitution with potential injection",
-        "path": "nanoclaw.sh",
-        "path_context": "production",
-        "rule_id": "bash.command-substitution-injection",
+        "line": 75,
+        "message": "Agent instruction file references secrets together with command execution and network transfer primitives.",
+        "path": ".claude/skills/add-discord/SKILL.md",
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.secret-access",
         "severity": "high",
-        "signal_weight": 1.0
+        "signal_weight": 0.1
       },
       {
-        "adapter": "bash-security",
+        "adapter": "supply-chain",
         "confidence": "medium",
-        "line": 236,
-        "message": "Command substitution with potential injection",
-        "path": "nanoclaw.sh",
-        "path_context": "production",
-        "rule_id": "bash.command-substitution-injection",
+        "line": 65,
+        "message": "Agent instruction file references secrets together with command execution and network transfer primitives.",
+        "path": ".claude/skills/add-emacs/SKILL.md",
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.secret-access",
         "severity": "high",
-        "signal_weight": 1.0
+        "signal_weight": 0.1
       },
       {
-        "adapter": "bash-security",
+        "adapter": "supply-chain",
         "confidence": "medium",
-        "line": 237,
-        "message": "Command substitution with potential injection",
-        "path": "nanoclaw.sh",
-        "path_context": "production",
-        "rule_id": "bash.command-substitution-injection",
+        "line": 71,
+        "message": "Agent instruction file references secrets together with command execution and network transfer primitives.",
+        "path": ".claude/skills/add-gchat/SKILL.md",
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.secret-access",
         "severity": "high",
-        "signal_weight": 1.0
+        "signal_weight": 0.1
       },
       {
-        "adapter": "bash-security",
+        "adapter": "supply-chain",
         "confidence": "medium",
-        "line": 37,
-        "message": "Command substitution with potential injection",
-        "path": "scripts/cleanup-sessions.sh",
-        "path_context": "production",
-        "rule_id": "bash.command-substitution-injection",
+        "line": 4,
+        "message": "Agent instruction file references secrets together with command execution and network transfer primitives.",
+        "path": ".claude/skills/add-github/REMOVE.md",
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.secret-access",
         "severity": "high",
-        "signal_weight": 1.0
+        "signal_weight": 0.1
+      },
+      {
+        "adapter": "supply-chain",
+        "confidence": "medium",
+        "line": 84,
+        "message": "Agent instruction file references secrets together with command execution and network transfer primitives.",
+        "path": ".claude/skills/add-github/SKILL.md",
+        "path_context": "docs",
+        "rule_id": "supply-chain.agent-instructions.secret-access",
+        "severity": "high",
+        "signal_weight": 0.1
       }
     ],
     "triage_policy": {

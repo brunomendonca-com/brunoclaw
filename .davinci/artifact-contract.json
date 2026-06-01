@@ -1,0 +1,5057 @@
+{
+  "agent_readiness": {
+    "dimensions": [
+      {
+        "description": "canonical read-first artifacts are present",
+        "id": "required_agent_artifacts",
+        "max_points": 20,
+        "passed": 6,
+        "points": 20,
+        "status": "pass",
+        "total": 6
+      },
+      {
+        "description": "stable artifacts declare schema contracts",
+        "id": "schema_contracts",
+        "max_points": 20,
+        "passed": 6,
+        "points": 20,
+        "status": "pass",
+        "total": 6
+      },
+      {
+        "description": "agent routes expose stable next artifact/tool/stop-condition fields",
+        "id": "route_contracts",
+        "max_points": 20,
+        "passed": 9,
+        "points": 20,
+        "status": "pass",
+        "total": 9
+      },
+      {
+        "description": "record arrays use stable IDs instead of array-position references",
+        "id": "stable_reference_ids",
+        "max_points": 20,
+        "passed": 73,
+        "points": 20,
+        "status": "pass",
+        "total": 73
+      },
+      {
+        "description": "records expose executable agent_next_step metadata",
+        "id": "executable_next_steps",
+        "max_points": 10,
+        "passed": 73,
+        "points": 10,
+        "status": "pass",
+        "total": 73
+      },
+      {
+        "description": "artifacts preserve non-LLM and evidence-boundary metadata",
+        "id": "deterministic_boundary",
+        "max_points": 10,
+        "passed": 6,
+        "points": 10,
+        "status": "pass",
+        "total": 6
+      }
+    ],
+    "grade": "green",
+    "schema_version": "1.0.0",
+    "score": 100,
+    "summary": {
+      "next_steps_total": 73,
+      "next_steps_valid": 73,
+      "required_present": 6,
+      "required_total": 6,
+      "route_steps_total": 9,
+      "route_steps_valid": 9,
+      "stable_records_total": 73,
+      "stable_records_valid": 73
+    }
+  },
+  "boundary": "Deterministic contract lint for DaVinci agent-facing artifacts. This is an output-quality gate, not a finding source or score input.",
+  "checks": [
+    {
+      "artifact": "repo.dossier.json",
+      "check": "required_agent_artifact_present",
+      "message": "required agent artifact is present",
+      "pointer": "",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "required_agent_artifact_present",
+      "message": "required agent artifact is present",
+      "pointer": "",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "required_agent_artifact_present",
+      "message": "required agent artifact is present",
+      "pointer": "",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "required_agent_artifact_present",
+      "message": "required agent artifact is present",
+      "pointer": "",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "required_agent_artifact_present",
+      "message": "required agent artifact is present",
+      "pointer": "",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.graph.json",
+      "check": "required_agent_artifact_present",
+      "message": "required agent artifact is present",
+      "pointer": "",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "artifact_is_object",
+      "message": "artifact root is a JSON object",
+      "pointer": "",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "schema_version_present",
+      "message": "schema_version is present",
+      "pointer": "/schema_version",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "artifact_discriminator",
+      "message": "artifact discriminator matches contract",
+      "pointer": "/report_kind",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "schema_contract_present",
+      "message": "schema_contract object is present",
+      "pointer": "/schema_contract",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "schema_id_matches_registry",
+      "message": "schema_id matches the local schema registry",
+      "pointer": "/schema_contract/schema_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "contract_version_present",
+      "message": "contract_version is present",
+      "pointer": "/schema_contract/contract_version",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_array_non_empty",
+      "message": "agent route contains steps",
+      "pointer": "/canonical_agent_route",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_step_id_present",
+      "message": "id is present",
+      "pointer": "/canonical_agent_route/0/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_artifact_present",
+      "message": "next_artifact is present",
+      "pointer": "/canonical_agent_route/0/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_tool_hint_present",
+      "message": "next_tool_hint is present",
+      "pointer": "/canonical_agent_route/0/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_stop_condition_present",
+      "message": "stop_condition is present",
+      "pointer": "/canonical_agent_route/0/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_owner_gate_present",
+      "message": "requires_human_owner is present",
+      "pointer": "/canonical_agent_route/0/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_step_id_present",
+      "message": "id is present",
+      "pointer": "/canonical_agent_route/1/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_artifact_present",
+      "message": "next_artifact is present",
+      "pointer": "/canonical_agent_route/1/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_tool_hint_present",
+      "message": "next_tool_hint is present",
+      "pointer": "/canonical_agent_route/1/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_stop_condition_present",
+      "message": "stop_condition is present",
+      "pointer": "/canonical_agent_route/1/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_owner_gate_present",
+      "message": "requires_human_owner is present",
+      "pointer": "/canonical_agent_route/1/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_step_id_present",
+      "message": "id is present",
+      "pointer": "/canonical_agent_route/2/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_artifact_present",
+      "message": "next_artifact is present",
+      "pointer": "/canonical_agent_route/2/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_tool_hint_present",
+      "message": "next_tool_hint is present",
+      "pointer": "/canonical_agent_route/2/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_stop_condition_present",
+      "message": "stop_condition is present",
+      "pointer": "/canonical_agent_route/2/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_owner_gate_present",
+      "message": "requires_human_owner is present",
+      "pointer": "/canonical_agent_route/2/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_step_id_present",
+      "message": "id is present",
+      "pointer": "/canonical_agent_route/3/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_artifact_present",
+      "message": "next_artifact is present",
+      "pointer": "/canonical_agent_route/3/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_tool_hint_present",
+      "message": "next_tool_hint is present",
+      "pointer": "/canonical_agent_route/3/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_stop_condition_present",
+      "message": "stop_condition is present",
+      "pointer": "/canonical_agent_route/3/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_owner_gate_present",
+      "message": "requires_human_owner is present",
+      "pointer": "/canonical_agent_route/3/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_step_id_present",
+      "message": "id is present",
+      "pointer": "/canonical_agent_route/4/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_artifact_present",
+      "message": "next_artifact is present",
+      "pointer": "/canonical_agent_route/4/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_tool_hint_present",
+      "message": "next_tool_hint is present",
+      "pointer": "/canonical_agent_route/4/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_stop_condition_present",
+      "message": "stop_condition is present",
+      "pointer": "/canonical_agent_route/4/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_owner_gate_present",
+      "message": "requires_human_owner is present",
+      "pointer": "/canonical_agent_route/4/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_step_id_present",
+      "message": "id is present",
+      "pointer": "/canonical_agent_route/5/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_artifact_present",
+      "message": "next_artifact is present",
+      "pointer": "/canonical_agent_route/5/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_tool_hint_present",
+      "message": "next_tool_hint is present",
+      "pointer": "/canonical_agent_route/5/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_stop_condition_present",
+      "message": "stop_condition is present",
+      "pointer": "/canonical_agent_route/5/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_owner_gate_present",
+      "message": "requires_human_owner is present",
+      "pointer": "/canonical_agent_route/5/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_array_non_empty",
+      "message": "agent route contains steps",
+      "pointer": "/views/ai_first_read/agent_route",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_step_id_present",
+      "message": "id is present",
+      "pointer": "/views/ai_first_read/agent_route/0/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_artifact_present",
+      "message": "next_artifact is present",
+      "pointer": "/views/ai_first_read/agent_route/0/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_tool_hint_present",
+      "message": "next_tool_hint is present",
+      "pointer": "/views/ai_first_read/agent_route/0/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_stop_condition_present",
+      "message": "stop_condition is present",
+      "pointer": "/views/ai_first_read/agent_route/0/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_owner_gate_present",
+      "message": "requires_human_owner is present",
+      "pointer": "/views/ai_first_read/agent_route/0/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_step_id_present",
+      "message": "id is present",
+      "pointer": "/views/ai_first_read/agent_route/1/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_artifact_present",
+      "message": "next_artifact is present",
+      "pointer": "/views/ai_first_read/agent_route/1/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_tool_hint_present",
+      "message": "next_tool_hint is present",
+      "pointer": "/views/ai_first_read/agent_route/1/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_stop_condition_present",
+      "message": "stop_condition is present",
+      "pointer": "/views/ai_first_read/agent_route/1/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_owner_gate_present",
+      "message": "requires_human_owner is present",
+      "pointer": "/views/ai_first_read/agent_route/1/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_step_id_present",
+      "message": "id is present",
+      "pointer": "/views/ai_first_read/agent_route/2/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_artifact_present",
+      "message": "next_artifact is present",
+      "pointer": "/views/ai_first_read/agent_route/2/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_tool_hint_present",
+      "message": "next_tool_hint is present",
+      "pointer": "/views/ai_first_read/agent_route/2/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_stop_condition_present",
+      "message": "stop_condition is present",
+      "pointer": "/views/ai_first_read/agent_route/2/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_owner_gate_present",
+      "message": "requires_human_owner is present",
+      "pointer": "/views/ai_first_read/agent_route/2/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_step_id_present",
+      "message": "id is present",
+      "pointer": "/views/ai_first_read/agent_route/3/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_artifact_present",
+      "message": "next_artifact is present",
+      "pointer": "/views/ai_first_read/agent_route/3/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_tool_hint_present",
+      "message": "next_tool_hint is present",
+      "pointer": "/views/ai_first_read/agent_route/3/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_stop_condition_present",
+      "message": "stop_condition is present",
+      "pointer": "/views/ai_first_read/agent_route/3/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_owner_gate_present",
+      "message": "requires_human_owner is present",
+      "pointer": "/views/ai_first_read/agent_route/3/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_step_id_present",
+      "message": "id is present",
+      "pointer": "/views/ai_first_read/agent_route/4/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_artifact_present",
+      "message": "next_artifact is present",
+      "pointer": "/views/ai_first_read/agent_route/4/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_tool_hint_present",
+      "message": "next_tool_hint is present",
+      "pointer": "/views/ai_first_read/agent_route/4/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_stop_condition_present",
+      "message": "stop_condition is present",
+      "pointer": "/views/ai_first_read/agent_route/4/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_owner_gate_present",
+      "message": "requires_human_owner is present",
+      "pointer": "/views/ai_first_read/agent_route/4/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_step_id_present",
+      "message": "id is present",
+      "pointer": "/views/ai_first_read/agent_route/5/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_artifact_present",
+      "message": "next_artifact is present",
+      "pointer": "/views/ai_first_read/agent_route/5/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_next_tool_hint_present",
+      "message": "next_tool_hint is present",
+      "pointer": "/views/ai_first_read/agent_route/5/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_stop_condition_present",
+      "message": "stop_condition is present",
+      "pointer": "/views/ai_first_read/agent_route/5/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "decision.views.json",
+      "check": "route_owner_gate_present",
+      "message": "requires_human_owner is present",
+      "pointer": "/views/ai_first_read/agent_route/5/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.graph.json",
+      "check": "artifact_is_object",
+      "message": "artifact root is a JSON object",
+      "pointer": "",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.graph.json",
+      "check": "schema_version_present",
+      "message": "schema_version is present",
+      "pointer": "/schema_version",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.graph.json",
+      "check": "artifact_discriminator",
+      "message": "artifact discriminator matches contract",
+      "pointer": "/kind",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.graph.json",
+      "check": "schema_contract_present",
+      "message": "schema_contract object is present",
+      "pointer": "/schema_contract",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.graph.json",
+      "check": "schema_id_matches_registry",
+      "message": "schema_id matches the local schema registry",
+      "pointer": "/schema_contract/schema_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.graph.json",
+      "check": "contract_version_present",
+      "message": "contract_version is present",
+      "pointer": "/schema_contract/contract_version",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.graph.json",
+      "check": "required_array_present",
+      "message": "required array is present",
+      "pointer": "/nodes",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.graph.json",
+      "check": "required_array_present",
+      "message": "required array is present",
+      "pointer": "/edges",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "artifact_is_object",
+      "message": "artifact root is a JSON object",
+      "pointer": "",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "schema_version_present",
+      "message": "schema_version is present",
+      "pointer": "/schema_version",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "artifact_discriminator",
+      "message": "artifact discriminator matches contract",
+      "pointer": "/kind",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "schema_contract_present",
+      "message": "schema_contract object is present",
+      "pointer": "/schema_contract",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "schema_id_matches_registry",
+      "message": "schema_id matches the local schema registry",
+      "pointer": "/schema_contract/schema_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "contract_version_present",
+      "message": "contract_version is present",
+      "pointer": "/schema_contract/contract_version",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "record_array_present",
+      "message": "stable record array is present",
+      "pointer": "/evidence_packs",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "stable_record_id_present",
+      "message": "pack_id is present",
+      "pointer": "/evidence_packs/0/pack_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/evidence_packs/0/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/evidence_packs/0/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/evidence_packs/0/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/evidence_packs/0/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/evidence_packs/0/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/evidence_packs/0/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "stable_record_id_present",
+      "message": "pack_id is present",
+      "pointer": "/evidence_packs/1/pack_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/evidence_packs/1/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/evidence_packs/1/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/evidence_packs/1/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/evidence_packs/1/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/evidence_packs/1/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/evidence_packs/1/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "stable_record_id_present",
+      "message": "pack_id is present",
+      "pointer": "/evidence_packs/2/pack_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/evidence_packs/2/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/evidence_packs/2/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/evidence_packs/2/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/evidence_packs/2/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/evidence_packs/2/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/evidence_packs/2/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "stable_record_id_present",
+      "message": "pack_id is present",
+      "pointer": "/evidence_packs/3/pack_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/evidence_packs/3/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/evidence_packs/3/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/evidence_packs/3/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/evidence_packs/3/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/evidence_packs/3/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/evidence_packs/3/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "stable_record_id_present",
+      "message": "pack_id is present",
+      "pointer": "/evidence_packs/4/pack_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/evidence_packs/4/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/evidence_packs/4/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/evidence_packs/4/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/evidence_packs/4/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/evidence_packs/4/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/evidence_packs/4/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "stable_record_id_present",
+      "message": "pack_id is present",
+      "pointer": "/evidence_packs/5/pack_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/evidence_packs/5/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/evidence_packs/5/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/evidence_packs/5/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/evidence_packs/5/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/evidence_packs/5/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/evidence_packs/5/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "stable_record_id_present",
+      "message": "pack_id is present",
+      "pointer": "/evidence_packs/6/pack_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/evidence_packs/6/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/evidence_packs/6/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/evidence_packs/6/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/evidence_packs/6/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/evidence_packs/6/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/evidence_packs/6/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "stable_record_id_present",
+      "message": "pack_id is present",
+      "pointer": "/evidence_packs/7/pack_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/evidence_packs/7/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/evidence_packs/7/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/evidence_packs/7/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/evidence_packs/7/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/evidence_packs/7/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/evidence_packs/7/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "stable_record_id_present",
+      "message": "pack_id is present",
+      "pointer": "/evidence_packs/8/pack_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/evidence_packs/8/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/evidence_packs/8/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/evidence_packs/8/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/evidence_packs/8/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/evidence_packs/8/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/evidence_packs/8/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "stable_record_id_present",
+      "message": "pack_id is present",
+      "pointer": "/evidence_packs/9/pack_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/evidence_packs/9/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/evidence_packs/9/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/evidence_packs/9/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/evidence_packs/9/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/evidence_packs/9/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/evidence_packs/9/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "stable_record_id_present",
+      "message": "pack_id is present",
+      "pointer": "/evidence_packs/10/pack_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/evidence_packs/10/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/evidence_packs/10/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/evidence_packs/10/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/evidence_packs/10/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/evidence_packs/10/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/evidence_packs/10/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "stable_record_id_present",
+      "message": "pack_id is present",
+      "pointer": "/evidence_packs/11/pack_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/evidence_packs/11/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/evidence_packs/11/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/evidence_packs/11/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/evidence_packs/11/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/evidence_packs/11/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "evidence.packs.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/evidence_packs/11/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "artifact_is_object",
+      "message": "artifact root is a JSON object",
+      "pointer": "",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "schema_version_present",
+      "message": "schema_version is present",
+      "pointer": "/schema_version",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "artifact_discriminator",
+      "message": "artifact discriminator matches contract",
+      "pointer": "/report_kind",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "schema_contract_present",
+      "message": "schema_contract object is present",
+      "pointer": "/schema_contract",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "schema_id_matches_registry",
+      "message": "schema_id matches the local schema registry",
+      "pointer": "/schema_contract/schema_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "contract_version_present",
+      "message": "contract_version is present",
+      "pointer": "/schema_contract/contract_version",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "record_array_present",
+      "message": "stable record array is present",
+      "pointer": "/read_first_files",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/read_first_files/0/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/read_first_files/0/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/read_first_files/0/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/read_first_files/0/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/read_first_files/0/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/read_first_files/0/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/read_first_files/0/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/read_first_files/1/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/read_first_files/1/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/read_first_files/1/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/read_first_files/1/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/read_first_files/1/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/read_first_files/1/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/read_first_files/1/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/read_first_files/2/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/read_first_files/2/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/read_first_files/2/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/read_first_files/2/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/read_first_files/2/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/read_first_files/2/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/read_first_files/2/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/read_first_files/3/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/read_first_files/3/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/read_first_files/3/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/read_first_files/3/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/read_first_files/3/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/read_first_files/3/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/read_first_files/3/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/read_first_files/4/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/read_first_files/4/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/read_first_files/4/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/read_first_files/4/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/read_first_files/4/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/read_first_files/4/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/read_first_files/4/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/read_first_files/5/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/read_first_files/5/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/read_first_files/5/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/read_first_files/5/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/read_first_files/5/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/read_first_files/5/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/read_first_files/5/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/read_first_files/6/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/read_first_files/6/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/read_first_files/6/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/read_first_files/6/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/read_first_files/6/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/read_first_files/6/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/read_first_files/6/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/read_first_files/7/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/read_first_files/7/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/read_first_files/7/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/read_first_files/7/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/read_first_files/7/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/read_first_files/7/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/read_first_files/7/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/read_first_files/8/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/read_first_files/8/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/read_first_files/8/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/read_first_files/8/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/read_first_files/8/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/read_first_files/8/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/read_first_files/8/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/read_first_files/9/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/read_first_files/9/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/read_first_files/9/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/read_first_files/9/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/read_first_files/9/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/read_first_files/9/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/read_first_files/9/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/read_first_files/10/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/read_first_files/10/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/read_first_files/10/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/read_first_files/10/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/read_first_files/10/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/read_first_files/10/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/read_first_files/10/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/read_first_files/11/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/read_first_files/11/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/read_first_files/11/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/read_first_files/11/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/read_first_files/11/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/read_first_files/11/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/read_first_files/11/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/read_first_files/12/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/read_first_files/12/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/read_first_files/12/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/read_first_files/12/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/read_first_files/12/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/read_first_files/12/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/read_first_files/12/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/read_first_files/13/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/read_first_files/13/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/read_first_files/13/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/read_first_files/13/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/read_first_files/13/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/read_first_files/13/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/read_first_files/13/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/read_first_files/14/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/read_first_files/14/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/read_first_files/14/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/read_first_files/14/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/read_first_files/14/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/read_first_files/14/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/read_first_files/14/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/read_first_files/15/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/read_first_files/15/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/read_first_files/15/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/read_first_files/15/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/read_first_files/15/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/read_first_files/15/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.brief.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/read_first_files/15/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "artifact_is_object",
+      "message": "artifact root is a JSON object",
+      "pointer": "",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "schema_version_present",
+      "message": "schema_version is present",
+      "pointer": "/schema_version",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "artifact_discriminator",
+      "message": "artifact discriminator matches contract",
+      "pointer": "/report_kind",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "schema_contract_present",
+      "message": "schema_contract object is present",
+      "pointer": "/schema_contract",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "schema_id_matches_registry",
+      "message": "schema_id matches the local schema registry",
+      "pointer": "/schema_contract/schema_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "contract_version_present",
+      "message": "contract_version is present",
+      "pointer": "/schema_contract/contract_version",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "route_array_non_empty",
+      "message": "agent route contains steps",
+      "pointer": "/ai_next_read_plan/agent_route",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "route_step_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/agent_route/0/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "route_next_artifact_present",
+      "message": "next_artifact is present",
+      "pointer": "/ai_next_read_plan/agent_route/0/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "route_next_tool_hint_present",
+      "message": "next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/agent_route/0/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "route_stop_condition_present",
+      "message": "stop_condition is present",
+      "pointer": "/ai_next_read_plan/agent_route/0/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "route_owner_gate_present",
+      "message": "requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/agent_route/0/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "route_step_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/agent_route/1/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "route_next_artifact_present",
+      "message": "next_artifact is present",
+      "pointer": "/ai_next_read_plan/agent_route/1/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "route_next_tool_hint_present",
+      "message": "next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/agent_route/1/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "route_stop_condition_present",
+      "message": "stop_condition is present",
+      "pointer": "/ai_next_read_plan/agent_route/1/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "route_owner_gate_present",
+      "message": "requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/agent_route/1/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "route_step_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/agent_route/2/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "route_next_artifact_present",
+      "message": "next_artifact is present",
+      "pointer": "/ai_next_read_plan/agent_route/2/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "route_next_tool_hint_present",
+      "message": "next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/agent_route/2/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "route_stop_condition_present",
+      "message": "stop_condition is present",
+      "pointer": "/ai_next_read_plan/agent_route/2/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "route_owner_gate_present",
+      "message": "requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/agent_route/2/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "record_array_present",
+      "message": "stable record array is present",
+      "pointer": "/ai_next_read_plan/read_first_files",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/0/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/read_first_files/0/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/0/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/read_first_files/0/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/read_first_files/0/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/read_first_files/0/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/read_first_files/0/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/1/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/read_first_files/1/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/1/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/read_first_files/1/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/read_first_files/1/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/read_first_files/1/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/read_first_files/1/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/2/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/read_first_files/2/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/2/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/read_first_files/2/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/read_first_files/2/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/read_first_files/2/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/read_first_files/2/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/3/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/read_first_files/3/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/3/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/read_first_files/3/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/read_first_files/3/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/read_first_files/3/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/read_first_files/3/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/4/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/read_first_files/4/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/4/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/read_first_files/4/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/read_first_files/4/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/read_first_files/4/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/read_first_files/4/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/5/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/read_first_files/5/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/5/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/read_first_files/5/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/read_first_files/5/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/read_first_files/5/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/read_first_files/5/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/6/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/read_first_files/6/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/6/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/read_first_files/6/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/read_first_files/6/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/read_first_files/6/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/read_first_files/6/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/7/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/read_first_files/7/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/7/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/read_first_files/7/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/read_first_files/7/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/read_first_files/7/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/read_first_files/7/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/8/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/read_first_files/8/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/8/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/read_first_files/8/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/read_first_files/8/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/read_first_files/8/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/read_first_files/8/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/9/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/read_first_files/9/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/9/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/read_first_files/9/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/read_first_files/9/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/read_first_files/9/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/read_first_files/9/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/10/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/read_first_files/10/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/10/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/read_first_files/10/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/read_first_files/10/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/read_first_files/10/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/read_first_files/10/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/11/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/read_first_files/11/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/11/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/read_first_files/11/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/read_first_files/11/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/read_first_files/11/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/read_first_files/11/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/12/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/read_first_files/12/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/12/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/read_first_files/12/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/read_first_files/12/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/read_first_files/12/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/read_first_files/12/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/13/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/read_first_files/13/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/13/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/read_first_files/13/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/read_first_files/13/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/read_first_files/13/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/read_first_files/13/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/14/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/read_first_files/14/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/read_first_files/14/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/read_first_files/14/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/read_first_files/14/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/read_first_files/14/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/read_first_files/14/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "record_array_present",
+      "message": "stable record array is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/0/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/0/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/0/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/0/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/0/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/0/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/0/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/1/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/1/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/1/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/1/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/1/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/1/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/1/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/2/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/2/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/2/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/2/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/2/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/2/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/2/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/3/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/3/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/3/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/3/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/3/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/3/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/3/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/4/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/4/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/4/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/4/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/4/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/4/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/4/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/5/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/5/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/5/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/5/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/5/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/5/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/5/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/6/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/6/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/6/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/6/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/6/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/6/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/6/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/7/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/7/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/7/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/7/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/7/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/7/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/7/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/8/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/8/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/8/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/8/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/8/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/8/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/8/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/9/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/9/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/9/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/9/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/9/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/9/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "repo.dossier.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/ai_next_read_plan/secondary_context_files/9/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "artifact_is_object",
+      "message": "artifact root is a JSON object",
+      "pointer": "",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "schema_version_present",
+      "message": "schema_version is present",
+      "pointer": "/schema_version",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "artifact_discriminator",
+      "message": "artifact discriminator matches contract",
+      "pointer": "/report_kind",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "schema_contract_present",
+      "message": "schema_contract object is present",
+      "pointer": "/schema_contract",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "schema_id_matches_registry",
+      "message": "schema_id matches the local schema registry",
+      "pointer": "/schema_contract/schema_id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "contract_version_present",
+      "message": "contract_version is present",
+      "pointer": "/schema_contract/contract_version",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "record_array_present",
+      "message": "stable record array is present",
+      "pointer": "/top_action_items",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/0/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/0/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/0/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/0/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/0/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/0/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/0/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/1/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/1/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/1/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/1/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/1/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/1/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/1/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/2/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/2/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/2/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/2/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/2/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/2/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/2/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/3/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/3/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/3/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/3/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/3/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/3/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/3/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/4/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/4/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/4/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/4/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/4/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/4/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/4/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/5/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/5/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/5/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/5/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/5/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/5/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/5/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/6/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/6/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/6/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/6/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/6/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/6/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/6/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/7/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/7/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/7/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/7/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/7/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/7/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/7/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/8/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/8/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/8/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/8/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/8/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/8/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/8/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/9/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/9/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/9/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/9/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/9/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/9/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/9/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/10/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/10/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/10/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/10/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/10/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/10/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/10/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/11/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/11/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/11/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/11/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/11/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/11/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/11/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/12/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/12/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/12/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/12/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/12/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/12/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/12/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/13/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/13/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/13/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/13/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/13/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/13/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/13/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/14/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/14/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/14/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/14/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/14/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/14/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/14/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/15/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/15/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/15/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/15/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/15/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/15/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/15/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/16/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/16/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/16/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/16/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/16/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/16/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/16/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/17/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/17/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/17/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/17/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/17/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/17/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/17/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/18/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/18/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/18/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/18/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/18/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/18/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/18/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/top_action_items/19/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/top_action_items/19/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/top_action_items/19/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/top_action_items/19/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/top_action_items/19/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/top_action_items/19/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/top_action_items/19/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "record_array_present",
+      "message": "stable record array is present",
+      "pointer": "/next_best_actions",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/next_best_actions/0/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/next_best_actions/0/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/next_best_actions/0/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/next_best_actions/0/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/next_best_actions/0/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/next_best_actions/0/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/next_best_actions/0/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/next_best_actions/1/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/next_best_actions/1/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/next_best_actions/1/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/next_best_actions/1/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/next_best_actions/1/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/next_best_actions/1/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/next_best_actions/1/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/next_best_actions/2/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/next_best_actions/2/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/next_best_actions/2/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/next_best_actions/2/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/next_best_actions/2/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/next_best_actions/2/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/next_best_actions/2/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/next_best_actions/3/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/next_best_actions/3/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/next_best_actions/3/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/next_best_actions/3/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/next_best_actions/3/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/next_best_actions/3/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/next_best_actions/3/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/next_best_actions/4/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/next_best_actions/4/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/next_best_actions/4/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/next_best_actions/4/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/next_best_actions/4/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/next_best_actions/4/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/next_best_actions/4/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/next_best_actions/5/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/next_best_actions/5/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/next_best_actions/5/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/next_best_actions/5/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/next_best_actions/5/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/next_best_actions/5/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/next_best_actions/5/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/next_best_actions/6/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/next_best_actions/6/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/next_best_actions/6/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/next_best_actions/6/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/next_best_actions/6/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/next_best_actions/6/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/next_best_actions/6/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/next_best_actions/7/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/next_best_actions/7/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/next_best_actions/7/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/next_best_actions/7/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/next_best_actions/7/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/next_best_actions/7/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/next_best_actions/7/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/next_best_actions/8/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/next_best_actions/8/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/next_best_actions/8/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/next_best_actions/8/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/next_best_actions/8/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/next_best_actions/8/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/next_best_actions/8/agent_next_step/requires_human_owner",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "stable_record_id_present",
+      "message": "id is present",
+      "pointer": "/next_best_actions/9/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_present",
+      "message": "agent_next_step object is present",
+      "pointer": "/next_best_actions/9/agent_next_step",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.id is present",
+      "pointer": "/next_best_actions/9/agent_next_step/id",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_artifact is present",
+      "pointer": "/next_best_actions/9/agent_next_step/next_artifact",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.next_tool_hint is present",
+      "pointer": "/next_best_actions/9/agent_next_step/next_tool_hint",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_field_present",
+      "message": "agent_next_step.stop_condition is present",
+      "pointer": "/next_best_actions/9/agent_next_step/stop_condition",
+      "status": "pass"
+    },
+    {
+      "artifact": "report.agent.json",
+      "check": "agent_next_step_owner_gate_present",
+      "message": "agent_next_step.requires_human_owner is present",
+      "pointer": "/next_best_actions/9/agent_next_step/requires_human_owner",
+      "status": "pass"
+    }
+  ],
+  "kind": "davinci_artifact_contract_lint",
+  "non_llm": true,
+  "schema_version": "1.0.0",
+  "status": "pass",
+  "summary": {
+    "artifacts_checked": 6,
+    "checks": 709,
+    "errors": 0,
+    "required_agent_artifacts": [
+      "repo.dossier.json",
+      "repo.brief.json",
+      "decision.views.json",
+      "report.agent.json",
+      "evidence.packs.json",
+      "evidence.graph.json"
+    ],
+    "warnings": 0
+  }
+}

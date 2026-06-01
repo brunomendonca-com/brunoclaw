@@ -6,6 +6,26 @@ Profile: `exhaustive`
 Scope: `Full`
 Boundary: deterministic orientation evidence, not an LLM semantic summary.
 
+## Executive Orientation
+
+- **one line assessment:** Start with actionable production evidence before broad code reading; this repo has deterministic findings that can mislead a raw orientation pass.
+**what matters**
+- typescript is the dominant language across 261 scanned files and 41584 loaded LOC.
+- Orientation readiness is 95/100 and health is 52.0/100.
+- Detected capability tags: agent, api-server, identity-auth, mcp.
+- 161 findings are present; 99 are production-context and 152 are agent-actionable by default.
+
+**what could break**
+- Production-context findings can change release or remediation priority; inspect report.agent.json and evidence packs first.
+- 67 supply-chain exposure findings need dependency, workflow, or container owner review.
+
+**recommended reader route**
+- Read the README and package/manifest evidence to establish intent.
+- Use Read First Files and Central Files for the smallest useful code pass.
+- Open report.agent.json and evidence.packs.json before assigning remediation work.
+- Use evidence.graph.json or davinci_impact for risky-file neighborhood review.
+
+
 ## Purpose Evidence
 
 Personal Claude assistant. Lightweight, secure, customizable.
@@ -19,11 +39,11 @@ Personal Claude assistant. Lightweight, secure, customizable.
 | Field | Value |
 |---|---|
 | checkout_status | valid |
-| commit_sha | 601fc7c39678462d94098c8915ef320da1dfe466 |
-| branch | main |
-| last_commit_at | 2026-04-23T09:33:39+03:00 |
-| remote_origin_url | https://github.com/brunomendonca-com/brunoclaw |
-| dirty | false |
+| commit_sha | e5a235ab2f114aaccc88e7eadf9100ad28b657ee |
+| branch | codex/add-davinci-artifacts |
+| last_commit_at | 2026-05-27T17:55:39-04:00 |
+| remote_origin_url | https://github.com/bernie-b1stAI/brunoclaw.git |
+| dirty | true |
 
 ## Installability
 
@@ -50,43 +70,43 @@ Personal Claude assistant. Lightweight, secure, customizable.
 
 ## Read First Files
 
-| path | reason |
-|---|---|
-| README.md | project orientation |
-| package.json | installability and metadata |
-| container/agent-runner/src/mcp-tools/index.ts | runtime entrypoint |
-| container/agent-runner/src/mcp-tools/server.ts | runtime entrypoint |
-| src/channels/cli.ts | runtime entrypoint |
-| src/index.ts | runtime entrypoint |
-| src/channels/chat-sdk-bridge.ts | high-impact file |
-| container/agent-runner/scripts/sdk-signal-probe.ts | high-impact file |
-| container/agent-runner/src/formatter.ts | high-impact file |
-| setup/whatsapp-auth.ts | high-impact file |
-| scripts/init-first-agent.ts | high-impact file |
-| setup/index.ts | high-impact file |
-| setup/lib/tz-from-claude.ts | high-impact file |
-| src/container-runner.ts | high-impact file |
-| src/host-sweep.ts | high-impact file |
-| src/modules/approvals/primitive.ts | high-impact file |
+| id | path | reason |
+|---|---|---|
+| brief.read_first.df62d5fe6dea | README.md | project orientation |
+| brief.read_first.1edae8cc0546 | package.json | installability and metadata |
+| brief.read_first.8bc1b1dcab1c | container/agent-runner/src/mcp-tools/index.ts | runtime entrypoint |
+| brief.read_first.66bf8d898abd | container/agent-runner/src/mcp-tools/server.ts | runtime entrypoint |
+| brief.read_first.69c8617a6c4e | src/channels/cli.ts | runtime entrypoint |
+| brief.read_first.e3a95be39750 | src/index.ts | runtime entrypoint |
+| brief.read_first.d2bbc1d49af4 | src/channels/chat-sdk-bridge.ts | high-impact file |
+| brief.read_first.6b6ac51edfcd | container/agent-runner/scripts/sdk-signal-probe.ts | high-impact file |
+| brief.read_first.315c0019bceb | container/agent-runner/src/formatter.ts | high-impact file |
+| brief.read_first.9d5e76096f0b | setup/whatsapp-auth.ts | high-impact file |
+| brief.read_first.0cca05c13542 | scripts/init-first-agent.ts | high-impact file |
+| brief.read_first.afd77a96d152 | setup/index.ts | high-impact file |
+| brief.read_first.9b4557ae2ac6 | setup/lib/tz-from-claude.ts | high-impact file |
+| brief.read_first.61b12357303e | src/container-runner.ts | high-impact file |
+| brief.read_first.0c6a3c5b7743 | src/host-sweep.ts | high-impact file |
+| brief.read_first.7b61f03a52ea | src/modules/approvals/primitive.ts | high-impact file |
 
 ## Component Clusters
 
 | component | files | lines | findings | risk_files |
 |---|---|---|---|---|
-| setup | 60 | 9582 | 53 | 3 |
+| setup | 60 | 9582 | 49 | 3 |
 | container | 49 | 5130 | 15 | 4 |
 | src/modules | 43 | 5094 | 2 | 3 |
 | src | 26 | 4608 | 8 | 7 |
 | src/db | 21 | 2280 | 1 | 0 |
 | docs | 21 | 6438 | 0 | 0 |
-| scripts | 10 | 1639 | 15 | 1 |
-| src/channels | 8 | 1493 | 3 | 2 |
+| scripts | 10 | 1639 | 12 | 1 |
+| src/channels | 8 | 1493 | 2 | 2 |
 | repo-tokens | 2 | 299 | 3 | 0 |
 | src/providers | 2 | 64 | 0 | 0 |
-| nanoclaw.sh | 1 | 251 | 9 | 0 |
+| nanoclaw.sh | 1 | 251 | 4 | 0 |
 | CLAUDE.md | 1 | 247 | 3 | 0 |
 | package.json | 1 | 51 | 1 | 0 |
-| setup.sh | 1 | 233 | 1 | 0 |
+| .mcp.json | 1 | 3 | 0 | 0 |
 | CHANGELOG.md | 1 | 163 | 0 | 0 |
 
 ## Central Files
@@ -133,11 +153,10 @@ Personal Claude assistant. Lightweight, secure, customizable.
 
 | severity | confidence | rule_id | path | line | path_context |
 |---|---|---|---|---|---|
+| error | high | js.child-process-exec.tainted | setup/verify.ts | 263 | production |
+| error | high | js.child-process-exec.tainted | setup/verify.ts | 263 | production |
+| error | high | js.child-process-exec.tainted | setup/verify.ts | 263 | production |
 | high | high | supply-chain.container.remote-build-script | container/Dockerfile | 69 | production |
-| high | high | js.ssrf-fetch | setup/channels/discord.ts | 197 | production |
-| high | high | js.ssrf-fetch | setup/channels/discord.ts | 386 | production |
-| high | high | js.ssrf-fetch | setup/lib/diagnostics.ts | 62 | production |
-| high | high | js.ssrf-fetch | src/channels/chat-sdk-bridge.ts | 528 | production |
 | high | high | supply-chain.agent-instructions.prompt-exfiltration | .claude/skills/add-opencode/SKILL.md | 79 | docs |
 | high | high | supply-chain.agent-instructions.prompt-exfiltration | .claude/skills/add-vercel/SKILL.md | 1 | docs |
 | high | high | supply-chain.agent-instructions.prompt-exfiltration | .claude/skills/get-qodo-rules/SKILL.md | 48 | docs |
@@ -147,16 +166,17 @@ Personal Claude assistant. Lightweight, secure, customizable.
 | high | high | supply-chain.agent-instructions.prompt-exfiltration | .claude/skills/migrate-from-openclaw/SKILL.md | 10 | docs |
 | high | high | supply-chain.agent-instructions.prompt-exfiltration | .claude/skills/update-nanoclaw/SKILL.md | 199 | docs |
 | high | high | supply-chain.agent-instructions.prompt-exfiltration | CLAUDE.md | 1 | docs |
-| high | medium | bash.command-substitution-injection | nanoclaw.sh | 121 | production |
+| high | medium | bash.command-substitution-injection | setup/add-telegram.sh | 130 | production |
+| high | medium | supply-chain.agent-instructions.secret-access | .claude/skills/add-dashboard/SKILL.md | 73 | docs |
 
 ## Risk Summary
 
 | Field | Value |
 |---|---:|
-| health_score | 50 |
-| findings_count | 175 |
-| production_findings | 122 |
-| non_production_findings | 53 |
+| health_score | 52 |
+| findings_count | 161 |
+| production_findings | 99 |
+| non_production_findings | 62 |
 | hotspots_detected | 0 |
 | degradation_count | 0 |
 

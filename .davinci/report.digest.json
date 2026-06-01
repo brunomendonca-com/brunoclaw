@@ -2,31 +2,312 @@
   "boundary": "Fast deterministic digest for orientation and routing. It is not complete evidence; open report.agent.json, evidence.packs.json, or report.json before final decisions.",
   "coverage": {
     "affected_file_upper_bound": 0,
+    "affected_file_upper_bound_ratio": 0.0,
+    "coverage_grade": "green",
+    "degradation_grade": "green",
+    "degradation_grade_reason": "No material bounded-analysis caveat was detected.",
     "event_detail_truncated": false,
-    "loaded_files": 260,
+    "integrity_grade": "green",
+    "loaded_files": 261,
     "parse_coverage_ratio": 1.0,
-    "selected_files": 260,
-    "source_load_coverage_ratio": 1.0
+    "selected_files": 261,
+    "source_load_coverage_ratio": 1.0,
+    "taxonomy_interpretation": "Scan integrity is intact: the full selected input was loaded. Analysis depth was applied broadly with no material bounding."
   },
-  "estimated_tokens": 2764,
+  "estimated_tokens": 9736,
+  "finding_rule_clusters": [
+    {
+      "adapter": "adaptability",
+      "claim_boundary": "Portability and resilience signal; not a vulnerability unless local threat model makes the hardcoded assumption security-sensitive.",
+      "file_count": 17,
+      "non_production_count": 0,
+      "production_count": 29,
+      "representative": {
+        "line": 158,
+        "message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failove...",
+        "path": "nanoclaw.sh",
+        "path_context": "production"
+      },
+      "rule_id": "adaptability.hardcoded-external-endpoint",
+      "severity": "low",
+      "signal_class": "adaptability_signal",
+      "total_count": 29
+    },
+    {
+      "adapter": "adaptability",
+      "claim_boundary": "Portability and resilience signal; not a vulnerability unless local threat model makes the hardcoded assumption security-sensitive.",
+      "file_count": 15,
+      "non_production_count": 3,
+      "production_count": 25,
+      "representative": {
+        "line": 21,
+        "message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the...",
+        "path": "container/agent-runner/src/index.ts",
+        "path_context": "production"
+      },
+      "rule_id": "adaptability.hardcoded-platform-path",
+      "severity": "medium",
+      "signal_class": "adaptability_signal",
+      "total_count": 28
+    },
+    {
+      "adapter": "adaptability",
+      "claim_boundary": "Portability and resilience signal; not a vulnerability unless local threat model makes the hardcoded assumption security-sensitive.",
+      "file_count": 17,
+      "non_production_count": 6,
+      "production_count": 19,
+      "representative": {
+        "line": 109,
+        "message": "Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should ...",
+        "path": "container/agent-runner/scripts/sdk-signal-probe.ts",
+        "path_context": "production"
+      },
+      "rule_id": "adaptability.hardcoded-timeout",
+      "severity": "low",
+      "signal_class": "adaptability_signal",
+      "total_count": 25
+    },
+    {
+      "adapter": "supply-chain",
+      "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
+      "file_count": 4,
+      "non_production_count": 0,
+      "production_count": 11,
+      "representative": {
+        "line": 13,
+        "message": "Workflow uses an action reference that is not pinned to a full 40-character commit SHA.",
+        "path": ".github/workflows/bump-version.yml",
+        "path_context": "production"
+      },
+      "rule_id": "supply-chain.workflow.mutable-action-ref",
+      "severity": "medium",
+      "signal_class": "supply_chain_exposure",
+      "total_count": 11
+    },
+    {
+      "adapter": "adaptability",
+      "claim_boundary": "Portability and resilience signal; not a vulnerability unless local threat model makes the hardcoded assumption security-sensitive.",
+      "file_count": 7,
+      "non_production_count": 0,
+      "production_count": 8,
+      "representative": {
+        "line": 51,
+        "message": "Static resource-cap rigidity: Fixed caps and batch sizes can silently limit scale or waste memory when repo size and hardware vary.",
+        "path": "container/agent-runner/src/db/messages-out.ts",
+        "path_context": "production"
+      },
+      "rule_id": "adaptability.hardcoded-resource-cap",
+      "severity": "low",
+      "signal_class": "adaptability_signal",
+      "total_count": 8
+    },
+    {
+      "adapter": "js-ts-taint",
+      "claim_boundary": "Source-code security candidate from deterministic rules; validate with local runtime and ownership context before claiming exploitability.",
+      "file_count": 1,
+      "non_production_count": 0,
+      "production_count": 3,
+      "representative": {
+        "line": 263,
+        "message": "child_process exec with tainted command",
+        "path": "setup/verify.ts",
+        "path_context": "production"
+      },
+      "rule_id": "js.child-process-exec.tainted",
+      "severity": "error",
+      "signal_class": "source_security",
+      "total_count": 3
+    },
+    {
+      "adapter": "bash-security",
+      "claim_boundary": "Source-code security candidate from deterministic rules; validate with local runtime and ownership context before claiming exploitability.",
+      "file_count": 1,
+      "non_production_count": 0,
+      "production_count": 1,
+      "representative": {
+        "line": 130,
+        "message": "Command substitution with potential injection",
+        "path": "setup/add-telegram.sh",
+        "path_context": "production"
+      },
+      "rule_id": "bash.command-substitution-injection",
+      "severity": "high",
+      "signal_class": "source_security",
+      "total_count": 1
+    },
+    {
+      "adapter": "supply-chain",
+      "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
+      "file_count": 1,
+      "non_production_count": 0,
+      "production_count": 1,
+      "representative": {
+        "line": 69,
+        "message": "Container build or compose command downloads remote code and executes it in the same step.",
+        "path": "container/Dockerfile",
+        "path_context": "production"
+      },
+      "rule_id": "supply-chain.container.remote-build-script",
+      "severity": "high",
+      "signal_class": "supply_chain_exposure",
+      "total_count": 1
+    },
+    {
+      "adapter": "supply-chain",
+      "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
+      "file_count": 1,
+      "non_production_count": 0,
+      "production_count": 1,
+      "representative": {
+        "line": 16,
+        "message": "Package lifecycle script executes during install or publish and should be reviewed for supply-chain risk.",
+        "path": "package.json",
+        "path_context": "production"
+      },
+      "rule_id": "supply-chain.package.lifecycle-script-risk",
+      "severity": "medium",
+      "signal_class": "supply_chain_exposure",
+      "total_count": 1
+    },
+    {
+      "adapter": "supply-chain",
+      "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
+      "file_count": 1,
+      "non_production_count": 0,
+      "production_count": 1,
+      "representative": {
+        "line": 13,
+        "message": "Container image reference is not pinned by digest.",
+        "path": "container/Dockerfile",
+        "path_context": "production"
+      },
+      "rule_id": "supply-chain.container.mutable-image-ref",
+      "severity": "low",
+      "signal_class": "supply_chain_exposure",
+      "total_count": 1
+    },
+    {
+      "adapter": "supply-chain",
+      "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
+      "file_count": 40,
+      "non_production_count": 40,
+      "production_count": 0,
+      "representative": {
+        "line": 73,
+        "message": "Agent instruction file references secrets together with command execution and network transfer primitives.",
+        "path": ".claude/skills/add-dashboard/SKILL.md",
+        "path_context": "docs"
+      },
+      "rule_id": "supply-chain.agent-instructions.secret-access",
+      "severity": "high",
+      "signal_class": "supply_chain_exposure",
+      "total_count": 40
+    },
+    {
+      "adapter": "supply-chain",
+      "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
+      "file_count": 9,
+      "non_production_count": 9,
+      "production_count": 0,
+      "representative": {
+        "line": 79,
+        "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+        "path": ".claude/skills/add-opencode/SKILL.md",
+        "path_context": "docs"
+      },
+      "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+      "severity": "high",
+      "signal_class": "supply_chain_exposure",
+      "total_count": 9
+    },
+    {
+      "adapter": "supply-chain",
+      "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
+      "file_count": 4,
+      "non_production_count": 4,
+      "production_count": 0,
+      "representative": {
+        "line": 29,
+        "message": "Agent instruction file contains invisible or visually ambiguous Unicode that may hide instructions from human review.",
+        "path": ".claude/skills/get-qodo-rules/references/output-format.md",
+        "path_context": "docs"
+      },
+      "rule_id": "supply-chain.agent-instructions.hidden-unicode.variation-selector",
+      "severity": "low",
+      "signal_class": "supply_chain_exposure",
+      "total_count": 4
+    }
+  ],
   "meta": {
-    "duration_secs": 1.5634665,
+    "duration_secs": 1.1908616,
     "profile": "exhaustive",
     "repo_path": "[repo]",
     "scope": "Full",
-    "timestamp": "2026-05-27T21:49:47.457727500+00:00"
+    "timestamp": "2026-06-01T18:38:56.926532600+00:00"
   },
   "modes": {
     "dependency_scan": "cache-only",
     "git_history": "metadata",
-    "index": "full"
+    "index": "metadata"
   },
   "non_llm": true,
+  "previous_scan_comparison": {
+    "boundary": "Previous-scan comparison is local artifact-to-artifact evidence from the output directory. It is useful for drift review, but PR review should still use davinci pr-delta.",
+    "current": {
+      "degradation_count": 0,
+      "duration_secs": 1.19,
+      "files_scanned": 261,
+      "findings_count": 161,
+      "health_score": 52.0,
+      "high_or_error_findings_production": 5,
+      "high_or_error_findings_total": 54,
+      "loaded_line_count": 41584,
+      "non_production_findings": 62,
+      "production_findings": 99,
+      "supply_chain_findings": 67,
+      "timestamp": "2026-06-01T18:38:56.926532600+00:00"
+    },
+    "deltas": {
+      "degradation_count": 0,
+      "duration_secs": -0.37,
+      "files_scanned": 1,
+      "findings_count": -14,
+      "health_score": 2.0,
+      "high_or_error_findings_production": null,
+      "high_or_error_findings_total": null,
+      "loaded_line_count": 3,
+      "non_production_findings": 9,
+      "production_findings": -23,
+      "supply_chain_findings": 0
+    },
+    "previous": {
+      "degradation_count": 0,
+      "duration_secs": 1.56,
+      "files_scanned": 260,
+      "findings_count": 175,
+      "health_score": 50.0,
+      "high_or_error_findings_production": null,
+      "high_or_error_findings_total": null,
+      "loaded_line_count": 41581,
+      "non_production_findings": 53,
+      "production_findings": 122,
+      "supply_chain_findings": 67,
+      "timestamp": "2026-05-27T21:49:47.457727500+00:00"
+    },
+    "schema_version": "1.0.0",
+    "source_artifact": "report.digest.json",
+    "status": "available",
+    "verdict": {
+      "reason": "Health improved without adding production or high/error production evidence.",
+      "status": "improved"
+    }
+  },
   "read_first": [
     "START_HERE_FOR_AI.md",
     "repo.dossier.md",
     "repo.brief.md",
     "report.agent.json",
+    "decision.views.json",
     "evidence.graph.json",
     "evidence.packs.json",
     "report.lean.json",
@@ -34,34 +315,128 @@
     "report.json"
   ],
   "report_kind": "digest",
-  "report_schema_version": "2.33.0",
+  "report_schema_version": "2.37.0",
   "schema_version": "1.0.0",
   "summary": {
+    "actionability": {
+      "boundary": "Actionability separates likely remediation candidates from review-only evidence. It is deterministic triage guidance, not an exploitability verdict.",
+      "fix_now": 3,
+      "investigate": 29,
+      "review_evidence": 18,
+      "unknown": 0
+    },
     "degradation_count": 0,
-    "files_scanned": 260,
-    "findings_count": 175,
-    "health_score": 50.0,
+    "files_scanned": 261,
+    "finding_signal_summary": {
+      "boundary": "Finding signal classes separate static exposure evidence from known dependency vulnerability evidence and source-code security candidates.",
+      "classes": [
+        {
+          "claim_boundary": "Portability and resilience signal; not a vulnerability unless local threat model makes the hardcoded assumption security-sensitive.",
+          "count": 90,
+          "signal_class": "adaptability_signal"
+        },
+        {
+          "claim_boundary": "Source-code security candidate from deterministic rules; validate with local runtime and ownership context before claiming exploitability.",
+          "count": 4,
+          "signal_class": "source_security"
+        },
+        {
+          "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
+          "count": 67,
+          "signal_class": "supply_chain_exposure"
+        }
+      ],
+      "schema_version": "1.0.0"
+    },
+    "findings_count": 161,
+    "health_score": 52.0,
+    "high_or_error_findings_non_production": 49,
+    "high_or_error_findings_production": 5,
+    "high_or_error_findings_total": 54,
     "hotspots_detected": 0,
-    "loaded_line_count": 41581,
-    "non_production_findings": 53,
+    "loaded_line_count": 41584,
+    "non_production_findings": 62,
     "path_context_counts": {
       "docs": 53,
-      "production": 122
+      "production": 99,
+      "test": 9
     },
-    "production_findings": 122,
+    "production_findings": 99,
+    "supply_chain_exposure_evidence_findings": 67,
     "supply_chain_findings": 67,
-    "wiring_gaps_count": 151
+    "wiring_gaps_count": 122
   },
   "top_action_items": [
     {
+      "acceptance_criteria": [
+        "Exploitability or reachable misuse path has been reviewed.",
+        "Code or configuration change removes the risky pattern without broadening permissions.",
+        "A focused regression test, fixture, or documented manual validation covers the changed behavior."
+      ],
+      "action": "replace",
+      "actionability": "fix_now",
+      "actionability_reason": "High-severity/high-confidence production evidence should be treated as a fix-now candidate after validating exploitability and path context.",
+      "agent_next_step": {
+        "id": "action.security.js_child_process_exec_tainted.39cf83e47922.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/verify.ts",
+        "next_line": 263,
+        "next_query": "issue:js.child-process-exec.tainted file:setup/verify.ts",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "finding removed, downgraded with evidence, or accepted-risk rationale recorded"
+      },
+      "category": "security",
+      "confidence": "high",
+      "effort": "low",
+      "file": "setup/verify.ts",
+      "id": "action.security.js_child_process_exec_tainted.39cf83e47922",
+      "impact": "critical",
+      "issue": "js.child-process-exec.tainted",
+      "line": 263,
+      "owner_hint": "security_owner_or_service_owner",
+      "owner_next_step": "Validate the evidence, confirm runtime reachability, apply `replace`, and add or update the narrowest regression test.",
+      "path_context": "production",
+      "priority": 1,
+      "remediation": {
+        "find_pattern": "    const out = execSync(`ps -p ${pid} -o command=`, {",
+        "rationale": "exec invokes a shell and can allow command injection",
+        "replace_with": "child_process.execFile(file, args)"
+      },
+      "risk_score": 10.0,
+      "signal_weight": 1.0,
+      "verification": "Run the focused unit/security fixture plus a DaVinci rescan and confirm the finding is removed or explicitly downgraded.",
+      "why_it_matters": "This is production-weighted security evidence. Treat it as a remediation candidate after validating exploitability and local context."
+    },
+    {
+      "acceptance_criteria": [
+        "Exploitability or reachable misuse path has been reviewed.",
+        "Code or configuration change removes the risky pattern without broadening permissions.",
+        "A focused regression test, fixture, or documented manual validation covers the changed behavior."
+      ],
       "action": "Replace remote installer pipes with pinned package-manager steps or verified downloads with checksum/signature validation before execution.",
+      "actionability": "fix_now",
+      "actionability_reason": "High-severity/high-confidence production evidence should be treated as a fix-now candidate after validating exploitability and path context.",
+      "agent_next_step": {
+        "id": "action.security.supply_chain_container_remote_build_script.a99e80dcac62.next",
+        "next_artifact": "findings.sarif",
+        "next_file": "container/Dockerfile",
+        "next_line": 69,
+        "next_query": "issue:supply-chain.container.remote-build-script file:container/Dockerfile",
+        "next_tool_hint": "get_findings",
+        "requires_human_owner": true,
+        "stop_condition": "finding removed, downgraded with evidence, or accepted-risk rationale recorded"
+      },
       "category": "security",
       "confidence": "high",
       "effort": "low",
       "file": "container/Dockerfile",
+      "id": "action.security.supply_chain_container_remote_build_script.a99e80dcac62",
       "impact": "high",
       "issue": "supply-chain.container.remote-build-script",
       "line": 69,
+      "owner_hint": "release_or_security_owner",
+      "owner_next_step": "Confirm the workflow or release path is intentional, verify provenance and permission boundaries, then apply `Replace remote installer pipes with pinned package-manager steps or verified downloads with checksum/signature validation before execution.` if exposure is broader than needed.",
       "path_context": "production",
       "priority": 2,
       "remediation": {
@@ -70,224 +445,358 @@
         "replace_with": "harden supply-chain configuration"
       },
       "risk_score": 5.0,
-      "signal_weight": 1.0
+      "signal_weight": 1.0,
+      "verification": "Run the focused unit/security fixture plus a DaVinci rescan and confirm the finding is removed or explicitly downgraded.",
+      "why_it_matters": "This is production-weighted security evidence. Treat it as a remediation candidate after validating exploitability and local context."
     },
     {
-      "action": "validate",
-      "category": "security",
-      "confidence": "high",
-      "effort": "low",
-      "file": "setup/channels/discord.ts",
-      "impact": "high",
-      "issue": "js.ssrf-fetch",
-      "line": 197,
-      "path_context": "production",
-      "priority": 2,
-      "remediation": {
-        "find_pattern": "fetch(`${DISCORD_API}/user",
-        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
-        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
-      },
-      "risk_score": 5.0,
-      "signal_weight": 1.0
-    },
-    {
-      "action": "validate",
-      "category": "security",
-      "confidence": "high",
-      "effort": "low",
-      "file": "setup/channels/discord.ts",
-      "impact": "high",
-      "issue": "js.ssrf-fetch",
-      "line": 386,
-      "path_context": "production",
-      "priority": 2,
-      "remediation": {
-        "find_pattern": "fetch(`${DISCORD_API}/users/@me/channels`, {\r\n      method: 'POST',\r\n      headers: {\r\n        Authorization: `Bot ${token}`,\r\n        'Content-Type': 'application/json',\r\n      },\r\n      body: JSON.stringify({ recipient_id: user",
-        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
-        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
-      },
-      "risk_score": 5.0,
-      "signal_weight": 1.0
-    },
-    {
-      "action": "validate",
-      "category": "security",
-      "confidence": "high",
-      "effort": "low",
-      "file": "setup/lib/diagnostics.ts",
-      "impact": "high",
-      "issue": "js.ssrf-fetch",
-      "line": 62,
-      "path_context": "production",
-      "priority": 2,
-      "remediation": {
-        "find_pattern": "fetch(POSTHOG_URL, {\r\n    method: 'POST',\r\n    headers: { 'Content-Type': 'application/json' },\r\n    body",
-        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
-        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
-      },
-      "risk_score": 5.0,
-      "signal_weight": 1.0
-    },
-    {
-      "action": "validate",
-      "category": "security",
-      "confidence": "high",
-      "effort": "low",
-      "file": "src/channels/chat-sdk-bridge.ts",
-      "impact": "high",
-      "issue": "js.ssrf-fetch",
-      "line": 528,
-      "path_context": "production",
-      "priority": 2,
-      "remediation": {
-        "find_pattern": "fetch(`https://discord.com/api/v10/interactions/${interactionId}/${interactionToken}/callback`, {\r\n          method: 'POST',\r\n          headers: { 'Content-Type': 'application/json' },\r\n          body",
-        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
-        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
-      },
-      "risk_score": 5.0,
-      "signal_weight": 1.0
-    },
-    {
-      "action": "validate",
-      "additional_lines": [
-        122,
-        123
+      "acceptance_criteria": [
+        "Exploitability or reachable misuse path has been reviewed.",
+        "Code or configuration change removes the risky pattern without broadening permissions.",
+        "A focused regression test, fixture, or documented manual validation covers the changed behavior."
       ],
+      "action": "validate",
+      "actionability": "fix_now",
+      "actionability_reason": "High-severity/high-confidence production evidence should be treated as a fix-now candidate after validating exploitability and path context.",
+      "agent_next_step": {
+        "id": "action.security.bash_command_substitution_injection.25b8413f383d.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/add-telegram.sh",
+        "next_line": 130,
+        "next_query": "issue:bash.command-substitution-injection file:setup/add-telegram.sh",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "finding removed, downgraded with evidence, or accepted-risk rationale recorded"
+      },
       "category": "security",
       "confidence": "medium",
       "effort": "medium",
-      "file": "nanoclaw.sh",
+      "file": "setup/add-telegram.sh",
+      "id": "action.security.bash_command_substitution_injection.25b8413f383d",
       "impact": "medium",
       "issue": "bash.command-substitution-injection",
-      "line": 121,
+      "line": 130,
+      "owner_hint": "security_owner_or_service_owner",
+      "owner_next_step": "Validate the evidence, confirm runtime reachability, apply `validate`, and add or update the narrowest regression test.",
       "path_context": "production",
       "priority": 3,
       "remediation": {
-        "find_pattern": "$(dim \"(${2}s)",
+        "find_pattern": "$(curl -fsS --max-time 8 \\\r\n  \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe\" 2>/dev/null || true)",
         "rationale": "Command substitution with dynamic input enables command injection",
         "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
       },
       "risk_score": 2.0,
-      "signal_weight": 1.0
+      "signal_weight": 1.0,
+      "verification": "Run the focused unit/security fixture plus a DaVinci rescan and confirm the finding is removed or explicitly downgraded.",
+      "why_it_matters": "This is production-weighted security evidence. Treat it as a remediation candidate after validating exploitability and local context."
     },
     {
-      "action": "validate",
-      "additional_lines": [
-        237
+      "acceptance_criteria": [
+        "Evidence pack and path context have been reviewed.",
+        "Finding is classified as true positive, accepted risk, or false positive with rationale.",
+        "Follow-up remediation is assigned only when runtime context supports it."
       ],
+      "action": "Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.",
+      "actionability": "investigate",
+      "actionability_reason": "This evidence deserves investigation before sprint planning; remediation depends on surrounding design and runtime context.",
+      "additional_lines": [
+        19,
+        23
+      ],
+      "agent_next_step": {
+        "id": "action.security.supply_chain_workflow_mutable_action_ref.40e20de29f4d.next",
+        "next_artifact": "findings.sarif",
+        "next_file": ".github/workflows/bump-version.yml",
+        "next_line": 13,
+        "next_query": "issue:supply-chain.workflow.mutable-action-ref file:.github/workflows/bump-version.yml",
+        "next_tool_hint": "get_findings",
+        "requires_human_owner": true,
+        "stop_condition": "owner classifies the evidence as true-positive, false-positive, or accepted risk"
+      },
       "category": "security",
       "confidence": "medium",
       "effort": "medium",
-      "file": "nanoclaw.sh",
-      "impact": "medium",
-      "issue": "bash.command-substitution-injection",
-      "line": 236,
+      "file": ".github/workflows/bump-version.yml",
+      "id": "action.security.supply_chain_workflow_mutable_action_ref.40e20de29f4d",
+      "impact": "low",
+      "issue": "supply-chain.workflow.mutable-action-ref",
+      "line": 13,
+      "owner_hint": "release_or_security_owner",
+      "owner_next_step": "Confirm the workflow or release path is intentional, verify provenance and permission boundaries, then apply `Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.` if exposure is broader than needed.",
       "path_context": "production",
-      "priority": 3,
+      "priority": 4,
       "remediation": {
-        "find_pattern": "$(dim \"Full raw log: $BOOTSTRAP_RAW\")",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
+        "find_pattern": "- uses: actions/create-github-app-token@v1",
+        "rationale": "This is deterministic static exposure evidence. Validate runtime exploitability before treating it as compromise.",
+        "replace_with": "harden supply-chain configuration"
       },
-      "risk_score": 2.0,
-      "signal_weight": 1.0
+      "risk_score": 1.0,
+      "signal_weight": 1.0,
+      "verification": "Use evidence.packs.json, SARIF location data, and local tests to confirm whether the issue is actionable.",
+      "why_it_matters": "This security evidence is plausible but needs surrounding data flow, reachability, or runtime context before assigning a fix."
     },
     {
-      "action": "validate",
-      "additional_lines": [
-        47
+      "acceptance_criteria": [
+        "Evidence pack and path context have been reviewed.",
+        "Finding is classified as true positive, accepted risk, or false positive with rationale.",
+        "Follow-up remediation is assigned only when runtime context supports it."
       ],
+      "action": "Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.",
+      "actionability": "investigate",
+      "actionability_reason": "This evidence deserves investigation before sprint planning; remediation depends on surrounding design and runtime context.",
+      "additional_lines": [
+        12,
+        13,
+        17
+      ],
+      "agent_next_step": {
+        "id": "action.security.supply_chain_workflow_mutable_action_ref.0a258433dc41.next",
+        "next_artifact": "findings.sarif",
+        "next_file": ".github/workflows/ci.yml",
+        "next_line": 11,
+        "next_query": "issue:supply-chain.workflow.mutable-action-ref file:.github/workflows/ci.yml",
+        "next_tool_hint": "get_findings",
+        "requires_human_owner": true,
+        "stop_condition": "owner classifies the evidence as true-positive, false-positive, or accepted risk"
+      },
       "category": "security",
       "confidence": "medium",
       "effort": "medium",
-      "file": "scripts/cleanup-sessions.sh",
-      "impact": "medium",
-      "issue": "bash.command-substitution-injection",
-      "line": 37,
+      "file": ".github/workflows/ci.yml",
+      "id": "action.security.supply_chain_workflow_mutable_action_ref.0a258433dc41",
+      "impact": "low",
+      "issue": "supply-chain.workflow.mutable-action-ref",
+      "line": 11,
+      "owner_hint": "release_or_security_owner",
+      "owner_next_step": "Confirm the workflow or release path is intentional, verify provenance and permission boundaries, then apply `Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.` if exposure is broader than needed.",
       "path_context": "production",
-      "priority": 3,
+      "priority": 4,
       "remediation": {
-        "find_pattern": "$(wc -c < \"$target\" 2>/dev/null || echo 0)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
+        "find_pattern": "- uses: actions/checkout@v4",
+        "rationale": "This is deterministic static exposure evidence. Validate runtime exploitability before treating it as compromise.",
+        "replace_with": "harden supply-chain configuration"
       },
-      "risk_score": 2.0,
-      "signal_weight": 1.0
+      "risk_score": 1.0,
+      "signal_weight": 1.0,
+      "verification": "Use evidence.packs.json, SARIF location data, and local tests to confirm whether the issue is actionable.",
+      "why_it_matters": "This security evidence is plausible but needs surrounding data flow, reachability, or runtime context before assigning a fix."
+    },
+    {
+      "acceptance_criteria": [
+        "Evidence pack and path context have been reviewed.",
+        "Finding is classified as true positive, accepted risk, or false positive with rationale.",
+        "Follow-up remediation is assigned only when runtime context supports it."
+      ],
+      "action": "Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.",
+      "actionability": "investigate",
+      "actionability_reason": "This evidence deserves investigation before sprint planning; remediation depends on surrounding design and runtime context.",
+      "agent_next_step": {
+        "id": "action.security.supply_chain_workflow_mutable_action_ref.6d60a3c989fa.next",
+        "next_artifact": "findings.sarif",
+        "next_file": ".github/workflows/label-pr.yml",
+        "next_line": 13,
+        "next_query": "issue:supply-chain.workflow.mutable-action-ref file:.github/workflows/label-pr.yml",
+        "next_tool_hint": "get_findings",
+        "requires_human_owner": true,
+        "stop_condition": "owner classifies the evidence as true-positive, false-positive, or accepted risk"
+      },
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": ".github/workflows/label-pr.yml",
+      "id": "action.security.supply_chain_workflow_mutable_action_ref.6d60a3c989fa",
+      "impact": "low",
+      "issue": "supply-chain.workflow.mutable-action-ref",
+      "line": 13,
+      "owner_hint": "release_or_security_owner",
+      "owner_next_step": "Confirm the workflow or release path is intentional, verify provenance and permission boundaries, then apply `Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.` if exposure is broader than needed.",
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "- uses: actions/github-script@v7",
+        "rationale": "This is deterministic static exposure evidence. Validate runtime exploitability before treating it as compromise.",
+        "replace_with": "harden supply-chain configuration"
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0,
+      "verification": "Use evidence.packs.json, SARIF location data, and local tests to confirm whether the issue is actionable.",
+      "why_it_matters": "This security evidence is plausible but needs surrounding data flow, reachability, or runtime context before assigning a fix."
+    },
+    {
+      "acceptance_criteria": [
+        "Evidence pack and path context have been reviewed.",
+        "Finding is classified as true positive, accepted risk, or false positive with rationale.",
+        "Follow-up remediation is assigned only when runtime context supports it."
+      ],
+      "action": "Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.",
+      "actionability": "investigate",
+      "actionability_reason": "This evidence deserves investigation before sprint planning; remediation depends on surrounding design and runtime context.",
+      "additional_lines": [
+        20,
+        24
+      ],
+      "agent_next_step": {
+        "id": "action.security.supply_chain_workflow_mutable_action_ref.393dd67141d2.next",
+        "next_artifact": "findings.sarif",
+        "next_file": ".github/workflows/update-tokens.yml",
+        "next_line": 14,
+        "next_query": "issue:supply-chain.workflow.mutable-action-ref file:.github/workflows/update-tokens.yml",
+        "next_tool_hint": "get_findings",
+        "requires_human_owner": true,
+        "stop_condition": "owner classifies the evidence as true-positive, false-positive, or accepted risk"
+      },
+      "category": "security",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": ".github/workflows/update-tokens.yml",
+      "id": "action.security.supply_chain_workflow_mutable_action_ref.393dd67141d2",
+      "impact": "low",
+      "issue": "supply-chain.workflow.mutable-action-ref",
+      "line": 14,
+      "owner_hint": "release_or_security_owner",
+      "owner_next_step": "Confirm the workflow or release path is intentional, verify provenance and permission boundaries, then apply `Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.` if exposure is broader than needed.",
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "- uses: actions/create-github-app-token@v1",
+        "rationale": "This is deterministic static exposure evidence. Validate runtime exploitability before treating it as compromise.",
+        "replace_with": "harden supply-chain configuration"
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0,
+      "verification": "Use evidence.packs.json, SARIF location data, and local tests to confirm whether the issue is actionable.",
+      "why_it_matters": "This security evidence is plausible but needs surrounding data flow, reachability, or runtime context before assigning a fix."
+    },
+    {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
+      "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.3831086d9a19.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "container/agent-runner/src/index.ts",
+        "next_line": 21,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:container/agent-runner/src/index.ts",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
+      "category": "adaptability",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "container/agent-runner/src/index.ts",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.3831086d9a19",
+      "impact": "low",
+      "issue": "adaptability.hardcoded-platform-path",
+      "line": 21,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "*   /home/node/.claude/ ← Claude SDK state + skill symlinks (RW)",
+        "rationale": "Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
     }
   ],
   "top_findings": [
     {
+      "claim_boundary": "Source-code security candidate from deterministic rules; validate with local runtime and ownership context before claiming exploitability.",
+      "confidence": "high",
+      "line": 263,
+      "message": "child_process exec with tainted command",
+      "path": "setup/verify.ts",
+      "path_context": "production",
+      "rule_id": "js.child-process-exec.tainted",
+      "severity": "error",
+      "signal_class": "source_security"
+    },
+    {
+      "claim_boundary": "Source-code security candidate from deterministic rules; validate with local runtime and ownership context before claiming exploitability.",
+      "confidence": "high",
+      "line": 263,
+      "message": "child_process exec with tainted command",
+      "path": "setup/verify.ts",
+      "path_context": "production",
+      "rule_id": "js.child-process-exec.tainted",
+      "severity": "error",
+      "signal_class": "source_security"
+    },
+    {
+      "claim_boundary": "Source-code security candidate from deterministic rules; validate with local runtime and ownership context before claiming exploitability.",
+      "confidence": "high",
+      "line": 263,
+      "message": "child_process exec with tainted command",
+      "path": "setup/verify.ts",
+      "path_context": "production",
+      "rule_id": "js.child-process-exec.tainted",
+      "severity": "error",
+      "signal_class": "source_security"
+    },
+    {
+      "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
       "confidence": "high",
       "line": 69,
       "message": "Container build or compose command downloads remote code and executes it in the same step.",
       "path": "container/Dockerfile",
       "path_context": "production",
       "rule_id": "supply-chain.container.remote-build-script",
-      "severity": "high"
+      "severity": "high",
+      "signal_class": "supply_chain_exposure"
     },
     {
-      "confidence": "high",
-      "line": 197,
-      "message": "Potential SSRF via fetch with user input",
-      "path": "setup/channels/discord.ts",
-      "path_context": "production",
-      "rule_id": "js.ssrf-fetch",
-      "severity": "high"
-    },
-    {
-      "confidence": "high",
-      "line": 386,
-      "message": "Potential SSRF via fetch with user input",
-      "path": "setup/channels/discord.ts",
-      "path_context": "production",
-      "rule_id": "js.ssrf-fetch",
-      "severity": "high"
-    },
-    {
-      "confidence": "high",
-      "line": 62,
-      "message": "Potential SSRF via fetch with user input",
-      "path": "setup/lib/diagnostics.ts",
-      "path_context": "production",
-      "rule_id": "js.ssrf-fetch",
-      "severity": "high"
-    },
-    {
-      "confidence": "high",
-      "line": 528,
-      "message": "Potential SSRF via fetch with user input",
-      "path": "src/channels/chat-sdk-bridge.ts",
-      "path_context": "production",
-      "rule_id": "js.ssrf-fetch",
-      "severity": "high"
-    },
-    {
+      "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
       "confidence": "high",
       "line": 79,
       "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
       "path": ".claude/skills/add-opencode/SKILL.md",
       "path_context": "docs",
       "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
-      "severity": "high"
+      "severity": "high",
+      "signal_class": "supply_chain_exposure"
     },
     {
+      "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
       "confidence": "high",
       "line": 1,
       "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
       "path": ".claude/skills/add-vercel/SKILL.md",
       "path_context": "docs",
       "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
-      "severity": "high"
+      "severity": "high",
+      "signal_class": "supply_chain_exposure"
     },
     {
+      "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
       "confidence": "high",
       "line": 48,
       "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
       "path": ".claude/skills/get-qodo-rules/SKILL.md",
       "path_context": "docs",
       "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
-      "severity": "high"
+      "severity": "high",
+      "signal_class": "supply_chain_exposure"
+    },
+    {
+      "claim_boundary": "Deterministic static exposure evidence for workflow, package, container, release, or agent-instruction risk; not a confirmed CVE, endpoint compromise, secret exfiltration, or repository clone claim.",
+      "confidence": "high",
+      "line": 10,
+      "message": "Agent instruction file combines prompt-override language with secret access or external transmission cues.",
+      "path": ".claude/skills/get-qodo-rules/references/repository-scope.md",
+      "path_context": "docs",
+      "rule_id": "supply-chain.agent-instructions.prompt-exfiltration",
+      "severity": "high",
+      "signal_class": "supply_chain_exposure"
     }
   ],
   "top_risks": [

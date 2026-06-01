@@ -1,10 +1,36 @@
 {
   "ai_next_read_plan": {
+    "agent_route": [
+      {
+        "id": "route.start_here",
+        "next_artifact": "START_HERE_FOR_AI.md",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "scan scope, path mode, retention, and coverage caveats are understood"
+      },
+      {
+        "id": "route.dossier_read_first",
+        "next_artifact": "repo.dossier.json",
+        "next_query": "ai_next_read_plan.read_first_files",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "bounded source files are selected from stable IDs"
+      },
+      {
+        "id": "route.evidence_followup",
+        "next_artifact": "evidence.packs.json",
+        "next_query": "only for selected findings or risky files",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "candidate evidence is classified before edits"
+      }
+    ],
     "artifact_order": [
       "START_HERE_FOR_AI.md",
       "repo.dossier.md",
       "repo.brief.md",
       "report.digest.json",
+      "decision.views.md",
       "report.agent.json",
       "evidence.packs.json",
       "evidence.graph.json",
@@ -14,140 +40,274 @@
     "purpose": "Small deterministic source set for humans or AI agents before opening the whole repo.",
     "read_first_files": [
       {
+        "agent_next_step": {
+          "id": "dossier.read_first.e067c7193480.next",
+          "next_artifact": "evidence.graph.json",
+          "next_file": "src/channels/chat-sdk-bridge.ts",
+          "next_line": null,
+          "next_query": "file:src/channels/chat-sdk-bridge.ts",
+          "next_tool_hint": "get_evidence_graph",
+          "requires_human_owner": false,
+          "stop_condition": "file risk is understood or a smaller source set is selected"
+        },
+        "id": "dossier.read_first.e067c7193480",
         "path": "src/channels/chat-sdk-bridge.ts",
         "reason": "High deterministic file risk score; inspect before broad source reading.",
         "score": 0.79,
         "source": "top_risk"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.read_first.314af73f0b7a.next",
+          "next_artifact": "evidence.graph.json",
+          "next_file": "container/agent-runner/scripts/sdk-signal-probe.ts",
+          "next_line": null,
+          "next_query": "file:container/agent-runner/scripts/sdk-signal-probe.ts",
+          "next_tool_hint": "get_evidence_graph",
+          "requires_human_owner": false,
+          "stop_condition": "file risk is understood or a smaller source set is selected"
+        },
+        "id": "dossier.read_first.314af73f0b7a",
         "path": "container/agent-runner/scripts/sdk-signal-probe.ts",
         "reason": "High deterministic file risk score; inspect before broad source reading.",
         "score": 0.76,
         "source": "top_risk"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.read_first.4908219c3804.next",
+          "next_artifact": "evidence.graph.json",
+          "next_file": "container/agent-runner/src/formatter.ts",
+          "next_line": null,
+          "next_query": "file:container/agent-runner/src/formatter.ts",
+          "next_tool_hint": "get_evidence_graph",
+          "requires_human_owner": false,
+          "stop_condition": "file risk is understood or a smaller source set is selected"
+        },
+        "id": "dossier.read_first.4908219c3804",
         "path": "container/agent-runner/src/formatter.ts",
         "reason": "High deterministic file risk score; inspect before broad source reading.",
         "score": 0.69,
         "source": "top_risk"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.read_first.7bb18cc02740.next",
+          "next_artifact": "evidence.graph.json",
+          "next_file": "setup/whatsapp-auth.ts",
+          "next_line": null,
+          "next_query": "file:setup/whatsapp-auth.ts",
+          "next_tool_hint": "get_evidence_graph",
+          "requires_human_owner": false,
+          "stop_condition": "file risk is understood or a smaller source set is selected"
+        },
+        "id": "dossier.read_first.7bb18cc02740",
         "path": "setup/whatsapp-auth.ts",
         "reason": "High deterministic file risk score; inspect before broad source reading.",
         "score": 0.67,
         "source": "top_risk"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.read_first.8d8e5c90c95d.next",
+          "next_artifact": "evidence.graph.json",
+          "next_file": "scripts/init-first-agent.ts",
+          "next_line": null,
+          "next_query": "file:scripts/init-first-agent.ts",
+          "next_tool_hint": "get_evidence_graph",
+          "requires_human_owner": false,
+          "stop_condition": "file risk is understood or a smaller source set is selected"
+        },
+        "id": "dossier.read_first.8d8e5c90c95d",
         "path": "scripts/init-first-agent.ts",
         "reason": "High deterministic file risk score; inspect before broad source reading.",
         "score": 0.65,
         "source": "top_risk"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.read_first.1567833594c8.next",
+          "next_artifact": "evidence.graph.json",
+          "next_file": "setup/index.ts",
+          "next_line": null,
+          "next_query": "file:setup/index.ts",
+          "next_tool_hint": "get_evidence_graph",
+          "requires_human_owner": false,
+          "stop_condition": "file risk is understood or a smaller source set is selected"
+        },
+        "id": "dossier.read_first.1567833594c8",
         "path": "setup/index.ts",
         "reason": "High deterministic file risk score; inspect before broad source reading.",
         "score": 0.65,
         "source": "top_risk"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.read_first.b50d62ac2d01.next",
+          "next_artifact": "evidence.graph.json",
+          "next_file": "setup/lib/tz-from-claude.ts",
+          "next_line": null,
+          "next_query": "file:setup/lib/tz-from-claude.ts",
+          "next_tool_hint": "get_evidence_graph",
+          "requires_human_owner": false,
+          "stop_condition": "file risk is understood or a smaller source set is selected"
+        },
+        "id": "dossier.read_first.b50d62ac2d01",
         "path": "setup/lib/tz-from-claude.ts",
         "reason": "High deterministic file risk score; inspect before broad source reading.",
         "score": 0.65,
         "source": "top_risk"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.read_first.25ade8e01bf6.next",
+          "next_artifact": "evidence.graph.json",
+          "next_file": "src/container-runner.ts",
+          "next_line": null,
+          "next_query": "file:src/container-runner.ts",
+          "next_tool_hint": "get_evidence_graph",
+          "requires_human_owner": false,
+          "stop_condition": "file risk is understood or a smaller source set is selected"
+        },
+        "id": "dossier.read_first.25ade8e01bf6",
         "path": "src/container-runner.ts",
         "reason": "High deterministic file risk score; inspect before broad source reading.",
         "score": 0.65,
         "source": "top_risk"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.read_first.bf8e38f3102c.next",
+          "next_artifact": "evidence.graph.json",
+          "next_file": "src/host-sweep.ts",
+          "next_line": null,
+          "next_query": "file:src/host-sweep.ts",
+          "next_tool_hint": "get_evidence_graph",
+          "requires_human_owner": false,
+          "stop_condition": "file risk is understood or a smaller source set is selected"
+        },
+        "id": "dossier.read_first.bf8e38f3102c",
         "path": "src/host-sweep.ts",
         "reason": "High deterministic file risk score; inspect before broad source reading.",
         "score": 0.65,
         "source": "top_risk"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.read_first.3a0a79d36b20.next",
+          "next_artifact": "evidence.graph.json",
+          "next_file": "src/modules/approvals/primitive.ts",
+          "next_line": null,
+          "next_query": "file:src/modules/approvals/primitive.ts",
+          "next_tool_hint": "get_evidence_graph",
+          "requires_human_owner": false,
+          "stop_condition": "file risk is understood or a smaller source set is selected"
+        },
+        "id": "dossier.read_first.3a0a79d36b20",
         "path": "src/modules/approvals/primitive.ts",
         "reason": "High deterministic file risk score; inspect before broad source reading.",
         "score": 0.65,
         "source": "top_risk"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.read_first.6388aac9951f.next",
+          "next_artifact": "evidence.graph.json",
+          "next_file": "src/modules/permissions/index.ts",
+          "next_line": null,
+          "next_query": "file:src/modules/permissions/index.ts",
+          "next_tool_hint": "get_evidence_graph",
+          "requires_human_owner": false,
+          "stop_condition": "file risk is understood or a smaller source set is selected"
+        },
+        "id": "dossier.read_first.6388aac9951f",
         "path": "src/modules/permissions/index.ts",
         "reason": "High deterministic file risk score; inspect before broad source reading.",
         "score": 0.65,
         "source": "top_risk"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.read_first.bcb2f4e95579.next",
+          "next_artifact": "evidence.graph.json",
+          "next_file": "src/modules/approvals/onecli-approvals.ts",
+          "next_line": null,
+          "next_query": "file:src/modules/approvals/onecli-approvals.ts",
+          "next_tool_hint": "get_evidence_graph",
+          "requires_human_owner": false,
+          "stop_condition": "file risk is understood or a smaller source set is selected"
+        },
+        "id": "dossier.read_first.bcb2f4e95579",
         "path": "src/modules/approvals/onecli-approvals.ts",
         "reason": "High deterministic file risk score; inspect before broad source reading.",
         "score": 0.65,
         "source": "top_risk"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.read_first.32221c0c5aee.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": "container/Dockerfile",
+          "next_line": 69,
+          "next_query": "file:container/Dockerfile line:69",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "finding is classified as true-positive, false-positive, or accepted risk"
+        },
+        "id": "dossier.read_first.32221c0c5aee",
         "line": 69,
         "path": "container/Dockerfile",
         "reason": "Representative high finding `supply-chain.container.remote-build-script`.",
         "source": "high_severity_finding"
       },
       {
-        "line": 121,
-        "path": "nanoclaw.sh",
-        "reason": "Representative high finding `bash.command-substitution-injection`.",
-        "source": "high_severity_finding"
-      },
-      {
-        "line": 37,
-        "path": "scripts/cleanup-sessions.sh",
-        "reason": "Representative high finding `bash.command-substitution-injection`.",
-        "source": "high_severity_finding"
-      },
-      {
-        "line": 112,
-        "path": "setup.sh",
-        "reason": "Representative high finding `bash.command-substitution-injection`.",
-        "source": "high_severity_finding"
-      },
-      {
+        "agent_next_step": {
+          "id": "dossier.read_first.1f87c4d41238.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": "setup/add-telegram.sh",
+          "next_line": 130,
+          "next_query": "file:setup/add-telegram.sh line:130",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "finding is classified as true-positive, false-positive, or accepted risk"
+        },
+        "id": "dossier.read_first.1f87c4d41238",
         "line": 130,
         "path": "setup/add-telegram.sh",
         "reason": "Representative high finding `bash.command-substitution-injection`.",
         "source": "high_severity_finding"
       },
       {
-        "line": 197,
-        "path": "setup/channels/discord.ts",
-        "reason": "Representative high finding `js.ssrf-fetch`.",
-        "source": "high_severity_finding"
-      },
-      {
-        "line": 25,
-        "path": "setup/lib/diagnostics.sh",
-        "reason": "Representative high finding `bash.command-substitution-injection`.",
-        "source": "high_severity_finding"
-      },
-      {
-        "line": 62,
-        "path": "setup/lib/diagnostics.ts",
-        "reason": "Representative high finding `js.ssrf-fetch`.",
-        "source": "high_severity_finding"
-      },
-      {
-        "line": 49,
-        "path": "setup/probe.sh",
-        "reason": "Representative high finding `bash.command-substitution-injection`.",
-        "source": "high_severity_finding"
-      },
-      {
-        "line": 83,
-        "path": "setup/register-claude-token.sh",
-        "reason": "Representative high finding `bash.command-substitution-injection`.",
+        "agent_next_step": {
+          "id": "dossier.read_first.79b586e999d0.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": "setup/verify.ts",
+          "next_line": 263,
+          "next_query": "file:setup/verify.ts line:263",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "finding is classified as true-positive, false-positive, or accepted risk"
+        },
+        "id": "dossier.read_first.79b586e999d0",
+        "line": 263,
+        "path": "setup/verify.ts",
+        "reason": "Representative error finding `js.child-process-exec.tainted`.",
         "source": "high_severity_finding"
       }
     ],
     "secondary_context_files": [
       {
+        "agent_next_step": {
+          "id": "dossier.secondary_context.57b4cebd6475.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": ".claude/skills/add-dashboard/SKILL.md",
+          "next_line": 73,
+          "next_query": "file:.claude/skills/add-dashboard/SKILL.md line:73",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "path context is confirmed before remediation is assigned"
+        },
+        "id": "dossier.secondary_context.57b4cebd6475",
         "line": 73,
         "path": ".claude/skills/add-dashboard/SKILL.md",
         "path_context": "docs",
@@ -155,6 +315,17 @@
         "source": "non_primary_high_severity_finding"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.secondary_context.fe0513d13d53.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": ".claude/skills/add-discord/SKILL.md",
+          "next_line": 75,
+          "next_query": "file:.claude/skills/add-discord/SKILL.md line:75",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "path context is confirmed before remediation is assigned"
+        },
+        "id": "dossier.secondary_context.fe0513d13d53",
         "line": 75,
         "path": ".claude/skills/add-discord/SKILL.md",
         "path_context": "docs",
@@ -162,6 +333,17 @@
         "source": "non_primary_high_severity_finding"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.secondary_context.3da97bb5433a.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": ".claude/skills/add-emacs/SKILL.md",
+          "next_line": 65,
+          "next_query": "file:.claude/skills/add-emacs/SKILL.md line:65",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "path context is confirmed before remediation is assigned"
+        },
+        "id": "dossier.secondary_context.3da97bb5433a",
         "line": 65,
         "path": ".claude/skills/add-emacs/SKILL.md",
         "path_context": "docs",
@@ -169,6 +351,17 @@
         "source": "non_primary_high_severity_finding"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.secondary_context.6d176e0904b1.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": ".claude/skills/add-gchat/SKILL.md",
+          "next_line": 71,
+          "next_query": "file:.claude/skills/add-gchat/SKILL.md line:71",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "path context is confirmed before remediation is assigned"
+        },
+        "id": "dossier.secondary_context.6d176e0904b1",
         "line": 71,
         "path": ".claude/skills/add-gchat/SKILL.md",
         "path_context": "docs",
@@ -176,6 +369,17 @@
         "source": "non_primary_high_severity_finding"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.secondary_context.dccf3de85320.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": ".claude/skills/add-github/REMOVE.md",
+          "next_line": 4,
+          "next_query": "file:.claude/skills/add-github/REMOVE.md line:4",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "path context is confirmed before remediation is assigned"
+        },
+        "id": "dossier.secondary_context.dccf3de85320",
         "line": 4,
         "path": ".claude/skills/add-github/REMOVE.md",
         "path_context": "docs",
@@ -183,6 +387,17 @@
         "source": "non_primary_high_severity_finding"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.secondary_context.16b8f794f17f.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": ".claude/skills/add-github/SKILL.md",
+          "next_line": 84,
+          "next_query": "file:.claude/skills/add-github/SKILL.md line:84",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "path context is confirmed before remediation is assigned"
+        },
+        "id": "dossier.secondary_context.16b8f794f17f",
         "line": 84,
         "path": ".claude/skills/add-github/SKILL.md",
         "path_context": "docs",
@@ -190,6 +405,17 @@
         "source": "non_primary_high_severity_finding"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.secondary_context.b3c85b0c2fec.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": ".claude/skills/add-imessage/SKILL.md",
+          "next_line": 83,
+          "next_query": "file:.claude/skills/add-imessage/SKILL.md line:83",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "path context is confirmed before remediation is assigned"
+        },
+        "id": "dossier.secondary_context.b3c85b0c2fec",
         "line": 83,
         "path": ".claude/skills/add-imessage/SKILL.md",
         "path_context": "docs",
@@ -197,6 +423,17 @@
         "source": "non_primary_high_severity_finding"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.secondary_context.e58cfb5e9904.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": ".claude/skills/add-karpathy-llm-wiki/SKILL.md",
+          "next_line": 81,
+          "next_query": "file:.claude/skills/add-karpathy-llm-wiki/SKILL.md line:81",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "path context is confirmed before remediation is assigned"
+        },
+        "id": "dossier.secondary_context.e58cfb5e9904",
         "line": 81,
         "path": ".claude/skills/add-karpathy-llm-wiki/SKILL.md",
         "path_context": "docs",
@@ -204,6 +441,17 @@
         "source": "non_primary_high_severity_finding"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.secondary_context.7fbb068baa49.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": ".claude/skills/add-linear/REMOVE.md",
+          "next_line": 4,
+          "next_query": "file:.claude/skills/add-linear/REMOVE.md line:4",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "path context is confirmed before remediation is assigned"
+        },
+        "id": "dossier.secondary_context.7fbb068baa49",
         "line": 4,
         "path": ".claude/skills/add-linear/REMOVE.md",
         "path_context": "docs",
@@ -211,6 +459,17 @@
         "source": "non_primary_high_severity_finding"
       },
       {
+        "agent_next_step": {
+          "id": "dossier.secondary_context.1848ad577874.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": ".claude/skills/add-linear/SKILL.md",
+          "next_line": 114,
+          "next_query": "file:.claude/skills/add-linear/SKILL.md line:114",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "path context is confirmed before remediation is assigned"
+        },
+        "id": "dossier.secondary_context.1848ad577874",
         "line": 114,
         "path": ".claude/skills/add-linear/SKILL.md",
         "path_context": "docs",
@@ -223,6 +482,7 @@
     "machine_readable": [
       "repo.dossier.json",
       "report.digest.json",
+      "decision.views.json",
       "report.agent.json",
       "repo.brief.json",
       "evidence.packs.json",
@@ -235,6 +495,7 @@
       "repo.dossier.md",
       "repo.brief.md",
       "report.digest.json",
+      "decision.views.md",
       "report.agent.json",
       "evidence.packs.json",
       "evidence.graph.json",
@@ -254,23 +515,15 @@
       "theme": "supply_chain_and_ci"
     },
     {
-      "finding_count": 13,
-      "high_or_error_count": 13,
-      "priority": 2,
-      "recommended_action": "Remove shell interpolation where possible; otherwise isolate, allowlist, and quote arguments.",
-      "representative_rule": "bash.command-substitution-injection",
-      "theme": "command_execution_risk"
-    },
-    {
       "finding_count": 4,
       "high_or_error_count": 4,
       "priority": 2,
-      "recommended_action": "Trace inputs to sinks and replace string-built queries/HTML/URLs with safe APIs.",
-      "representative_rule": "js.ssrf-fetch",
-      "theme": "input_and_injection_risk"
+      "recommended_action": "Remove shell interpolation where possible; otherwise isolate, allowlist, and quote arguments.",
+      "representative_rule": "js.child-process-exec.tainted",
+      "theme": "command_execution_risk"
     },
     {
-      "finding_count": 91,
+      "finding_count": 90,
       "high_or_error_count": 0,
       "priority": 2,
       "recommended_action": "Move fixed paths, endpoints, timeouts, and resource caps behind policy/config, and prefer degradation over fail-fast behavior.",
@@ -282,23 +535,23 @@
     "ci_files": 0,
     "docs_files": 48,
     "entrypoint_candidate_files": 19,
-    "files": 260,
+    "files": 261,
     "generated_or_vendor_files": 0,
     "generated_or_vendor_ratio": 0.0,
     "language_counts": {
       "bash": 30,
       "javascript": 1,
-      "json": 5,
+      "json": 6,
       "markdown": 48,
       "typescript": 173,
       "yaml": 3
     },
-    "lines": 41581,
+    "lines": 41584,
     "manifest_files": 3,
     "report_artifact_files": 0,
     "report_artifact_ratio": 0.0,
-    "test_file_ratio": 0.0962,
-    "test_files": 25
+    "test_file_ratio": 0.1149,
+    "test_files": 30
   },
   "lifecycle": {
     "confidence": "medium",
@@ -313,69 +566,137 @@
     "ci_score": 30.0,
     "coverage_score": 100.0,
     "documentation_score": 95.0,
-    "maturity_score": 69.09,
+    "maturity_score": 70.94,
     "packaging_score": 87.0,
-    "risk_adjusted_score": 47.32,
+    "risk_adjusted_score": 51.8,
     "scoring_note": "Maturity is deterministic readiness evidence across docs, tests, CI, packaging, structure, coverage, and risk. It is separate from security health.",
     "structure_score": 70.0,
-    "test_score": 73.86
+    "test_score": 79.47
   },
   "meta": {
-    "duration_secs": 1.5634665,
+    "duration_secs": 1.1908616,
     "profile": "exhaustive",
     "repo_path": "[repo]",
     "scope": "Full",
-    "timestamp": "2026-05-27T21:49:47.457727500+00:00"
+    "timestamp": "2026-06-01T18:38:56.926532600+00:00"
   },
   "noise_context": {
     "docs_findings": 53,
     "fixture_findings": 0,
-    "non_primary_finding_ratio": 0.3029,
+    "non_primary_finding_ratio": 0.3851,
     "note": "Noise indicators demote review priority; they do not delete findings from full-scope evidence.",
     "report_artifact_findings": 0,
     "secrets_false_positive_estimate": -0.0,
-    "test_findings": 0
+    "test_findings": 9
   },
   "non_llm": true,
   "recommendations": [
     {
-      "action": "triage_high_or_error_findings",
-      "priority": 1,
-      "reason": "67 high/error findings need owner validation before productization."
-    },
-    {
       "action": "review_supply_chain_exposure",
+      "agent_next_step": {
+        "id": "dossier.rec.review_supply_chain_exposure.next",
+        "next_artifact": "report.agent.json",
+        "next_query": "review_supply_chain_exposure",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": true,
+        "stop_condition": "workflow, dependency, or release exposure is classified by a release/security owner"
+      },
+      "id": "dossier.rec.review_supply_chain_exposure",
       "priority": 1,
       "reason": "67 deterministic supply-chain exposure findings are present."
     },
     {
+      "action": "triage_production_high_or_error_findings",
+      "agent_next_step": {
+        "id": "dossier.rec.triage_production_high_or_error.next",
+        "next_artifact": "evidence.packs.json",
+        "next_query": "triage_production_high_or_error_findings",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "production high/error evidence is classified before remediation is assigned"
+      },
+      "id": "dossier.rec.triage_production_high_or_error",
+      "priority": 1,
+      "reason": "5 production high/error findings need owner validation before productization."
+    },
+    {
       "action": "separate_primary_code_from_generated_reports",
+      "agent_next_step": {
+        "id": "dossier.rec.separate_primary_from_noise.next",
+        "next_artifact": "report.agent.json",
+        "next_query": "separate_primary_code_from_generated_reports",
+        "next_tool_hint": "davinci_context",
+        "requires_human_owner": false,
+        "stop_condition": "primary and non-primary evidence are routed separately"
+      },
+      "id": "dossier.rec.separate_primary_from_noise",
       "priority": 2,
       "reason": "A large share of findings appears outside primary source. Review path context, suppress verified fixtures/generated artifacts, or use production scope for release review."
     },
     {
+      "action": "review_non_production_high_or_error_context",
+      "agent_next_step": {
+        "id": "dossier.rec.review_non_production_high_or_error.next",
+        "next_artifact": "evidence.packs.json",
+        "next_query": "review_non_production_high_or_error_context",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "non-production evidence is kept review-only or explicitly promoted with owner context"
+      },
+      "id": "dossier.rec.review_non_production_high_or_error",
+      "priority": 3,
+      "reason": "49 high/error findings are outside production context; validate fixtures, docs, generated reports, or tests before assigning remediation."
+    },
+    {
       "action": "use_evidence_packs_before_editing",
+      "agent_next_step": {
+        "id": "dossier.rec.use_evidence_packs_before_editing.next",
+        "next_artifact": "evidence.packs.json",
+        "next_query": "use_evidence_packs_before_editing",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "candidate evidence has an explicit true-positive, false-positive, or accepted-risk state"
+      },
+      "id": "dossier.rec.use_evidence_packs_before_editing",
       "priority": 3,
       "reason": "Treat findings as candidate evidence. Validate exploitability and path context before code changes."
     }
   ],
   "report_kind": "repo_dossier",
+  "review_posture": {
+    "ai_reader_warning": "Do not treat total finding counts as release risk without path context; non-production high/error evidence is separated in this dossier.",
+    "evidence_basis": {
+      "degradation_events": 0,
+      "health_score": 52.0,
+      "lifecycle_stage": "active_development",
+      "non_primary_finding_ratio": 0.39,
+      "non_production_high_or_error_findings": 49,
+      "production_findings": 99,
+      "production_high_or_error_findings": 5
+    },
+    "headline": "Production high/error findings dominate the next review step.",
+    "owner_focus": "Start with production high/error evidence packs and assign owners only after exploitability review.",
+    "release_gate": "blocked_until_production_high_or_error_review"
+  },
   "risk_context": {
     "architecture_score": 10.0,
     "cycles": 0,
     "degradation_events": 0,
     "files_in_cycles": 0,
-    "finding_density_per_kloc": 4.21,
-    "findings_total": 175,
-    "health_score": 50.0,
-    "high_or_error_findings": 67,
+    "finding_density_per_kloc": 3.87,
+    "findings_total": 161,
+    "health_score": 52.0,
+    "high_or_error_findings": 54,
+    "high_or_error_findings_non_production": 49,
+    "high_or_error_findings_production": 5,
+    "high_or_error_findings_total": 54,
     "hotspots": 0,
     "maintenance_score": 75.0,
-    "non_production_findings": 53,
+    "non_production_findings": 62,
     "parse_coverage_ratio": 1.0,
-    "production_findings": 122,
+    "production_findings": 99,
     "security_degraded_ratio": 0.0,
-    "security_score": 61.0,
+    "security_score": 65.0,
     "source_load_coverage_ratio": 1.0,
     "supply_chain_findings": 67,
     "supply_chain_ioc_hits": 0,
@@ -385,7 +706,7 @@
         "rule_id": "supply-chain.agent-instructions.secret-access"
       },
       {
-        "count": 30,
+        "count": 29,
         "rule_id": "adaptability.hardcoded-external-endpoint"
       },
       {
@@ -395,10 +716,6 @@
       {
         "count": 25,
         "rule_id": "adaptability.hardcoded-timeout"
-      },
-      {
-        "count": 13,
-        "rule_id": "bash.command-substitution-injection"
       },
       {
         "count": 11,
@@ -414,11 +731,15 @@
       },
       {
         "count": 4,
-        "rule_id": "js.ssrf-fetch"
+        "rule_id": "supply-chain.agent-instructions.hidden-unicode.variation-selector"
       },
       {
-        "count": 4,
-        "rule_id": "supply-chain.agent-instructions.hidden-unicode.variation-selector"
+        "count": 3,
+        "rule_id": "js.child-process-exec.tainted"
+      },
+      {
+        "count": 1,
+        "rule_id": "bash.command-substitution-injection"
       },
       {
         "count": 1,
@@ -429,25 +750,35 @@
         "rule_id": "supply-chain.container.remote-build-script"
       }
     ],
-    "wiring_score": 35.0
+    "wiring_score": 37.0
   },
-  "schema_version": "2.33.0",
+  "schema_contract": {
+    "artifact": "repo.dossier.json",
+    "artifact_schema_version": "1.0.0",
+    "boundary": "Schema contract validates deterministic artifact shape for agents and wrappers. It does not certify exploitability or replace report.json as source of truth.",
+    "contract_version": "1.0.0",
+    "models_invoked": false,
+    "schema_id": "https://b1brain.local/davinci/schemas/repo-dossier-1.0.0.schema.json",
+    "stability": "stable"
+  },
+  "schema_version": "2.37.0",
   "summary": {
     "degradation_count": 0,
     "edges": 668,
     "files_in_cycles": 0,
-    "files_scanned": 260,
-    "findings_count": 175,
-    "health_score": 50.0,
+    "files_scanned": 261,
+    "findings_count": 161,
+    "health_score": 52.0,
     "hotspots_detected": 0,
     "import_edges_resolved": 0,
-    "lean_report_tokens": 60478,
-    "loaded_bytes": 1572495,
-    "loaded_line_count": 41581,
+    "lean_report_tokens": 74342,
+    "loaded_bytes": 1572521,
+    "loaded_line_count": 41584,
     "nodes": 842,
     "severity_breakdown": {
-      "high": 67,
-      "low": 68,
+      "error": 3,
+      "high": 51,
+      "low": 67,
       "medium": 40
     }
   }

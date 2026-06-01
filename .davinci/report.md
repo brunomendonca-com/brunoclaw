@@ -3,17 +3,17 @@
 **Repository:** [repo]  
 **Profile:** exhaustive  
 **Scope:** Full  
-**Duration:** 1.56s  
-**Files Scanned:** 260
+**Duration:** 1.19s  
+**Files Scanned:** 261
 
-## Health Score: 50/100
+## Health Score: 52/100
 
 | Component | Score |
 |-----------|-------|
-| Overall | 50 |
-| Security | 61 |
+| Overall | 52 |
+| Security | 65 |
 | Architecture | 10 |
-| Wiring | 35 |
+| Wiring | 37 |
 | Simulation | 100 |
 | Maintenance | 75 |
 
@@ -21,79 +21,101 @@
 
 | Metric | Value |
 |--------|------:|
-| Selected files | 260 |
-| Loaded files | 260 |
-| Loaded LOC | 41581 |
-| Loaded bytes | 1572495 |
-| Parsed files | 260 |
+| Degradation grade | `green` |
+| Selected files | 261 |
+| Loaded files | 261 |
+| Loaded LOC | 41584 |
+| Loaded bytes | 1572521 |
+| Parsed files | 261 |
 | Parse-skipped files | 0 |
 | Source-load skipped files | 0 |
 | Source-load failed files | 0 |
 | Security-scan degraded files | 0 |
 | Security-scan skipped files | 0 |
+| Affected-file upper-bound ratio | 0.00% |
 | Source-load coverage | 100.00% |
 | Parse coverage | 100.00% |
 | Exact degradation events | 0 |
 | Retained degradation events | 0 |
 | Event detail truncated | false |
-| Index mode | `full` |
-| Index status | `full` |
+| Index mode | `metadata` |
+| Index status | `metadata_only` |
+
+Grade reason: No material bounded-analysis caveat was detected.
+
+### Degradation Taxonomy
+
+| Roll-up | Grade |
+|---------|-------|
+| Integrity (input fully loaded) | `green` |
+| Coverage (analysis depth bounded by design) | `green` |
+
+Scan integrity is intact: the full selected input was loaded. Analysis depth was applied broadly with no material bounding.
+
+| Axis | Class | Grade | Metric | Value |
+|------|-------|-------|--------|------:|
+| source_load_coverage | integrity | `green` | loaded_over_selected_ratio | 1.0000 |
+| parse_coverage | bounded | `green` | parsed_over_loaded_ratio | 1.0000 |
+| security_coverage | bounded | `green` | security_degraded_over_loaded_ratio | 0.0000 |
+| finding_retention | bounded | `green` | retention_skipped_file_count | 0.0000 |
+| event_observability | observability | `green` | event_detail_truncated | 0.0000 |
 
 Caveats:
 - DaVinci evidence is deterministic scan context, not final exploitability judgment.
 - Findings in tests, fixtures, generated code, vendored code, examples, or docs should be reviewed with that path context.
 - Degradation counts should be interpreted with file denominators above; a high event count can still represent a bounded subset of loaded files.
+- Local structured metadata exists, but text/vector search artifacts are intentionally unavailable because this scan used `--index-mode metadata`.
 
 ## Summary
 
-- **Findings:** 175
+- **Findings:** 161
 - **Degradations:** 0
 - **Nodes:** 842
 - **Edges:** 668
 - **Import Edges Resolved:** 0
 - **Hotspots Detected:** 0
 - **Files in Cycles:** 0
-- **Lean Report Tokens:** 60478
+- **Lean Report Tokens:** 74342
 
 ## Validated Evidence
 
 | Metric | Value |
 |--------|------:|
-| Findings validated | 175 |
+| Findings validated | 161 |
 | Evidence packs | 12 |
 | Finding clusters | 50 |
-| Average grounding score | 0.784 |
-| Average review priority score | 0.561 |
+| Average grounding score | 0.765 |
+| Average review priority score | 0.507 |
 
-False-positive likelihood counts: `{"high":50,"low":109,"medium":16}`
+False-positive likelihood counts: `{"high":59,"low":86,"medium":16}`
 
-Deterministic challenge counts: `{"downgraded_unverified":63,"needs_exploitability_review":3,"upheld_candidate":109}`
+Deterministic challenge counts: `{"context_demoted":9,"downgraded_unverified":63,"needs_exploitability_review":3,"upheld_candidate":86}`
 
 | Cluster | Rule | Count | Context | FP likelihood | Challenge | File |
 |---------|------|------:|---------|---------------|-----------|------|
-| `FCL-001` | `js.ssrf-fetch` | 2 | production | low | upheld_candidate | `setup/channels/discord.ts` |
-| `FCL-002` | `js.ssrf-fetch` | 1 | production | low | upheld_candidate | `setup/lib/diagnostics.ts` |
-| `FCL-003` | `js.ssrf-fetch` | 1 | production | low | upheld_candidate | `src/channels/chat-sdk-bridge.ts` |
-| `FCL-004` | `bash.command-substitution-injection` | 5 | production | low | upheld_candidate | `nanoclaw.sh` |
-| `FCL-005` | `bash.command-substitution-injection` | 3 | production | low | upheld_candidate | `scripts/cleanup-sessions.sh` |
-| `FCL-006` | `bash.command-substitution-injection` | 1 | production | low | upheld_candidate | `setup.sh` |
-| `FCL-007` | `bash.command-substitution-injection` | 1 | production | low | upheld_candidate | `setup/add-telegram.sh` |
-| `FCL-008` | `bash.command-substitution-injection` | 1 | production | low | upheld_candidate | `setup/lib/diagnostics.sh` |
-| `FCL-009` | `bash.command-substitution-injection` | 1 | production | low | upheld_candidate | `setup/probe.sh` |
-| `FCL-010` | `bash.command-substitution-injection` | 1 | production | low | upheld_candidate | `setup/register-claude-token.sh` |
+| `FCL-001` | `js.child-process-exec.tainted` | 3 | production | low | upheld_candidate | `setup/verify.ts` |
+| `FCL-002` | `bash.command-substitution-injection` | 1 | production | low | upheld_candidate | `setup/add-telegram.sh` |
+| `FCL-003` | `adaptability.hardcoded-platform-path` | 4 | production | low | upheld_candidate | `setup/channels/discord.ts` |
+| `FCL-004` | `adaptability.hardcoded-platform-path` | 3 | production | low | upheld_candidate | `container/entrypoint.sh` |
+| `FCL-005` | `adaptability.hardcoded-platform-path` | 3 | production | low | upheld_candidate | `setup/platform.ts` |
+| `FCL-006` | `adaptability.hardcoded-platform-path` | 3 | production | low | upheld_candidate | `setup/service.ts` |
+| `FCL-007` | `adaptability.hardcoded-platform-path` | 3 | production | low | upheld_candidate | `src/container-runner.ts` |
+| `FCL-008` | `adaptability.hardcoded-platform-path` | 2 | production | low | upheld_candidate | `setup/auto.ts` |
+| `FCL-009` | `adaptability.hardcoded-platform-path` | 2 | production | low | upheld_candidate | `setup/register-claude-token.sh` |
+| `FCL-010` | `adaptability.hardcoded-platform-path` | 1 | production | low | upheld_candidate | `container/agent-runner/src/index.ts` |
 
 | Pack | Priority | Rule | Location | Grounding | FP likelihood | Next action |
 |------|---------:|------|----------|-----------|---------------|-------------|
-| `EV-001` | 0.924 | `js.ssrf-fetch` | `setup/channels/discord.ts:197` | grounded | low | inspect the cited source range and decide fix priority |
-| `EV-002` | 0.924 | `js.ssrf-fetch` | `setup/channels/discord.ts:386` | grounded | low | inspect the cited source range and decide fix priority |
-| `EV-003` | 0.924 | `js.ssrf-fetch` | `setup/lib/diagnostics.ts:62` | grounded | low | inspect the cited source range and decide fix priority |
-| `EV-004` | 0.924 | `js.ssrf-fetch` | `src/channels/chat-sdk-bridge.ts:528` | grounded | low | inspect the cited source range and decide fix priority |
-| `EV-005` | 0.847 | `bash.command-substitution-injection` | `nanoclaw.sh:121` | grounded | low | inspect the cited source range and decide fix priority |
-| `EV-006` | 0.847 | `bash.command-substitution-injection` | `nanoclaw.sh:122` | grounded | low | inspect the cited source range and decide fix priority |
-| `EV-007` | 0.847 | `bash.command-substitution-injection` | `nanoclaw.sh:123` | grounded | low | inspect the cited source range and decide fix priority |
-| `EV-008` | 0.847 | `bash.command-substitution-injection` | `nanoclaw.sh:236` | grounded | low | inspect the cited source range and decide fix priority |
-| `EV-009` | 0.847 | `bash.command-substitution-injection` | `nanoclaw.sh:237` | grounded | low | inspect the cited source range and decide fix priority |
-| `EV-010` | 0.847 | `bash.command-substitution-injection` | `scripts/cleanup-sessions.sh:37` | grounded | low | inspect the cited source range and decide fix priority |
+| `EV-001` | 1.000 | `js.child-process-exec.tainted` | `setup/verify.ts:263` | grounded | low | inspect the cited source range and decide fix priority |
+| `EV-002` | 0.847 | `bash.command-substitution-injection` | `setup/add-telegram.sh:130` | grounded | low | inspect the cited source range and decide fix priority |
+| `EV-003` | 0.771 | `adaptability.hardcoded-platform-path` | `container/agent-runner/src/index.ts:21` | grounded | low | confirm whether the value is live, rotate if live, and move to secret storage |
+| `EV-004` | 0.771 | `adaptability.hardcoded-platform-path` | `container/entrypoint.sh:8` | grounded | low | confirm whether the value is live, rotate if live, and move to secret storage |
+| `EV-005` | 0.771 | `adaptability.hardcoded-platform-path` | `container/entrypoint.sh:14` | grounded | low | confirm whether the value is live, rotate if live, and move to secret storage |
+| `EV-006` | 0.771 | `adaptability.hardcoded-platform-path` | `container/entrypoint.sh:16` | grounded | low | confirm whether the value is live, rotate if live, and move to secret storage |
+| `EV-007` | 0.771 | `adaptability.hardcoded-platform-path` | `nanoclaw.sh:157` | grounded | low | confirm whether the value is live, rotate if live, and move to secret storage |
+| `EV-008` | 0.771 | `supply-chain.package.lifecycle-script-risk` | `package.json:16` | grounded | low | inspect the cited source range and decide fix priority |
+| `EV-009` | 0.771 | `adaptability.hardcoded-platform-path` | `setup/auto.ts:210` | grounded | low | confirm whether the value is live, rotate if live, and move to secret storage |
+| `EV-010` | 0.771 | `adaptability.hardcoded-platform-path` | `setup/auto.ts:777` | grounded | low | confirm whether the value is live, rotate if live, and move to secret storage |
 
 Full bounded evidence is available in `evidence.packs.json`.
 
@@ -112,7 +134,7 @@ DaVinci supply-chain findings are deterministic static repo exposure evidence. T
 | Container files scanned | 1 |
 | Agent instruction files scanned | 78 |
 | Evidence files scanned | 0 |
-| Repo input scope | current |
+| Repo input scope | tracked |
 | Repo input truncated | false |
 
 | Exposure class | Count | Max severity |
@@ -134,21 +156,21 @@ Adaptive policy evidence explains budget utilization and next-run recommendation
 
 | Budget | Used | Limit | Ratio | Status |
 |--------|-----:|------:|------:|--------|
-| `source_files` | 260 | 250000 | 0.001 | `ok` |
-| `source_bytes` | 1572495 | 2000000000 | 0.001 | `ok` |
-| `parse_files` | 260 | 100000 | 0.003 | `ok` |
-| `security_findings` | 175 | 200000 | 0.001 | `ok` |
+| `source_files` | 261 | 250000 | 0.001 | `ok` |
+| `source_bytes` | 1572521 | 2000000000 | 0.001 | `ok` |
+| `parse_files` | 261 | 100000 | 0.003 | `ok` |
+| `security_findings` | 161 | 200000 | 0.001 | `ok` |
 | `symbol_graph_nodes` | 668 | 250000 | 0.003 | `ok` |
 
 ## Degradation File Context
 
 | Metric | Count / Ratio |
 |--------|--------------:|
-| Selected files | 260 |
-| Loaded files | 260 |
+| Selected files | 261 |
+| Loaded files | 261 |
 | Source-load skipped files | 0 |
 | Source-load failed files | 0 |
-| Parsed files | 260 |
+| Parsed files | 261 |
 | Parse-skipped files | 0 |
 | Security-scan degraded files | 0 |
 | Security-scan skipped files | 0 |
@@ -168,19 +190,19 @@ _Upper bound only; parser/security/source-load categories can overlap on the sam
 
 | Stage | Seconds |
 |-------|---------|
-| adaptability | 0.032 |
+| adaptability | 0.040 |
 | cache_lookup | 0.000 |
 | dependency_scan | 0.000 |
 | git_history | 0.000 |
 | graph | 0.004 |
-| index | 0.924 |
-| parser | 0.121 |
-| preflight | 0.256 |
-| report_generation | 0.014 |
-| sim | 0.225 |
-| supply_chain | 0.186 |
+| index | 0.342 |
+| parser | 0.122 |
+| preflight | 0.681 |
+| report_generation | 0.012 |
+| sim | 0.000 |
+| supply_chain | 0.521 |
 
-## Findings (175)
+## Findings (161)
 
 | Severity | Confidence | Context | Provenance | Rule | File | Line | Message |
 |----------|------------|---------|------------|------|------|------|---------|
@@ -274,15 +296,15 @@ _Upper bound only; parser/security/source-load categories can overlap on the sam
 | low | medium | production | source | `adaptability.hardcoded-timeout` | `scripts/chat.ts` | 19 | Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value. |
 | low | medium | production | source | `adaptability.hardcoded-timeout` | `scripts/init-first-agent.ts` | 376 | Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value. |
 | low | medium | production | source | `adaptability.hardcoded-timeout` | `scripts/run-migrations.ts` | 89 | Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value. |
-| medium | medium | production | source | `adaptability.hardcoded-platform-path` | `scripts/test-v2-agent.ts` | 10 | Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine. |
-| medium | medium | production | source | `adaptability.hardcoded-platform-path` | `scripts/test-v2-channel-e2e.ts` | 13 | Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine. |
-| low | medium | production | source | `adaptability.hardcoded-timeout` | `scripts/test-v2-channel-e2e.ts` | 195 | Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value. |
-| low | medium | production | source | `adaptability.hardcoded-timeout` | `scripts/test-v2-channel-e2e.ts` | 205 | Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value. |
-| low | medium | production | source | `adaptability.hardcoded-timeout` | `scripts/test-v2-channel-e2e.ts` | 222 | Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value. |
-| medium | medium | production | source | `adaptability.hardcoded-platform-path` | `scripts/test-v2-host.ts` | 15 | Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine. |
-| low | medium | production | source | `adaptability.hardcoded-timeout` | `scripts/test-v2-host.ts` | 108 | Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value. |
-| low | medium | production | source | `adaptability.hardcoded-timeout` | `scripts/test-v2-host.ts` | 128 | Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value. |
-| low | medium | production | source | `adaptability.hardcoded-timeout` | `scripts/test-v2-host.ts` | 136 | Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value. |
+| medium | medium | test | source | `adaptability.hardcoded-platform-path` | `scripts/test-v2-agent.ts` | 10 | Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine. |
+| medium | medium | test | source | `adaptability.hardcoded-platform-path` | `scripts/test-v2-channel-e2e.ts` | 13 | Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine. |
+| low | medium | test | source | `adaptability.hardcoded-timeout` | `scripts/test-v2-channel-e2e.ts` | 195 | Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value. |
+| low | medium | test | source | `adaptability.hardcoded-timeout` | `scripts/test-v2-channel-e2e.ts` | 205 | Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value. |
+| low | medium | test | source | `adaptability.hardcoded-timeout` | `scripts/test-v2-channel-e2e.ts` | 222 | Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value. |
+| medium | medium | test | source | `adaptability.hardcoded-platform-path` | `scripts/test-v2-host.ts` | 15 | Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine. |
+| low | medium | test | source | `adaptability.hardcoded-timeout` | `scripts/test-v2-host.ts` | 108 | Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value. |
+| low | medium | test | source | `adaptability.hardcoded-timeout` | `scripts/test-v2-host.ts` | 128 | Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value. |
+| low | medium | test | source | `adaptability.hardcoded-timeout` | `scripts/test-v2-host.ts` | 136 | Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value. |
 | low | medium | production | source | `adaptability.hardcoded-external-endpoint` | `setup/add-telegram.sh` | 131 | Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options. |
 | medium | medium | production | source | `adaptability.hardcoded-platform-path` | `setup/auto.ts` | 210 | Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine. |
 | medium | medium | production | source | `adaptability.hardcoded-platform-path` | `setup/auto.ts` | 777 | Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine. |
@@ -297,7 +319,6 @@ _Upper bound only; parser/security/source-load categories can overlap on the sam
 | low | medium | production | source | `adaptability.hardcoded-external-endpoint` | `setup/channels/teams.ts` | 128 | Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options. |
 | low | medium | production | source | `adaptability.hardcoded-external-endpoint` | `setup/channels/teams.ts` | 129 | Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options. |
 | low | medium | production | source | `adaptability.hardcoded-external-endpoint` | `setup/channels/teams.ts` | 141 | Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options. |
-| low | medium | production | source | `adaptability.hardcoded-external-endpoint` | `setup/channels/telegram.ts` | 45 | Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options. |
 | low | medium | production | source | `adaptability.hardcoded-external-endpoint` | `setup/channels/telegram.ts` | 49 | Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options. |
 | low | medium | production | source | `adaptability.hardcoded-external-endpoint` | `setup/channels/telegram.ts` | 175 | Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options. |
 | low | medium | production | source | `adaptability.hardcoded-timeout` | `setup/channels/whatsapp.ts` | 378 | Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value. |
@@ -342,23 +363,10 @@ _Upper bound only; parser/security/source-load categories can overlap on the sam
 | medium | medium | production | source | `adaptability.hardcoded-platform-path` | `src/modules/permissions/user-dm.ts` | 30 | Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine. |
 | low | medium | production | source | `adaptability.hardcoded-resource-cap` | `src/modules/self-mod/request.ts` | 33 | Static resource-cap rigidity: Fixed caps and batch sizes can silently limit scale or waste memory when repo size and hardware vary. |
 | low | medium | production | source | `adaptability.hardcoded-external-endpoint` | `src/webhook-server.ts` | 35 | Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options. |
-| high | medium | production | source | `bash.command-substitution-injection` | `nanoclaw.sh` | 121 | Command substitution with potential injection |
-| high | medium | production | source | `bash.command-substitution-injection` | `nanoclaw.sh` | 122 | Command substitution with potential injection |
-| high | medium | production | source | `bash.command-substitution-injection` | `nanoclaw.sh` | 123 | Command substitution with potential injection |
-| high | medium | production | source | `bash.command-substitution-injection` | `nanoclaw.sh` | 236 | Command substitution with potential injection |
-| high | medium | production | source | `bash.command-substitution-injection` | `nanoclaw.sh` | 237 | Command substitution with potential injection |
-| high | medium | production | source | `bash.command-substitution-injection` | `scripts/cleanup-sessions.sh` | 37 | Command substitution with potential injection |
-| high | medium | production | source | `bash.command-substitution-injection` | `scripts/cleanup-sessions.sh` | 47 | Command substitution with potential injection |
-| high | medium | production | source | `bash.command-substitution-injection` | `scripts/cleanup-sessions.sh` | 62 | Command substitution with potential injection |
-| high | medium | production | source | `bash.command-substitution-injection` | `setup.sh` | 112 | Command substitution with potential injection |
 | high | medium | production | source | `bash.command-substitution-injection` | `setup/add-telegram.sh` | 130 | Command substitution with potential injection |
-| high | high | production | source | `js.ssrf-fetch` | `setup/channels/discord.ts` | 197 | Potential SSRF via fetch with user input |
-| high | high | production | source | `js.ssrf-fetch` | `setup/channels/discord.ts` | 386 | Potential SSRF via fetch with user input |
-| high | medium | production | source | `bash.command-substitution-injection` | `setup/lib/diagnostics.sh` | 25 | Command substitution with potential injection |
-| high | high | production | source | `js.ssrf-fetch` | `setup/lib/diagnostics.ts` | 62 | Potential SSRF via fetch with user input |
-| high | medium | production | source | `bash.command-substitution-injection` | `setup/probe.sh` | 49 | Command substitution with potential injection |
-| high | medium | production | source | `bash.command-substitution-injection` | `setup/register-claude-token.sh` | 83 | Command substitution with potential injection |
-| high | high | production | source | `js.ssrf-fetch` | `src/channels/chat-sdk-bridge.ts` | 528 | Potential SSRF via fetch with user input |
+| error | high | production | source | `js.child-process-exec.tainted` | `setup/verify.ts` | 263 | child_process exec with tainted command |
+| error | high | production | source | `js.child-process-exec.tainted` | `setup/verify.ts` | 263 | child_process exec with tainted command |
+| error | high | production | source | `js.child-process-exec.tainted` | `setup/verify.ts` | 263 | child_process exec with tainted command |
 
 ## Top Risks
 
@@ -389,20 +397,9 @@ _Upper bound only; parser/security/source-load categories can overlap on the sam
 
 | Priority | Category | Issue | File | Action |
 |----------|----------|-------|------|--------|
+| 1 | security | `js.child-process-exec.tainted` | `setup/verify.ts` | replace |
 | 2 | security | `supply-chain.container.remote-build-script` | `container/Dockerfile` | Replace remote installer pipes with pinned package-manager steps or verified downloads with checksum/signature validation before execution. |
-| 2 | security | `js.ssrf-fetch` | `setup/channels/discord.ts` | validate |
-| 2 | security | `js.ssrf-fetch` | `setup/channels/discord.ts` | validate |
-| 2 | security | `js.ssrf-fetch` | `setup/lib/diagnostics.ts` | validate |
-| 2 | security | `js.ssrf-fetch` | `src/channels/chat-sdk-bridge.ts` | validate |
-| 3 | security | `bash.command-substitution-injection` | `nanoclaw.sh` | validate |
-| 3 | security | `bash.command-substitution-injection` | `nanoclaw.sh` | validate |
-| 3 | security | `bash.command-substitution-injection` | `scripts/cleanup-sessions.sh` | validate |
-| 3 | security | `bash.command-substitution-injection` | `scripts/cleanup-sessions.sh` | validate |
-| 3 | security | `bash.command-substitution-injection` | `setup.sh` | validate |
 | 3 | security | `bash.command-substitution-injection` | `setup/add-telegram.sh` | validate |
-| 3 | security | `bash.command-substitution-injection` | `setup/lib/diagnostics.sh` | validate |
-| 3 | security | `bash.command-substitution-injection` | `setup/probe.sh` | validate |
-| 3 | security | `bash.command-substitution-injection` | `setup/register-claude-token.sh` | validate |
 | 4 | security | `supply-chain.workflow.mutable-action-ref` | `.github/workflows/bump-version.yml` | Pin third-party actions to a reviewed full commit SHA and update them through an intentional process. |
 | 4 | security | `supply-chain.workflow.mutable-action-ref` | `.github/workflows/ci.yml` | Pin third-party actions to a reviewed full commit SHA and update them through an intentional process. |
 | 4 | security | `supply-chain.workflow.mutable-action-ref` | `.github/workflows/label-pr.yml` | Pin third-party actions to a reviewed full commit SHA and update them through an intentional process. |
@@ -411,9 +408,6 @@ _Upper bound only; parser/security/source-load categories can overlap on the sam
 | 4 | adaptability | `adaptability.hardcoded-platform-path` | `container/entrypoint.sh` | externalize_or_normalize_path |
 | 4 | adaptability | `adaptability.hardcoded-platform-path` | `nanoclaw.sh` | externalize_or_normalize_path |
 | 4 | security | `supply-chain.package.lifecycle-script-risk` | `package.json` | Avoid install-time side effects where possible; otherwise keep lifecycle scripts minimal, reviewed, and covered by provenance controls. |
-| 4 | adaptability | `adaptability.hardcoded-platform-path` | `scripts/test-v2-agent.ts` | externalize_or_normalize_path |
-| 4 | adaptability | `adaptability.hardcoded-platform-path` | `scripts/test-v2-channel-e2e.ts` | externalize_or_normalize_path |
-| 4 | adaptability | `adaptability.hardcoded-platform-path` | `scripts/test-v2-host.ts` | externalize_or_normalize_path |
 | 4 | adaptability | `adaptability.hardcoded-platform-path` | `setup/auto.ts` | externalize_or_normalize_path |
 | 4 | adaptability | `adaptability.hardcoded-platform-path` | `setup/auto.ts` | externalize_or_normalize_path |
 | 4 | adaptability | `adaptability.hardcoded-platform-path` | `setup/channels/discord.ts` | externalize_or_normalize_path |
@@ -439,6 +433,20 @@ _Upper bound only; parser/security/source-load categories can overlap on the sam
 | 4 | architecture | `orphaned_module` | `container/agent-runner/src/formatter.ts` | review_or_remove |
 | 4 | architecture | `orphaned_module` | `container/agent-runner/src/mcp-tools/agents.ts` | review_or_remove |
 | 4 | architecture | `orphaned_module` | `container/agent-runner/src/mcp-tools/core.ts` | review_or_remove |
+| 4 | architecture | `orphaned_module` | `container/agent-runner/src/mcp-tools/interactive.ts` | review_or_remove |
+| 4 | architecture | `orphaned_module` | `container/agent-runner/src/mcp-tools/scheduling.ts` | review_or_remove |
+| 4 | architecture | `orphaned_module` | `container/agent-runner/src/mcp-tools/self-mod.ts` | review_or_remove |
+| 4 | architecture | `orphaned_module` | `container/agent-runner/src/mcp-tools/types.ts` | review_or_remove |
+| 4 | architecture | `orphaned_module` | `container/agent-runner/src/poll-loop.ts` | review_or_remove |
+| 4 | architecture | `orphaned_module` | `container/agent-runner/src/providers/claude.ts` | review_or_remove |
+| 4 | architecture | `orphaned_module` | `container/agent-runner/src/providers/factory.ts` | review_or_remove |
+| 4 | architecture | `orphaned_module` | `container/agent-runner/src/providers/mock.ts` | review_or_remove |
+| 4 | architecture | `orphaned_module` | `container/agent-runner/src/providers/provider-registry.ts` | review_or_remove |
+| 4 | architecture | `orphaned_module` | `container/agent-runner/src/providers/types.ts` | review_or_remove |
+| 4 | architecture | `orphaned_module` | `container/agent-runner/src/scheduling/task-script.ts` | review_or_remove |
+| 4 | architecture | `orphaned_module` | `container/agent-runner/src/timezone.ts` | review_or_remove |
+| 4 | architecture | `orphaned_module` | `scripts/chat.ts` | review_or_remove |
+| 4 | architecture | `orphaned_module` | `scripts/init-cli-agent.ts` | review_or_remove |
 
 ---
-*Generated by DaVinci v0.3.0 — schema 2.33.0*
+*Generated by DaVinci v0.3.0 — schema 2.37.0*

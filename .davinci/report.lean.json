@@ -1,14 +1,76 @@
 {
   "action_items": [
     {
+      "acceptance_criteria": [
+        "Exploitability or reachable misuse path has been reviewed.",
+        "Code or configuration change removes the risky pattern without broadening permissions.",
+        "A focused regression test, fixture, or documented manual validation covers the changed behavior."
+      ],
+      "action": "replace",
+      "actionability": "fix_now",
+      "actionability_reason": "High-severity/high-confidence production evidence should be treated as a fix-now candidate after validating exploitability and path context.",
+      "agent_next_step": {
+        "id": "action.security.js_child_process_exec_tainted.39cf83e47922.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/verify.ts",
+        "next_line": 263,
+        "next_query": "issue:js.child-process-exec.tainted file:setup/verify.ts",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "finding removed, downgraded with evidence, or accepted-risk rationale recorded"
+      },
+      "category": "security",
+      "confidence": "high",
+      "effort": "low",
+      "file": "setup/verify.ts",
+      "id": "action.security.js_child_process_exec_tainted.39cf83e47922",
+      "impact": "critical",
+      "issue": "js.child-process-exec.tainted",
+      "line": 263,
+      "owner_hint": "security_owner_or_service_owner",
+      "owner_next_step": "Validate the evidence, confirm runtime reachability, apply `replace`, and add or update the narrowest regression test.",
+      "path_context": "production",
+      "priority": 1,
+      "remediation": {
+        "find_pattern": "    const out = execSync(`ps -p ${pid} -o command=`, {",
+        "matched_text": "    const out = execSync(`ps -p ${pid} -o command=`, {",
+        "rationale": "exec invokes a shell and can allow command injection",
+        "replace_with": "child_process.execFile(file, args)"
+      },
+      "risk_score": 10.0,
+      "signal_weight": 1.0,
+      "verification": "Run the focused unit/security fixture plus a DaVinci rescan and confirm the finding is removed or explicitly downgraded.",
+      "why_it_matters": "This is production-weighted security evidence. Treat it as a remediation candidate after validating exploitability and local context."
+    },
+    {
+      "acceptance_criteria": [
+        "Exploitability or reachable misuse path has been reviewed.",
+        "Code or configuration change removes the risky pattern without broadening permissions.",
+        "A focused regression test, fixture, or documented manual validation covers the changed behavior."
+      ],
       "action": "Replace remote installer pipes with pinned package-manager steps or verified downloads with checksum/signature validation before execution.",
+      "actionability": "fix_now",
+      "actionability_reason": "High-severity/high-confidence production evidence should be treated as a fix-now candidate after validating exploitability and path context.",
+      "agent_next_step": {
+        "id": "action.security.supply_chain_container_remote_build_script.a99e80dcac62.next",
+        "next_artifact": "findings.sarif",
+        "next_file": "container/Dockerfile",
+        "next_line": 69,
+        "next_query": "issue:supply-chain.container.remote-build-script file:container/Dockerfile",
+        "next_tool_hint": "get_findings",
+        "requires_human_owner": true,
+        "stop_condition": "finding removed, downgraded with evidence, or accepted-risk rationale recorded"
+      },
       "category": "security",
       "confidence": "high",
       "effort": "low",
       "file": "container/Dockerfile",
+      "id": "action.security.supply_chain_container_remote_build_script.a99e80dcac62",
       "impact": "high",
       "issue": "supply-chain.container.remote-build-script",
       "line": 69,
+      "owner_hint": "release_or_security_owner",
+      "owner_next_step": "Confirm the workflow or release path is intentional, verify provenance and permission boundaries, then apply `Replace remote installer pipes with pinned package-manager steps or verified downloads with checksum/signature validation before execution.` if exposure is broader than needed.",
       "path_context": "production",
       "priority": 2,
       "remediation": {
@@ -18,207 +80,39 @@
         "replace_with": "harden supply-chain configuration"
       },
       "risk_score": 5.0,
-      "signal_weight": 1.0
+      "signal_weight": 1.0,
+      "verification": "Run the focused unit/security fixture plus a DaVinci rescan and confirm the finding is removed or explicitly downgraded.",
+      "why_it_matters": "This is production-weighted security evidence. Treat it as a remediation candidate after validating exploitability and local context."
     },
     {
-      "action": "validate",
-      "category": "security",
-      "confidence": "high",
-      "effort": "low",
-      "file": "setup/channels/discord.ts",
-      "impact": "high",
-      "issue": "js.ssrf-fetch",
-      "line": 197,
-      "path_context": "production",
-      "priority": 2,
-      "remediation": {
-        "find_pattern": "fetch(`${DISCORD_API}/user",
-        "matched_text": "fetch(`${DISCORD_API}/user",
-        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
-        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
-      },
-      "risk_score": 5.0,
-      "signal_weight": 1.0
-    },
-    {
-      "action": "validate",
-      "category": "security",
-      "confidence": "high",
-      "effort": "low",
-      "file": "setup/channels/discord.ts",
-      "impact": "high",
-      "issue": "js.ssrf-fetch",
-      "line": 386,
-      "path_context": "production",
-      "priority": 2,
-      "remediation": {
-        "find_pattern": "fetch(`${DISCORD_API}/users/@me/channels`, {\r\n      method: 'POST',\r\n      headers: {\r\n        Authorization: `Bot ${token}`,\r\n        'Content-Type': 'application/json',\r\n      },\r\n      body: JSON.stringify({ recipient_id: user",
-        "matched_text": "fetch(`${DISCORD_API}/users/@me/channels`, {\r\n      method: 'POST',\r\n      headers: {\r\n        Authorization: `Bot ${token}`,\r\n        'Content-Type': 'application/json',\r\n      },\r\n      body: JSON.stringify({ recipient_id: user",
-        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
-        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
-      },
-      "risk_score": 5.0,
-      "signal_weight": 1.0
-    },
-    {
-      "action": "validate",
-      "category": "security",
-      "confidence": "high",
-      "effort": "low",
-      "file": "setup/lib/diagnostics.ts",
-      "impact": "high",
-      "issue": "js.ssrf-fetch",
-      "line": 62,
-      "path_context": "production",
-      "priority": 2,
-      "remediation": {
-        "find_pattern": "fetch(POSTHOG_URL, {\r\n    method: 'POST',\r\n    headers: { 'Content-Type': 'application/json' },\r\n    body",
-        "matched_text": "fetch(POSTHOG_URL, {\r\n    method: 'POST',\r\n    headers: { 'Content-Type': 'application/json' },\r\n    body",
-        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
-        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
-      },
-      "risk_score": 5.0,
-      "signal_weight": 1.0
-    },
-    {
-      "action": "validate",
-      "category": "security",
-      "confidence": "high",
-      "effort": "low",
-      "file": "src/channels/chat-sdk-bridge.ts",
-      "impact": "high",
-      "issue": "js.ssrf-fetch",
-      "line": 528,
-      "path_context": "production",
-      "priority": 2,
-      "remediation": {
-        "find_pattern": "fetch(`https://discord.com/api/v10/interactions/${interactionId}/${interactionToken}/callback`, {\r\n          method: 'POST',\r\n          headers: { 'Content-Type': 'application/json' },\r\n          body",
-        "matched_text": "fetch(`https://discord.com/api/v10/interactions/${interactionId}/${interactionToken}/callback`, {\r\n          method: 'POST',\r\n          headers: { 'Content-Type': 'application/json' },\r\n          body",
-        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
-        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
-      },
-      "risk_score": 5.0,
-      "signal_weight": 1.0
-    },
-    {
-      "action": "validate",
-      "additional_lines": [
-        122,
-        123
+      "acceptance_criteria": [
+        "Exploitability or reachable misuse path has been reviewed.",
+        "Code or configuration change removes the risky pattern without broadening permissions.",
+        "A focused regression test, fixture, or documented manual validation covers the changed behavior."
       ],
-      "category": "security",
-      "confidence": "medium",
-      "effort": "medium",
-      "file": "nanoclaw.sh",
-      "impact": "medium",
-      "issue": "bash.command-substitution-injection",
-      "line": 121,
-      "path_context": "production",
-      "priority": 3,
-      "remediation": {
-        "find_pattern": "$(dim \"(${2}s)",
-        "matched_text": "$(dim \"(${2}s)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "risk_score": 2.0,
-      "signal_weight": 1.0
-    },
-    {
       "action": "validate",
-      "additional_lines": [
-        237
-      ],
-      "category": "security",
-      "confidence": "medium",
-      "effort": "medium",
-      "file": "nanoclaw.sh",
-      "impact": "medium",
-      "issue": "bash.command-substitution-injection",
-      "line": 236,
-      "path_context": "production",
-      "priority": 3,
-      "remediation": {
-        "find_pattern": "$(dim \"Full raw log: $BOOTSTRAP_RAW\")",
-        "matched_text": "$(dim \"Full raw log: $BOOTSTRAP_RAW\")",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
+      "actionability": "fix_now",
+      "actionability_reason": "High-severity/high-confidence production evidence should be treated as a fix-now candidate after validating exploitability and path context.",
+      "agent_next_step": {
+        "id": "action.security.bash_command_substitution_injection.25b8413f383d.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/add-telegram.sh",
+        "next_line": 130,
+        "next_query": "issue:bash.command-substitution-injection file:setup/add-telegram.sh",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "finding removed, downgraded with evidence, or accepted-risk rationale recorded"
       },
-      "risk_score": 2.0,
-      "signal_weight": 1.0
-    },
-    {
-      "action": "validate",
-      "additional_lines": [
-        47
-      ],
-      "category": "security",
-      "confidence": "medium",
-      "effort": "medium",
-      "file": "scripts/cleanup-sessions.sh",
-      "impact": "medium",
-      "issue": "bash.command-substitution-injection",
-      "line": 37,
-      "path_context": "production",
-      "priority": 3,
-      "remediation": {
-        "find_pattern": "$(wc -c < \"$target\" 2>/dev/null || echo 0)",
-        "matched_text": "$(wc -c < \"$target\" 2>/dev/null || echo 0)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "risk_score": 2.0,
-      "signal_weight": 1.0
-    },
-    {
-      "action": "validate",
-      "category": "security",
-      "confidence": "medium",
-      "effort": "medium",
-      "file": "scripts/cleanup-sessions.sh",
-      "impact": "medium",
-      "issue": "bash.command-substitution-injection",
-      "line": 62,
-      "path_context": "production",
-      "priority": 3,
-      "remediation": {
-        "find_pattern": "$(sqlite3 \"$STORE_DB\" \"SELECT session_id FROM sessions;\" 2>/dev/null || true)",
-        "matched_text": "$(sqlite3 \"$STORE_DB\" \"SELECT session_id FROM sessions;\" 2>/dev/null || true)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "risk_score": 2.0,
-      "signal_weight": 1.0
-    },
-    {
-      "action": "validate",
-      "category": "security",
-      "confidence": "medium",
-      "effort": "medium",
-      "file": "setup.sh",
-      "impact": "medium",
-      "issue": "bash.command-substitution-injection",
-      "line": 112,
-      "path_context": "production",
-      "priority": 3,
-      "remediation": {
-        "find_pattern": "$(grep -E '\"packageManager\"' \"$PROJECT_ROOT/package.json\" 2>/dev/null \\\r\n      | head -1 \\\r\n      | sed -E 's/.*\"pnpm@([^\"]+)",
-        "matched_text": "$(grep -E '\"packageManager\"' \"$PROJECT_ROOT/package.json\" 2>/dev/null \\\r\n      | head -1 \\\r\n      | sed -E 's/.*\"pnpm@([^\"]+)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "risk_score": 2.0,
-      "signal_weight": 1.0
-    },
-    {
-      "action": "validate",
       "category": "security",
       "confidence": "medium",
       "effort": "medium",
       "file": "setup/add-telegram.sh",
+      "id": "action.security.bash_command_substitution_injection.25b8413f383d",
       "impact": "medium",
       "issue": "bash.command-substitution-injection",
       "line": 130,
+      "owner_hint": "security_owner_or_service_owner",
+      "owner_next_step": "Validate the evidence, confirm runtime reachability, apply `validate`, and add or update the narrowest regression test.",
       "path_context": "production",
       "priority": 3,
       "remediation": {
@@ -228,81 +122,43 @@
         "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
       },
       "risk_score": 2.0,
-      "signal_weight": 1.0
+      "signal_weight": 1.0,
+      "verification": "Run the focused unit/security fixture plus a DaVinci rescan and confirm the finding is removed or explicitly downgraded.",
+      "why_it_matters": "This is production-weighted security evidence. Treat it as a remediation candidate after validating exploitability and local context."
     },
     {
-      "action": "validate",
-      "category": "security",
-      "confidence": "medium",
-      "effort": "medium",
-      "file": "setup/lib/diagnostics.sh",
-      "impact": "medium",
-      "issue": "bash.command-substitution-injection",
-      "line": 25,
-      "path_context": "production",
-      "priority": 3,
-      "remediation": {
-        "find_pattern": "$(uuidgen 2>/dev/null \\\r\n      || cat /proc/sys/kernel/random/uuid 2>/dev/null \\\r\n      || printf 'fallback-%s-%s' \"$(date +%s)",
-        "matched_text": "$(uuidgen 2>/dev/null \\\r\n      || cat /proc/sys/kernel/random/uuid 2>/dev/null \\\r\n      || printf 'fallback-%s-%s' \"$(date +%s)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "risk_score": 2.0,
-      "signal_weight": 1.0
-    },
-    {
-      "action": "validate",
-      "category": "security",
-      "confidence": "medium",
-      "effort": "medium",
-      "file": "setup/probe.sh",
-      "impact": "medium",
-      "issue": "bash.command-substitution-injection",
-      "line": 49,
-      "path_context": "production",
-      "priority": 3,
-      "remediation": {
-        "find_pattern": "$(grep -E \"^${name}=\" \"$envfile\" 2>/dev/null | head -n1)",
-        "matched_text": "$(grep -E \"^${name}=\" \"$envfile\" 2>/dev/null | head -n1)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "risk_score": 2.0,
-      "signal_weight": 1.0
-    },
-    {
-      "action": "validate",
-      "category": "security",
-      "confidence": "medium",
-      "effort": "medium",
-      "file": "setup/register-claude-token.sh",
-      "impact": "medium",
-      "issue": "bash.command-substitution-injection",
-      "line": 83,
-      "path_context": "production",
-      "priority": 3,
-      "remediation": {
-        "find_pattern": "$(sed $'s/\\x1b\\\\[[0-9;]*[a-zA-Z]//g' \"$tmpfile\" \\\r\n        | tr -d '\\n\\r' \\\r\n        | perl -ne 'print \"$1\\n\" while /(sk-ant-oat[A-Za-z0-9_-]{80,500}AA)",
-        "matched_text": "$(sed $'s/\\x1b\\\\[[0-9;]*[a-zA-Z]//g' \"$tmpfile\" \\\r\n        | tr -d '\\n\\r' \\\r\n        | perl -ne 'print \"$1\\n\" while /(sk-ant-oat[A-Za-z0-9_-]{80,500}AA)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "risk_score": 2.0,
-      "signal_weight": 1.0
-    },
-    {
+      "acceptance_criteria": [
+        "Evidence pack and path context have been reviewed.",
+        "Finding is classified as true positive, accepted risk, or false positive with rationale.",
+        "Follow-up remediation is assigned only when runtime context supports it."
+      ],
       "action": "Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.",
+      "actionability": "investigate",
+      "actionability_reason": "This evidence deserves investigation before sprint planning; remediation depends on surrounding design and runtime context.",
       "additional_lines": [
         19,
         23
       ],
+      "agent_next_step": {
+        "id": "action.security.supply_chain_workflow_mutable_action_ref.40e20de29f4d.next",
+        "next_artifact": "findings.sarif",
+        "next_file": ".github/workflows/bump-version.yml",
+        "next_line": 13,
+        "next_query": "issue:supply-chain.workflow.mutable-action-ref file:.github/workflows/bump-version.yml",
+        "next_tool_hint": "get_findings",
+        "requires_human_owner": true,
+        "stop_condition": "owner classifies the evidence as true-positive, false-positive, or accepted risk"
+      },
       "category": "security",
       "confidence": "medium",
       "effort": "medium",
       "file": ".github/workflows/bump-version.yml",
+      "id": "action.security.supply_chain_workflow_mutable_action_ref.40e20de29f4d",
       "impact": "low",
       "issue": "supply-chain.workflow.mutable-action-ref",
       "line": 13,
+      "owner_hint": "release_or_security_owner",
+      "owner_next_step": "Confirm the workflow or release path is intentional, verify provenance and permission boundaries, then apply `Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.` if exposure is broader than needed.",
       "path_context": "production",
       "priority": 4,
       "remediation": {
@@ -312,22 +168,44 @@
         "replace_with": "harden supply-chain configuration"
       },
       "risk_score": 1.0,
-      "signal_weight": 1.0
+      "signal_weight": 1.0,
+      "verification": "Use evidence.packs.json, SARIF location data, and local tests to confirm whether the issue is actionable.",
+      "why_it_matters": "This security evidence is plausible but needs surrounding data flow, reachability, or runtime context before assigning a fix."
     },
     {
+      "acceptance_criteria": [
+        "Evidence pack and path context have been reviewed.",
+        "Finding is classified as true positive, accepted risk, or false positive with rationale.",
+        "Follow-up remediation is assigned only when runtime context supports it."
+      ],
       "action": "Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.",
+      "actionability": "investigate",
+      "actionability_reason": "This evidence deserves investigation before sprint planning; remediation depends on surrounding design and runtime context.",
       "additional_lines": [
         12,
         13,
         17
       ],
+      "agent_next_step": {
+        "id": "action.security.supply_chain_workflow_mutable_action_ref.0a258433dc41.next",
+        "next_artifact": "findings.sarif",
+        "next_file": ".github/workflows/ci.yml",
+        "next_line": 11,
+        "next_query": "issue:supply-chain.workflow.mutable-action-ref file:.github/workflows/ci.yml",
+        "next_tool_hint": "get_findings",
+        "requires_human_owner": true,
+        "stop_condition": "owner classifies the evidence as true-positive, false-positive, or accepted risk"
+      },
       "category": "security",
       "confidence": "medium",
       "effort": "medium",
       "file": ".github/workflows/ci.yml",
+      "id": "action.security.supply_chain_workflow_mutable_action_ref.0a258433dc41",
       "impact": "low",
       "issue": "supply-chain.workflow.mutable-action-ref",
       "line": 11,
+      "owner_hint": "release_or_security_owner",
+      "owner_next_step": "Confirm the workflow or release path is intentional, verify provenance and permission boundaries, then apply `Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.` if exposure is broader than needed.",
       "path_context": "production",
       "priority": 4,
       "remediation": {
@@ -337,17 +215,39 @@
         "replace_with": "harden supply-chain configuration"
       },
       "risk_score": 1.0,
-      "signal_weight": 1.0
+      "signal_weight": 1.0,
+      "verification": "Use evidence.packs.json, SARIF location data, and local tests to confirm whether the issue is actionable.",
+      "why_it_matters": "This security evidence is plausible but needs surrounding data flow, reachability, or runtime context before assigning a fix."
     },
     {
+      "acceptance_criteria": [
+        "Evidence pack and path context have been reviewed.",
+        "Finding is classified as true positive, accepted risk, or false positive with rationale.",
+        "Follow-up remediation is assigned only when runtime context supports it."
+      ],
       "action": "Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.",
+      "actionability": "investigate",
+      "actionability_reason": "This evidence deserves investigation before sprint planning; remediation depends on surrounding design and runtime context.",
+      "agent_next_step": {
+        "id": "action.security.supply_chain_workflow_mutable_action_ref.6d60a3c989fa.next",
+        "next_artifact": "findings.sarif",
+        "next_file": ".github/workflows/label-pr.yml",
+        "next_line": 13,
+        "next_query": "issue:supply-chain.workflow.mutable-action-ref file:.github/workflows/label-pr.yml",
+        "next_tool_hint": "get_findings",
+        "requires_human_owner": true,
+        "stop_condition": "owner classifies the evidence as true-positive, false-positive, or accepted risk"
+      },
       "category": "security",
       "confidence": "medium",
       "effort": "medium",
       "file": ".github/workflows/label-pr.yml",
+      "id": "action.security.supply_chain_workflow_mutable_action_ref.6d60a3c989fa",
       "impact": "low",
       "issue": "supply-chain.workflow.mutable-action-ref",
       "line": 13,
+      "owner_hint": "release_or_security_owner",
+      "owner_next_step": "Confirm the workflow or release path is intentional, verify provenance and permission boundaries, then apply `Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.` if exposure is broader than needed.",
       "path_context": "production",
       "priority": 4,
       "remediation": {
@@ -357,21 +257,43 @@
         "replace_with": "harden supply-chain configuration"
       },
       "risk_score": 1.0,
-      "signal_weight": 1.0
+      "signal_weight": 1.0,
+      "verification": "Use evidence.packs.json, SARIF location data, and local tests to confirm whether the issue is actionable.",
+      "why_it_matters": "This security evidence is plausible but needs surrounding data flow, reachability, or runtime context before assigning a fix."
     },
     {
+      "acceptance_criteria": [
+        "Evidence pack and path context have been reviewed.",
+        "Finding is classified as true positive, accepted risk, or false positive with rationale.",
+        "Follow-up remediation is assigned only when runtime context supports it."
+      ],
       "action": "Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.",
+      "actionability": "investigate",
+      "actionability_reason": "This evidence deserves investigation before sprint planning; remediation depends on surrounding design and runtime context.",
       "additional_lines": [
         20,
         24
       ],
+      "agent_next_step": {
+        "id": "action.security.supply_chain_workflow_mutable_action_ref.393dd67141d2.next",
+        "next_artifact": "findings.sarif",
+        "next_file": ".github/workflows/update-tokens.yml",
+        "next_line": 14,
+        "next_query": "issue:supply-chain.workflow.mutable-action-ref file:.github/workflows/update-tokens.yml",
+        "next_tool_hint": "get_findings",
+        "requires_human_owner": true,
+        "stop_condition": "owner classifies the evidence as true-positive, false-positive, or accepted risk"
+      },
       "category": "security",
       "confidence": "medium",
       "effort": "medium",
       "file": ".github/workflows/update-tokens.yml",
+      "id": "action.security.supply_chain_workflow_mutable_action_ref.393dd67141d2",
       "impact": "low",
       "issue": "supply-chain.workflow.mutable-action-ref",
       "line": 14,
+      "owner_hint": "release_or_security_owner",
+      "owner_next_step": "Confirm the workflow or release path is intentional, verify provenance and permission boundaries, then apply `Pin third-party actions to a reviewed full commit SHA and update them through an intentional process.` if exposure is broader than needed.",
       "path_context": "production",
       "priority": 4,
       "remediation": {
@@ -381,17 +303,39 @@
         "replace_with": "harden supply-chain configuration"
       },
       "risk_score": 1.0,
-      "signal_weight": 1.0
+      "signal_weight": 1.0,
+      "verification": "Use evidence.packs.json, SARIF location data, and local tests to confirm whether the issue is actionable.",
+      "why_it_matters": "This security evidence is plausible but needs surrounding data flow, reachability, or runtime context before assigning a fix."
     },
     {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
       "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.3831086d9a19.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "container/agent-runner/src/index.ts",
+        "next_line": 21,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:container/agent-runner/src/index.ts",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
       "category": "adaptability",
       "confidence": "medium",
       "effort": "medium",
       "file": "container/agent-runner/src/index.ts",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.3831086d9a19",
       "impact": "low",
       "issue": "adaptability.hardcoded-platform-path",
       "line": 21,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
       "path_context": "production",
       "priority": 4,
       "remediation": {
@@ -401,21 +345,43 @@
         "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
       },
       "risk_score": 1.0,
-      "signal_weight": 1.0
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
     },
     {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
       "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
       "additional_lines": [
         14,
         16
       ],
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.7b219bc0a363.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "container/entrypoint.sh",
+        "next_line": 8,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:container/entrypoint.sh",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
       "category": "adaptability",
       "confidence": "medium",
       "effort": "medium",
       "file": "container/entrypoint.sh",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.7b219bc0a363",
       "impact": "low",
       "issue": "adaptability.hardcoded-platform-path",
       "line": 8,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
       "path_context": "production",
       "priority": 4,
       "remediation": {
@@ -425,17 +391,39 @@
         "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
       },
       "risk_score": 1.0,
-      "signal_weight": 1.0
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
     },
     {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
       "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.080fd242fbbe.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "nanoclaw.sh",
+        "next_line": 157,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:nanoclaw.sh",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
       "category": "adaptability",
       "confidence": "medium",
       "effort": "medium",
       "file": "nanoclaw.sh",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.080fd242fbbe",
       "impact": "low",
       "issue": "adaptability.hardcoded-platform-path",
       "line": 157,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
       "path_context": "production",
       "priority": 4,
       "remediation": {
@@ -445,17 +433,39 @@
         "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
       },
       "risk_score": 1.0,
-      "signal_weight": 1.0
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
     },
     {
+      "acceptance_criteria": [
+        "Evidence pack and path context have been reviewed.",
+        "Finding is classified as true positive, accepted risk, or false positive with rationale.",
+        "Follow-up remediation is assigned only when runtime context supports it."
+      ],
       "action": "Avoid install-time side effects where possible; otherwise keep lifecycle scripts minimal, reviewed, and covered by provenance controls.",
+      "actionability": "investigate",
+      "actionability_reason": "This evidence deserves investigation before sprint planning; remediation depends on surrounding design and runtime context.",
+      "agent_next_step": {
+        "id": "action.security.supply_chain_package_lifecycle_script_risk.299203263e06.next",
+        "next_artifact": "findings.sarif",
+        "next_file": "package.json",
+        "next_line": 16,
+        "next_query": "issue:supply-chain.package.lifecycle-script-risk file:package.json",
+        "next_tool_hint": "get_findings",
+        "requires_human_owner": true,
+        "stop_condition": "owner classifies the evidence as true-positive, false-positive, or accepted risk"
+      },
       "category": "security",
       "confidence": "medium",
       "effort": "medium",
       "file": "package.json",
+      "id": "action.security.supply_chain_package_lifecycle_script_risk.299203263e06",
       "impact": "low",
       "issue": "supply-chain.package.lifecycle-script-risk",
       "line": 16,
+      "owner_hint": "release_or_security_owner",
+      "owner_next_step": "Confirm the workflow or release path is intentional, verify provenance and permission boundaries, then apply `Avoid install-time side effects where possible; otherwise keep lifecycle scripts minimal, reviewed, and covered by provenance controls.` if exposure is broader than needed.",
       "path_context": "production",
       "priority": 4,
       "remediation": {
@@ -465,67 +475,610 @@
         "replace_with": "harden supply-chain configuration"
       },
       "risk_score": 1.0,
-      "signal_weight": 1.0
+      "signal_weight": 1.0,
+      "verification": "Use evidence.packs.json, SARIF location data, and local tests to confirm whether the issue is actionable.",
+      "why_it_matters": "This security evidence is plausible but needs surrounding data flow, reachability, or runtime context before assigning a fix."
     },
     {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
       "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.cc2dac9a0520.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/auto.ts",
+        "next_line": 210,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:setup/auto.ts",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
       "category": "adaptability",
       "confidence": "medium",
       "effort": "medium",
-      "file": "scripts/test-v2-agent.ts",
+      "file": "setup/auto.ts",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.cc2dac9a0520",
+      "impact": "low",
+      "issue": "adaptability.hardcoded-platform-path",
+      "line": 210,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "'  sudo setfacl -m u:$(whoami):rw /var/run/docker.sock\\n' +",
+        "matched_text": "'  sudo setfacl -m u:$(whoami):rw /var/run/docker.sock\\n' +",
+        "rationale": "Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
+    },
+    {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
+      "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.95cda52a23ba.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/auto.ts",
+        "next_line": 777,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:setup/auto.ts",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
+      "category": "adaptability",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "setup/auto.ts",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.95cda52a23ba",
+      "impact": "low",
+      "issue": "adaptability.hardcoded-platform-path",
+      "line": 777,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "* frozen from login — subsequent steps that talk to /var/run/docker.sock",
+        "matched_text": "* frozen from login — subsequent steps that talk to /var/run/docker.sock",
+        "rationale": "Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
+    },
+    {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
+      "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
+      "additional_lines": [
+        17
+      ],
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.6e8dd2f9cb28.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/channels/discord.ts",
+        "next_line": 10,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:setup/channels/discord.ts",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
+      "category": "adaptability",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "setup/channels/discord.ts",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.6e8dd2f9cb28",
       "impact": "low",
       "issue": "adaptability.hardcoded-platform-path",
       "line": 10,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
       "path_context": "production",
       "priority": 4,
       "remediation": {
-        "find_pattern": "const TEST_DIR = '/tmp/nanoclaw-v2-test';",
-        "matched_text": "const TEST_DIR = '/tmp/nanoclaw-v2-test';",
+        "find_pattern": "*   3. GET /users/@me to confirm the token and resolve bot username",
+        "matched_text": "*   3. GET /users/@me to confirm the token and resolve bot username",
         "rationale": "Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
         "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
       },
       "risk_score": 1.0,
-      "signal_weight": 1.0
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
     },
     {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
       "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.7df8b201b0db.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/channels/discord.ts",
+        "next_line": 176,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:setup/channels/discord.ts",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
       "category": "adaptability",
       "confidence": "medium",
       "effort": "medium",
-      "file": "scripts/test-v2-channel-e2e.ts",
+      "file": "setup/channels/discord.ts",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.7df8b201b0db",
       "impact": "low",
       "issue": "adaptability.hardcoded-platform-path",
-      "line": 13,
+      "line": 176,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
       "path_context": "production",
       "priority": 4,
       "remediation": {
-        "find_pattern": "const TEST_DIR = '/tmp/nanoclaw-v2-channel-e2e';",
-        "matched_text": "const TEST_DIR = '/tmp/nanoclaw-v2-channel-e2e';",
+        "find_pattern": "// Be lenient on length; the real check is /users/@me.",
+        "matched_text": "// Be lenient on length; the real check is /users/@me.",
         "rationale": "Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
         "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
       },
       "risk_score": 1.0,
-      "signal_weight": 1.0
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
     },
     {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
       "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.2d0a01ed820b.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/channels/discord.ts",
+        "next_line": 197,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:setup/channels/discord.ts",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
       "category": "adaptability",
       "confidence": "medium",
       "effort": "medium",
-      "file": "scripts/test-v2-host.ts",
+      "file": "setup/channels/discord.ts",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.2d0a01ed820b",
       "impact": "low",
       "issue": "adaptability.hardcoded-platform-path",
-      "line": 15,
+      "line": 197,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
       "path_context": "production",
       "priority": 4,
       "remediation": {
-        "find_pattern": "const TEST_DIR = '/tmp/nanoclaw-v2-e2e';",
-        "matched_text": "const TEST_DIR = '/tmp/nanoclaw-v2-e2e';",
+        "find_pattern": "const res = await fetch(`${DISCORD_API}/users/@me`, {",
+        "matched_text": "const res = await fetch(`${DISCORD_API}/users/@me`, {",
         "rationale": "Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
         "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
       },
       "risk_score": 1.0,
-      "signal_weight": 1.0
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
+    },
+    {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
+      "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.02e27131d2cc.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/container.ts",
+        "next_line": 132,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:setup/container.ts",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
+      "category": "adaptability",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "setup/container.ts",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.02e27131d2cc",
+      "impact": "low",
+      "issue": "adaptability.hardcoded-platform-path",
+      "line": 132,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "// group and can talk to /var/run/docker.sock without a logout.",
+        "matched_text": "// group and can talk to /var/run/docker.sock without a logout.",
+        "rationale": "Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
+    },
+    {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
+      "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
+      "additional_lines": [
+        76,
+        81
+      ],
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.434e96a69544.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/platform.ts",
+        "next_line": 73,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:setup/platform.ts",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
+      "category": "adaptability",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "setup/platform.ts",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.434e96a69544",
+      "impact": "low",
+      "issue": "adaptability.hardcoded-platform-path",
+      "line": 73,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "// WSL without wslview: try cmd.exe",
+        "matched_text": "// WSL without wslview: try cmd.exe",
+        "rationale": "Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
+    },
+    {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
+      "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.6ffe27a13619.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/register-claude-token.sh",
+        "next_line": 20,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:setup/register-claude-token.sh",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
+      "category": "adaptability",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "setup/register-claude-token.sh",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.6ffe27a13619",
+      "impact": "low",
+      "issue": "adaptability.hardcoded-platform-path",
+      "line": 20,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "# /bin/bash, but Homebrew users usually have 5.x first on PATH. The",
+        "matched_text": "# /bin/bash, but Homebrew users usually have 5.x first on PATH. The",
+        "rationale": "Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
+    },
+    {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
+      "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.0b29e47786e9.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/register-claude-token.sh",
+        "next_line": 67,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:setup/register-claude-token.sh",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
+      "category": "adaptability",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "setup/register-claude-token.sh",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.0b29e47786e9",
+      "impact": "low",
+      "issue": "adaptability.hardcoded-platform-path",
+      "line": 67,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "# bash 3.x (macOS default /bin/bash): no readline preload. Fall back.",
+        "matched_text": "# bash 3.x (macOS default /bin/bash): no readline preload. Fall back.",
+        "rationale": "Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
+    },
+    {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
+      "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.61e887dd421b.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/run-suggested.sh",
+        "next_line": 5,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:setup/run-suggested.sh",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
+      "category": "adaptability",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "setup/run-suggested.sh",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.61e887dd421b",
+      "impact": "low",
+      "issue": "adaptability.hardcoded-platform-path",
+      "line": 5,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "# /bin/bash) shows the command and waits for Enter.",
+        "matched_text": "# /bin/bash) shows the command and waits for Enter.",
+        "rationale": "Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
+    },
+    {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
+      "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
+      "additional_lines": [
+        295
+      ],
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.7d9823767a89.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/service.ts",
+        "next_line": 291,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:setup/service.ts",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
+      "category": "adaptability",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "setup/service.ts",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.7d9823767a89",
+      "impact": "low",
+      "issue": "adaptability.hardcoded-platform-path",
+      "line": 291,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "execSync(`sudo setfacl -m u:${user}:rw /var/run/docker.sock`, {",
+        "matched_text": "execSync(`sudo setfacl -m u:${user}:rw /var/run/docker.sock`, {",
+        "rationale": "Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
+    },
+    {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
+      "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.aa41384fc770.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/service.ts",
+        "next_line": 380,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:setup/service.ts",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
+      "category": "adaptability",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "setup/service.ts",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.aa41384fc770",
+      "impact": "low",
+      "issue": "adaptability.hardcoded-platform-path",
+      "line": 380,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "'#!/bin/bash',",
+        "matched_text": "'#!/bin/bash',",
+        "rationale": "Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
+    },
+    {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
+      "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
+      "additional_lines": [
+        259
+      ],
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.48c27d63f662.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "src/container-runner.ts",
+        "next_line": 257,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:src/container-runner.ts",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
+      "category": "adaptability",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "src/container-runner.ts",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.48c27d63f662",
+      "impact": "low",
+      "issue": "adaptability.hardcoded-platform-path",
+      "line": 257,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "// Per-group .claude-shared at /home/node/.claude (Claude state, settings,",
+        "matched_text": "// Per-group .claude-shared at /home/node/.claude (Claude state, settings,",
+        "rationale": "Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
+    },
+    {
+      "acceptance_criteria": [
+        "The fixed assumption is classified as intentional policy, configurable default, or portability risk.",
+        "If configurable, the new control has a bounded default and is documented.",
+        "If intentional, the artifact records enough rationale for future reviewers."
+      ],
+      "action": "externalize_or_normalize_path",
+      "actionability": "review_evidence",
+      "actionability_reason": "Adaptability findings identify fixed assumptions that may be valid; review intent and policy surface before changing code.",
+      "agent_next_step": {
+        "id": "action.adaptability.adaptability_hardcoded_platform_path.66f7b1a65db9.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "src/container-runner.ts",
+        "next_line": 460,
+        "next_query": "issue:adaptability.hardcoded-platform-path file:src/container-runner.ts",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": false,
+        "stop_condition": "review evidence remains visible without promotion to remediation"
+      },
+      "category": "adaptability",
+      "confidence": "medium",
+      "effort": "medium",
+      "file": "src/container-runner.ts",
+      "id": "action.adaptability.adaptability_hardcoded_platform_path.66f7b1a65db9",
+      "impact": "low",
+      "issue": "adaptability.hardcoded-platform-path",
+      "line": 460,
+      "owner_hint": "platform_or_release_owner",
+      "owner_next_step": "Decide whether the fixed value should stay as policy, move behind configuration, or be documented as an intentional constraint.",
+      "path_context": "production",
+      "priority": 4,
+      "remediation": {
+        "find_pattern": "dockerfile += `RUN apt-get update && apt-get install -y ${aptPackages.join(' ')} && rm -rf /var/lib/apt/lists/*\\n`;",
+        "matched_text": "dockerfile += `RUN apt-get update && apt-get install -y ${aptPackages.join(' ')} && rm -rf /var/lib/apt/lists/*\\n`;",
+        "rationale": "Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "replace_with": "Resolve this path through configuration, workspace discovery, or platform-neutral path helpers."
+      },
+      "risk_score": 1.0,
+      "signal_weight": 1.0,
+      "verification": "Run the affected command/path with the new policy or documented constraint and confirm the adaptability finding is reduced or justified.",
+      "why_it_matters": "This identifies a fixed operational assumption. It may be intentional, but it should be reviewed before scaling, packaging, or customer deployment."
     },
     {
       "category": "meta",
@@ -534,28 +1087,82 @@
       "priority": 99
     }
   ],
+  "cve_reachability": [],
   "cycle_bridges": [],
   "degradation_events": [],
   "degradation_file_summary": {
     "affected_file_upper_bound": 0,
     "affected_file_upper_bound_note": "Upper bound only; parser/security/source-load categories can overlap on the same file.",
+    "affected_file_upper_bound_ratio": 0.0,
+    "cause_counts": {},
+    "coverage_grade": "green",
+    "dimensions": [
+      {
+        "axis": "source_load_coverage",
+        "class": "integrity",
+        "grade": "green",
+        "metric_name": "loaded_over_selected_ratio",
+        "metric_value": 1.0,
+        "reason": "Source-load coverage is complete; analysis ran over the full selected input."
+      },
+      {
+        "axis": "parse_coverage",
+        "class": "bounded",
+        "grade": "green",
+        "metric_name": "parsed_over_loaded_ratio",
+        "metric_value": 1.0,
+        "reason": "Parse coverage is high across loaded files."
+      },
+      {
+        "axis": "security_coverage",
+        "class": "bounded",
+        "grade": "green",
+        "metric_name": "security_degraded_over_loaded_ratio",
+        "metric_value": 0.0,
+        "reason": "Security analysis covered nearly all loaded files."
+      },
+      {
+        "axis": "finding_retention",
+        "class": "bounded",
+        "grade": "green",
+        "metric_name": "retention_skipped_file_count",
+        "metric_value": 0.0,
+        "reason": "No findings were dropped by the retention cap."
+      },
+      {
+        "axis": "event_observability",
+        "class": "observability",
+        "grade": "green",
+        "metric_name": "event_detail_truncated",
+        "metric_value": 0.0,
+        "reason": "All degradation events were retained with full detail."
+      }
+    ],
+    "dominant_causes": [],
     "event_detail_truncated": false,
+    "event_kind_counts": {},
+    "event_stage_counts": {},
     "exact_degradation_event_count": 0,
-    "loaded_file_count": 260,
+    "grade": "green",
+    "grade_reason": "No material bounded-analysis caveat was detected.",
+    "integrity_grade": "green",
+    "loaded_file_count": 261,
     "parse_coverage_ratio": 1.0,
     "parse_skip_ratio": 0.0,
     "parse_skipped_file_count": 0,
-    "parsed_file_count": 260,
+    "parsed_file_count": 261,
     "retained_degradation_event_count": 0,
     "security_degraded_ratio": 0.0,
     "security_retention_skipped_file_count": 0,
     "security_scan_degraded_file_count": 0,
     "security_scan_skipped_file_count": 0,
-    "selected_file_count": 260,
+    "selected_file_count": 261,
     "source_load_coverage_ratio": 1.0,
     "source_load_failed_file_count": 0,
-    "source_load_skipped_file_count": 0
+    "source_load_skipped_file_count": 0,
+    "taxonomy_interpretation": "Scan integrity is intact: the full selected input was loaded. Analysis depth was applied broadly with no material bounding."
   },
+  "dependency_inventory": [],
   "findings": [
     {
       "adapter": "supply-chain",
@@ -2721,26 +3328,6 @@
     },
     {
       "adapter": "adaptability",
-      "column": 49,
-      "confidence": "Medium",
-      "end_byte": 1666,
-      "line": 45,
-      "message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
-      "path": "setup/channels/telegram.ts",
-      "remediation": {
-        "action": "externalize_service_endpoint",
-        "extracted": true,
-        "find_pattern": "// by the time pair-telegram prints the code. https://t.me/<bot> works",
-        "matched_text": "// by the time pair-telegram prints the code. https://t.me/<bot> works",
-        "rationale": "Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
-        "replace_with": "Move the endpoint into signed policy, config, environment, or an offline-tolerant provider abstraction."
-      },
-      "rule_id": "adaptability.hardcoded-external-endpoint",
-      "severity": "Low",
-      "start_byte": 1642
-    },
-    {
-      "adapter": "adaptability",
       "column": 19,
       "confidence": "Medium",
       "end_byte": 1933,
@@ -3621,186 +4208,6 @@
     },
     {
       "adapter": "bash-security",
-      "column": 77,
-      "confidence": "Medium",
-      "end_byte": 4996,
-      "line": 121,
-      "message": "Command substitution with potential injection",
-      "path": "nanoclaw.sh",
-      "remediation": {
-        "action": "validate",
-        "extracted": true,
-        "find_pattern": "$(dim \"(${2}s)",
-        "matched_text": "$(dim \"(${2}s)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "High",
-      "start_byte": 4982
-    },
-    {
-      "adapter": "bash-security",
-      "column": 76,
-      "confidence": "Medium",
-      "end_byte": 5093,
-      "line": 122,
-      "message": "Command substitution with potential injection",
-      "path": "nanoclaw.sh",
-      "remediation": {
-        "action": "validate",
-        "extracted": true,
-        "find_pattern": "$(dim \"(${2}s)",
-        "matched_text": "$(dim \"(${2}s)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "High",
-      "start_byte": 5079
-    },
-    {
-      "adapter": "bash-security",
-      "column": 76,
-      "confidence": "Medium",
-      "end_byte": 5190,
-      "line": 123,
-      "message": "Command substitution with potential injection",
-      "path": "nanoclaw.sh",
-      "remediation": {
-        "action": "validate",
-        "extracted": true,
-        "find_pattern": "$(dim \"(${2}s)",
-        "matched_text": "$(dim \"(${2}s)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "High",
-      "start_byte": 5176
-    },
-    {
-      "adapter": "bash-security",
-      "column": 9,
-      "confidence": "Medium",
-      "end_byte": 9930,
-      "line": 236,
-      "message": "Command substitution with potential injection",
-      "path": "nanoclaw.sh",
-      "remediation": {
-        "action": "validate",
-        "extracted": true,
-        "find_pattern": "$(dim \"Full raw log: $BOOTSTRAP_RAW\")",
-        "matched_text": "$(dim \"Full raw log: $BOOTSTRAP_RAW\")",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "High",
-      "start_byte": 9893
-    },
-    {
-      "adapter": "bash-security",
-      "column": 9,
-      "confidence": "Medium",
-      "end_byte": 9977,
-      "line": 237,
-      "message": "Command substitution with potential injection",
-      "path": "nanoclaw.sh",
-      "remediation": {
-        "action": "validate",
-        "extracted": true,
-        "find_pattern": "$(dim \"Progression:  $PROGRESS_LOG\")",
-        "matched_text": "$(dim \"Progression:  $PROGRESS_LOG\")",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "High",
-      "start_byte": 9941
-    },
-    {
-      "adapter": "bash-security",
-      "column": 12,
-      "confidence": "Medium",
-      "end_byte": 1057,
-      "line": 37,
-      "message": "Command substitution with potential injection",
-      "path": "scripts/cleanup-sessions.sh",
-      "remediation": {
-        "action": "validate",
-        "extracted": true,
-        "find_pattern": "$(wc -c < \"$target\" 2>/dev/null || echo 0)",
-        "matched_text": "$(wc -c < \"$target\" 2>/dev/null || echo 0)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "High",
-      "start_byte": 1015
-    },
-    {
-      "adapter": "bash-security",
-      "column": 12,
-      "confidence": "Medium",
-      "end_byte": 1361,
-      "line": 47,
-      "message": "Command substitution with potential injection",
-      "path": "scripts/cleanup-sessions.sh",
-      "remediation": {
-        "action": "validate",
-        "extracted": true,
-        "find_pattern": "$(wc -c < \"$target\" 2>/dev/null || echo 0)",
-        "matched_text": "$(wc -c < \"$target\" 2>/dev/null || echo 0)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "High",
-      "start_byte": 1319
-    },
-    {
-      "adapter": "bash-security",
-      "column": 12,
-      "confidence": "Medium",
-      "end_byte": 1716,
-      "line": 62,
-      "message": "Command substitution with potential injection",
-      "path": "scripts/cleanup-sessions.sh",
-      "remediation": {
-        "action": "validate",
-        "extracted": true,
-        "find_pattern": "$(sqlite3 \"$STORE_DB\" \"SELECT session_id FROM sessions;\" 2>/dev/null || true)",
-        "matched_text": "$(sqlite3 \"$STORE_DB\" \"SELECT session_id FROM sessions;\" 2>/dev/null || true)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "High",
-      "start_byte": 1639
-    },
-    {
-      "adapter": "bash-security",
-      "column": 12,
-      "confidence": "Medium",
-      "end_byte": 3838,
-      "line": 112,
-      "message": "Command substitution with potential injection",
-      "path": "setup.sh",
-      "remediation": {
-        "action": "validate",
-        "extracted": true,
-        "find_pattern": "$(grep -E '\"packageManager\"' \"$PROJECT_ROOT/package.json\" 2>/dev/null \\\r\n      | head -1 \\\r\n      | sed -E 's/.*\"pnpm@([^\"]+)",
-        "matched_text": "$(grep -E '\"packageManager\"' \"$PROJECT_ROOT/package.json\" 2>/dev/null \\\r\n      | head -1 \\\r\n      | sed -E 's/.*\"pnpm@([^\"]+)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "High",
-      "start_byte": 3713
-    },
-    {
-      "adapter": "bash-security",
       "column": 6,
       "confidence": "Medium",
       "end_byte": 4720,
@@ -3820,182 +4227,208 @@
       "start_byte": 4612
     },
     {
-      "adapter": "js-frontend",
-      "column": 23,
+      "adapter": "js-ts-taint",
+      "column": 1,
       "confidence": "High",
-      "end_byte": 6519,
-      "line": 197,
-      "message": "Potential SSRF via fetch with user input",
-      "path": "setup/channels/discord.ts",
+      "end_byte": 0,
+      "line": 263,
+      "message": "child_process exec with tainted command",
+      "path": "setup/verify.ts",
       "remediation": {
-        "action": "validate",
+        "action": "replace",
         "extracted": true,
-        "find_pattern": "fetch(`${DISCORD_API}/user",
-        "matched_text": "fetch(`${DISCORD_API}/user",
-        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
-        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
+        "find_pattern": "    const out = execSync(`ps -p ${pid} -o command=`, {",
+        "matched_text": "    const out = execSync(`ps -p ${pid} -o command=`, {",
+        "rationale": "exec invokes a shell and can allow command injection",
+        "replace_with": "child_process.execFile(file, args)"
       },
-      "rule_id": "js.ssrf-fetch",
-      "severity": "High",
-      "start_byte": 6493
+      "rule_id": "js.child-process-exec.tainted",
+      "severity": "Error",
+      "start_byte": 0,
+      "trace": [
+        {
+          "execution_order": 1,
+          "line": 100,
+          "role": "source",
+          "snippet": "const raw = fs.readFileSync(pidFile, 'utf-8').trim();",
+          "symbol": "raw"
+        },
+        {
+          "execution_order": 2,
+          "line": 101,
+          "role": "propagation",
+          "snippet": "const pid = Number(raw);",
+          "symbol": "pid"
+        },
+        {
+          "execution_order": 3,
+          "line": 57,
+          "role": "propagation",
+          "snippet": "runningFromPath = resolveBinaryScript(pid);",
+          "symbol": "resolveBinaryScript"
+        },
+        {
+          "execution_order": 4,
+          "line": 263,
+          "role": "sink",
+          "sink_family": "command_execution",
+          "snippet": "const out = execSync(`ps -p ${pid} -o command=`, {",
+          "type_hint_source": "rule_id"
+        }
+      ]
     },
     {
-      "adapter": "js-frontend",
-      "column": 23,
+      "adapter": "js-ts-taint",
+      "column": 1,
       "confidence": "High",
-      "end_byte": 12883,
-      "line": 386,
-      "message": "Potential SSRF via fetch with user input",
-      "path": "setup/channels/discord.ts",
+      "end_byte": 0,
+      "line": 263,
+      "message": "child_process exec with tainted command",
+      "path": "setup/verify.ts",
       "remediation": {
-        "action": "validate",
+        "action": "replace",
         "extracted": true,
-        "find_pattern": "fetch(`${DISCORD_API}/users/@me/channels`, {\r\n      method: 'POST',\r\n      headers: {\r\n        Authorization: `Bot ${token}`,\r\n        'Content-Type': 'application/json',\r\n      },\r\n      body: JSON.stringify({ recipient_id: user",
-        "matched_text": "fetch(`${DISCORD_API}/users/@me/channels`, {\r\n      method: 'POST',\r\n      headers: {\r\n        Authorization: `Bot ${token}`,\r\n        'Content-Type': 'application/json',\r\n      },\r\n      body: JSON.stringify({ recipient_id: user",
-        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
-        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
+        "find_pattern": "    const out = execSync(`ps -p ${pid} -o command=`, {",
+        "matched_text": "    const out = execSync(`ps -p ${pid} -o command=`, {",
+        "rationale": "exec invokes a shell and can allow command injection",
+        "replace_with": "child_process.execFile(file, args)"
       },
-      "rule_id": "js.ssrf-fetch",
-      "severity": "High",
-      "start_byte": 12654
+      "rule_id": "js.child-process-exec.tainted",
+      "severity": "Error",
+      "start_byte": 0,
+      "trace": [
+        {
+          "execution_order": 1,
+          "line": 100,
+          "role": "source",
+          "snippet": "const raw = fs.readFileSync(pidFile, 'utf-8').trim();",
+          "symbol": "raw"
+        },
+        {
+          "execution_order": 2,
+          "line": 101,
+          "role": "propagation",
+          "snippet": "const pid = Number(raw);",
+          "symbol": "pid"
+        },
+        {
+          "execution_order": 3,
+          "line": 78,
+          "role": "propagation",
+          "snippet": "runningFromPath = resolveBinaryScript(pid);",
+          "symbol": "resolveBinaryScript"
+        },
+        {
+          "execution_order": 4,
+          "line": 263,
+          "role": "sink",
+          "sink_family": "command_execution",
+          "snippet": "const out = execSync(`ps -p ${pid} -o command=`, {",
+          "type_hint_source": "rule_id"
+        }
+      ]
     },
     {
-      "adapter": "bash-security",
-      "column": 8,
-      "confidence": "Medium",
-      "end_byte": 1207,
-      "line": 25,
-      "message": "Command substitution with potential injection",
-      "path": "setup/lib/diagnostics.sh",
-      "remediation": {
-        "action": "validate",
-        "extracted": true,
-        "find_pattern": "$(uuidgen 2>/dev/null \\\r\n      || cat /proc/sys/kernel/random/uuid 2>/dev/null \\\r\n      || printf 'fallback-%s-%s' \"$(date +%s)",
-        "matched_text": "$(uuidgen 2>/dev/null \\\r\n      || cat /proc/sys/kernel/random/uuid 2>/dev/null \\\r\n      || printf 'fallback-%s-%s' \"$(date +%s)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "High",
-      "start_byte": 1080
-    },
-    {
-      "adapter": "js-frontend",
-      "column": 8,
+      "adapter": "js-ts-taint",
+      "column": 1,
       "confidence": "High",
-      "end_byte": 1911,
-      "line": 62,
-      "message": "Potential SSRF via fetch with user input",
-      "path": "setup/lib/diagnostics.ts",
+      "end_byte": 0,
+      "line": 263,
+      "message": "child_process exec with tainted command",
+      "path": "setup/verify.ts",
       "remediation": {
-        "action": "validate",
+        "action": "replace",
         "extracted": true,
-        "find_pattern": "fetch(POSTHOG_URL, {\r\n    method: 'POST',\r\n    headers: { 'Content-Type': 'application/json' },\r\n    body",
-        "matched_text": "fetch(POSTHOG_URL, {\r\n    method: 'POST',\r\n    headers: { 'Content-Type': 'application/json' },\r\n    body",
-        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
-        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
+        "find_pattern": "    const out = execSync(`ps -p ${pid} -o command=`, {",
+        "matched_text": "    const out = execSync(`ps -p ${pid} -o command=`, {",
+        "rationale": "exec invokes a shell and can allow command injection",
+        "replace_with": "child_process.execFile(file, args)"
       },
-      "rule_id": "js.ssrf-fetch",
-      "severity": "High",
-      "start_byte": 1806
-    },
-    {
-      "adapter": "bash-security",
-      "column": 8,
-      "confidence": "Medium",
-      "end_byte": 1682,
-      "line": 49,
-      "message": "Command substitution with potential injection",
-      "path": "setup/probe.sh",
-      "remediation": {
-        "action": "validate",
-        "extracted": true,
-        "find_pattern": "$(grep -E \"^${name}=\" \"$envfile\" 2>/dev/null | head -n1)",
-        "matched_text": "$(grep -E \"^${name}=\" \"$envfile\" 2>/dev/null | head -n1)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "High",
-      "start_byte": 1626
-    },
-    {
-      "adapter": "bash-security",
-      "column": 7,
-      "confidence": "Medium",
-      "end_byte": 3372,
-      "line": 83,
-      "message": "Command substitution with potential injection",
-      "path": "setup/register-claude-token.sh",
-      "remediation": {
-        "action": "validate",
-        "extracted": true,
-        "find_pattern": "$(sed $'s/\\x1b\\\\[[0-9;]*[a-zA-Z]//g' \"$tmpfile\" \\\r\n        | tr -d '\\n\\r' \\\r\n        | perl -ne 'print \"$1\\n\" while /(sk-ant-oat[A-Za-z0-9_-]{80,500}AA)",
-        "matched_text": "$(sed $'s/\\x1b\\\\[[0-9;]*[a-zA-Z]//g' \"$tmpfile\" \\\r\n        | tr -d '\\n\\r' \\\r\n        | perl -ne 'print \"$1\\n\" while /(sk-ant-oat[A-Za-z0-9_-]{80,500}AA)",
-        "rationale": "Command substitution with dynamic input enables command injection",
-        "replace_with": "# Validate command against allowlist; avoid eval in command substitution"
-      },
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "High",
-      "start_byte": 3220
-    },
-    {
-      "adapter": "js-frontend",
-      "column": 15,
-      "confidence": "High",
-      "end_byte": 22385,
-      "line": 528,
-      "message": "Potential SSRF via fetch with user input",
-      "path": "src/channels/chat-sdk-bridge.ts",
-      "remediation": {
-        "action": "validate",
-        "extracted": true,
-        "find_pattern": "fetch(`https://discord.com/api/v10/interactions/${interactionId}/${interactionToken}/callback`, {\r\n          method: 'POST',\r\n          headers: { 'Content-Type': 'application/json' },\r\n          body",
-        "matched_text": "fetch(`https://discord.com/api/v10/interactions/${interactionId}/${interactionToken}/callback`, {\r\n          method: 'POST',\r\n          headers: { 'Content-Type': 'application/json' },\r\n          body",
-        "rationale": "Fetching arbitrary URLs enables SSRF against internal services",
-        "replace_with": "# Validate URL scheme and host against allowlist before fetching"
-      },
-      "rule_id": "js.ssrf-fetch",
-      "severity": "High",
-      "start_byte": 22185
+      "rule_id": "js.child-process-exec.tainted",
+      "severity": "Error",
+      "start_byte": 0,
+      "trace": [
+        {
+          "execution_order": 1,
+          "line": 100,
+          "role": "source",
+          "snippet": "const raw = fs.readFileSync(pidFile, 'utf-8').trim();",
+          "symbol": "raw"
+        },
+        {
+          "execution_order": 2,
+          "line": 101,
+          "role": "propagation",
+          "snippet": "const pid = Number(raw);",
+          "symbol": "pid"
+        },
+        {
+          "execution_order": 3,
+          "line": 105,
+          "role": "propagation",
+          "snippet": "runningFromPath = resolveBinaryScript(pid);",
+          "symbol": "resolveBinaryScript"
+        },
+        {
+          "execution_order": 4,
+          "line": 263,
+          "role": "sink",
+          "sink_family": "command_execution",
+          "snippet": "const out = execSync(`ps -p ${pid} -o command=`, {",
+          "type_hint_source": "rule_id"
+        }
+      ]
     }
   ],
   "fingerprint": {
     "complexity_tier": "small",
     "dominant_language": "typescript",
-    "findings_hash": "afab0e9183ca7808",
+    "findings_hash": "c7de75704fbd3be0",
     "has_ci": false,
     "has_docker": true,
     "has_tests": true,
     "language_counts": {
       "bash": 30,
       "javascript": 1,
-      "json": 5,
+      "json": 6,
       "markdown": 48,
       "typescript": 173,
       "yaml": 3
     },
-    "line_count_basis": "git_index_size_estimate",
+    "line_count_basis": "filesystem_exact",
     "manifests": [
       "docker",
       "npm"
     ],
-    "total_files": 260,
-    "total_lines": 19526
+    "total_files": 261,
+    "total_lines": 41584
   },
   "health": {
     "architecture": 10.0,
     "maintenance": 75.0,
-    "score": 50.0,
-    "security": 61.0,
+    "score": 52.0,
+    "security": 65.0,
+    "security_penalty_per_kloc": 2.63,
     "simulation": 100.0,
-    "wiring": 35.0
+    "size_calibration_factor": 1.0,
+    "wiring": 37.0
   },
   "hotspots": [],
   "limits": {
     "large_repo_high_cost_parse_bytes": 2000000000,
     "large_repo_high_cost_parse_files": 250000,
     "max_dependency_scan_seconds": 120,
+    "max_evidence_excerpt_line_chars": 240,
+    "max_evidence_excerpt_lines": 12,
+    "max_evidence_finding_clusters": 50,
+    "max_evidence_graph_cycle_nodes": 1000,
+    "max_evidence_graph_file_nodes": 5000,
+    "max_evidence_graph_finding_nodes": 10000,
+    "max_evidence_graph_symbol_nodes": 15000,
+    "max_evidence_graph_wiring_gap_nodes": 5000,
+    "max_evidence_packs": 12,
+    "max_evidence_related_findings": 6,
+    "max_evidence_symbols_per_pack": 5,
     "max_generated_vendor_security_scan_bytes": 20000000,
     "max_git_history_cochange_files_per_commit": 256,
     "max_git_history_commits": 2048,
@@ -4004,6 +4437,7 @@
     "max_high_cost_parse_file_lines": 500000,
     "max_high_cost_security_scan_bytes": 1000000000,
     "max_high_cost_security_scan_files": 100000,
+    "max_osv_batch_queries": 1000,
     "max_osv_dependency_queries": 5000,
     "max_osv_detail_fetches": 512,
     "max_parallel_analysis_batch_files": 512,
@@ -4012,6 +4446,7 @@
     "max_parse_files": 100000,
     "max_parse_total_bytes": 1000000000,
     "max_reported_degradation_events": 10000,
+    "max_sarif_degradation_events": 25,
     "max_security_findings_per_scan": 200000,
     "max_source_file_bytes": 50000000,
     "max_source_files": 250000,
@@ -4022,19 +4457,19 @@
     "skip_low_value_parse_paths": false
   },
   "meta": {
-    "duration_secs": 1.5634665,
+    "duration_secs": 1.1908616,
     "profile": "exhaustive",
     "repo_path": "[repo]",
     "scope": "Full",
-    "timestamp": "2026-05-27T21:49:47.457727500+00:00"
+    "timestamp": "2026-06-01T18:38:56.926532600+00:00"
   },
   "quality_signal": {
     "adaptability": {
       "boundary": "DaVinci adaptability findings are deterministic static evidence of rigidity or fail-fast assumptions. They do not prove the code is wrong; they identify places where scale, portability, or resilience may depend on fixed values instead of policy, telemetry, or runtime adaptation.",
       "files_scanned": 183,
-      "findings": 91,
+      "findings": 90,
       "rule_counts": {
-        "adaptability.hardcoded-external-endpoint": 30,
+        "adaptability.hardcoded-external-endpoint": 29,
         "adaptability.hardcoded-platform-path": 28,
         "adaptability.hardcoded-resource-cap": 8,
         "adaptability.hardcoded-timeout": 25
@@ -4043,7 +4478,7 @@
       "top_rigidity_classes": [
         {
           "class": "service_binding",
-          "count": 30,
+          "count": 29,
           "max_severity": "low"
         },
         {
@@ -4070,11 +4505,11 @@
       "non_llm": true,
       "observed": {
         "degradation_count": 0,
-        "loaded_file_count": 260,
+        "loaded_file_count": 261,
         "parse_skipped_file_count": 0,
         "security_degraded_file_count": 0,
         "security_skipped_file_count": 0,
-        "selected_file_count": 260
+        "selected_file_count": 261
       },
       "policy_source": "profile",
       "profile": "exhaustive",
@@ -4085,25 +4520,25 @@
           "limit": 100000,
           "ratio": 0.003,
           "status": "ok",
-          "used": 260
+          "used": 261
         },
         "security_findings": {
           "limit": 200000,
           "ratio": 0.001,
           "status": "ok",
-          "used": 175
+          "used": 161
         },
         "source_bytes": {
           "limit": 2000000000,
           "ratio": 0.001,
           "status": "ok",
-          "used": 1572495
+          "used": 1572521
         },
         "source_files": {
           "limit": 250000,
           "ratio": 0.001,
           "status": "ok",
-          "used": 260
+          "used": 261
         },
         "symbol_graph_nodes": {
           "limit": 250000,
@@ -4114,18 +4549,175 @@
       }
     },
     "confidence_calibration": {
-      "actionable_findings": 175,
+      "actionable_findings": 161,
       "average_actionable_confidence_weight": 0.448,
       "boundary": "Rule confidence is deterministic rule calibration and source-context evidence, not a semantic exploitability verdict.",
       "counts": {
-        "high": 14,
-        "medium": 161
+        "high": 13,
+        "medium": 148
       },
       "schema_version": "1.0.0"
     },
-    "confidence_weighted_penalty": 243.2000000000004,
-    "docs_share_of_findings": 0.3,
+    "confidence_weighted_penalty": 228.80000000000038,
+    "docs_share_of_findings": 0.33,
     "fixture_share_of_findings": 0.0,
+    "language_semantics": {
+      "boundary": "Language semantics are deterministic support-level evidence. Parser support, taint support, and rule depth are not equal across languages; same-file/local-call taint is bounded and is not whole-program dataflow. Consumers should use this matrix before assuming parity.",
+      "coverage_levels": {
+        "context_only": "Loaded for context or inventory; no claim of semantic analysis depth.",
+        "manifest_config_rules": "Configuration or manifest evidence is useful, but source-language semantics are intentionally limited.",
+        "maturing": "Parser and initial taint/security coverage are present, but broader ecosystem fixtures and sanitizer models are still expanding.",
+        "strong": "Parser, security rules, taint fixtures, and historical false-positive discipline are present.",
+        "structural_security_only": "Parser/security/graph coverage exists, but taint/dataflow semantics are not yet comparable with Python."
+      },
+      "languages": {
+        "bash": {
+          "adapter_counts": {
+            "adaptability": 19,
+            "bash-security": 1
+          },
+          "findings": 20,
+          "loaded_files": 30,
+          "parity_next_step": "Keep supply-chain/config evidence deterministic and avoid claiming source taint parity.",
+          "parser_support": "manifest_or_config_parser",
+          "semantic_depth": "manifest_config_rules",
+          "taint_findings": 0,
+          "taint_support": "none"
+        },
+        "c": {
+          "adapter_counts": {},
+          "findings": 0,
+          "loaded_files": 0,
+          "parity_next_step": "Add high-confidence semantic rules only with language-specific fixtures and precision budgets.",
+          "parser_support": "tree_sitter",
+          "semantic_depth": "structural_security_only",
+          "taint_findings": 0,
+          "taint_support": "none"
+        },
+        "cpp": {
+          "adapter_counts": {},
+          "findings": 0,
+          "loaded_files": 0,
+          "parity_next_step": "Add high-confidence semantic rules only with language-specific fixtures and precision budgets.",
+          "parser_support": "tree_sitter",
+          "semantic_depth": "structural_security_only",
+          "taint_findings": 0,
+          "taint_support": "none"
+        },
+        "go": {
+          "adapter_counts": {},
+          "findings": 0,
+          "loaded_files": 0,
+          "parity_next_step": "Add high-confidence semantic rules only with language-specific fixtures and precision budgets.",
+          "parser_support": "tree_sitter",
+          "semantic_depth": "structural_security_only",
+          "taint_findings": 0,
+          "taint_support": "none"
+        },
+        "java": {
+          "adapter_counts": {},
+          "findings": 0,
+          "loaded_files": 0,
+          "parity_next_step": "Add Spring/JAX-RS/Micronaut sources, sanitizer models, and prepared-statement false-positive fixtures before broadening beyond same-file local calls.",
+          "parser_support": "tree_sitter",
+          "semantic_depth": "maturing",
+          "taint_findings": 0,
+          "taint_support": "initial_servlet_jdbc_same_file_local_call_bounded"
+        },
+        "javascript": {
+          "adapter_counts": {},
+          "findings": 0,
+          "loaded_files": 1,
+          "parity_next_step": "Expand framework route/body sources, sanitizer libraries, and rule-eval budgets before broadening beyond same-file local calls.",
+          "parser_support": "tree_sitter",
+          "semantic_depth": "maturing",
+          "taint_findings": 0,
+          "taint_support": "initial_framework_aware_same_file_local_call_bounded"
+        },
+        "json": {
+          "adapter_counts": {
+            "supply-chain": 1
+          },
+          "findings": 1,
+          "loaded_files": 6,
+          "parity_next_step": "Keep supply-chain/config evidence deterministic and avoid claiming source taint parity.",
+          "parser_support": "manifest_or_config_parser",
+          "semantic_depth": "manifest_config_rules",
+          "taint_findings": 0,
+          "taint_support": "none"
+        },
+        "markdown": {
+          "adapter_counts": {
+            "supply-chain": 53
+          },
+          "findings": 53,
+          "loaded_files": 48,
+          "parity_next_step": "Only promote language-specific semantics after rule fixtures and false-positive budgets exist.",
+          "parser_support": "loaded_or_manifest_context",
+          "semantic_depth": "context_only",
+          "taint_findings": 0,
+          "taint_support": "none"
+        },
+        "python": {
+          "adapter_counts": {},
+          "findings": 0,
+          "loaded_files": 0,
+          "parity_next_step": "Keep expanding sanitizer and framework fixtures while preserving current precision; do not claim cross-file or dynamic-dispatch dataflow.",
+          "parser_support": "tree_sitter",
+          "semantic_depth": "strong",
+          "taint_findings": 0,
+          "taint_support": "mature_same_file_local_call_bounded"
+        },
+        "rust": {
+          "adapter_counts": {},
+          "findings": 0,
+          "loaded_files": 0,
+          "parity_next_step": "Add high-confidence semantic rules only with language-specific fixtures and precision budgets.",
+          "parser_support": "tree_sitter",
+          "semantic_depth": "structural_security_only",
+          "taint_findings": 0,
+          "taint_support": "none"
+        },
+        "toml": {
+          "adapter_counts": {},
+          "findings": 0,
+          "loaded_files": 0,
+          "parity_next_step": "Keep supply-chain/config evidence deterministic and avoid claiming source taint parity.",
+          "parser_support": "manifest_or_config_parser",
+          "semantic_depth": "manifest_config_rules",
+          "taint_findings": 0,
+          "taint_support": "none"
+        },
+        "typescript": {
+          "adapter_counts": {
+            "adaptability": 68,
+            "js-ts-taint": 3
+          },
+          "findings": 71,
+          "loaded_files": 173,
+          "parity_next_step": "Expand framework route/body sources, sanitizer libraries, and rule-eval budgets before broadening beyond same-file local calls.",
+          "parser_support": "tree_sitter",
+          "semantic_depth": "maturing",
+          "taint_findings": 3,
+          "taint_support": "initial_framework_aware_same_file_local_call_bounded"
+        },
+        "yaml": {
+          "adapter_counts": {
+            "adaptability": 3,
+            "supply-chain": 11
+          },
+          "findings": 14,
+          "loaded_files": 3,
+          "parity_next_step": "Keep supply-chain/config evidence deterministic and avoid claiming source taint parity.",
+          "parser_support": "manifest_or_config_parser",
+          "semantic_depth": "manifest_config_rules",
+          "taint_findings": 0,
+          "taint_support": "none"
+        }
+      },
+      "non_llm": true,
+      "schema_version": "1.0.0"
+    },
     "mcp_security": {
       "findings": 0,
       "high_risk_paths": [],
@@ -4134,21 +4726,22 @@
     },
     "path_context_counts": {
       "docs": 53,
-      "production": 122
+      "production": 99,
+      "test": 9
     },
     "primary_security": {
       "excluded_fixture_findings": 0,
-      "excluded_non_primary_findings": 53,
-      "excluded_test_findings": 0,
-      "findings": 122,
+      "excluded_non_primary_findings": 62,
+      "excluded_test_findings": 9,
+      "findings": 99,
       "note": "Primary security scoring excludes tests and synthetic fixtures; full findings remain available for explicit full-scope review.",
       "rule_counts": {
-        "adaptability.hardcoded-external-endpoint": 30,
-        "adaptability.hardcoded-platform-path": 28,
+        "adaptability.hardcoded-external-endpoint": 29,
+        "adaptability.hardcoded-platform-path": 25,
         "adaptability.hardcoded-resource-cap": 8,
-        "adaptability.hardcoded-timeout": 25,
-        "bash.command-substitution-injection": 13,
-        "js.ssrf-fetch": 4,
+        "adaptability.hardcoded-timeout": 19,
+        "bash.command-substitution-injection": 1,
+        "js.child-process-exec.tainted": 3,
         "supply-chain.container.mutable-image-ref": 1,
         "supply-chain.container.remote-build-script": 1,
         "supply-chain.package.lifecycle-script-risk": 1,
@@ -4156,14 +4749,14 @@
       },
       "scope": "production_paths"
     },
-    "production_share_of_findings": 0.7,
+    "production_share_of_findings": 0.61,
     "secrets_false_positive_estimate": -0.0,
     "secrets_share_of_findings": 0.0,
-    "signal_weighted_penalty": 129.26000000000002,
+    "signal_weighted_penalty": 109.46000000000001,
     "supply_chain": {
       "boundary": "DaVinci supply-chain findings are deterministic static repo exposure evidence. They do not prove endpoint compromise, extension installation, secret exfiltration, or repository cloning unless supplied audit/log evidence supports that conclusion.",
       "findings": 67,
-      "input_scope": "current",
+      "input_scope": "tracked",
       "ioc_hits": 0,
       "optional_evidence_hits": 0,
       "static_exposures": 67,
@@ -4190,19 +4783,19 @@
         }
       ]
     },
-    "tests_share_of_findings": 0.0
+    "tests_share_of_findings": 0.06
   },
   "scan_plan": {
     "adaptability": {
       "boundary": "DaVinci adaptability findings are deterministic static evidence of rigidity or fail-fast assumptions. They do not prove the code is wrong; they identify places where scale, portability, or resilience may depend on fixed values instead of policy, telemetry, or runtime adaptation.",
       "class_counts": {
         "platform_portability": 28,
-        "service_binding": 30,
+        "service_binding": 29,
         "static_resource_cap": 8,
         "static_timeout": 25
       },
       "files_scanned": 183,
-      "findings": 91,
+      "findings": 90,
       "non_llm": true,
       "notes": [
         "Tests, docs, fixtures, vendored dependencies, generated outputs, and lockfiles are excluded to keep the signal focused on production code.",
@@ -4210,7 +4803,7 @@
         "Suppress intentional findings with `.davinciignore` or inline `davinci-ignore` comments after review."
       ],
       "rule_counts": {
-        "adaptability.hardcoded-external-endpoint": 30,
+        "adaptability.hardcoded-external-endpoint": 29,
         "adaptability.hardcoded-platform-path": 28,
         "adaptability.hardcoded-resource-cap": 8,
         "adaptability.hardcoded-timeout": 25
@@ -4219,7 +4812,7 @@
       "top_rigidity_classes": [
         {
           "class": "service_binding",
-          "count": 30,
+          "count": 29,
           "max_severity": "low"
         },
         {
@@ -4246,11 +4839,11 @@
       "non_llm": true,
       "observed": {
         "degradation_count": 0,
-        "loaded_file_count": 260,
+        "loaded_file_count": 261,
         "parse_skipped_file_count": 0,
         "security_degraded_file_count": 0,
         "security_skipped_file_count": 0,
-        "selected_file_count": 260
+        "selected_file_count": 261
       },
       "policy_source": "profile",
       "profile": "exhaustive",
@@ -4261,25 +4854,25 @@
           "limit": 100000,
           "ratio": 0.003,
           "status": "ok",
-          "used": 260
+          "used": 261
         },
         "security_findings": {
           "limit": 200000,
           "ratio": 0.001,
           "status": "ok",
-          "used": 175
+          "used": 161
         },
         "source_bytes": {
           "limit": 2000000000,
           "ratio": 0.001,
           "status": "ok",
-          "used": 1572495
+          "used": 1572521
         },
         "source_files": {
           "limit": 250000,
           "ratio": 0.001,
           "status": "ok",
-          "used": 260
+          "used": 261
         },
         "symbol_graph_nodes": {
           "limit": 250000,
@@ -4290,15 +4883,19 @@
       }
     },
     "budget": {
+      "auto_selected": false,
       "budget_file": null,
+      "effective_profile": "exhaustive",
       "profile": "exhaustive",
       "source": "profile"
     },
     "dependency_scan": {
       "api_base_url": "https://api.osv.dev/v1",
-      "boundary": "Dependency intelligence mode controls CVE lookup only. Source, supply-chain, parser, graph, and rules still run normally.",
+      "boundary": "Dependency inventory extraction is deterministic and offline. Dependency intelligence mode controls CVE lookup only; SBOM export, source, supply-chain, parser, graph, and rules still run normally.",
       "dependency_count": 0,
+      "dependency_inventory_status": "no_dependencies",
       "max_dependency_scan_seconds": 120,
+      "max_osv_batch_queries": 1000,
       "max_osv_dependency_queries": 5000,
       "max_osv_detail_fetches": 512,
       "mode": "cache-only",
@@ -4335,23 +4932,23 @@
       "cache_path": ".davinci-cache/heavy-scan-cache.json",
       "cache_scope": "output_dir",
       "cache_scope_note": "reuse requires the same output directory plus a matching cache key",
-      "cache_version": "2",
-      "key_hash": "f10e0fe90bda2135f912282634e3902da5c0b27845e99b3f5e88329b32cb951c",
+      "cache_version": "3",
+      "key_hash": "7c2a52f2a179bc67883fea73be8a3aeffc4f5e0a279568ab9b96ac1dc57b3bc5",
       "max_age_seconds": 86400,
       "reused_stages": [],
       "source_report_timestamp": null,
       "status": "bypass_force"
     },
     "index": {
-      "indexed_file_count": 174,
-      "indexed_source_bytes": 949652,
+      "indexed_file_count": 0,
+      "indexed_source_bytes": 0,
       "indexed_text_byte_cap_per_file": 100000,
-      "indexed_text_bytes": 949652,
+      "indexed_text_bytes": 0,
       "metadata_indexed_file_count": 174,
-      "mode": "full",
-      "status": "full",
+      "mode": "metadata",
+      "status": "metadata_only",
       "vector_text_byte_cap_per_file": 100000,
-      "vectorized_file_count": 174
+      "vectorized_file_count": 0
     },
     "parser": {
       "analysis_batch_files": 512,
@@ -4363,8 +4960,8 @@
       "max_high_cost_security_scan_files": 100000,
       "max_parse_files": 100000,
       "max_parse_total_bytes": 1000000000,
-      "parsed_bytes": 1572495,
-      "parsed_file_count": 260,
+      "parsed_bytes": 1572521,
+      "parsed_file_count": 261,
       "skipped_parse_count": 0,
       "skipped_security_retention_count": 0,
       "skipped_security_scan_count": 0
@@ -4373,33 +4970,54 @@
       "boundary": "No protected rule-pack rules were activated for this scan.",
       "status": "not_configured"
     },
-    "rationale": "260 files, dominant=typescript, manifests=3",
+    "rationale": "261 files, dominant=typescript, manifests=3",
     "recommended_depth": "deep",
     "recommended_scope": "production",
     "source_load": {
       "failed_file_count": 0,
-      "loaded_bytes": 1572495,
-      "loaded_file_count": 260,
-      "loaded_line_count": 41581,
+      "loaded_bytes": 1572521,
+      "loaded_file_count": 261,
+      "loaded_line_count": 41584,
       "loaded_line_count_basis": "actual_loaded_utf8_lines",
       "max_source_file_bytes": 50000000,
       "max_source_files": 250000,
       "max_source_total_bytes": 2000000000,
-      "preflight_line_count": 19526,
-      "preflight_line_count_basis": "git_index_size_estimate",
-      "selected_file_count": 260,
+      "preflight_line_count": 41584,
+      "preflight_line_count_basis": "filesystem_exact",
+      "selected_file_count": 261,
       "skipped_file_count": 0
     },
     "supply_chain": {
       "agent_instruction_files_scanned": 78,
       "boundary": "DaVinci supply-chain findings are deterministic static repo exposure evidence. They do not prove endpoint compromise, extension installation, secret exfiltration, or repository cloning unless supplied audit/log evidence supports that conclusion.",
+      "claim_boundary": {
+        "finding_domain": "supply_chain_exposure_evidence",
+        "not_claimed": [
+          "confirmed dependency vulnerability",
+          "endpoint compromise",
+          "secret exfiltration",
+          "extension installation",
+          "repository cloning"
+        ],
+        "optional_evidence_required_for_compromise_claims": true,
+        "positive_claim": "Deterministic static repository evidence indicates workflow, package, container, release, or agent-instruction exposure that deserves owner review.",
+        "vulnerability_artifacts": [
+          "scan_plan.dependency_scan",
+          "cve.* findings",
+          "reachable-cve.json",
+          "vex.cdx.json"
+        ]
+      },
       "container_files_scanned": 1,
+      "dependency_vulnerability_findings": 0,
       "evidence_files_scanned": 0,
+      "exposure_evidence_findings": 67,
+      "finding_domain": "supply_chain_exposure_evidence",
       "findings": 67,
       "input_fingerprint_count": 89,
-      "input_scope": "current",
+      "input_scope": "tracked",
       "package_files_scanned": 6,
-      "schema_version": "1.2.0",
+      "schema_version": "1.3.0",
       "status": "completed",
       "workflow_files_scanned": 4
     },
@@ -4443,6 +5061,10 @@
     }
   },
   "schema_changelog": [
+    "2.37.0: adds bounded TS/JS taint model labels on trace steps for source, sink, framework, sanitizer, and type-hint provenance",
+    "2.36.0: labels finding signal classes so supply-chain exposure evidence is explicit and separate from dependency vulnerability/CVE evidence",
+    "2.35.0: adds deterministic dependency inventory for CycloneDX/SPDX SBOM export and separates SBOM inventory from CVE lookup mode",
+    "2.34.0: adds degradation grades/cause buckets, language semantics parity evidence, and decision view artifacts",
     "2.33.0: adds report.digest.json/artifact manifest outputs, line-aware test-code provenance for Rust cfg(test) modules, and explicit history_mode=none",
     "2.32.0: adds explicit dependency intelligence modes for none, cache-only, and live OSV lookup with scan_plan.dependency_scan mode evidence",
     "2.31.0: adds deterministic adaptive_policy utilization and next-run recommendation evidence to scan_plan and quality_signal",
@@ -4486,55 +5108,77 @@
     "1.1.0: added quality_signal object with continuous FP estimate",
     "1.1.0: lean report includes hotspots and exact token count"
   ],
-  "schema_version": "2.33.0",
+  "schema_version": "2.37.0",
   "stage_timings": {
-    "adaptability": 0.0323652,
+    "adaptability": 0.0396296,
     "cache_lookup": 0.0,
-    "dependency_scan": 0.0000231,
-    "git_history": 4.8e-6,
-    "graph": 0.0038804,
-    "index": 0.9239123,
-    "parser": 0.1207911,
-    "preflight": 0.2562488,
-    "report_generation": 0.0142706,
-    "sim": 0.2253057,
-    "supply_chain": 0.1860813
+    "dependency_scan": 0.0000417,
+    "git_history": 5e-6,
+    "graph": 0.0041579,
+    "index": 0.3422494,
+    "parser": 0.1222012,
+    "preflight": 0.6813462,
+    "report_generation": 0.012039,
+    "sim": 0.0004043,
+    "supply_chain": 0.5205263
   },
   "summary": {
     "degradation_count": 0,
     "edges": 668,
     "files_in_cycles": 0,
-    "files_scanned": 260,
-    "findings_count": 175,
-    "health_score": 50.0,
+    "files_scanned": 261,
+    "findings_count": 161,
+    "health_score": 52.0,
     "hotspots_detected": 0,
     "import_edges_resolved": 0,
-    "lean_report_tokens": 60478,
-    "loaded_bytes": 1572495,
-    "loaded_line_count": 41581,
+    "lean_report_tokens": 74342,
+    "loaded_bytes": 1572521,
+    "loaded_line_count": 41584,
     "nodes": 842,
     "severity_breakdown": {
-      "high": 67,
-      "low": 68,
+      "error": 3,
+      "high": 51,
+      "low": 67,
       "medium": 40
     }
   },
   "supply_chain": {
     "boundary": "DaVinci supply-chain findings are deterministic static repo exposure evidence. They do not prove endpoint compromise, extension installation, secret exfiltration, or repository cloning unless supplied audit/log evidence supports that conclusion.",
+    "claim_boundary": {
+      "finding_domain": "supply_chain_exposure_evidence",
+      "not_claimed": [
+        "confirmed dependency vulnerability",
+        "endpoint compromise",
+        "secret exfiltration",
+        "extension installation",
+        "repository cloning"
+      ],
+      "optional_evidence_required_for_compromise_claims": true,
+      "positive_claim": "Deterministic static repository evidence indicates workflow, package, container, release, or agent-instruction exposure that deserves owner review.",
+      "vulnerability_artifacts": [
+        "scan_plan.dependency_scan",
+        "cve.* findings",
+        "reachable-cve.json",
+        "vex.cdx.json"
+      ]
+    },
     "evidence_inputs": [],
     "non_llm": true,
     "notes": [
-      "Repository supply-chain input scope is `current`. `current` uses tracked plus untracked non-ignored Git files; `tracked` uses Git-index-only evidence; `all` walks the filesystem and can include ignored local artifacts.",
+      "Repository supply-chain input scope is `tracked`. `current` uses tracked plus untracked non-ignored Git files; `tracked` uses Git-index-only evidence; `all` walks the filesystem and can include ignored local artifacts.",
       "V1 is offline and public-core: no live IOC download, package tarball download, marketplace lookup, model inference, or cloud API is used.",
+      "These findings are labeled as exposure evidence, not dependency vulnerability findings. Use `cve.*` findings, `reachable-cve.json`, and `vex.cdx.json` for known vulnerability evidence.",
       "Generic exposure rules are intentionally conservative; exact known-bad IOC hits carry higher severity than hygiene findings."
     ],
-    "schema_version": "1.2.0",
+    "schema_version": "1.3.0",
     "summary": {
       "agent_instruction_files_scanned": 78,
       "binary_artifact_findings": 0,
       "container_files_scanned": 1,
+      "dependency_vulnerability_findings": 0,
       "error": 0,
       "evidence_files_scanned": 0,
+      "exposure_evidence_findings": 67,
       "findings": 67,
       "high": 50,
       "info": 0,
@@ -4545,7 +5189,7 @@
       "package_files_scanned": 6,
       "repo_input_bytes_considered": 503774,
       "repo_input_files_considered": 89,
-      "repo_input_scope": "current",
+      "repo_input_scope": "tracked",
       "repo_input_truncated": false,
       "static_exposures": 67,
       "workflow_files_scanned": 4
@@ -4759,77 +5403,67 @@
     "boundary": "Evidence packs are deterministic scan context. They are not final exploitability judgments and do not invoke models.",
     "evidence_packs": [
       {
+        "agent_next_step": {
+          "id": "EV-001.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": "setup/verify.ts",
+          "next_line": 263,
+          "next_query": "pack_id:EV-001 rule:js.child-process-exec.tainted file:setup/verify.ts line:263",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "finding is classified as true-positive, false-positive, accepted risk, or review-only evidence"
+        },
+        "duplicate_occurrence_count": 3,
         "evidence": {
           "file_risk": null,
-          "related_findings_same_file": [
-            {
-              "confidence": "high",
-              "line": 386,
-              "rule_id": "js.ssrf-fetch",
-              "severity": "high"
-            }
-          ],
+          "related_findings_same_file": [],
           "source_excerpt": {
             "available": true,
-            "end_line": 201,
-            "start_line": 193,
+            "end_line": 267,
+            "start_line": 259,
             "text_omitted_in_lean_report": true
           },
           "symbol_context": [
             {
               "is_exported": false,
               "kind": "function",
-              "line_end": 237,
-              "line_start": 192,
-              "symbol": "validateDiscordToken"
+              "line_end": 273,
+              "line_start": 260,
+              "symbol": "resolveBinaryScript"
+            },
+            {
+              "is_exported": true,
+              "kind": "function",
+              "line_end": 252,
+              "line_start": 26,
+              "symbol": "run"
             },
             {
               "is_exported": false,
               "kind": "function",
-              "line_end": 190,
-              "line_start": 168,
-              "symbol": "collectDiscordToken"
-            },
-            {
-              "is_exported": false,
-              "kind": "function",
-              "line_end": 166,
-              "line_start": 143,
-              "symbol": "walkThroughBotCreation"
-            },
-            {
-              "is_exported": false,
-              "kind": "function",
-              "line_end": 297,
-              "line_start": 239,
-              "symbol": "fetchApplicationInfo"
-            },
-            {
-              "is_exported": false,
-              "kind": "function",
-              "line_end": 141,
-              "line_start": 130,
-              "symbol": "askHasBotToken"
+              "line_end": 278,
+              "line_start": 275,
+              "symbol": "isPathInside"
             }
           ]
         },
         "finding": {
-          "adapter": "js-frontend",
-          "column": 23,
+          "adapter": "js-ts-taint",
+          "column": 1,
           "confidence": "high",
-          "line": 197,
-          "message": "Potential SSRF via fetch with user input",
-          "path": "setup/channels/discord.ts",
+          "line": 263,
+          "message": "child_process exec with tainted command",
+          "path": "setup/verify.ts",
           "path_context": "production",
           "provenance": "source",
-          "rule_id": "js.ssrf-fetch",
-          "severity": "high",
+          "rule_id": "js.child-process-exec.tainted",
+          "severity": "error",
           "signal_weight": 1.0
         },
         "kind": "security_finding",
         "next_reader_action": "inspect the cited source range and decide fix priority",
         "pack_id": "EV-001",
-        "review_priority_score": 0.924,
+        "review_priority_score": 1.0,
         "validation": {
           "confidence": {
             "reasons": [
@@ -4853,6 +5487,31 @@
             "reasons": [
               "production source finding with no deterministic demotion factor"
             ],
+            "review_guidance": {
+              "id": "evidence.fp_guidance.dfa04b73efcb",
+              "keep_as_review_only_condition_ids": [
+                "evidence.fp_guidance.dfa04b73efcb.demote.non_production_context",
+                "evidence.fp_guidance.dfa04b73efcb.demote.stale_or_absent_line",
+                "evidence.fp_guidance.dfa04b73efcb.demote.unreachable_or_placeholder"
+              ],
+              "keep_as_review_only_when": [
+                "The evidence is a test, fixture, documentation sample, generated report, or vendor copy.",
+                "The source line is stale, out of range, or absent from the scanned checkout.",
+                "The risky sink is unreachable from production inputs under supported configurations."
+              ],
+              "owner_question": "Can an untrusted input or production execution path reach the cited sink?",
+              "promote_to_fix_condition_ids": [
+                "evidence.fp_guidance.dfa04b73efcb.promote.production_runtime",
+                "evidence.fp_guidance.dfa04b73efcb.promote.current_reachable_line",
+                "evidence.fp_guidance.dfa04b73efcb.promote.trigger_or_live_value"
+              ],
+              "promote_to_fix_when": [
+                "The file is production/runtime code or is packaged into production artifacts.",
+                "The cited line is current and reachable in the scanned revision.",
+                "A realistic caller, input, or configuration can trigger the risky behavior."
+              ],
+              "summary": "No deterministic false-positive demotion dominated; review as a normal candidate finding."
+            },
             "score": 0.0
           },
           "grounding": {
@@ -4865,339 +5524,35 @@
         }
       },
       {
-        "evidence": {
-          "file_risk": null,
-          "related_findings_same_file": [
-            {
-              "confidence": "high",
-              "line": 197,
-              "rule_id": "js.ssrf-fetch",
-              "severity": "high"
-            }
-          ],
-          "source_excerpt": {
-            "available": true,
-            "end_line": 390,
-            "start_line": 382,
-            "text_omitted_in_lean_report": true
-          },
-          "symbol_context": [
-            {
-              "is_exported": false,
-              "kind": "function",
-              "line_end": 426,
-              "line_start": 381,
-              "symbol": "openDmChannel"
-            },
-            {
-              "is_exported": false,
-              "kind": "function",
-              "line_end": 379,
-              "line_start": 350,
-              "symbol": "promptInviteBot"
-            },
-            {
-              "is_exported": false,
-              "kind": "function",
-              "line_end": 348,
-              "line_start": 321,
-              "symbol": "promptForUserIdWithDevMode"
-            },
-            {
-              "is_exported": false,
-              "kind": "function",
-              "line_end": 444,
-              "line_start": 428,
-              "symbol": "resolveAgentName"
-            },
-            {
-              "is_exported": false,
-              "kind": "function",
-              "line_end": 319,
-              "line_start": 299,
-              "symbol": "resolveOwnerUserId"
-            }
-          ]
+        "agent_next_step": {
+          "id": "EV-002.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": "setup/add-telegram.sh",
+          "next_line": 130,
+          "next_query": "pack_id:EV-002 rule:bash.command-substitution-injection file:setup/add-telegram.sh line:130",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "finding is classified as true-positive, false-positive, accepted risk, or review-only evidence"
         },
-        "finding": {
-          "adapter": "js-frontend",
-          "column": 23,
-          "confidence": "high",
-          "line": 386,
-          "message": "Potential SSRF via fetch with user input",
-          "path": "setup/channels/discord.ts",
-          "path_context": "production",
-          "provenance": "source",
-          "rule_id": "js.ssrf-fetch",
-          "severity": "high",
-          "signal_weight": 1.0
-        },
-        "kind": "security_finding",
-        "next_reader_action": "inspect the cited source range and decide fix priority",
-        "pack_id": "EV-002",
-        "review_priority_score": 0.924,
-        "validation": {
-          "confidence": {
-            "reasons": [
-              "rule confidence high contributes 1.00",
-              "finding path is present in scan inventory",
-              "finding line is within known file bounds",
-              "source was loaded during scan"
-            ],
-            "score": 1.0
-          },
-          "deterministic_challenge": {
-            "checks": [
-              "grounding_status=grounded",
-              "path_context=production signal_weight=1.00",
-              "false_positive_likelihood=low"
-            ],
-            "status": "upheld_candidate"
-          },
-          "false_positive_context": {
-            "likelihood": "low",
-            "reasons": [
-              "production source finding with no deterministic demotion factor"
-            ],
-            "score": 0.0
-          },
-          "grounding": {
-            "file_in_inventory": true,
-            "line_in_range": true,
-            "score": 1.0,
-            "source_loaded": true,
-            "status": "grounded"
-          }
-        }
-      },
-      {
+        "duplicate_occurrence_count": 1,
         "evidence": {
           "file_risk": null,
           "related_findings_same_file": [],
           "source_excerpt": {
             "available": true,
-            "end_line": 66,
-            "start_line": 58,
-            "text_omitted_in_lean_report": true
-          },
-          "symbol_context": [
-            {
-              "is_exported": true,
-              "kind": "function",
-              "line_end": 70,
-              "line_start": 41,
-              "symbol": "emit"
-            },
-            {
-              "is_exported": true,
-              "kind": "function",
-              "line_end": 39,
-              "line_start": 19,
-              "symbol": "installId"
-            }
-          ]
-        },
-        "finding": {
-          "adapter": "js-frontend",
-          "column": 8,
-          "confidence": "high",
-          "line": 62,
-          "message": "Potential SSRF via fetch with user input",
-          "path": "setup/lib/diagnostics.ts",
-          "path_context": "production",
-          "provenance": "source",
-          "rule_id": "js.ssrf-fetch",
-          "severity": "high",
-          "signal_weight": 1.0
-        },
-        "kind": "security_finding",
-        "next_reader_action": "inspect the cited source range and decide fix priority",
-        "pack_id": "EV-003",
-        "review_priority_score": 0.924,
-        "validation": {
-          "confidence": {
-            "reasons": [
-              "rule confidence high contributes 1.00",
-              "finding path is present in scan inventory",
-              "finding line is within known file bounds",
-              "source was loaded during scan"
-            ],
-            "score": 1.0
-          },
-          "deterministic_challenge": {
-            "checks": [
-              "grounding_status=grounded",
-              "path_context=production signal_weight=1.00",
-              "false_positive_likelihood=low"
-            ],
-            "status": "upheld_candidate"
-          },
-          "false_positive_context": {
-            "likelihood": "low",
-            "reasons": [
-              "production source finding with no deterministic demotion factor"
-            ],
-            "score": 0.0
-          },
-          "grounding": {
-            "file_in_inventory": true,
-            "line_in_range": true,
-            "score": 1.0,
-            "source_loaded": true,
-            "status": "grounded"
-          }
-        }
-      },
-      {
-        "evidence": {
-          "file_risk": {
-            "centrality": 0.649,
-            "churn": 0.0,
-            "complexity": 5.0,
-            "coupling": 1.413,
-            "is_hotspot": false,
-            "risk": 0.789
-          },
-          "related_findings_same_file": [],
-          "source_excerpt": {
-            "available": true,
-            "end_line": 532,
-            "start_line": 524,
-            "text_omitted_in_lean_report": true
-          },
-          "symbol_context": [
-            {
-              "is_exported": false,
-              "kind": "function",
-              "line_end": 566,
-              "line_start": 485,
-              "symbol": "handleForwardedEvent"
-            },
-            {
-              "is_exported": false,
-              "kind": "function",
-              "line_end": 483,
-              "line_start": 452,
-              "symbol": "startLocalWebhookServer"
-            },
-            {
-              "is_exported": true,
-              "kind": "function",
-              "line_end": 444,
-              "line_start": 100,
-              "symbol": "createChatSdkBridge"
-            },
-            {
-              "is_exported": false,
-              "kind": "function",
-              "line_end": 166,
-              "line_start": 108,
-              "symbol": "messageToInbound"
-            },
-            {
-              "is_exported": true,
-              "kind": "function",
-              "line_end": 98,
-              "line_start": 84,
-              "symbol": "splitForLimit"
-            }
-          ]
-        },
-        "finding": {
-          "adapter": "js-frontend",
-          "column": 15,
-          "confidence": "high",
-          "line": 528,
-          "message": "Potential SSRF via fetch with user input",
-          "path": "src/channels/chat-sdk-bridge.ts",
-          "path_context": "production",
-          "provenance": "source",
-          "rule_id": "js.ssrf-fetch",
-          "severity": "high",
-          "signal_weight": 1.0
-        },
-        "kind": "security_finding",
-        "next_reader_action": "inspect the cited source range and decide fix priority",
-        "pack_id": "EV-004",
-        "review_priority_score": 0.924,
-        "validation": {
-          "confidence": {
-            "reasons": [
-              "rule confidence high contributes 1.00",
-              "finding path is present in scan inventory",
-              "finding line is within known file bounds",
-              "source was loaded during scan"
-            ],
-            "score": 1.0
-          },
-          "deterministic_challenge": {
-            "checks": [
-              "grounding_status=grounded",
-              "path_context=production signal_weight=1.00",
-              "false_positive_likelihood=low"
-            ],
-            "status": "upheld_candidate"
-          },
-          "false_positive_context": {
-            "likelihood": "low",
-            "reasons": [
-              "production source finding with no deterministic demotion factor"
-            ],
-            "score": 0.0
-          },
-          "grounding": {
-            "file_in_inventory": true,
-            "line_in_range": true,
-            "score": 1.0,
-            "source_loaded": true,
-            "status": "grounded"
-          }
-        }
-      },
-      {
-        "evidence": {
-          "file_risk": null,
-          "related_findings_same_file": [
-            {
-              "confidence": "medium",
-              "line": 122,
-              "rule_id": "bash.command-substitution-injection",
-              "severity": "high"
-            },
-            {
-              "confidence": "medium",
-              "line": 123,
-              "rule_id": "bash.command-substitution-injection",
-              "severity": "high"
-            },
-            {
-              "confidence": "medium",
-              "line": 236,
-              "rule_id": "bash.command-substitution-injection",
-              "severity": "high"
-            },
-            {
-              "confidence": "medium",
-              "line": 237,
-              "rule_id": "bash.command-substitution-injection",
-              "severity": "high"
-            }
-          ],
-          "source_excerpt": {
-            "available": true,
-            "end_line": 125,
-            "start_line": 117,
+            "end_line": 134,
+            "start_line": 126,
             "text_omitted_in_lean_report": true
           },
           "symbol_context": []
         },
         "finding": {
           "adapter": "bash-security",
-          "column": 77,
+          "column": 6,
           "confidence": "medium",
-          "line": 121,
+          "line": 130,
           "message": "Command substitution with potential injection",
-          "path": "nanoclaw.sh",
+          "path": "setup/add-telegram.sh",
           "path_context": "production",
           "provenance": "source",
           "rule_id": "bash.command-substitution-injection",
@@ -5206,7 +5561,7 @@
         },
         "kind": "security_finding",
         "next_reader_action": "inspect the cited source range and decide fix priority",
-        "pack_id": "EV-005",
+        "pack_id": "EV-002",
         "review_priority_score": 0.847,
         "validation": {
           "confidence": {
@@ -5231,7 +5586,367 @@
             "reasons": [
               "shell finding appears in operational script; verify user-controlled input"
             ],
+            "review_guidance": {
+              "id": "evidence.fp_guidance.beff0262379b",
+              "keep_as_review_only_condition_ids": [
+                "evidence.fp_guidance.beff0262379b.demote.non_production_context",
+                "evidence.fp_guidance.beff0262379b.demote.stale_or_absent_line",
+                "evidence.fp_guidance.beff0262379b.demote.unreachable_or_placeholder"
+              ],
+              "keep_as_review_only_when": [
+                "The evidence is a test, fixture, documentation sample, generated report, or vendor copy.",
+                "The source line is stale, out of range, or absent from the scanned checkout.",
+                "The risky sink is unreachable from production inputs under supported configurations."
+              ],
+              "owner_question": "Can an untrusted input or production execution path reach the cited sink?",
+              "promote_to_fix_condition_ids": [
+                "evidence.fp_guidance.beff0262379b.promote.production_runtime",
+                "evidence.fp_guidance.beff0262379b.promote.current_reachable_line",
+                "evidence.fp_guidance.beff0262379b.promote.trigger_or_live_value"
+              ],
+              "promote_to_fix_when": [
+                "The file is production/runtime code or is packaged into production artifacts.",
+                "The cited line is current and reachable in the scanned revision.",
+                "A realistic caller, input, or configuration can trigger the risky behavior."
+              ],
+              "summary": "No deterministic false-positive demotion dominated; review as a normal candidate finding."
+            },
             "score": 0.2
+          },
+          "grounding": {
+            "file_in_inventory": true,
+            "line_in_range": true,
+            "score": 1.0,
+            "source_loaded": true,
+            "status": "grounded"
+          }
+        }
+      },
+      {
+        "agent_next_step": {
+          "id": "EV-003.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": "container/agent-runner/src/index.ts",
+          "next_line": 21,
+          "next_query": "pack_id:EV-003 rule:adaptability.hardcoded-platform-path file:container/agent-runner/src/index.ts line:21",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "finding is classified as true-positive, false-positive, accepted risk, or review-only evidence"
+        },
+        "duplicate_occurrence_count": 1,
+        "evidence": {
+          "file_risk": null,
+          "related_findings_same_file": [],
+          "source_excerpt": {
+            "reason": "finding contains potentially sensitive text (endpoint, path, credential, or registry reference); source excerpt omitted",
+            "redacted": true,
+            "text_omitted_in_lean_report": true
+          },
+          "symbol_context": [
+            {
+              "is_exported": false,
+              "kind": "function",
+              "line_end": 38,
+              "line_start": 36,
+              "symbol": "log"
+            },
+            {
+              "is_exported": false,
+              "kind": "function",
+              "line_end": 101,
+              "line_start": 42,
+              "symbol": "main"
+            }
+          ]
+        },
+        "finding": {
+          "adapter": "adaptability",
+          "column": 6,
+          "confidence": "medium",
+          "line": 21,
+          "message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "path": "container/agent-runner/src/index.ts",
+          "path_context": "production",
+          "provenance": "source",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium",
+          "signal_weight": 1.0
+        },
+        "kind": "security_finding",
+        "next_reader_action": "confirm whether the value is live, rotate if live, and move to secret storage",
+        "pack_id": "EV-003",
+        "review_priority_score": 0.771,
+        "validation": {
+          "confidence": {
+            "reasons": [
+              "rule confidence medium contributes 0.65",
+              "finding path is present in scan inventory",
+              "finding line is within known file bounds",
+              "source was loaded during scan"
+            ],
+            "score": 0.65
+          },
+          "deterministic_challenge": {
+            "checks": [
+              "grounding_status=grounded",
+              "path_context=production signal_weight=1.00",
+              "false_positive_likelihood=low"
+            ],
+            "status": "upheld_candidate"
+          },
+          "false_positive_context": {
+            "likelihood": "low",
+            "reasons": [
+              "production source finding with no deterministic demotion factor"
+            ],
+            "review_guidance": {
+              "id": "evidence.fp_guidance.39e40e4684aa",
+              "keep_as_review_only_condition_ids": [
+                "evidence.fp_guidance.39e40e4684aa.demote.non_production_context",
+                "evidence.fp_guidance.39e40e4684aa.demote.stale_or_absent_line",
+                "evidence.fp_guidance.39e40e4684aa.demote.unreachable_or_placeholder"
+              ],
+              "keep_as_review_only_when": [
+                "The evidence is a test, fixture, documentation sample, generated report, or vendor copy.",
+                "The source line is stale, out of range, or absent from the scanned checkout.",
+                "The value is a placeholder, fake sample, local-only default, or already revoked."
+              ],
+              "owner_question": "Is the redacted value live, customer-facing, or only a documented placeholder?",
+              "promote_to_fix_condition_ids": [
+                "evidence.fp_guidance.39e40e4684aa.promote.production_runtime",
+                "evidence.fp_guidance.39e40e4684aa.promote.current_reachable_line",
+                "evidence.fp_guidance.39e40e4684aa.promote.trigger_or_live_value"
+              ],
+              "promote_to_fix_when": [
+                "The file is production/runtime code or is packaged into production artifacts.",
+                "The cited line is current and reachable in the scanned revision.",
+                "The value is live, privileged, customer-specific, or accepted by a real service."
+              ],
+              "summary": "No deterministic false-positive demotion dominated; review as a normal candidate finding."
+            },
+            "score": 0.0
+          },
+          "grounding": {
+            "file_in_inventory": true,
+            "line_in_range": true,
+            "score": 1.0,
+            "source_loaded": true,
+            "status": "grounded"
+          }
+        }
+      },
+      {
+        "agent_next_step": {
+          "id": "EV-004.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": "container/entrypoint.sh",
+          "next_line": 8,
+          "next_query": "pack_id:EV-004 rule:adaptability.hardcoded-platform-path file:container/entrypoint.sh line:8",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "finding is classified as true-positive, false-positive, accepted risk, or review-only evidence"
+        },
+        "duplicate_occurrence_count": 1,
+        "evidence": {
+          "file_risk": null,
+          "related_findings_same_file": [
+            {
+              "confidence": "medium",
+              "line": 14,
+              "rule_id": "adaptability.hardcoded-platform-path",
+              "severity": "medium"
+            },
+            {
+              "confidence": "medium",
+              "line": 16,
+              "rule_id": "adaptability.hardcoded-platform-path",
+              "severity": "medium"
+            }
+          ],
+          "source_excerpt": {
+            "reason": "finding contains potentially sensitive text (endpoint, path, credential, or registry reference); source excerpt omitted",
+            "redacted": true,
+            "text_omitted_in_lean_report": true
+          },
+          "symbol_context": []
+        },
+        "finding": {
+          "adapter": "adaptability",
+          "column": 39,
+          "confidence": "medium",
+          "line": 8,
+          "message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "path": "container/entrypoint.sh",
+          "path_context": "production",
+          "provenance": "source",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium",
+          "signal_weight": 1.0
+        },
+        "kind": "security_finding",
+        "next_reader_action": "confirm whether the value is live, rotate if live, and move to secret storage",
+        "pack_id": "EV-004",
+        "review_priority_score": 0.771,
+        "validation": {
+          "confidence": {
+            "reasons": [
+              "rule confidence medium contributes 0.65",
+              "finding path is present in scan inventory",
+              "finding line is within known file bounds",
+              "source was loaded during scan"
+            ],
+            "score": 0.65
+          },
+          "deterministic_challenge": {
+            "checks": [
+              "grounding_status=grounded",
+              "path_context=production signal_weight=1.00",
+              "false_positive_likelihood=low"
+            ],
+            "status": "upheld_candidate"
+          },
+          "false_positive_context": {
+            "likelihood": "low",
+            "reasons": [
+              "production source finding with no deterministic demotion factor"
+            ],
+            "review_guidance": {
+              "id": "evidence.fp_guidance.818866e253a6",
+              "keep_as_review_only_condition_ids": [
+                "evidence.fp_guidance.818866e253a6.demote.non_production_context",
+                "evidence.fp_guidance.818866e253a6.demote.stale_or_absent_line",
+                "evidence.fp_guidance.818866e253a6.demote.unreachable_or_placeholder"
+              ],
+              "keep_as_review_only_when": [
+                "The evidence is a test, fixture, documentation sample, generated report, or vendor copy.",
+                "The source line is stale, out of range, or absent from the scanned checkout.",
+                "The value is a placeholder, fake sample, local-only default, or already revoked."
+              ],
+              "owner_question": "Is the redacted value live, customer-facing, or only a documented placeholder?",
+              "promote_to_fix_condition_ids": [
+                "evidence.fp_guidance.818866e253a6.promote.production_runtime",
+                "evidence.fp_guidance.818866e253a6.promote.current_reachable_line",
+                "evidence.fp_guidance.818866e253a6.promote.trigger_or_live_value"
+              ],
+              "promote_to_fix_when": [
+                "The file is production/runtime code or is packaged into production artifacts.",
+                "The cited line is current and reachable in the scanned revision.",
+                "The value is live, privileged, customer-specific, or accepted by a real service."
+              ],
+              "summary": "No deterministic false-positive demotion dominated; review as a normal candidate finding."
+            },
+            "score": 0.0
+          },
+          "grounding": {
+            "file_in_inventory": true,
+            "line_in_range": true,
+            "score": 1.0,
+            "source_loaded": true,
+            "status": "grounded"
+          }
+        }
+      },
+      {
+        "agent_next_step": {
+          "id": "EV-005.next",
+          "next_artifact": "evidence.packs.json",
+          "next_file": "container/entrypoint.sh",
+          "next_line": 14,
+          "next_query": "pack_id:EV-005 rule:adaptability.hardcoded-platform-path file:container/entrypoint.sh line:14",
+          "next_tool_hint": "get_evidence_packs",
+          "requires_human_owner": true,
+          "stop_condition": "finding is classified as true-positive, false-positive, accepted risk, or review-only evidence"
+        },
+        "duplicate_occurrence_count": 1,
+        "evidence": {
+          "file_risk": null,
+          "related_findings_same_file": [
+            {
+              "confidence": "medium",
+              "line": 8,
+              "rule_id": "adaptability.hardcoded-platform-path",
+              "severity": "medium"
+            },
+            {
+              "confidence": "medium",
+              "line": 16,
+              "rule_id": "adaptability.hardcoded-platform-path",
+              "severity": "medium"
+            }
+          ],
+          "source_excerpt": {
+            "reason": "finding contains potentially sensitive text (endpoint, path, credential, or registry reference); source excerpt omitted",
+            "redacted": true,
+            "text_omitted_in_lean_report": true
+          },
+          "symbol_context": []
+        },
+        "finding": {
+          "adapter": "adaptability",
+          "column": 7,
+          "confidence": "medium",
+          "line": 14,
+          "message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+          "path": "container/entrypoint.sh",
+          "path_context": "production",
+          "provenance": "source",
+          "rule_id": "adaptability.hardcoded-platform-path",
+          "severity": "medium",
+          "signal_weight": 1.0
+        },
+        "kind": "security_finding",
+        "next_reader_action": "confirm whether the value is live, rotate if live, and move to secret storage",
+        "pack_id": "EV-005",
+        "review_priority_score": 0.771,
+        "validation": {
+          "confidence": {
+            "reasons": [
+              "rule confidence medium contributes 0.65",
+              "finding path is present in scan inventory",
+              "finding line is within known file bounds",
+              "source was loaded during scan"
+            ],
+            "score": 0.65
+          },
+          "deterministic_challenge": {
+            "checks": [
+              "grounding_status=grounded",
+              "path_context=production signal_weight=1.00",
+              "false_positive_likelihood=low"
+            ],
+            "status": "upheld_candidate"
+          },
+          "false_positive_context": {
+            "likelihood": "low",
+            "reasons": [
+              "production source finding with no deterministic demotion factor"
+            ],
+            "review_guidance": {
+              "id": "evidence.fp_guidance.63d9be6d921b",
+              "keep_as_review_only_condition_ids": [
+                "evidence.fp_guidance.63d9be6d921b.demote.non_production_context",
+                "evidence.fp_guidance.63d9be6d921b.demote.stale_or_absent_line",
+                "evidence.fp_guidance.63d9be6d921b.demote.unreachable_or_placeholder"
+              ],
+              "keep_as_review_only_when": [
+                "The evidence is a test, fixture, documentation sample, generated report, or vendor copy.",
+                "The source line is stale, out of range, or absent from the scanned checkout.",
+                "The value is a placeholder, fake sample, local-only default, or already revoked."
+              ],
+              "owner_question": "Is the redacted value live, customer-facing, or only a documented placeholder?",
+              "promote_to_fix_condition_ids": [
+                "evidence.fp_guidance.63d9be6d921b.promote.production_runtime",
+                "evidence.fp_guidance.63d9be6d921b.promote.current_reachable_line",
+                "evidence.fp_guidance.63d9be6d921b.promote.trigger_or_live_value"
+              ],
+              "promote_to_fix_when": [
+                "The file is production/runtime code or is packaged into production artifacts.",
+                "The cited line is current and reachable in the scanned revision.",
+                "The value is live, privileged, customer-specific, or accepted by a real service."
+              ],
+              "summary": "No deterministic false-positive demotion dominated; review as a normal candidate finding."
+            },
+            "score": 0.0
           },
           "grounding": {
             "file_in_inventory": true,
@@ -5247,103 +5962,23 @@
       {
         "challenge_status": "upheld_candidate",
         "cluster_id": "FCL-001",
-        "count": 2,
+        "count": 3,
         "false_positive_likelihood": "low",
         "lines": [
-          197,
-          386
+          263,
+          263,
+          263
         ],
-        "max_review_priority_score": 0.924,
-        "path": "setup/channels/discord.ts",
+        "max_review_priority_score": 1.0,
+        "path": "setup/verify.ts",
         "path_context": "production",
-        "representative_message": "Potential SSRF via fetch with user input",
-        "rule_id": "js.ssrf-fetch",
-        "severity": "high"
+        "representative_message": "child_process exec with tainted command",
+        "rule_id": "js.child-process-exec.tainted",
+        "severity": "error"
       },
       {
         "challenge_status": "upheld_candidate",
         "cluster_id": "FCL-002",
-        "count": 1,
-        "false_positive_likelihood": "low",
-        "lines": [
-          62
-        ],
-        "max_review_priority_score": 0.924,
-        "path": "setup/lib/diagnostics.ts",
-        "path_context": "production",
-        "representative_message": "Potential SSRF via fetch with user input",
-        "rule_id": "js.ssrf-fetch",
-        "severity": "high"
-      },
-      {
-        "challenge_status": "upheld_candidate",
-        "cluster_id": "FCL-003",
-        "count": 1,
-        "false_positive_likelihood": "low",
-        "lines": [
-          528
-        ],
-        "max_review_priority_score": 0.924,
-        "path": "src/channels/chat-sdk-bridge.ts",
-        "path_context": "production",
-        "representative_message": "Potential SSRF via fetch with user input",
-        "rule_id": "js.ssrf-fetch",
-        "severity": "high"
-      },
-      {
-        "challenge_status": "upheld_candidate",
-        "cluster_id": "FCL-004",
-        "count": 5,
-        "false_positive_likelihood": "low",
-        "lines": [
-          121,
-          122,
-          123,
-          236,
-          237
-        ],
-        "max_review_priority_score": 0.847,
-        "path": "nanoclaw.sh",
-        "path_context": "production",
-        "representative_message": "Command substitution with potential injection",
-        "rule_id": "bash.command-substitution-injection",
-        "severity": "high"
-      },
-      {
-        "challenge_status": "upheld_candidate",
-        "cluster_id": "FCL-005",
-        "count": 3,
-        "false_positive_likelihood": "low",
-        "lines": [
-          37,
-          47,
-          62
-        ],
-        "max_review_priority_score": 0.847,
-        "path": "scripts/cleanup-sessions.sh",
-        "path_context": "production",
-        "representative_message": "Command substitution with potential injection",
-        "rule_id": "bash.command-substitution-injection",
-        "severity": "high"
-      },
-      {
-        "challenge_status": "upheld_candidate",
-        "cluster_id": "FCL-006",
-        "count": 1,
-        "false_positive_likelihood": "low",
-        "lines": [
-          112
-        ],
-        "max_review_priority_score": 0.847,
-        "path": "setup.sh",
-        "path_context": "production",
-        "representative_message": "Command substitution with potential injection",
-        "rule_id": "bash.command-substitution-injection",
-        "severity": "high"
-      },
-      {
-        "challenge_status": "upheld_candidate",
-        "cluster_id": "FCL-007",
         "count": 1,
         "false_positive_likelihood": "low",
         "lines": [
@@ -5358,52 +5993,7 @@
       },
       {
         "challenge_status": "upheld_candidate",
-        "cluster_id": "FCL-008",
-        "count": 1,
-        "false_positive_likelihood": "low",
-        "lines": [
-          25
-        ],
-        "max_review_priority_score": 0.847,
-        "path": "setup/lib/diagnostics.sh",
-        "path_context": "production",
-        "representative_message": "Command substitution with potential injection",
-        "rule_id": "bash.command-substitution-injection",
-        "severity": "high"
-      },
-      {
-        "challenge_status": "upheld_candidate",
-        "cluster_id": "FCL-009",
-        "count": 1,
-        "false_positive_likelihood": "low",
-        "lines": [
-          49
-        ],
-        "max_review_priority_score": 0.847,
-        "path": "setup/probe.sh",
-        "path_context": "production",
-        "representative_message": "Command substitution with potential injection",
-        "rule_id": "bash.command-substitution-injection",
-        "severity": "high"
-      },
-      {
-        "challenge_status": "upheld_candidate",
-        "cluster_id": "FCL-010",
-        "count": 1,
-        "false_positive_likelihood": "low",
-        "lines": [
-          83
-        ],
-        "max_review_priority_score": 0.847,
-        "path": "setup/register-claude-token.sh",
-        "path_context": "production",
-        "representative_message": "Command substitution with potential injection",
-        "rule_id": "bash.command-substitution-injection",
-        "severity": "high"
-      },
-      {
-        "challenge_status": "upheld_candidate",
-        "cluster_id": "FCL-011",
+        "cluster_id": "FCL-003",
         "count": 4,
         "false_positive_likelihood": "low",
         "lines": [
@@ -5421,7 +6011,7 @@
       },
       {
         "challenge_status": "upheld_candidate",
-        "cluster_id": "FCL-012",
+        "cluster_id": "FCL-004",
         "count": 3,
         "false_positive_likelihood": "low",
         "lines": [
@@ -5438,7 +6028,7 @@
       },
       {
         "challenge_status": "upheld_candidate",
-        "cluster_id": "FCL-013",
+        "cluster_id": "FCL-005",
         "count": 3,
         "false_positive_likelihood": "low",
         "lines": [
@@ -5455,7 +6045,7 @@
       },
       {
         "challenge_status": "upheld_candidate",
-        "cluster_id": "FCL-014",
+        "cluster_id": "FCL-006",
         "count": 3,
         "false_positive_likelihood": "low",
         "lines": [
@@ -5472,7 +6062,7 @@
       },
       {
         "challenge_status": "upheld_candidate",
-        "cluster_id": "FCL-015",
+        "cluster_id": "FCL-007",
         "count": 3,
         "false_positive_likelihood": "low",
         "lines": [
@@ -5486,27 +6076,168 @@
         "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
         "rule_id": "adaptability.hardcoded-platform-path",
         "severity": "medium"
+      },
+      {
+        "challenge_status": "upheld_candidate",
+        "cluster_id": "FCL-008",
+        "count": 2,
+        "false_positive_likelihood": "low",
+        "lines": [
+          210,
+          777
+        ],
+        "max_review_priority_score": 0.771,
+        "path": "setup/auto.ts",
+        "path_context": "production",
+        "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium"
+      },
+      {
+        "challenge_status": "upheld_candidate",
+        "cluster_id": "FCL-009",
+        "count": 2,
+        "false_positive_likelihood": "low",
+        "lines": [
+          20,
+          67
+        ],
+        "max_review_priority_score": 0.771,
+        "path": "setup/register-claude-token.sh",
+        "path_context": "production",
+        "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium"
+      },
+      {
+        "challenge_status": "upheld_candidate",
+        "cluster_id": "FCL-010",
+        "count": 1,
+        "false_positive_likelihood": "low",
+        "lines": [
+          21
+        ],
+        "max_review_priority_score": 0.771,
+        "path": "container/agent-runner/src/index.ts",
+        "path_context": "production",
+        "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium"
+      },
+      {
+        "challenge_status": "upheld_candidate",
+        "cluster_id": "FCL-011",
+        "count": 1,
+        "false_positive_likelihood": "low",
+        "lines": [
+          157
+        ],
+        "max_review_priority_score": 0.771,
+        "path": "nanoclaw.sh",
+        "path_context": "production",
+        "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium"
+      },
+      {
+        "challenge_status": "upheld_candidate",
+        "cluster_id": "FCL-012",
+        "count": 1,
+        "false_positive_likelihood": "low",
+        "lines": [
+          132
+        ],
+        "max_review_priority_score": 0.771,
+        "path": "setup/container.ts",
+        "path_context": "production",
+        "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium"
+      },
+      {
+        "challenge_status": "upheld_candidate",
+        "cluster_id": "FCL-013",
+        "count": 1,
+        "false_positive_likelihood": "low",
+        "lines": [
+          5
+        ],
+        "max_review_priority_score": 0.771,
+        "path": "setup/run-suggested.sh",
+        "path_context": "production",
+        "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium"
+      },
+      {
+        "challenge_status": "upheld_candidate",
+        "cluster_id": "FCL-014",
+        "count": 1,
+        "false_positive_likelihood": "low",
+        "lines": [
+          30
+        ],
+        "max_review_priority_score": 0.771,
+        "path": "src/modules/permissions/user-dm.ts",
+        "path_context": "production",
+        "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium"
+      },
+      {
+        "challenge_status": "upheld_candidate",
+        "cluster_id": "FCL-015",
+        "count": 1,
+        "false_positive_likelihood": "low",
+        "lines": [
+          16
+        ],
+        "max_review_priority_score": 0.771,
+        "path": "package.json",
+        "path_context": "production",
+        "representative_message": "Package lifecycle script executes during install or publish and should be reviewed for supply-chain risk.",
+        "rule_id": "supply-chain.package.lifecycle-script-risk",
+        "severity": "medium"
       }
     ],
     "kind": "deterministic_validated_evidence",
+    "limit_policy": {
+      "max_evidence_packs": 12,
+      "max_excerpt_line_chars": 240,
+      "max_excerpt_lines": 12,
+      "max_finding_clusters": 50,
+      "max_related_findings": 6,
+      "max_symbols_per_pack": 5,
+      "source": "scan_limits"
+    },
     "non_llm": true,
+    "schema_contract": {
+      "artifact": "evidence.packs.json",
+      "artifact_schema_version": "1.0.0",
+      "boundary": "Schema contract validates deterministic artifact shape for agents and wrappers. It does not certify exploitability or replace report.json as source of truth.",
+      "contract_version": "1.0.0",
+      "models_invoked": false,
+      "schema_id": "https://b1brain.local/davinci/schemas/evidence-packs-1.0.0.schema.json",
+      "stability": "stable"
+    },
     "schema_version": "1.0.0",
     "validation_summary": {
-      "average_grounding_score": 0.784,
-      "average_review_priority_score": 0.561,
+      "average_grounding_score": 0.765,
+      "average_review_priority_score": 0.507,
       "deterministic_challenge_status_counts": {
+        "context_demoted": 9,
         "downgraded_unverified": 63,
         "needs_exploitability_review": 3,
-        "upheld_candidate": 109
+        "upheld_candidate": 86
       },
       "false_positive_likelihood_counts": {
-        "high": 50,
-        "low": 109,
+        "high": 59,
+        "low": 86,
         "medium": 16
       },
-      "findings_validated": 175,
+      "findings_validated": 161,
       "grounding_status_counts": {
-        "grounded": 112,
+        "grounded": 98,
         "unmatched_file": 63
       }
     }

@@ -1,0 +1,45 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "annotations": [
+    {
+      "annotationDate": "2026-06-01T18:38:56Z",
+      "annotationType": "OTHER",
+      "annotator": "Tool: DaVinci-0.3.0",
+      "comment": "DaVinci boundary: source-manifest package inventory only; dependency_mode=cache-only; dependency_inventory_status=no_dependencies; non_llm=true; companion_vex=vex.cdx.json"
+    }
+  ],
+  "creationInfo": {
+    "comment": "DaVinci generated this SPDX 2.3 JSON SBOM from deterministic source-manifest dependency inventory. Vulnerability and reachability state is emitted separately in reachable-cve.json and vex.cdx.json.",
+    "created": "2026-06-01T18:38:56Z",
+    "creators": [
+      "Tool: DaVinci-0.3.0"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentDescribes": [
+    "SPDXRef-Repository"
+  ],
+  "documentNamespace": "https://b1brain.local/spdxdocs/davinci-39c2d1d182526d57",
+  "name": "DaVinci SBOM for brunoclaw-davinci-pr",
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Repository",
+      "comment": "Repository root represented as source-manifest inventory. DaVinci does not claim this SPDX document is a build-output, container, runtime, or file-level license SBOM.",
+      "copyrightText": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "name": "brunoclaw-davinci-pr",
+      "primaryPackagePurpose": "SOURCE"
+    }
+  ],
+  "relationships": [
+    {
+      "relatedSpdxElement": "SPDXRef-Repository",
+      "relationshipType": "DESCRIBES",
+      "spdxElementId": "SPDXRef-DOCUMENT"
+    }
+  ],
+  "spdxVersion": "SPDX-2.3"
+}

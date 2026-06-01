@@ -2,36 +2,1195 @@
   "boundary": "Evidence packs are deterministic scan context. They are not final exploitability judgments and do not invoke models.",
   "evidence_packs": [
     {
+      "agent_next_step": {
+        "id": "EV-001.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/verify.ts",
+        "next_line": 263,
+        "next_query": "pack_id:EV-001 rule:js.child-process-exec.tainted file:setup/verify.ts line:263",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "finding is classified as true-positive, false-positive, accepted risk, or review-only evidence"
+      },
+      "duplicate_occurrence_count": 3,
       "evidence": {
         "file_risk": null,
-        "related_findings_same_file": [
-          {
-            "confidence": "high",
-            "line": 386,
-            "rule_id": "js.ssrf-fetch",
-            "severity": "high"
-          }
-        ],
+        "related_findings_same_file": [],
         "source_excerpt": {
           "available": true,
-          "end_line": 201,
-          "start_line": 193,
-          "text": "193:   const s = p.spinner();\n194:   const start = Date.now();\n195:   s.start('Checking your bot token…');\n196:   try {\n197:     const res = await fetch(`${DISCORD_API}/users/@me`, {\n198:       headers: { Authorization: `Bot ${token}` },\n199:     });\n200:     const data = (await res.json()) as {\n201:       id?: string;"
+          "end_line": 267,
+          "start_line": 259,
+          "text": "259:  */\n260: function resolveBinaryScript(pid: number): string | null {\n261:   try {\n262:     // BSD ps (macOS) and util-linux both honour `-o command=` (full argv,\n263:     // no header). Node argv: \"node /path/to/dist/index.js ...\".\n264:     const out = execSync(`ps -p ${pid} -o command=`, {\n265:       encoding: 'utf-8',\n266:     }).trim();\n267:     const tokens = out.split(/\\s+/);"
         },
         "symbol_context": [
           {
             "is_exported": false,
             "kind": "function",
-            "line_end": 237,
-            "line_start": 192,
-            "symbol": "validateDiscordToken"
+            "line_end": 273,
+            "line_start": 260,
+            "symbol": "resolveBinaryScript"
+          },
+          {
+            "is_exported": true,
+            "kind": "function",
+            "line_end": 252,
+            "line_start": 26,
+            "symbol": "run"
           },
           {
             "is_exported": false,
             "kind": "function",
-            "line_end": 190,
-            "line_start": 168,
-            "symbol": "collectDiscordToken"
+            "line_end": 278,
+            "line_start": 275,
+            "symbol": "isPathInside"
+          }
+        ]
+      },
+      "finding": {
+        "adapter": "js-ts-taint",
+        "column": 1,
+        "confidence": "high",
+        "line": 263,
+        "message": "child_process exec with tainted command",
+        "path": "setup/verify.ts",
+        "path_context": "production",
+        "provenance": "source",
+        "rule_id": "js.child-process-exec.tainted",
+        "severity": "error",
+        "signal_weight": 1.0
+      },
+      "kind": "security_finding",
+      "next_reader_action": "inspect the cited source range and decide fix priority",
+      "pack_id": "EV-001",
+      "review_priority_score": 1.0,
+      "validation": {
+        "confidence": {
+          "reasons": [
+            "rule confidence high contributes 1.00",
+            "finding path is present in scan inventory",
+            "finding line is within known file bounds",
+            "source was loaded during scan"
+          ],
+          "score": 1.0
+        },
+        "deterministic_challenge": {
+          "checks": [
+            "grounding_status=grounded",
+            "path_context=production signal_weight=1.00",
+            "false_positive_likelihood=low"
+          ],
+          "status": "upheld_candidate"
+        },
+        "false_positive_context": {
+          "likelihood": "low",
+          "reasons": [
+            "production source finding with no deterministic demotion factor"
+          ],
+          "review_guidance": {
+            "id": "evidence.fp_guidance.dfa04b73efcb",
+            "keep_as_review_only_condition_ids": [
+              "evidence.fp_guidance.dfa04b73efcb.demote.non_production_context",
+              "evidence.fp_guidance.dfa04b73efcb.demote.stale_or_absent_line",
+              "evidence.fp_guidance.dfa04b73efcb.demote.unreachable_or_placeholder"
+            ],
+            "keep_as_review_only_when": [
+              "The evidence is a test, fixture, documentation sample, generated report, or vendor copy.",
+              "The source line is stale, out of range, or absent from the scanned checkout.",
+              "The risky sink is unreachable from production inputs under supported configurations."
+            ],
+            "owner_question": "Can an untrusted input or production execution path reach the cited sink?",
+            "promote_to_fix_condition_ids": [
+              "evidence.fp_guidance.dfa04b73efcb.promote.production_runtime",
+              "evidence.fp_guidance.dfa04b73efcb.promote.current_reachable_line",
+              "evidence.fp_guidance.dfa04b73efcb.promote.trigger_or_live_value"
+            ],
+            "promote_to_fix_when": [
+              "The file is production/runtime code or is packaged into production artifacts.",
+              "The cited line is current and reachable in the scanned revision.",
+              "A realistic caller, input, or configuration can trigger the risky behavior."
+            ],
+            "summary": "No deterministic false-positive demotion dominated; review as a normal candidate finding."
+          },
+          "score": 0.0
+        },
+        "grounding": {
+          "file_in_inventory": true,
+          "line_in_range": true,
+          "score": 1.0,
+          "source_loaded": true,
+          "status": "grounded"
+        }
+      }
+    },
+    {
+      "agent_next_step": {
+        "id": "EV-002.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/add-telegram.sh",
+        "next_line": 130,
+        "next_query": "pack_id:EV-002 rule:bash.command-substitution-injection file:setup/add-telegram.sh line:130",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "finding is classified as true-positive, false-positive, accepted risk, or review-only evidence"
+      },
+      "duplicate_occurrence_count": 1,
+      "evidence": {
+        "file_risk": null,
+        "related_findings_same_file": [],
+        "source_excerpt": {
+          "available": true,
+          "end_line": 134,
+          "start_line": 126,
+          "text": "126: \n127: # Look up the bot username (auto.ts already validated; we re-query here so\n128: # standalone invocations still work — BOT_USERNAME is emitted in the status\n129: # block for parent drivers to display).\n130: INFO=$(curl -fsS --max-time 8 \\\n131:   \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe\" 2>/dev/null || true)\n132: BOT_USERNAME=\"\"\n133: if echo \"$INFO\" | grep -q '\"ok\":true'; then\n134:   BOT_USERNAME=$(echo \"$INFO\" | sed -nE 's/.*\"username\":\"([^\"]+)\".*/\\1/p')"
+        },
+        "symbol_context": []
+      },
+      "finding": {
+        "adapter": "bash-security",
+        "column": 6,
+        "confidence": "medium",
+        "line": 130,
+        "message": "Command substitution with potential injection",
+        "path": "setup/add-telegram.sh",
+        "path_context": "production",
+        "provenance": "source",
+        "rule_id": "bash.command-substitution-injection",
+        "severity": "high",
+        "signal_weight": 1.0
+      },
+      "kind": "security_finding",
+      "next_reader_action": "inspect the cited source range and decide fix priority",
+      "pack_id": "EV-002",
+      "review_priority_score": 0.847,
+      "validation": {
+        "confidence": {
+          "reasons": [
+            "rule confidence medium contributes 0.65",
+            "finding path is present in scan inventory",
+            "finding line is within known file bounds",
+            "source was loaded during scan"
+          ],
+          "score": 0.65
+        },
+        "deterministic_challenge": {
+          "checks": [
+            "grounding_status=grounded",
+            "path_context=production signal_weight=1.00",
+            "false_positive_likelihood=low"
+          ],
+          "status": "upheld_candidate"
+        },
+        "false_positive_context": {
+          "likelihood": "low",
+          "reasons": [
+            "shell finding appears in operational script; verify user-controlled input"
+          ],
+          "review_guidance": {
+            "id": "evidence.fp_guidance.beff0262379b",
+            "keep_as_review_only_condition_ids": [
+              "evidence.fp_guidance.beff0262379b.demote.non_production_context",
+              "evidence.fp_guidance.beff0262379b.demote.stale_or_absent_line",
+              "evidence.fp_guidance.beff0262379b.demote.unreachable_or_placeholder"
+            ],
+            "keep_as_review_only_when": [
+              "The evidence is a test, fixture, documentation sample, generated report, or vendor copy.",
+              "The source line is stale, out of range, or absent from the scanned checkout.",
+              "The risky sink is unreachable from production inputs under supported configurations."
+            ],
+            "owner_question": "Can an untrusted input or production execution path reach the cited sink?",
+            "promote_to_fix_condition_ids": [
+              "evidence.fp_guidance.beff0262379b.promote.production_runtime",
+              "evidence.fp_guidance.beff0262379b.promote.current_reachable_line",
+              "evidence.fp_guidance.beff0262379b.promote.trigger_or_live_value"
+            ],
+            "promote_to_fix_when": [
+              "The file is production/runtime code or is packaged into production artifacts.",
+              "The cited line is current and reachable in the scanned revision.",
+              "A realistic caller, input, or configuration can trigger the risky behavior."
+            ],
+            "summary": "No deterministic false-positive demotion dominated; review as a normal candidate finding."
+          },
+          "score": 0.2
+        },
+        "grounding": {
+          "file_in_inventory": true,
+          "line_in_range": true,
+          "score": 1.0,
+          "source_loaded": true,
+          "status": "grounded"
+        }
+      }
+    },
+    {
+      "agent_next_step": {
+        "id": "EV-003.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "container/agent-runner/src/index.ts",
+        "next_line": 21,
+        "next_query": "pack_id:EV-003 rule:adaptability.hardcoded-platform-path file:container/agent-runner/src/index.ts line:21",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "finding is classified as true-positive, false-positive, accepted risk, or review-only evidence"
+      },
+      "duplicate_occurrence_count": 1,
+      "evidence": {
+        "file_risk": null,
+        "related_findings_same_file": [],
+        "source_excerpt": {
+          "reason": "finding contains potentially sensitive text (endpoint, path, credential, or registry reference); source excerpt omitted",
+          "redacted": true
+        },
+        "symbol_context": [
+          {
+            "is_exported": false,
+            "kind": "function",
+            "line_end": 38,
+            "line_start": 36,
+            "symbol": "log"
+          },
+          {
+            "is_exported": false,
+            "kind": "function",
+            "line_end": 101,
+            "line_start": 42,
+            "symbol": "main"
+          }
+        ]
+      },
+      "finding": {
+        "adapter": "adaptability",
+        "column": 6,
+        "confidence": "medium",
+        "line": 21,
+        "message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "path": "container/agent-runner/src/index.ts",
+        "path_context": "production",
+        "provenance": "source",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium",
+        "signal_weight": 1.0
+      },
+      "kind": "security_finding",
+      "next_reader_action": "confirm whether the value is live, rotate if live, and move to secret storage",
+      "pack_id": "EV-003",
+      "review_priority_score": 0.771,
+      "validation": {
+        "confidence": {
+          "reasons": [
+            "rule confidence medium contributes 0.65",
+            "finding path is present in scan inventory",
+            "finding line is within known file bounds",
+            "source was loaded during scan"
+          ],
+          "score": 0.65
+        },
+        "deterministic_challenge": {
+          "checks": [
+            "grounding_status=grounded",
+            "path_context=production signal_weight=1.00",
+            "false_positive_likelihood=low"
+          ],
+          "status": "upheld_candidate"
+        },
+        "false_positive_context": {
+          "likelihood": "low",
+          "reasons": [
+            "production source finding with no deterministic demotion factor"
+          ],
+          "review_guidance": {
+            "id": "evidence.fp_guidance.39e40e4684aa",
+            "keep_as_review_only_condition_ids": [
+              "evidence.fp_guidance.39e40e4684aa.demote.non_production_context",
+              "evidence.fp_guidance.39e40e4684aa.demote.stale_or_absent_line",
+              "evidence.fp_guidance.39e40e4684aa.demote.unreachable_or_placeholder"
+            ],
+            "keep_as_review_only_when": [
+              "The evidence is a test, fixture, documentation sample, generated report, or vendor copy.",
+              "The source line is stale, out of range, or absent from the scanned checkout.",
+              "The value is a placeholder, fake sample, local-only default, or already revoked."
+            ],
+            "owner_question": "Is the redacted value live, customer-facing, or only a documented placeholder?",
+            "promote_to_fix_condition_ids": [
+              "evidence.fp_guidance.39e40e4684aa.promote.production_runtime",
+              "evidence.fp_guidance.39e40e4684aa.promote.current_reachable_line",
+              "evidence.fp_guidance.39e40e4684aa.promote.trigger_or_live_value"
+            ],
+            "promote_to_fix_when": [
+              "The file is production/runtime code or is packaged into production artifacts.",
+              "The cited line is current and reachable in the scanned revision.",
+              "The value is live, privileged, customer-specific, or accepted by a real service."
+            ],
+            "summary": "No deterministic false-positive demotion dominated; review as a normal candidate finding."
+          },
+          "score": 0.0
+        },
+        "grounding": {
+          "file_in_inventory": true,
+          "line_in_range": true,
+          "score": 1.0,
+          "source_loaded": true,
+          "status": "grounded"
+        }
+      }
+    },
+    {
+      "agent_next_step": {
+        "id": "EV-004.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "container/entrypoint.sh",
+        "next_line": 8,
+        "next_query": "pack_id:EV-004 rule:adaptability.hardcoded-platform-path file:container/entrypoint.sh line:8",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "finding is classified as true-positive, false-positive, accepted risk, or review-only evidence"
+      },
+      "duplicate_occurrence_count": 1,
+      "evidence": {
+        "file_risk": null,
+        "related_findings_same_file": [
+          {
+            "confidence": "medium",
+            "line": 14,
+            "rule_id": "adaptability.hardcoded-platform-path",
+            "severity": "medium"
+          },
+          {
+            "confidence": "medium",
+            "line": 16,
+            "rule_id": "adaptability.hardcoded-platform-path",
+            "severity": "medium"
+          }
+        ],
+        "source_excerpt": {
+          "reason": "finding contains potentially sensitive text (endpoint, path, credential, or registry reference); source excerpt omitted",
+          "redacted": true
+        },
+        "symbol_context": []
+      },
+      "finding": {
+        "adapter": "adaptability",
+        "column": 39,
+        "confidence": "medium",
+        "line": 8,
+        "message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "path": "container/entrypoint.sh",
+        "path_context": "production",
+        "provenance": "source",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium",
+        "signal_weight": 1.0
+      },
+      "kind": "security_finding",
+      "next_reader_action": "confirm whether the value is live, rotate if live, and move to secret storage",
+      "pack_id": "EV-004",
+      "review_priority_score": 0.771,
+      "validation": {
+        "confidence": {
+          "reasons": [
+            "rule confidence medium contributes 0.65",
+            "finding path is present in scan inventory",
+            "finding line is within known file bounds",
+            "source was loaded during scan"
+          ],
+          "score": 0.65
+        },
+        "deterministic_challenge": {
+          "checks": [
+            "grounding_status=grounded",
+            "path_context=production signal_weight=1.00",
+            "false_positive_likelihood=low"
+          ],
+          "status": "upheld_candidate"
+        },
+        "false_positive_context": {
+          "likelihood": "low",
+          "reasons": [
+            "production source finding with no deterministic demotion factor"
+          ],
+          "review_guidance": {
+            "id": "evidence.fp_guidance.818866e253a6",
+            "keep_as_review_only_condition_ids": [
+              "evidence.fp_guidance.818866e253a6.demote.non_production_context",
+              "evidence.fp_guidance.818866e253a6.demote.stale_or_absent_line",
+              "evidence.fp_guidance.818866e253a6.demote.unreachable_or_placeholder"
+            ],
+            "keep_as_review_only_when": [
+              "The evidence is a test, fixture, documentation sample, generated report, or vendor copy.",
+              "The source line is stale, out of range, or absent from the scanned checkout.",
+              "The value is a placeholder, fake sample, local-only default, or already revoked."
+            ],
+            "owner_question": "Is the redacted value live, customer-facing, or only a documented placeholder?",
+            "promote_to_fix_condition_ids": [
+              "evidence.fp_guidance.818866e253a6.promote.production_runtime",
+              "evidence.fp_guidance.818866e253a6.promote.current_reachable_line",
+              "evidence.fp_guidance.818866e253a6.promote.trigger_or_live_value"
+            ],
+            "promote_to_fix_when": [
+              "The file is production/runtime code or is packaged into production artifacts.",
+              "The cited line is current and reachable in the scanned revision.",
+              "The value is live, privileged, customer-specific, or accepted by a real service."
+            ],
+            "summary": "No deterministic false-positive demotion dominated; review as a normal candidate finding."
+          },
+          "score": 0.0
+        },
+        "grounding": {
+          "file_in_inventory": true,
+          "line_in_range": true,
+          "score": 1.0,
+          "source_loaded": true,
+          "status": "grounded"
+        }
+      }
+    },
+    {
+      "agent_next_step": {
+        "id": "EV-005.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "container/entrypoint.sh",
+        "next_line": 14,
+        "next_query": "pack_id:EV-005 rule:adaptability.hardcoded-platform-path file:container/entrypoint.sh line:14",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "finding is classified as true-positive, false-positive, accepted risk, or review-only evidence"
+      },
+      "duplicate_occurrence_count": 1,
+      "evidence": {
+        "file_risk": null,
+        "related_findings_same_file": [
+          {
+            "confidence": "medium",
+            "line": 8,
+            "rule_id": "adaptability.hardcoded-platform-path",
+            "severity": "medium"
+          },
+          {
+            "confidence": "medium",
+            "line": 16,
+            "rule_id": "adaptability.hardcoded-platform-path",
+            "severity": "medium"
+          }
+        ],
+        "source_excerpt": {
+          "reason": "finding contains potentially sensitive text (endpoint, path, credential, or registry reference); source excerpt omitted",
+          "redacted": true
+        },
+        "symbol_context": []
+      },
+      "finding": {
+        "adapter": "adaptability",
+        "column": 7,
+        "confidence": "medium",
+        "line": 14,
+        "message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "path": "container/entrypoint.sh",
+        "path_context": "production",
+        "provenance": "source",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium",
+        "signal_weight": 1.0
+      },
+      "kind": "security_finding",
+      "next_reader_action": "confirm whether the value is live, rotate if live, and move to secret storage",
+      "pack_id": "EV-005",
+      "review_priority_score": 0.771,
+      "validation": {
+        "confidence": {
+          "reasons": [
+            "rule confidence medium contributes 0.65",
+            "finding path is present in scan inventory",
+            "finding line is within known file bounds",
+            "source was loaded during scan"
+          ],
+          "score": 0.65
+        },
+        "deterministic_challenge": {
+          "checks": [
+            "grounding_status=grounded",
+            "path_context=production signal_weight=1.00",
+            "false_positive_likelihood=low"
+          ],
+          "status": "upheld_candidate"
+        },
+        "false_positive_context": {
+          "likelihood": "low",
+          "reasons": [
+            "production source finding with no deterministic demotion factor"
+          ],
+          "review_guidance": {
+            "id": "evidence.fp_guidance.63d9be6d921b",
+            "keep_as_review_only_condition_ids": [
+              "evidence.fp_guidance.63d9be6d921b.demote.non_production_context",
+              "evidence.fp_guidance.63d9be6d921b.demote.stale_or_absent_line",
+              "evidence.fp_guidance.63d9be6d921b.demote.unreachable_or_placeholder"
+            ],
+            "keep_as_review_only_when": [
+              "The evidence is a test, fixture, documentation sample, generated report, or vendor copy.",
+              "The source line is stale, out of range, or absent from the scanned checkout.",
+              "The value is a placeholder, fake sample, local-only default, or already revoked."
+            ],
+            "owner_question": "Is the redacted value live, customer-facing, or only a documented placeholder?",
+            "promote_to_fix_condition_ids": [
+              "evidence.fp_guidance.63d9be6d921b.promote.production_runtime",
+              "evidence.fp_guidance.63d9be6d921b.promote.current_reachable_line",
+              "evidence.fp_guidance.63d9be6d921b.promote.trigger_or_live_value"
+            ],
+            "promote_to_fix_when": [
+              "The file is production/runtime code or is packaged into production artifacts.",
+              "The cited line is current and reachable in the scanned revision.",
+              "The value is live, privileged, customer-specific, or accepted by a real service."
+            ],
+            "summary": "No deterministic false-positive demotion dominated; review as a normal candidate finding."
+          },
+          "score": 0.0
+        },
+        "grounding": {
+          "file_in_inventory": true,
+          "line_in_range": true,
+          "score": 1.0,
+          "source_loaded": true,
+          "status": "grounded"
+        }
+      }
+    },
+    {
+      "agent_next_step": {
+        "id": "EV-006.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "container/entrypoint.sh",
+        "next_line": 16,
+        "next_query": "pack_id:EV-006 rule:adaptability.hardcoded-platform-path file:container/entrypoint.sh line:16",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "finding is classified as true-positive, false-positive, accepted risk, or review-only evidence"
+      },
+      "duplicate_occurrence_count": 1,
+      "evidence": {
+        "file_risk": null,
+        "related_findings_same_file": [
+          {
+            "confidence": "medium",
+            "line": 8,
+            "rule_id": "adaptability.hardcoded-platform-path",
+            "severity": "medium"
+          },
+          {
+            "confidence": "medium",
+            "line": 14,
+            "rule_id": "adaptability.hardcoded-platform-path",
+            "severity": "medium"
+          }
+        ],
+        "source_excerpt": {
+          "reason": "finding contains potentially sensitive text (endpoint, path, credential, or registry reference); source excerpt omitted",
+          "redacted": true
+        },
+        "symbol_context": []
+      },
+      "finding": {
+        "adapter": "adaptability",
+        "column": 34,
+        "confidence": "medium",
+        "line": 16,
+        "message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "path": "container/entrypoint.sh",
+        "path_context": "production",
+        "provenance": "source",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium",
+        "signal_weight": 1.0
+      },
+      "kind": "security_finding",
+      "next_reader_action": "confirm whether the value is live, rotate if live, and move to secret storage",
+      "pack_id": "EV-006",
+      "review_priority_score": 0.771,
+      "validation": {
+        "confidence": {
+          "reasons": [
+            "rule confidence medium contributes 0.65",
+            "finding path is present in scan inventory",
+            "finding line is within known file bounds",
+            "source was loaded during scan"
+          ],
+          "score": 0.65
+        },
+        "deterministic_challenge": {
+          "checks": [
+            "grounding_status=grounded",
+            "path_context=production signal_weight=1.00",
+            "false_positive_likelihood=low"
+          ],
+          "status": "upheld_candidate"
+        },
+        "false_positive_context": {
+          "likelihood": "low",
+          "reasons": [
+            "production source finding with no deterministic demotion factor"
+          ],
+          "review_guidance": {
+            "id": "evidence.fp_guidance.f0e7d77404b3",
+            "keep_as_review_only_condition_ids": [
+              "evidence.fp_guidance.f0e7d77404b3.demote.non_production_context",
+              "evidence.fp_guidance.f0e7d77404b3.demote.stale_or_absent_line",
+              "evidence.fp_guidance.f0e7d77404b3.demote.unreachable_or_placeholder"
+            ],
+            "keep_as_review_only_when": [
+              "The evidence is a test, fixture, documentation sample, generated report, or vendor copy.",
+              "The source line is stale, out of range, or absent from the scanned checkout.",
+              "The value is a placeholder, fake sample, local-only default, or already revoked."
+            ],
+            "owner_question": "Is the redacted value live, customer-facing, or only a documented placeholder?",
+            "promote_to_fix_condition_ids": [
+              "evidence.fp_guidance.f0e7d77404b3.promote.production_runtime",
+              "evidence.fp_guidance.f0e7d77404b3.promote.current_reachable_line",
+              "evidence.fp_guidance.f0e7d77404b3.promote.trigger_or_live_value"
+            ],
+            "promote_to_fix_when": [
+              "The file is production/runtime code or is packaged into production artifacts.",
+              "The cited line is current and reachable in the scanned revision.",
+              "The value is live, privileged, customer-specific, or accepted by a real service."
+            ],
+            "summary": "No deterministic false-positive demotion dominated; review as a normal candidate finding."
+          },
+          "score": 0.0
+        },
+        "grounding": {
+          "file_in_inventory": true,
+          "line_in_range": true,
+          "score": 1.0,
+          "source_loaded": true,
+          "status": "grounded"
+        }
+      }
+    },
+    {
+      "agent_next_step": {
+        "id": "EV-007.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "nanoclaw.sh",
+        "next_line": 157,
+        "next_query": "pack_id:EV-007 rule:adaptability.hardcoded-platform-path file:nanoclaw.sh line:157",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "finding is classified as true-positive, false-positive, accepted risk, or review-only evidence"
+      },
+      "duplicate_occurrence_count": 1,
+      "evidence": {
+        "file_risk": null,
+        "related_findings_same_file": [],
+        "source_excerpt": {
+          "reason": "finding contains potentially sensitive text (endpoint, path, credential, or registry reference); source excerpt omitted",
+          "redacted": true
+        },
+        "symbol_context": []
+      },
+      "finding": {
+        "adapter": "adaptability",
+        "column": 7,
+        "confidence": "medium",
+        "line": 157,
+        "message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "path": "nanoclaw.sh",
+        "path_context": "production",
+        "provenance": "source",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium",
+        "signal_weight": 1.0
+      },
+      "kind": "security_finding",
+      "next_reader_action": "confirm whether the value is live, rotate if live, and move to secret storage",
+      "pack_id": "EV-007",
+      "review_priority_score": 0.771,
+      "validation": {
+        "confidence": {
+          "reasons": [
+            "rule confidence medium contributes 0.65",
+            "finding path is present in scan inventory",
+            "finding line is within known file bounds",
+            "source was loaded during scan"
+          ],
+          "score": 0.65
+        },
+        "deterministic_challenge": {
+          "checks": [
+            "grounding_status=grounded",
+            "path_context=production signal_weight=1.00",
+            "false_positive_likelihood=low"
+          ],
+          "status": "upheld_candidate"
+        },
+        "false_positive_context": {
+          "likelihood": "low",
+          "reasons": [
+            "production source finding with no deterministic demotion factor"
+          ],
+          "review_guidance": {
+            "id": "evidence.fp_guidance.90c7c207e133",
+            "keep_as_review_only_condition_ids": [
+              "evidence.fp_guidance.90c7c207e133.demote.non_production_context",
+              "evidence.fp_guidance.90c7c207e133.demote.stale_or_absent_line",
+              "evidence.fp_guidance.90c7c207e133.demote.unreachable_or_placeholder"
+            ],
+            "keep_as_review_only_when": [
+              "The evidence is a test, fixture, documentation sample, generated report, or vendor copy.",
+              "The source line is stale, out of range, or absent from the scanned checkout.",
+              "The value is a placeholder, fake sample, local-only default, or already revoked."
+            ],
+            "owner_question": "Is the redacted value live, customer-facing, or only a documented placeholder?",
+            "promote_to_fix_condition_ids": [
+              "evidence.fp_guidance.90c7c207e133.promote.production_runtime",
+              "evidence.fp_guidance.90c7c207e133.promote.current_reachable_line",
+              "evidence.fp_guidance.90c7c207e133.promote.trigger_or_live_value"
+            ],
+            "promote_to_fix_when": [
+              "The file is production/runtime code or is packaged into production artifacts.",
+              "The cited line is current and reachable in the scanned revision.",
+              "The value is live, privileged, customer-specific, or accepted by a real service."
+            ],
+            "summary": "No deterministic false-positive demotion dominated; review as a normal candidate finding."
+          },
+          "score": 0.0
+        },
+        "grounding": {
+          "file_in_inventory": true,
+          "line_in_range": true,
+          "score": 1.0,
+          "source_loaded": true,
+          "status": "grounded"
+        }
+      }
+    },
+    {
+      "agent_next_step": {
+        "id": "EV-008.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "package.json",
+        "next_line": 16,
+        "next_query": "pack_id:EV-008 rule:supply-chain.package.lifecycle-script-risk file:package.json line:16",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "finding is classified as true-positive, false-positive, accepted risk, or review-only evidence"
+      },
+      "duplicate_occurrence_count": 1,
+      "evidence": {
+        "file_risk": null,
+        "related_findings_same_file": [],
+        "source_excerpt": {
+          "available": true,
+          "end_line": 20,
+          "start_line": 12,
+          "text": "12:     \"typecheck\": \"tsc --noEmit\",\n13:     \"format\": \"prettier --write \\\"src/**/*.ts\\\"\",\n14:     \"format:fix\": \"prettier --write \\\"src/**/*.ts\\\"\",\n15:     \"format:check\": \"prettier --check \\\"src/**/*.ts\\\"\",\n16:     \"prepare\": \"husky\",\n17:     \"setup\": \"tsx setup/index.ts\",\n18:     \"setup:auto\": \"tsx setup/auto.ts\",\n19:     \"chat\": \"tsx scripts/chat.ts\",\n20:     \"auth\": \"tsx src/whatsapp-auth.ts\","
+        },
+        "symbol_context": []
+      },
+      "finding": {
+        "adapter": "supply-chain",
+        "column": 1,
+        "confidence": "medium",
+        "line": 16,
+        "message": "Package lifecycle script executes during install or publish and should be reviewed for supply-chain risk.",
+        "path": "package.json",
+        "path_context": "production",
+        "provenance": "source",
+        "rule_id": "supply-chain.package.lifecycle-script-risk",
+        "severity": "medium",
+        "signal_weight": 1.0
+      },
+      "kind": "security_finding",
+      "next_reader_action": "inspect the cited source range and decide fix priority",
+      "pack_id": "EV-008",
+      "review_priority_score": 0.771,
+      "validation": {
+        "confidence": {
+          "reasons": [
+            "rule confidence medium contributes 0.65",
+            "finding path is present in scan inventory",
+            "finding line is within known file bounds",
+            "source was loaded during scan"
+          ],
+          "score": 0.65
+        },
+        "deterministic_challenge": {
+          "checks": [
+            "grounding_status=grounded",
+            "path_context=production signal_weight=1.00",
+            "false_positive_likelihood=low"
+          ],
+          "status": "upheld_candidate"
+        },
+        "false_positive_context": {
+          "likelihood": "low",
+          "reasons": [
+            "production source finding with no deterministic demotion factor"
+          ],
+          "review_guidance": {
+            "id": "evidence.fp_guidance.57af6ed4b735",
+            "keep_as_review_only_condition_ids": [
+              "evidence.fp_guidance.57af6ed4b735.demote.non_production_context",
+              "evidence.fp_guidance.57af6ed4b735.demote.stale_or_absent_line",
+              "evidence.fp_guidance.57af6ed4b735.demote.unreachable_or_placeholder"
+            ],
+            "keep_as_review_only_when": [
+              "The evidence is a test, fixture, documentation sample, generated report, or vendor copy.",
+              "The source line is stale, out of range, or absent from the scanned checkout.",
+              "The risky sink is unreachable from production inputs under supported configurations."
+            ],
+            "owner_question": "Can an untrusted input or production execution path reach the cited sink?",
+            "promote_to_fix_condition_ids": [
+              "evidence.fp_guidance.57af6ed4b735.promote.production_runtime",
+              "evidence.fp_guidance.57af6ed4b735.promote.current_reachable_line",
+              "evidence.fp_guidance.57af6ed4b735.promote.trigger_or_live_value"
+            ],
+            "promote_to_fix_when": [
+              "The file is production/runtime code or is packaged into production artifacts.",
+              "The cited line is current and reachable in the scanned revision.",
+              "A realistic caller, input, or configuration can trigger the risky behavior."
+            ],
+            "summary": "No deterministic false-positive demotion dominated; review as a normal candidate finding."
+          },
+          "score": 0.0
+        },
+        "grounding": {
+          "file_in_inventory": true,
+          "line_in_range": true,
+          "score": 1.0,
+          "source_loaded": true,
+          "status": "grounded"
+        }
+      }
+    },
+    {
+      "agent_next_step": {
+        "id": "EV-009.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/auto.ts",
+        "next_line": 210,
+        "next_query": "pack_id:EV-009 rule:adaptability.hardcoded-platform-path file:setup/auto.ts line:210",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "finding is classified as true-positive, false-positive, accepted risk, or review-only evidence"
+      },
+      "duplicate_occurrence_count": 1,
+      "evidence": {
+        "file_risk": null,
+        "related_findings_same_file": [
+          {
+            "confidence": "medium",
+            "line": 777,
+            "rule_id": "adaptability.hardcoded-platform-path",
+            "severity": "medium"
+          }
+        ],
+        "source_excerpt": {
+          "reason": "finding contains potentially sensitive text (endpoint, path, credential, or registry reference); source excerpt omitted",
+          "redacted": true
+        },
+        "symbol_context": [
+          {
+            "is_exported": false,
+            "kind": "function",
+            "line_end": 363,
+            "line_start": 48,
+            "symbol": "main"
+          },
+          {
+            "is_exported": false,
+            "kind": "function",
+            "line_end": 400,
+            "line_start": 374,
+            "symbol": "confirmAssistantResponds"
+          },
+          {
+            "is_exported": false,
+            "kind": "function",
+            "line_end": 419,
+            "line_start": 402,
+            "symbol": "renderPingFailureNote"
+          },
+          {
+            "is_exported": false,
+            "kind": "function",
+            "line_end": 438,
+            "line_start": 426,
+            "symbol": "runFirstChat"
+          },
+          {
+            "is_exported": false,
+            "kind": "function",
+            "line_end": 454,
+            "line_start": 440,
+            "symbol": "sendChatMessage"
+          }
+        ]
+      },
+      "finding": {
+        "adapter": "adaptability",
+        "column": 45,
+        "confidence": "medium",
+        "line": 210,
+        "message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "path": "setup/auto.ts",
+        "path_context": "production",
+        "provenance": "source",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium",
+        "signal_weight": 1.0
+      },
+      "kind": "security_finding",
+      "next_reader_action": "confirm whether the value is live, rotate if live, and move to secret storage",
+      "pack_id": "EV-009",
+      "review_priority_score": 0.771,
+      "validation": {
+        "confidence": {
+          "reasons": [
+            "rule confidence medium contributes 0.65",
+            "finding path is present in scan inventory",
+            "finding line is within known file bounds",
+            "source was loaded during scan"
+          ],
+          "score": 0.65
+        },
+        "deterministic_challenge": {
+          "checks": [
+            "grounding_status=grounded",
+            "path_context=production signal_weight=1.00",
+            "false_positive_likelihood=low"
+          ],
+          "status": "upheld_candidate"
+        },
+        "false_positive_context": {
+          "likelihood": "low",
+          "reasons": [
+            "production source finding with no deterministic demotion factor"
+          ],
+          "review_guidance": {
+            "id": "evidence.fp_guidance.e411c154678b",
+            "keep_as_review_only_condition_ids": [
+              "evidence.fp_guidance.e411c154678b.demote.non_production_context",
+              "evidence.fp_guidance.e411c154678b.demote.stale_or_absent_line",
+              "evidence.fp_guidance.e411c154678b.demote.unreachable_or_placeholder"
+            ],
+            "keep_as_review_only_when": [
+              "The evidence is a test, fixture, documentation sample, generated report, or vendor copy.",
+              "The source line is stale, out of range, or absent from the scanned checkout.",
+              "The value is a placeholder, fake sample, local-only default, or already revoked."
+            ],
+            "owner_question": "Is the redacted value live, customer-facing, or only a documented placeholder?",
+            "promote_to_fix_condition_ids": [
+              "evidence.fp_guidance.e411c154678b.promote.production_runtime",
+              "evidence.fp_guidance.e411c154678b.promote.current_reachable_line",
+              "evidence.fp_guidance.e411c154678b.promote.trigger_or_live_value"
+            ],
+            "promote_to_fix_when": [
+              "The file is production/runtime code or is packaged into production artifacts.",
+              "The cited line is current and reachable in the scanned revision.",
+              "The value is live, privileged, customer-specific, or accepted by a real service."
+            ],
+            "summary": "No deterministic false-positive demotion dominated; review as a normal candidate finding."
+          },
+          "score": 0.0
+        },
+        "grounding": {
+          "file_in_inventory": true,
+          "line_in_range": true,
+          "score": 1.0,
+          "source_loaded": true,
+          "status": "grounded"
+        }
+      }
+    },
+    {
+      "agent_next_step": {
+        "id": "EV-010.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/auto.ts",
+        "next_line": 777,
+        "next_query": "pack_id:EV-010 rule:adaptability.hardcoded-platform-path file:setup/auto.ts line:777",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "finding is classified as true-positive, false-positive, accepted risk, or review-only evidence"
+      },
+      "duplicate_occurrence_count": 1,
+      "evidence": {
+        "file_risk": null,
+        "related_findings_same_file": [
+          {
+            "confidence": "medium",
+            "line": 210,
+            "rule_id": "adaptability.hardcoded-platform-path",
+            "severity": "medium"
+          }
+        ],
+        "source_excerpt": {
+          "reason": "finding contains potentially sensitive text (endpoint, path, credential, or registry reference); source excerpt omitted",
+          "redacted": true
+        },
+        "symbol_context": [
+          {
+            "is_exported": false,
+            "kind": "function",
+            "line_end": 773,
+            "line_start": 768,
+            "symbol": "runInheritScript"
+          },
+          {
+            "is_exported": false,
+            "kind": "function",
+            "line_end": 797,
+            "line_start": 782,
+            "symbol": "maybeReexecUnderSg"
+          },
+          {
+            "is_exported": false,
+            "kind": "function",
+            "line_end": 766,
+            "line_start": 733,
+            "symbol": "detectExistingOnecli"
+          },
+          {
+            "is_exported": false,
+            "kind": "function",
+            "line_end": 817,
+            "line_start": 801,
+            "symbol": "printIntro"
+          },
+          {
+            "is_exported": false,
+            "kind": "function",
+            "line_end": 850,
+            "line_start": 825,
+            "symbol": "initProgressionLog"
+          }
+        ]
+      },
+      "finding": {
+        "adapter": "adaptability",
+        "column": 56,
+        "confidence": "medium",
+        "line": 777,
+        "message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "path": "setup/auto.ts",
+        "path_context": "production",
+        "provenance": "source",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium",
+        "signal_weight": 1.0
+      },
+      "kind": "security_finding",
+      "next_reader_action": "confirm whether the value is live, rotate if live, and move to secret storage",
+      "pack_id": "EV-010",
+      "review_priority_score": 0.771,
+      "validation": {
+        "confidence": {
+          "reasons": [
+            "rule confidence medium contributes 0.65",
+            "finding path is present in scan inventory",
+            "finding line is within known file bounds",
+            "source was loaded during scan"
+          ],
+          "score": 0.65
+        },
+        "deterministic_challenge": {
+          "checks": [
+            "grounding_status=grounded",
+            "path_context=production signal_weight=1.00",
+            "false_positive_likelihood=low"
+          ],
+          "status": "upheld_candidate"
+        },
+        "false_positive_context": {
+          "likelihood": "low",
+          "reasons": [
+            "production source finding with no deterministic demotion factor"
+          ],
+          "review_guidance": {
+            "id": "evidence.fp_guidance.d5213dd71f03",
+            "keep_as_review_only_condition_ids": [
+              "evidence.fp_guidance.d5213dd71f03.demote.non_production_context",
+              "evidence.fp_guidance.d5213dd71f03.demote.stale_or_absent_line",
+              "evidence.fp_guidance.d5213dd71f03.demote.unreachable_or_placeholder"
+            ],
+            "keep_as_review_only_when": [
+              "The evidence is a test, fixture, documentation sample, generated report, or vendor copy.",
+              "The source line is stale, out of range, or absent from the scanned checkout.",
+              "The value is a placeholder, fake sample, local-only default, or already revoked."
+            ],
+            "owner_question": "Is the redacted value live, customer-facing, or only a documented placeholder?",
+            "promote_to_fix_condition_ids": [
+              "evidence.fp_guidance.d5213dd71f03.promote.production_runtime",
+              "evidence.fp_guidance.d5213dd71f03.promote.current_reachable_line",
+              "evidence.fp_guidance.d5213dd71f03.promote.trigger_or_live_value"
+            ],
+            "promote_to_fix_when": [
+              "The file is production/runtime code or is packaged into production artifacts.",
+              "The cited line is current and reachable in the scanned revision.",
+              "The value is live, privileged, customer-specific, or accepted by a real service."
+            ],
+            "summary": "No deterministic false-positive demotion dominated; review as a normal candidate finding."
+          },
+          "score": 0.0
+        },
+        "grounding": {
+          "file_in_inventory": true,
+          "line_in_range": true,
+          "score": 1.0,
+          "source_loaded": true,
+          "status": "grounded"
+        }
+      }
+    },
+    {
+      "agent_next_step": {
+        "id": "EV-011.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/channels/discord.ts",
+        "next_line": 10,
+        "next_query": "pack_id:EV-011 rule:adaptability.hardcoded-platform-path file:setup/channels/discord.ts line:10",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "finding is classified as true-positive, false-positive, accepted risk, or review-only evidence"
+      },
+      "duplicate_occurrence_count": 1,
+      "evidence": {
+        "file_risk": null,
+        "related_findings_same_file": [
+          {
+            "confidence": "medium",
+            "line": 17,
+            "rule_id": "adaptability.hardcoded-platform-path",
+            "severity": "medium"
+          },
+          {
+            "confidence": "medium",
+            "line": 176,
+            "rule_id": "adaptability.hardcoded-platform-path",
+            "severity": "medium"
+          },
+          {
+            "confidence": "medium",
+            "line": 197,
+            "rule_id": "adaptability.hardcoded-platform-path",
+            "severity": "medium"
+          }
+        ],
+        "source_excerpt": {
+          "reason": "finding contains potentially sensitive text (endpoint, path, credential, or registry reference); source excerpt omitted",
+          "redacted": true
+        },
+        "symbol_context": [
+          {
+            "is_exported": true,
+            "kind": "function",
+            "line_end": 128,
+            "line_start": 48,
+            "symbol": "runDiscordChannel"
+          },
+          {
+            "is_exported": false,
+            "kind": "function",
+            "line_end": 141,
+            "line_start": 130,
+            "symbol": "askHasBotToken"
           },
           {
             "is_exported": false,
@@ -43,9 +1202,140 @@
           {
             "is_exported": false,
             "kind": "function",
-            "line_end": 297,
-            "line_start": 239,
-            "symbol": "fetchApplicationInfo"
+            "line_end": 190,
+            "line_start": 168,
+            "symbol": "collectDiscordToken"
+          },
+          {
+            "is_exported": false,
+            "kind": "function",
+            "line_end": 237,
+            "line_start": 192,
+            "symbol": "validateDiscordToken"
+          }
+        ]
+      },
+      "finding": {
+        "adapter": "adaptability",
+        "column": 13,
+        "confidence": "medium",
+        "line": 10,
+        "message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "path": "setup/channels/discord.ts",
+        "path_context": "production",
+        "provenance": "source",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium",
+        "signal_weight": 1.0
+      },
+      "kind": "security_finding",
+      "next_reader_action": "confirm whether the value is live, rotate if live, and move to secret storage",
+      "pack_id": "EV-011",
+      "review_priority_score": 0.771,
+      "validation": {
+        "confidence": {
+          "reasons": [
+            "rule confidence medium contributes 0.65",
+            "finding path is present in scan inventory",
+            "finding line is within known file bounds",
+            "source was loaded during scan"
+          ],
+          "score": 0.65
+        },
+        "deterministic_challenge": {
+          "checks": [
+            "grounding_status=grounded",
+            "path_context=production signal_weight=1.00",
+            "false_positive_likelihood=low"
+          ],
+          "status": "upheld_candidate"
+        },
+        "false_positive_context": {
+          "likelihood": "low",
+          "reasons": [
+            "production source finding with no deterministic demotion factor"
+          ],
+          "review_guidance": {
+            "id": "evidence.fp_guidance.b8192be07df2",
+            "keep_as_review_only_condition_ids": [
+              "evidence.fp_guidance.b8192be07df2.demote.non_production_context",
+              "evidence.fp_guidance.b8192be07df2.demote.stale_or_absent_line",
+              "evidence.fp_guidance.b8192be07df2.demote.unreachable_or_placeholder"
+            ],
+            "keep_as_review_only_when": [
+              "The evidence is a test, fixture, documentation sample, generated report, or vendor copy.",
+              "The source line is stale, out of range, or absent from the scanned checkout.",
+              "The value is a placeholder, fake sample, local-only default, or already revoked."
+            ],
+            "owner_question": "Is the redacted value live, customer-facing, or only a documented placeholder?",
+            "promote_to_fix_condition_ids": [
+              "evidence.fp_guidance.b8192be07df2.promote.production_runtime",
+              "evidence.fp_guidance.b8192be07df2.promote.current_reachable_line",
+              "evidence.fp_guidance.b8192be07df2.promote.trigger_or_live_value"
+            ],
+            "promote_to_fix_when": [
+              "The file is production/runtime code or is packaged into production artifacts.",
+              "The cited line is current and reachable in the scanned revision.",
+              "The value is live, privileged, customer-specific, or accepted by a real service."
+            ],
+            "summary": "No deterministic false-positive demotion dominated; review as a normal candidate finding."
+          },
+          "score": 0.0
+        },
+        "grounding": {
+          "file_in_inventory": true,
+          "line_in_range": true,
+          "score": 1.0,
+          "source_loaded": true,
+          "status": "grounded"
+        }
+      }
+    },
+    {
+      "agent_next_step": {
+        "id": "EV-012.next",
+        "next_artifact": "evidence.packs.json",
+        "next_file": "setup/channels/discord.ts",
+        "next_line": 17,
+        "next_query": "pack_id:EV-012 rule:adaptability.hardcoded-platform-path file:setup/channels/discord.ts line:17",
+        "next_tool_hint": "get_evidence_packs",
+        "requires_human_owner": true,
+        "stop_condition": "finding is classified as true-positive, false-positive, accepted risk, or review-only evidence"
+      },
+      "duplicate_occurrence_count": 1,
+      "evidence": {
+        "file_risk": null,
+        "related_findings_same_file": [
+          {
+            "confidence": "medium",
+            "line": 10,
+            "rule_id": "adaptability.hardcoded-platform-path",
+            "severity": "medium"
+          },
+          {
+            "confidence": "medium",
+            "line": 176,
+            "rule_id": "adaptability.hardcoded-platform-path",
+            "severity": "medium"
+          },
+          {
+            "confidence": "medium",
+            "line": 197,
+            "rule_id": "adaptability.hardcoded-platform-path",
+            "severity": "medium"
+          }
+        ],
+        "source_excerpt": {
+          "reason": "finding contains potentially sensitive text (endpoint, path, credential, or registry reference); source excerpt omitted",
+          "redacted": true
+        },
+        "symbol_context": [
+          {
+            "is_exported": true,
+            "kind": "function",
+            "line_end": 128,
+            "line_start": 48,
+            "symbol": "runDiscordChannel"
           },
           {
             "is_exported": false,
@@ -53,325 +1343,56 @@
             "line_end": 141,
             "line_start": 130,
             "symbol": "askHasBotToken"
-          }
-        ]
-      },
-      "finding": {
-        "adapter": "js-frontend",
-        "column": 23,
-        "confidence": "high",
-        "line": 197,
-        "message": "Potential SSRF via fetch with user input",
-        "path": "setup/channels/discord.ts",
-        "path_context": "production",
-        "provenance": "source",
-        "rule_id": "js.ssrf-fetch",
-        "severity": "high",
-        "signal_weight": 1.0
-      },
-      "kind": "security_finding",
-      "next_reader_action": "inspect the cited source range and decide fix priority",
-      "pack_id": "EV-001",
-      "review_priority_score": 0.924,
-      "validation": {
-        "confidence": {
-          "reasons": [
-            "rule confidence high contributes 1.00",
-            "finding path is present in scan inventory",
-            "finding line is within known file bounds",
-            "source was loaded during scan"
-          ],
-          "score": 1.0
-        },
-        "deterministic_challenge": {
-          "checks": [
-            "grounding_status=grounded",
-            "path_context=production signal_weight=1.00",
-            "false_positive_likelihood=low"
-          ],
-          "status": "upheld_candidate"
-        },
-        "false_positive_context": {
-          "likelihood": "low",
-          "reasons": [
-            "production source finding with no deterministic demotion factor"
-          ],
-          "score": 0.0
-        },
-        "grounding": {
-          "file_in_inventory": true,
-          "line_in_range": true,
-          "score": 1.0,
-          "source_loaded": true,
-          "status": "grounded"
-        }
-      }
-    },
-    {
-      "evidence": {
-        "file_risk": null,
-        "related_findings_same_file": [
-          {
-            "confidence": "high",
-            "line": 197,
-            "rule_id": "js.ssrf-fetch",
-            "severity": "high"
-          }
-        ],
-        "source_excerpt": {
-          "available": true,
-          "end_line": 390,
-          "start_line": 382,
-          "text": "382:   const s = p.spinner();\n383:   const start = Date.now();\n384:   s.start('Opening a DM channel…');\n385:   try {\n386:     const res = await fetch(`${DISCORD_API}/users/@me/channels`, {\n387:       method: 'POST',\n388:       headers: {\n389:         Authorization: `Bot ${token}`,\n390:         'Content-Type': 'application/json',"
-        },
-        "symbol_context": [
-          {
-            "is_exported": false,
-            "kind": "function",
-            "line_end": 426,
-            "line_start": 381,
-            "symbol": "openDmChannel"
-          },
-          {
-            "is_exported": false,
-            "kind": "function",
-            "line_end": 379,
-            "line_start": 350,
-            "symbol": "promptInviteBot"
-          },
-          {
-            "is_exported": false,
-            "kind": "function",
-            "line_end": 348,
-            "line_start": 321,
-            "symbol": "promptForUserIdWithDevMode"
-          },
-          {
-            "is_exported": false,
-            "kind": "function",
-            "line_end": 444,
-            "line_start": 428,
-            "symbol": "resolveAgentName"
-          },
-          {
-            "is_exported": false,
-            "kind": "function",
-            "line_end": 319,
-            "line_start": 299,
-            "symbol": "resolveOwnerUserId"
-          }
-        ]
-      },
-      "finding": {
-        "adapter": "js-frontend",
-        "column": 23,
-        "confidence": "high",
-        "line": 386,
-        "message": "Potential SSRF via fetch with user input",
-        "path": "setup/channels/discord.ts",
-        "path_context": "production",
-        "provenance": "source",
-        "rule_id": "js.ssrf-fetch",
-        "severity": "high",
-        "signal_weight": 1.0
-      },
-      "kind": "security_finding",
-      "next_reader_action": "inspect the cited source range and decide fix priority",
-      "pack_id": "EV-002",
-      "review_priority_score": 0.924,
-      "validation": {
-        "confidence": {
-          "reasons": [
-            "rule confidence high contributes 1.00",
-            "finding path is present in scan inventory",
-            "finding line is within known file bounds",
-            "source was loaded during scan"
-          ],
-          "score": 1.0
-        },
-        "deterministic_challenge": {
-          "checks": [
-            "grounding_status=grounded",
-            "path_context=production signal_weight=1.00",
-            "false_positive_likelihood=low"
-          ],
-          "status": "upheld_candidate"
-        },
-        "false_positive_context": {
-          "likelihood": "low",
-          "reasons": [
-            "production source finding with no deterministic demotion factor"
-          ],
-          "score": 0.0
-        },
-        "grounding": {
-          "file_in_inventory": true,
-          "line_in_range": true,
-          "score": 1.0,
-          "source_loaded": true,
-          "status": "grounded"
-        }
-      }
-    },
-    {
-      "evidence": {
-        "file_risk": null,
-        "related_findings_same_file": [],
-        "source_excerpt": {
-          "available": true,
-          "end_line": 66,
-          "start_line": 58,
-          "text": "58:   });\n59: \n60:   const ctrl = new AbortController();\n61:   const timer = setTimeout(() => ctrl.abort(), 3000);\n62:   void fetch(POSTHOG_URL, {\n63:     method: 'POST',\n64:     headers: { 'Content-Type': 'application/json' },\n65:     body,\n66:     signal: ctrl.signal,"
-        },
-        "symbol_context": [
-          {
-            "is_exported": true,
-            "kind": "function",
-            "line_end": 70,
-            "line_start": 41,
-            "symbol": "emit"
-          },
-          {
-            "is_exported": true,
-            "kind": "function",
-            "line_end": 39,
-            "line_start": 19,
-            "symbol": "installId"
-          }
-        ]
-      },
-      "finding": {
-        "adapter": "js-frontend",
-        "column": 8,
-        "confidence": "high",
-        "line": 62,
-        "message": "Potential SSRF via fetch with user input",
-        "path": "setup/lib/diagnostics.ts",
-        "path_context": "production",
-        "provenance": "source",
-        "rule_id": "js.ssrf-fetch",
-        "severity": "high",
-        "signal_weight": 1.0
-      },
-      "kind": "security_finding",
-      "next_reader_action": "inspect the cited source range and decide fix priority",
-      "pack_id": "EV-003",
-      "review_priority_score": 0.924,
-      "validation": {
-        "confidence": {
-          "reasons": [
-            "rule confidence high contributes 1.00",
-            "finding path is present in scan inventory",
-            "finding line is within known file bounds",
-            "source was loaded during scan"
-          ],
-          "score": 1.0
-        },
-        "deterministic_challenge": {
-          "checks": [
-            "grounding_status=grounded",
-            "path_context=production signal_weight=1.00",
-            "false_positive_likelihood=low"
-          ],
-          "status": "upheld_candidate"
-        },
-        "false_positive_context": {
-          "likelihood": "low",
-          "reasons": [
-            "production source finding with no deterministic demotion factor"
-          ],
-          "score": 0.0
-        },
-        "grounding": {
-          "file_in_inventory": true,
-          "line_in_range": true,
-          "score": 1.0,
-          "source_loaded": true,
-          "status": "grounded"
-        }
-      }
-    },
-    {
-      "evidence": {
-        "file_risk": {
-          "centrality": 0.649,
-          "churn": 0.0,
-          "complexity": 5.0,
-          "coupling": 1.413,
-          "is_hotspot": false,
-          "risk": 0.789
-        },
-        "related_findings_same_file": [],
-        "source_excerpt": {
-          "available": true,
-          "end_line": 532,
-          "start_line": 524,
-          "text": "524:       const cardTitle = render?.title ?? ((originalEmbeds[0]?.title as string) || '❓ Question');\n525:       const matchedOpt = render?.options.find((o) => o.value === selectedOption);\n526:       const selectedLabel = matchedOpt?.selectedLabel ?? selectedOption ?? customId;\n527:       try {\n528:         await fetch(`https://discord.com/api/v10/interactions/${interactionId}/${interactionToken}/callback`, {\n529:           method: 'POST',\n530:           headers: { 'Content-Type': 'application/json' },\n531:           body: JSON.stringify({\n532:             type: 7, // UPDATE_MESSAGE — acknowledge + update in one call"
-        },
-        "symbol_context": [
-          {
-            "is_exported": false,
-            "kind": "function",
-            "line_end": 566,
-            "line_start": 485,
-            "symbol": "handleForwardedEvent"
-          },
-          {
-            "is_exported": false,
-            "kind": "function",
-            "line_end": 483,
-            "line_start": 452,
-            "symbol": "startLocalWebhookServer"
-          },
-          {
-            "is_exported": true,
-            "kind": "function",
-            "line_end": 444,
-            "line_start": 100,
-            "symbol": "createChatSdkBridge"
           },
           {
             "is_exported": false,
             "kind": "function",
             "line_end": 166,
-            "line_start": 108,
-            "symbol": "messageToInbound"
+            "line_start": 143,
+            "symbol": "walkThroughBotCreation"
           },
           {
-            "is_exported": true,
+            "is_exported": false,
             "kind": "function",
-            "line_end": 98,
-            "line_start": 84,
-            "symbol": "splitForLimit"
+            "line_end": 190,
+            "line_start": 168,
+            "symbol": "collectDiscordToken"
+          },
+          {
+            "is_exported": false,
+            "kind": "function",
+            "line_end": 237,
+            "line_start": 192,
+            "symbol": "validateDiscordToken"
           }
         ]
       },
       "finding": {
-        "adapter": "js-frontend",
-        "column": 15,
-        "confidence": "high",
-        "line": 528,
-        "message": "Potential SSRF via fetch with user input",
-        "path": "src/channels/chat-sdk-bridge.ts",
+        "adapter": "adaptability",
+        "column": 14,
+        "confidence": "medium",
+        "line": 17,
+        "message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
+        "path": "setup/channels/discord.ts",
         "path_context": "production",
         "provenance": "source",
-        "rule_id": "js.ssrf-fetch",
-        "severity": "high",
+        "rule_id": "adaptability.hardcoded-platform-path",
+        "severity": "medium",
         "signal_weight": 1.0
       },
       "kind": "security_finding",
-      "next_reader_action": "inspect the cited source range and decide fix priority",
-      "pack_id": "EV-004",
-      "review_priority_score": 0.924,
+      "next_reader_action": "confirm whether the value is live, rotate if live, and move to secret storage",
+      "pack_id": "EV-012",
+      "review_priority_score": 0.771,
       "validation": {
         "confidence": {
           "reasons": [
-            "rule confidence high contributes 1.00",
+            "rule confidence medium contributes 0.65",
             "finding path is present in scan inventory",
             "finding line is within known file bounds",
             "source was loaded during scan"
           ],
-          "score": 1.0
+          "score": 0.65
         },
         "deterministic_challenge": {
           "checks": [
@@ -386,675 +1407,32 @@
           "reasons": [
             "production source finding with no deterministic demotion factor"
           ],
+          "review_guidance": {
+            "id": "evidence.fp_guidance.93072aced7ef",
+            "keep_as_review_only_condition_ids": [
+              "evidence.fp_guidance.93072aced7ef.demote.non_production_context",
+              "evidence.fp_guidance.93072aced7ef.demote.stale_or_absent_line",
+              "evidence.fp_guidance.93072aced7ef.demote.unreachable_or_placeholder"
+            ],
+            "keep_as_review_only_when": [
+              "The evidence is a test, fixture, documentation sample, generated report, or vendor copy.",
+              "The source line is stale, out of range, or absent from the scanned checkout.",
+              "The value is a placeholder, fake sample, local-only default, or already revoked."
+            ],
+            "owner_question": "Is the redacted value live, customer-facing, or only a documented placeholder?",
+            "promote_to_fix_condition_ids": [
+              "evidence.fp_guidance.93072aced7ef.promote.production_runtime",
+              "evidence.fp_guidance.93072aced7ef.promote.current_reachable_line",
+              "evidence.fp_guidance.93072aced7ef.promote.trigger_or_live_value"
+            ],
+            "promote_to_fix_when": [
+              "The file is production/runtime code or is packaged into production artifacts.",
+              "The cited line is current and reachable in the scanned revision.",
+              "The value is live, privileged, customer-specific, or accepted by a real service."
+            ],
+            "summary": "No deterministic false-positive demotion dominated; review as a normal candidate finding."
+          },
           "score": 0.0
-        },
-        "grounding": {
-          "file_in_inventory": true,
-          "line_in_range": true,
-          "score": 1.0,
-          "source_loaded": true,
-          "status": "grounded"
-        }
-      }
-    },
-    {
-      "evidence": {
-        "file_risk": null,
-        "related_findings_same_file": [
-          {
-            "confidence": "medium",
-            "line": 122,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 123,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 236,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 237,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          }
-        ],
-        "source_excerpt": {
-          "available": true,
-          "end_line": 125,
-          "start_line": 117,
-          "text": "117: }\n118: clear_line() { use_ansi && printf '\\r\\033[2K' || printf '\\n'; }\n119: \n120: spinner_start()   { printf '%s  %s…' \"$(gray '◒')\" \"$1\"; }\n121: spinner_update()  { clear_line; printf '%s  %s… %s' \"$(gray '◒')\" \"$1\" \"$(dim \"(${2}s)\")\"; }\n122: spinner_success() { clear_line; printf '%s  %s %s\\n' \"$(gray '◇')\" \"$1\" \"$(dim \"(${2}s)\")\"; }\n123: spinner_failure() { clear_line; printf '%s  %s %s\\n' \"$(red '✗')\"  \"$1\" \"$(dim \"(${2}s)\")\"; }\n124: \n125: # ─── fresh-run setup ────────────────────────────────────────────────────"
-        },
-        "symbol_context": []
-      },
-      "finding": {
-        "adapter": "bash-security",
-        "column": 77,
-        "confidence": "medium",
-        "line": 121,
-        "message": "Command substitution with potential injection",
-        "path": "nanoclaw.sh",
-        "path_context": "production",
-        "provenance": "source",
-        "rule_id": "bash.command-substitution-injection",
-        "severity": "high",
-        "signal_weight": 1.0
-      },
-      "kind": "security_finding",
-      "next_reader_action": "inspect the cited source range and decide fix priority",
-      "pack_id": "EV-005",
-      "review_priority_score": 0.847,
-      "validation": {
-        "confidence": {
-          "reasons": [
-            "rule confidence medium contributes 0.65",
-            "finding path is present in scan inventory",
-            "finding line is within known file bounds",
-            "source was loaded during scan"
-          ],
-          "score": 0.65
-        },
-        "deterministic_challenge": {
-          "checks": [
-            "grounding_status=grounded",
-            "path_context=production signal_weight=1.00",
-            "false_positive_likelihood=low"
-          ],
-          "status": "upheld_candidate"
-        },
-        "false_positive_context": {
-          "likelihood": "low",
-          "reasons": [
-            "shell finding appears in operational script; verify user-controlled input"
-          ],
-          "score": 0.2
-        },
-        "grounding": {
-          "file_in_inventory": true,
-          "line_in_range": true,
-          "score": 1.0,
-          "source_loaded": true,
-          "status": "grounded"
-        }
-      }
-    },
-    {
-      "evidence": {
-        "file_risk": null,
-        "related_findings_same_file": [
-          {
-            "confidence": "medium",
-            "line": 121,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 123,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 236,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 237,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          }
-        ],
-        "source_excerpt": {
-          "available": true,
-          "end_line": 126,
-          "start_line": 118,
-          "text": "118: clear_line() { use_ansi && printf '\\r\\033[2K' || printf '\\n'; }\n119: \n120: spinner_start()   { printf '%s  %s…' \"$(gray '◒')\" \"$1\"; }\n121: spinner_update()  { clear_line; printf '%s  %s… %s' \"$(gray '◒')\" \"$1\" \"$(dim \"(${2}s)\")\"; }\n122: spinner_success() { clear_line; printf '%s  %s %s\\n' \"$(gray '◇')\" \"$1\" \"$(dim \"(${2}s)\")\"; }\n123: spinner_failure() { clear_line; printf '%s  %s %s\\n' \"$(red '✗')\"  \"$1\" \"$(dim \"(${2}s)\")\"; }\n124: \n125: # ─── fresh-run setup ────────────────────────────────────────────────────\n126: "
-        },
-        "symbol_context": []
-      },
-      "finding": {
-        "adapter": "bash-security",
-        "column": 76,
-        "confidence": "medium",
-        "line": 122,
-        "message": "Command substitution with potential injection",
-        "path": "nanoclaw.sh",
-        "path_context": "production",
-        "provenance": "source",
-        "rule_id": "bash.command-substitution-injection",
-        "severity": "high",
-        "signal_weight": 1.0
-      },
-      "kind": "security_finding",
-      "next_reader_action": "inspect the cited source range and decide fix priority",
-      "pack_id": "EV-006",
-      "review_priority_score": 0.847,
-      "validation": {
-        "confidence": {
-          "reasons": [
-            "rule confidence medium contributes 0.65",
-            "finding path is present in scan inventory",
-            "finding line is within known file bounds",
-            "source was loaded during scan"
-          ],
-          "score": 0.65
-        },
-        "deterministic_challenge": {
-          "checks": [
-            "grounding_status=grounded",
-            "path_context=production signal_weight=1.00",
-            "false_positive_likelihood=low"
-          ],
-          "status": "upheld_candidate"
-        },
-        "false_positive_context": {
-          "likelihood": "low",
-          "reasons": [
-            "shell finding appears in operational script; verify user-controlled input"
-          ],
-          "score": 0.2
-        },
-        "grounding": {
-          "file_in_inventory": true,
-          "line_in_range": true,
-          "score": 1.0,
-          "source_loaded": true,
-          "status": "grounded"
-        }
-      }
-    },
-    {
-      "evidence": {
-        "file_risk": null,
-        "related_findings_same_file": [
-          {
-            "confidence": "medium",
-            "line": 121,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 122,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 236,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 237,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          }
-        ],
-        "source_excerpt": {
-          "available": true,
-          "end_line": 127,
-          "start_line": 119,
-          "text": "119: \n120: spinner_start()   { printf '%s  %s…' \"$(gray '◒')\" \"$1\"; }\n121: spinner_update()  { clear_line; printf '%s  %s… %s' \"$(gray '◒')\" \"$1\" \"$(dim \"(${2}s)\")\"; }\n122: spinner_success() { clear_line; printf '%s  %s %s\\n' \"$(gray '◇')\" \"$1\" \"$(dim \"(${2}s)\")\"; }\n123: spinner_failure() { clear_line; printf '%s  %s %s\\n' \"$(red '✗')\"  \"$1\" \"$(dim \"(${2}s)\")\"; }\n124: \n125: # ─── fresh-run setup ────────────────────────────────────────────────────\n126: \n127: rm -rf \"$STEPS_DIR\""
-        },
-        "symbol_context": []
-      },
-      "finding": {
-        "adapter": "bash-security",
-        "column": 76,
-        "confidence": "medium",
-        "line": 123,
-        "message": "Command substitution with potential injection",
-        "path": "nanoclaw.sh",
-        "path_context": "production",
-        "provenance": "source",
-        "rule_id": "bash.command-substitution-injection",
-        "severity": "high",
-        "signal_weight": 1.0
-      },
-      "kind": "security_finding",
-      "next_reader_action": "inspect the cited source range and decide fix priority",
-      "pack_id": "EV-007",
-      "review_priority_score": 0.847,
-      "validation": {
-        "confidence": {
-          "reasons": [
-            "rule confidence medium contributes 0.65",
-            "finding path is present in scan inventory",
-            "finding line is within known file bounds",
-            "source was loaded during scan"
-          ],
-          "score": 0.65
-        },
-        "deterministic_challenge": {
-          "checks": [
-            "grounding_status=grounded",
-            "path_context=production signal_weight=1.00",
-            "false_positive_likelihood=low"
-          ],
-          "status": "upheld_candidate"
-        },
-        "false_positive_context": {
-          "likelihood": "low",
-          "reasons": [
-            "shell finding appears in operational script; verify user-controlled input"
-          ],
-          "score": 0.2
-        },
-        "grounding": {
-          "file_in_inventory": true,
-          "line_in_range": true,
-          "score": 1.0,
-          "source_loaded": true,
-          "status": "grounded"
-        }
-      }
-    },
-    {
-      "evidence": {
-        "file_risk": null,
-        "related_findings_same_file": [
-          {
-            "confidence": "medium",
-            "line": 121,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 122,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 123,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 237,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          }
-        ],
-        "source_excerpt": {
-          "available": true,
-          "end_line": 240,
-          "start_line": 232,
-          "text": "232:   echo\n233:   echo \"$(dim '── last 40 lines of ')$(dim \"$BOOTSTRAP_RAW\")$(dim ' ──')\"\n234:   tail -40 \"$BOOTSTRAP_RAW\"\n235:   echo\n236:   echo \"$(dim \"Full raw log: $BOOTSTRAP_RAW\")\"\n237:   echo \"$(dim \"Progression:  $PROGRESS_LOG\")\"\n238:   exit 1\n239: fi\n240: "
-        },
-        "symbol_context": []
-      },
-      "finding": {
-        "adapter": "bash-security",
-        "column": 9,
-        "confidence": "medium",
-        "line": 236,
-        "message": "Command substitution with potential injection",
-        "path": "nanoclaw.sh",
-        "path_context": "production",
-        "provenance": "source",
-        "rule_id": "bash.command-substitution-injection",
-        "severity": "high",
-        "signal_weight": 1.0
-      },
-      "kind": "security_finding",
-      "next_reader_action": "inspect the cited source range and decide fix priority",
-      "pack_id": "EV-008",
-      "review_priority_score": 0.847,
-      "validation": {
-        "confidence": {
-          "reasons": [
-            "rule confidence medium contributes 0.65",
-            "finding path is present in scan inventory",
-            "finding line is within known file bounds",
-            "source was loaded during scan"
-          ],
-          "score": 0.65
-        },
-        "deterministic_challenge": {
-          "checks": [
-            "grounding_status=grounded",
-            "path_context=production signal_weight=1.00",
-            "false_positive_likelihood=low"
-          ],
-          "status": "upheld_candidate"
-        },
-        "false_positive_context": {
-          "likelihood": "low",
-          "reasons": [
-            "shell finding appears in operational script; verify user-controlled input"
-          ],
-          "score": 0.2
-        },
-        "grounding": {
-          "file_in_inventory": true,
-          "line_in_range": true,
-          "score": 1.0,
-          "source_loaded": true,
-          "status": "grounded"
-        }
-      }
-    },
-    {
-      "evidence": {
-        "file_risk": null,
-        "related_findings_same_file": [
-          {
-            "confidence": "medium",
-            "line": 121,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 122,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 123,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 236,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          }
-        ],
-        "source_excerpt": {
-          "available": true,
-          "end_line": 241,
-          "start_line": 233,
-          "text": "233:   echo \"$(dim '── last 40 lines of ')$(dim \"$BOOTSTRAP_RAW\")$(dim ' ──')\"\n234:   tail -40 \"$BOOTSTRAP_RAW\"\n235:   echo\n236:   echo \"$(dim \"Full raw log: $BOOTSTRAP_RAW\")\"\n237:   echo \"$(dim \"Progression:  $PROGRESS_LOG\")\"\n238:   exit 1\n239: fi\n240: \n241: # ─── hand off to setup:auto ────────────────────────────────────────────"
-        },
-        "symbol_context": []
-      },
-      "finding": {
-        "adapter": "bash-security",
-        "column": 9,
-        "confidence": "medium",
-        "line": 237,
-        "message": "Command substitution with potential injection",
-        "path": "nanoclaw.sh",
-        "path_context": "production",
-        "provenance": "source",
-        "rule_id": "bash.command-substitution-injection",
-        "severity": "high",
-        "signal_weight": 1.0
-      },
-      "kind": "security_finding",
-      "next_reader_action": "inspect the cited source range and decide fix priority",
-      "pack_id": "EV-009",
-      "review_priority_score": 0.847,
-      "validation": {
-        "confidence": {
-          "reasons": [
-            "rule confidence medium contributes 0.65",
-            "finding path is present in scan inventory",
-            "finding line is within known file bounds",
-            "source was loaded during scan"
-          ],
-          "score": 0.65
-        },
-        "deterministic_challenge": {
-          "checks": [
-            "grounding_status=grounded",
-            "path_context=production signal_weight=1.00",
-            "false_positive_likelihood=low"
-          ],
-          "status": "upheld_candidate"
-        },
-        "false_positive_context": {
-          "likelihood": "low",
-          "reasons": [
-            "shell finding appears in operational script; verify user-controlled input"
-          ],
-          "score": 0.2
-        },
-        "grounding": {
-          "file_in_inventory": true,
-          "line_in_range": true,
-          "score": 1.0,
-          "source_loaded": true,
-          "status": "grounded"
-        }
-      }
-    },
-    {
-      "evidence": {
-        "file_risk": null,
-        "related_findings_same_file": [
-          {
-            "confidence": "medium",
-            "line": 47,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 62,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          }
-        ],
-        "source_excerpt": {
-          "available": true,
-          "end_line": 41,
-          "start_line": 33,
-          "text": "33:   if $DRY_RUN; then\n34:     if [ -d \"$target\" ]; then\n35:       size=$(du -sk \"$target\" 2>/dev/null | cut -f1)\n36:     else\n37:       size=$(wc -c < \"$target\" 2>/dev/null || echo 0)\n38:       size=$((size / 1024))\n39:     fi\n40:     TOTAL_FREED=$((TOTAL_FREED + size))\n41:     log \"would remove: $target (${size}K)\""
-        },
-        "symbol_context": []
-      },
-      "finding": {
-        "adapter": "bash-security",
-        "column": 12,
-        "confidence": "medium",
-        "line": 37,
-        "message": "Command substitution with potential injection",
-        "path": "scripts/cleanup-sessions.sh",
-        "path_context": "production",
-        "provenance": "source",
-        "rule_id": "bash.command-substitution-injection",
-        "severity": "high",
-        "signal_weight": 1.0
-      },
-      "kind": "security_finding",
-      "next_reader_action": "inspect the cited source range and decide fix priority",
-      "pack_id": "EV-010",
-      "review_priority_score": 0.847,
-      "validation": {
-        "confidence": {
-          "reasons": [
-            "rule confidence medium contributes 0.65",
-            "finding path is present in scan inventory",
-            "finding line is within known file bounds",
-            "source was loaded during scan"
-          ],
-          "score": 0.65
-        },
-        "deterministic_challenge": {
-          "checks": [
-            "grounding_status=grounded",
-            "path_context=production signal_weight=1.00",
-            "false_positive_likelihood=low"
-          ],
-          "status": "upheld_candidate"
-        },
-        "false_positive_context": {
-          "likelihood": "low",
-          "reasons": [
-            "shell finding appears in operational script; verify user-controlled input"
-          ],
-          "score": 0.2
-        },
-        "grounding": {
-          "file_in_inventory": true,
-          "line_in_range": true,
-          "score": 1.0,
-          "source_loaded": true,
-          "status": "grounded"
-        }
-      }
-    },
-    {
-      "evidence": {
-        "file_risk": null,
-        "related_findings_same_file": [
-          {
-            "confidence": "medium",
-            "line": 37,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 62,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          }
-        ],
-        "source_excerpt": {
-          "available": true,
-          "end_line": 51,
-          "start_line": 43,
-          "text": "43:     if [ -d \"$target\" ]; then\n44:       size=$(du -sk \"$target\" 2>/dev/null | cut -f1)\n45:       rm -rf \"$target\"\n46:     else\n47:       size=$(wc -c < \"$target\" 2>/dev/null || echo 0)\n48:       size=$((size / 1024))\n49:       rm -f \"$target\"\n50:     fi\n51:     TOTAL_FREED=$((TOTAL_FREED + size))"
-        },
-        "symbol_context": []
-      },
-      "finding": {
-        "adapter": "bash-security",
-        "column": 12,
-        "confidence": "medium",
-        "line": 47,
-        "message": "Command substitution with potential injection",
-        "path": "scripts/cleanup-sessions.sh",
-        "path_context": "production",
-        "provenance": "source",
-        "rule_id": "bash.command-substitution-injection",
-        "severity": "high",
-        "signal_weight": 1.0
-      },
-      "kind": "security_finding",
-      "next_reader_action": "inspect the cited source range and decide fix priority",
-      "pack_id": "EV-011",
-      "review_priority_score": 0.847,
-      "validation": {
-        "confidence": {
-          "reasons": [
-            "rule confidence medium contributes 0.65",
-            "finding path is present in scan inventory",
-            "finding line is within known file bounds",
-            "source was loaded during scan"
-          ],
-          "score": 0.65
-        },
-        "deterministic_challenge": {
-          "checks": [
-            "grounding_status=grounded",
-            "path_context=production signal_weight=1.00",
-            "false_positive_likelihood=low"
-          ],
-          "status": "upheld_candidate"
-        },
-        "false_positive_context": {
-          "likelihood": "low",
-          "reasons": [
-            "shell finding appears in operational script; verify user-controlled input"
-          ],
-          "score": 0.2
-        },
-        "grounding": {
-          "file_in_inventory": true,
-          "line_in_range": true,
-          "score": 1.0,
-          "source_loaded": true,
-          "status": "grounded"
-        }
-      }
-    },
-    {
-      "evidence": {
-        "file_risk": null,
-        "related_findings_same_file": [
-          {
-            "confidence": "medium",
-            "line": 37,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          },
-          {
-            "confidence": "medium",
-            "line": 47,
-            "rule_id": "bash.command-substitution-injection",
-            "severity": "high"
-          }
-        ],
-        "source_excerpt": {
-          "available": true,
-          "end_line": 66,
-          "start_line": 58,
-          "text": "58:   log \"ERROR: database not found at $STORE_DB\"\n59:   exit 1\n60: fi\n61: \n62: ACTIVE_IDS=$(sqlite3 \"$STORE_DB\" \"SELECT session_id FROM sessions;\" 2>/dev/null || true)\n63: \n64: is_active() {\n65:   echo \"$ACTIVE_IDS\" | grep -qF \"$1\"\n66: }"
-        },
-        "symbol_context": []
-      },
-      "finding": {
-        "adapter": "bash-security",
-        "column": 12,
-        "confidence": "medium",
-        "line": 62,
-        "message": "Command substitution with potential injection",
-        "path": "scripts/cleanup-sessions.sh",
-        "path_context": "production",
-        "provenance": "source",
-        "rule_id": "bash.command-substitution-injection",
-        "severity": "high",
-        "signal_weight": 1.0
-      },
-      "kind": "security_finding",
-      "next_reader_action": "inspect the cited source range and decide fix priority",
-      "pack_id": "EV-012",
-      "review_priority_score": 0.847,
-      "validation": {
-        "confidence": {
-          "reasons": [
-            "rule confidence medium contributes 0.65",
-            "finding path is present in scan inventory",
-            "finding line is within known file bounds",
-            "source was loaded during scan"
-          ],
-          "score": 0.65
-        },
-        "deterministic_challenge": {
-          "checks": [
-            "grounding_status=grounded",
-            "path_context=production signal_weight=1.00",
-            "false_positive_likelihood=low"
-          ],
-          "status": "upheld_candidate"
-        },
-        "false_positive_context": {
-          "likelihood": "low",
-          "reasons": [
-            "shell finding appears in operational script; verify user-controlled input"
-          ],
-          "score": 0.2
         },
         "grounding": {
           "file_in_inventory": true,
@@ -1070,103 +1448,23 @@
     {
       "challenge_status": "upheld_candidate",
       "cluster_id": "FCL-001",
-      "count": 2,
+      "count": 3,
       "false_positive_likelihood": "low",
       "lines": [
-        197,
-        386
+        263,
+        263,
+        263
       ],
-      "max_review_priority_score": 0.924,
-      "path": "setup/channels/discord.ts",
+      "max_review_priority_score": 1.0,
+      "path": "setup/verify.ts",
       "path_context": "production",
-      "representative_message": "Potential SSRF via fetch with user input",
-      "rule_id": "js.ssrf-fetch",
-      "severity": "high"
+      "representative_message": "child_process exec with tainted command",
+      "rule_id": "js.child-process-exec.tainted",
+      "severity": "error"
     },
     {
       "challenge_status": "upheld_candidate",
       "cluster_id": "FCL-002",
-      "count": 1,
-      "false_positive_likelihood": "low",
-      "lines": [
-        62
-      ],
-      "max_review_priority_score": 0.924,
-      "path": "setup/lib/diagnostics.ts",
-      "path_context": "production",
-      "representative_message": "Potential SSRF via fetch with user input",
-      "rule_id": "js.ssrf-fetch",
-      "severity": "high"
-    },
-    {
-      "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-003",
-      "count": 1,
-      "false_positive_likelihood": "low",
-      "lines": [
-        528
-      ],
-      "max_review_priority_score": 0.924,
-      "path": "src/channels/chat-sdk-bridge.ts",
-      "path_context": "production",
-      "representative_message": "Potential SSRF via fetch with user input",
-      "rule_id": "js.ssrf-fetch",
-      "severity": "high"
-    },
-    {
-      "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-004",
-      "count": 5,
-      "false_positive_likelihood": "low",
-      "lines": [
-        121,
-        122,
-        123,
-        236,
-        237
-      ],
-      "max_review_priority_score": 0.847,
-      "path": "nanoclaw.sh",
-      "path_context": "production",
-      "representative_message": "Command substitution with potential injection",
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "high"
-    },
-    {
-      "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-005",
-      "count": 3,
-      "false_positive_likelihood": "low",
-      "lines": [
-        37,
-        47,
-        62
-      ],
-      "max_review_priority_score": 0.847,
-      "path": "scripts/cleanup-sessions.sh",
-      "path_context": "production",
-      "representative_message": "Command substitution with potential injection",
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "high"
-    },
-    {
-      "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-006",
-      "count": 1,
-      "false_positive_likelihood": "low",
-      "lines": [
-        112
-      ],
-      "max_review_priority_score": 0.847,
-      "path": "setup.sh",
-      "path_context": "production",
-      "representative_message": "Command substitution with potential injection",
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "high"
-    },
-    {
-      "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-007",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1181,52 +1479,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-008",
-      "count": 1,
-      "false_positive_likelihood": "low",
-      "lines": [
-        25
-      ],
-      "max_review_priority_score": 0.847,
-      "path": "setup/lib/diagnostics.sh",
-      "path_context": "production",
-      "representative_message": "Command substitution with potential injection",
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "high"
-    },
-    {
-      "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-009",
-      "count": 1,
-      "false_positive_likelihood": "low",
-      "lines": [
-        49
-      ],
-      "max_review_priority_score": 0.847,
-      "path": "setup/probe.sh",
-      "path_context": "production",
-      "representative_message": "Command substitution with potential injection",
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "high"
-    },
-    {
-      "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-010",
-      "count": 1,
-      "false_positive_likelihood": "low",
-      "lines": [
-        83
-      ],
-      "max_review_priority_score": 0.847,
-      "path": "setup/register-claude-token.sh",
-      "path_context": "production",
-      "representative_message": "Command substitution with potential injection",
-      "rule_id": "bash.command-substitution-injection",
-      "severity": "high"
-    },
-    {
-      "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-011",
+      "cluster_id": "FCL-003",
       "count": 4,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1244,7 +1497,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-012",
+      "cluster_id": "FCL-004",
       "count": 3,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1261,7 +1514,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-013",
+      "cluster_id": "FCL-005",
       "count": 3,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1278,7 +1531,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-014",
+      "cluster_id": "FCL-006",
       "count": 3,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1295,7 +1548,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-015",
+      "cluster_id": "FCL-007",
       "count": 3,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1312,7 +1565,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-016",
+      "cluster_id": "FCL-008",
       "count": 2,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1328,7 +1581,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-017",
+      "cluster_id": "FCL-009",
       "count": 2,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1344,7 +1597,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-018",
+      "cluster_id": "FCL-010",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1359,7 +1612,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-019",
+      "cluster_id": "FCL-011",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1374,52 +1627,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-020",
-      "count": 1,
-      "false_positive_likelihood": "low",
-      "lines": [
-        10
-      ],
-      "max_review_priority_score": 0.771,
-      "path": "scripts/test-v2-agent.ts",
-      "path_context": "production",
-      "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
-      "rule_id": "adaptability.hardcoded-platform-path",
-      "severity": "medium"
-    },
-    {
-      "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-021",
-      "count": 1,
-      "false_positive_likelihood": "low",
-      "lines": [
-        13
-      ],
-      "max_review_priority_score": 0.771,
-      "path": "scripts/test-v2-channel-e2e.ts",
-      "path_context": "production",
-      "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
-      "rule_id": "adaptability.hardcoded-platform-path",
-      "severity": "medium"
-    },
-    {
-      "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-022",
-      "count": 1,
-      "false_positive_likelihood": "low",
-      "lines": [
-        15
-      ],
-      "max_review_priority_score": 0.771,
-      "path": "scripts/test-v2-host.ts",
-      "path_context": "production",
-      "representative_message": "Platform portability rigidity: Hardcoded platform paths or target triples can make local, CI, and customer installations fail outside the developer's machine.",
-      "rule_id": "adaptability.hardcoded-platform-path",
-      "severity": "medium"
-    },
-    {
-      "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-023",
+      "cluster_id": "FCL-012",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1434,7 +1642,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-024",
+      "cluster_id": "FCL-013",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1449,7 +1657,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-025",
+      "cluster_id": "FCL-014",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1464,7 +1672,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-026",
+      "cluster_id": "FCL-015",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1479,7 +1687,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-027",
+      "cluster_id": "FCL-016",
       "count": 4,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1497,7 +1705,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-028",
+      "cluster_id": "FCL-017",
       "count": 3,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1514,7 +1722,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-029",
+      "cluster_id": "FCL-018",
       "count": 3,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1531,7 +1739,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-030",
+      "cluster_id": "FCL-019",
       "count": 3,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1548,24 +1756,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-031",
-      "count": 3,
-      "false_positive_likelihood": "low",
-      "lines": [
-        45,
-        49,
-        175
-      ],
-      "max_review_priority_score": 0.695,
-      "path": "setup/channels/telegram.ts",
-      "path_context": "production",
-      "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
-      "rule_id": "adaptability.hardcoded-external-endpoint",
-      "severity": "low"
-    },
-    {
-      "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-032",
+      "cluster_id": "FCL-020",
       "count": 3,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1582,41 +1773,23 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-033",
-      "count": 3,
+      "cluster_id": "FCL-021",
+      "count": 2,
       "false_positive_likelihood": "low",
       "lines": [
-        195,
-        205,
-        222
+        49,
+        175
       ],
       "max_review_priority_score": 0.695,
-      "path": "scripts/test-v2-channel-e2e.ts",
+      "path": "setup/channels/telegram.ts",
       "path_context": "production",
-      "representative_message": "Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value.",
-      "rule_id": "adaptability.hardcoded-timeout",
+      "representative_message": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options.",
+      "rule_id": "adaptability.hardcoded-external-endpoint",
       "severity": "low"
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-034",
-      "count": 3,
-      "false_positive_likelihood": "low",
-      "lines": [
-        108,
-        128,
-        136
-      ],
-      "max_review_priority_score": 0.695,
-      "path": "scripts/test-v2-host.ts",
-      "path_context": "production",
-      "representative_message": "Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value.",
-      "rule_id": "adaptability.hardcoded-timeout",
-      "severity": "low"
-    },
-    {
-      "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-035",
+      "cluster_id": "FCL-022",
       "count": 2,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1632,7 +1805,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-036",
+      "cluster_id": "FCL-023",
       "count": 2,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1648,7 +1821,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-037",
+      "cluster_id": "FCL-024",
       "count": 2,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1664,7 +1837,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-038",
+      "cluster_id": "FCL-025",
       "count": 2,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1680,7 +1853,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-039",
+      "cluster_id": "FCL-026",
       "count": 2,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1696,7 +1869,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-040",
+      "cluster_id": "FCL-027",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1711,7 +1884,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-041",
+      "cluster_id": "FCL-028",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1726,7 +1899,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-042",
+      "cluster_id": "FCL-029",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1741,7 +1914,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-043",
+      "cluster_id": "FCL-030",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1756,7 +1929,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-044",
+      "cluster_id": "FCL-031",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1771,7 +1944,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-045",
+      "cluster_id": "FCL-032",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1786,7 +1959,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-046",
+      "cluster_id": "FCL-033",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1801,7 +1974,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-047",
+      "cluster_id": "FCL-034",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1816,7 +1989,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-048",
+      "cluster_id": "FCL-035",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1831,7 +2004,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-049",
+      "cluster_id": "FCL-036",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1846,7 +2019,7 @@
     },
     {
       "challenge_status": "upheld_candidate",
-      "cluster_id": "FCL-050",
+      "cluster_id": "FCL-037",
       "count": 1,
       "false_positive_likelihood": "low",
       "lines": [
@@ -1858,27 +2031,241 @@
       "representative_message": "Static resource-cap rigidity: Fixed caps and batch sizes can silently limit scale or waste memory when repo size and hardware vary.",
       "rule_id": "adaptability.hardcoded-resource-cap",
       "severity": "low"
+    },
+    {
+      "challenge_status": "upheld_candidate",
+      "cluster_id": "FCL-038",
+      "count": 1,
+      "false_positive_likelihood": "low",
+      "lines": [
+        68
+      ],
+      "max_review_priority_score": 0.695,
+      "path": "setup/pair-telegram.ts",
+      "path_context": "production",
+      "representative_message": "Static resource-cap rigidity: Fixed caps and batch sizes can silently limit scale or waste memory when repo size and hardware vary.",
+      "rule_id": "adaptability.hardcoded-resource-cap",
+      "severity": "low"
+    },
+    {
+      "challenge_status": "upheld_candidate",
+      "cluster_id": "FCL-039",
+      "count": 1,
+      "false_positive_likelihood": "low",
+      "lines": [
+        82
+      ],
+      "max_review_priority_score": 0.695,
+      "path": "src/db/session-db.ts",
+      "path_context": "production",
+      "representative_message": "Static resource-cap rigidity: Fixed caps and batch sizes can silently limit scale or waste memory when repo size and hardware vary.",
+      "rule_id": "adaptability.hardcoded-resource-cap",
+      "severity": "low"
+    },
+    {
+      "challenge_status": "upheld_candidate",
+      "cluster_id": "FCL-040",
+      "count": 1,
+      "false_positive_likelihood": "low",
+      "lines": [
+        32
+      ],
+      "max_review_priority_score": 0.695,
+      "path": "src/delivery.ts",
+      "path_context": "production",
+      "representative_message": "Static resource-cap rigidity: Fixed caps and batch sizes can silently limit scale or waste memory when repo size and hardware vary.",
+      "rule_id": "adaptability.hardcoded-resource-cap",
+      "severity": "low"
+    },
+    {
+      "challenge_status": "upheld_candidate",
+      "cluster_id": "FCL-041",
+      "count": 1,
+      "false_positive_likelihood": "low",
+      "lines": [
+        57
+      ],
+      "max_review_priority_score": 0.695,
+      "path": "src/host-sweep.ts",
+      "path_context": "production",
+      "representative_message": "Static resource-cap rigidity: Fixed caps and batch sizes can silently limit scale or waste memory when repo size and hardware vary.",
+      "rule_id": "adaptability.hardcoded-resource-cap",
+      "severity": "low"
+    },
+    {
+      "challenge_status": "upheld_candidate",
+      "cluster_id": "FCL-042",
+      "count": 1,
+      "false_positive_likelihood": "low",
+      "lines": [
+        33
+      ],
+      "max_review_priority_score": 0.695,
+      "path": "src/modules/self-mod/request.ts",
+      "path_context": "production",
+      "representative_message": "Static resource-cap rigidity: Fixed caps and batch sizes can silently limit scale or waste memory when repo size and hardware vary.",
+      "rule_id": "adaptability.hardcoded-resource-cap",
+      "severity": "low"
+    },
+    {
+      "challenge_status": "upheld_candidate",
+      "cluster_id": "FCL-043",
+      "count": 1,
+      "false_positive_likelihood": "low",
+      "lines": [
+        7
+      ],
+      "max_review_priority_score": 0.695,
+      "path": "container/agent-runner/src/scheduling/task-script.ts",
+      "path_context": "production",
+      "representative_message": "Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value.",
+      "rule_id": "adaptability.hardcoded-timeout",
+      "severity": "low"
+    },
+    {
+      "challenge_status": "upheld_candidate",
+      "cluster_id": "FCL-044",
+      "count": 1,
+      "false_positive_likelihood": "low",
+      "lines": [
+        19
+      ],
+      "max_review_priority_score": 0.695,
+      "path": "scripts/chat.ts",
+      "path_context": "production",
+      "representative_message": "Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value.",
+      "rule_id": "adaptability.hardcoded-timeout",
+      "severity": "low"
+    },
+    {
+      "challenge_status": "upheld_candidate",
+      "cluster_id": "FCL-045",
+      "count": 1,
+      "false_positive_likelihood": "low",
+      "lines": [
+        376
+      ],
+      "max_review_priority_score": 0.695,
+      "path": "scripts/init-first-agent.ts",
+      "path_context": "production",
+      "representative_message": "Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value.",
+      "rule_id": "adaptability.hardcoded-timeout",
+      "severity": "low"
+    },
+    {
+      "challenge_status": "upheld_candidate",
+      "cluster_id": "FCL-046",
+      "count": 1,
+      "false_positive_likelihood": "low",
+      "lines": [
+        89
+      ],
+      "max_review_priority_score": 0.695,
+      "path": "scripts/run-migrations.ts",
+      "path_context": "production",
+      "representative_message": "Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value.",
+      "rule_id": "adaptability.hardcoded-timeout",
+      "severity": "low"
+    },
+    {
+      "challenge_status": "upheld_candidate",
+      "cluster_id": "FCL-047",
+      "count": 1,
+      "false_positive_likelihood": "low",
+      "lines": [
+        378
+      ],
+      "max_review_priority_score": 0.695,
+      "path": "setup/channels/whatsapp.ts",
+      "path_context": "production",
+      "representative_message": "Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value.",
+      "rule_id": "adaptability.hardcoded-timeout",
+      "severity": "low"
+    },
+    {
+      "challenge_status": "upheld_candidate",
+      "cluster_id": "FCL-048",
+      "count": 1,
+      "false_positive_likelihood": "low",
+      "lines": [
+        53
+      ],
+      "max_review_priority_score": 0.695,
+      "path": "setup/container.ts",
+      "path_context": "production",
+      "representative_message": "Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value.",
+      "rule_id": "adaptability.hardcoded-timeout",
+      "severity": "low"
+    },
+    {
+      "challenge_status": "upheld_candidate",
+      "cluster_id": "FCL-049",
+      "count": 1,
+      "false_positive_likelihood": "low",
+      "lines": [
+        61
+      ],
+      "max_review_priority_score": 0.695,
+      "path": "setup/lib/diagnostics.ts",
+      "path_context": "production",
+      "representative_message": "Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value.",
+      "rule_id": "adaptability.hardcoded-timeout",
+      "severity": "low"
+    },
+    {
+      "challenge_status": "upheld_candidate",
+      "cluster_id": "FCL-050",
+      "count": 1,
+      "false_positive_likelihood": "low",
+      "lines": [
+        132
+      ],
+      "max_review_priority_score": 0.695,
+      "path": "setup/onecli.ts",
+      "path_context": "production",
+      "representative_message": "Static timeout rigidity: Fixed timeout literals can be too small for large repos or too large for hostile inputs; adaptive policy should own the value.",
+      "rule_id": "adaptability.hardcoded-timeout",
+      "severity": "low"
     }
   ],
   "kind": "deterministic_validated_evidence",
+  "limit_policy": {
+    "max_evidence_packs": 12,
+    "max_excerpt_line_chars": 240,
+    "max_excerpt_lines": 12,
+    "max_finding_clusters": 50,
+    "max_related_findings": 6,
+    "max_symbols_per_pack": 5,
+    "source": "scan_limits"
+  },
   "non_llm": true,
+  "schema_contract": {
+    "artifact": "evidence.packs.json",
+    "artifact_schema_version": "1.0.0",
+    "boundary": "Schema contract validates deterministic artifact shape for agents and wrappers. It does not certify exploitability or replace report.json as source of truth.",
+    "contract_version": "1.0.0",
+    "models_invoked": false,
+    "schema_id": "https://b1brain.local/davinci/schemas/evidence-packs-1.0.0.schema.json",
+    "stability": "stable"
+  },
   "schema_version": "1.0.0",
   "validation_summary": {
-    "average_grounding_score": 0.784,
-    "average_review_priority_score": 0.561,
+    "average_grounding_score": 0.765,
+    "average_review_priority_score": 0.507,
     "deterministic_challenge_status_counts": {
+      "context_demoted": 9,
       "downgraded_unverified": 63,
       "needs_exploitability_review": 3,
-      "upheld_candidate": 109
+      "upheld_candidate": 86
     },
     "false_positive_likelihood_counts": {
-      "high": 50,
-      "low": 109,
+      "high": 59,
+      "low": 86,
       "medium": 16
     },
-    "findings_validated": 175,
+    "findings_validated": 161,
     "grounding_status_counts": {
-      "grounded": 112,
+      "grounded": 98,
       "unmatched_file": 63
     }
   }

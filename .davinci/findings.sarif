@@ -12,10 +12,15 @@
         "davinci": {
           "degradationCount": 0,
           "degradationEventCount": 0,
+          "degradationEventLimitSource": "scan_limits",
           "degradationEvents": [],
-          "degradationEventsTruncated": false
+          "degradationEventsTruncated": false,
+          "maxDegradationEvents": 25
         }
       },
+      "redactionTokens": [
+        "[REDACTED]"
+      ],
       "results": [
         {
           "level": "error",
@@ -3190,34 +3195,6 @@
                   "uri": "setup/channels/telegram.ts"
                 },
                 "region": {
-                  "startColumn": 49,
-                  "startLine": 45
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Service binding rigidity: Hardcoded service endpoints reduce offline tolerance, testability, customer deployment flexibility, and failover options."
-          },
-          "properties": {
-            "adapter": "adaptability",
-            "category": "configuration-rigidity",
-            "confidence": "medium",
-            "cwe": "CWE-15",
-            "owasp": "A05:2021",
-            "provenance": "source"
-          },
-          "ruleId": "adaptability.hardcoded-external-endpoint"
-        },
-        {
-          "level": "note",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "setup/channels/telegram.ts"
-                },
-                "region": {
                   "startColumn": 19,
                   "startLine": 49
                 }
@@ -4447,258 +4424,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "nanoclaw.sh"
-                },
-                "region": {
-                  "startColumn": 77,
-                  "startLine": 121
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Command substitution with potential injection"
-          },
-          "properties": {
-            "adapter": "bash-security",
-            "category": "command-injection",
-            "confidence": "medium",
-            "cwe": "CWE-78",
-            "owasp": "A03:2021",
-            "provenance": "source"
-          },
-          "ruleId": "bash.command-substitution-injection"
-        },
-        {
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "nanoclaw.sh"
-                },
-                "region": {
-                  "startColumn": 76,
-                  "startLine": 122
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Command substitution with potential injection"
-          },
-          "properties": {
-            "adapter": "bash-security",
-            "category": "command-injection",
-            "confidence": "medium",
-            "cwe": "CWE-78",
-            "owasp": "A03:2021",
-            "provenance": "source"
-          },
-          "ruleId": "bash.command-substitution-injection"
-        },
-        {
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "nanoclaw.sh"
-                },
-                "region": {
-                  "startColumn": 76,
-                  "startLine": 123
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Command substitution with potential injection"
-          },
-          "properties": {
-            "adapter": "bash-security",
-            "category": "command-injection",
-            "confidence": "medium",
-            "cwe": "CWE-78",
-            "owasp": "A03:2021",
-            "provenance": "source"
-          },
-          "ruleId": "bash.command-substitution-injection"
-        },
-        {
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "nanoclaw.sh"
-                },
-                "region": {
-                  "startColumn": 9,
-                  "startLine": 236
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Command substitution with potential injection"
-          },
-          "properties": {
-            "adapter": "bash-security",
-            "category": "command-injection",
-            "confidence": "medium",
-            "cwe": "CWE-78",
-            "owasp": "A03:2021",
-            "provenance": "source"
-          },
-          "ruleId": "bash.command-substitution-injection"
-        },
-        {
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "nanoclaw.sh"
-                },
-                "region": {
-                  "startColumn": 9,
-                  "startLine": 237
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Command substitution with potential injection"
-          },
-          "properties": {
-            "adapter": "bash-security",
-            "category": "command-injection",
-            "confidence": "medium",
-            "cwe": "CWE-78",
-            "owasp": "A03:2021",
-            "provenance": "source"
-          },
-          "ruleId": "bash.command-substitution-injection"
-        },
-        {
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "scripts/cleanup-sessions.sh"
-                },
-                "region": {
-                  "startColumn": 12,
-                  "startLine": 37
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Command substitution with potential injection"
-          },
-          "properties": {
-            "adapter": "bash-security",
-            "category": "command-injection",
-            "confidence": "medium",
-            "cwe": "CWE-78",
-            "owasp": "A03:2021",
-            "provenance": "source"
-          },
-          "ruleId": "bash.command-substitution-injection"
-        },
-        {
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "scripts/cleanup-sessions.sh"
-                },
-                "region": {
-                  "startColumn": 12,
-                  "startLine": 47
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Command substitution with potential injection"
-          },
-          "properties": {
-            "adapter": "bash-security",
-            "category": "command-injection",
-            "confidence": "medium",
-            "cwe": "CWE-78",
-            "owasp": "A03:2021",
-            "provenance": "source"
-          },
-          "ruleId": "bash.command-substitution-injection"
-        },
-        {
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "scripts/cleanup-sessions.sh"
-                },
-                "region": {
-                  "startColumn": 12,
-                  "startLine": 62
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Command substitution with potential injection"
-          },
-          "properties": {
-            "adapter": "bash-security",
-            "category": "command-injection",
-            "confidence": "medium",
-            "cwe": "CWE-78",
-            "owasp": "A03:2021",
-            "provenance": "source"
-          },
-          "ruleId": "bash.command-substitution-injection"
-        },
-        {
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "setup.sh"
-                },
-                "region": {
-                  "startColumn": 12,
-                  "startLine": 112
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Command substitution with potential injection"
-          },
-          "properties": {
-            "adapter": "bash-security",
-            "category": "command-injection",
-            "confidence": "medium",
-            "cwe": "CWE-78",
-            "owasp": "A03:2021",
-            "provenance": "source"
-          },
-          "ruleId": "bash.command-substitution-injection"
-        },
-        {
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
                   "uri": "setup/add-telegram.sh"
                 },
                 "region": {
@@ -4722,200 +4447,322 @@
           "ruleId": "bash.command-substitution-injection"
         },
         {
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "executionOrder": 1,
+                      "importance": "essential",
+                      "location": {
+                        "message": {
+                          "text": "source: raw"
+                        },
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "setup/verify.ts"
+                          },
+                          "region": {
+                            "startLine": 100
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "executionOrder": 2,
+                      "importance": "important",
+                      "location": {
+                        "message": {
+                          "text": "propagation: pid"
+                        },
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "setup/verify.ts"
+                          },
+                          "region": {
+                            "startLine": 101
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "executionOrder": 3,
+                      "importance": "important",
+                      "location": {
+                        "message": {
+                          "text": "propagation: resolveBinaryScript"
+                        },
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "setup/verify.ts"
+                          },
+                          "region": {
+                            "startLine": 57
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "executionOrder": 4,
+                      "importance": "essential",
+                      "location": {
+                        "message": {
+                          "text": "sink: tainted data reaches sink"
+                        },
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "setup/verify.ts"
+                          },
+                          "region": {
+                            "startLine": 263
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "level": "error",
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "setup/channels/discord.ts"
+                  "uri": "setup/verify.ts"
                 },
                 "region": {
-                  "startColumn": 23,
-                  "startLine": 197
+                  "startColumn": 1,
+                  "startLine": 263
                 }
               }
             }
           ],
           "message": {
-            "text": "Potential SSRF via fetch with user input"
+            "text": "child_process exec with tainted command"
           },
           "properties": {
-            "adapter": "js-frontend",
-            "category": "ssrf",
-            "confidence": "high",
-            "cwe": "CWE-918",
-            "owasp": "A10:2021",
-            "provenance": "source"
-          },
-          "ruleId": "js.ssrf-fetch"
-        },
-        {
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "setup/channels/discord.ts"
-                },
-                "region": {
-                  "startColumn": 23,
-                  "startLine": 386
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Potential SSRF via fetch with user input"
-          },
-          "properties": {
-            "adapter": "js-frontend",
-            "category": "ssrf",
-            "confidence": "high",
-            "cwe": "CWE-918",
-            "owasp": "A10:2021",
-            "provenance": "source"
-          },
-          "ruleId": "js.ssrf-fetch"
-        },
-        {
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "setup/lib/diagnostics.sh"
-                },
-                "region": {
-                  "startColumn": 8,
-                  "startLine": 25
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Command substitution with potential injection"
-          },
-          "properties": {
-            "adapter": "bash-security",
+            "adapter": "js-ts-taint",
             "category": "command-injection",
-            "confidence": "medium",
+            "confidence": "high",
             "cwe": "CWE-78",
             "owasp": "A03:2021",
             "provenance": "source"
           },
-          "ruleId": "bash.command-substitution-injection"
+          "ruleId": "js.child-process-exec.tainted"
         },
         {
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "executionOrder": 1,
+                      "importance": "essential",
+                      "location": {
+                        "message": {
+                          "text": "source: raw"
+                        },
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "setup/verify.ts"
+                          },
+                          "region": {
+                            "startLine": 100
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "executionOrder": 2,
+                      "importance": "important",
+                      "location": {
+                        "message": {
+                          "text": "propagation: pid"
+                        },
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "setup/verify.ts"
+                          },
+                          "region": {
+                            "startLine": 101
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "executionOrder": 3,
+                      "importance": "important",
+                      "location": {
+                        "message": {
+                          "text": "propagation: resolveBinaryScript"
+                        },
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "setup/verify.ts"
+                          },
+                          "region": {
+                            "startLine": 78
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "executionOrder": 4,
+                      "importance": "essential",
+                      "location": {
+                        "message": {
+                          "text": "sink: tainted data reaches sink"
+                        },
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "setup/verify.ts"
+                          },
+                          "region": {
+                            "startLine": 263
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "level": "error",
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "setup/lib/diagnostics.ts"
+                  "uri": "setup/verify.ts"
                 },
                 "region": {
-                  "startColumn": 8,
-                  "startLine": 62
+                  "startColumn": 1,
+                  "startLine": 263
                 }
               }
             }
           ],
           "message": {
-            "text": "Potential SSRF via fetch with user input"
+            "text": "child_process exec with tainted command"
           },
           "properties": {
-            "adapter": "js-frontend",
-            "category": "ssrf",
-            "confidence": "high",
-            "cwe": "CWE-918",
-            "owasp": "A10:2021",
-            "provenance": "source"
-          },
-          "ruleId": "js.ssrf-fetch"
-        },
-        {
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "setup/probe.sh"
-                },
-                "region": {
-                  "startColumn": 8,
-                  "startLine": 49
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Command substitution with potential injection"
-          },
-          "properties": {
-            "adapter": "bash-security",
+            "adapter": "js-ts-taint",
             "category": "command-injection",
-            "confidence": "medium",
+            "confidence": "high",
             "cwe": "CWE-78",
             "owasp": "A03:2021",
             "provenance": "source"
           },
-          "ruleId": "bash.command-substitution-injection"
+          "ruleId": "js.child-process-exec.tainted"
         },
         {
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "executionOrder": 1,
+                      "importance": "essential",
+                      "location": {
+                        "message": {
+                          "text": "source: raw"
+                        },
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "setup/verify.ts"
+                          },
+                          "region": {
+                            "startLine": 100
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "executionOrder": 2,
+                      "importance": "important",
+                      "location": {
+                        "message": {
+                          "text": "propagation: pid"
+                        },
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "setup/verify.ts"
+                          },
+                          "region": {
+                            "startLine": 101
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "executionOrder": 3,
+                      "importance": "important",
+                      "location": {
+                        "message": {
+                          "text": "propagation: resolveBinaryScript"
+                        },
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "setup/verify.ts"
+                          },
+                          "region": {
+                            "startLine": 105
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "executionOrder": 4,
+                      "importance": "essential",
+                      "location": {
+                        "message": {
+                          "text": "sink: tainted data reaches sink"
+                        },
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "setup/verify.ts"
+                          },
+                          "region": {
+                            "startLine": 263
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "level": "error",
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "setup/register-claude-token.sh"
+                  "uri": "setup/verify.ts"
                 },
                 "region": {
-                  "startColumn": 7,
-                  "startLine": 83
+                  "startColumn": 1,
+                  "startLine": 263
                 }
               }
             }
           ],
           "message": {
-            "text": "Command substitution with potential injection"
+            "text": "child_process exec with tainted command"
           },
           "properties": {
-            "adapter": "bash-security",
+            "adapter": "js-ts-taint",
             "category": "command-injection",
-            "confidence": "medium",
+            "confidence": "high",
             "cwe": "CWE-78",
             "owasp": "A03:2021",
             "provenance": "source"
           },
-          "ruleId": "bash.command-substitution-injection"
-        },
-        {
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/channels/chat-sdk-bridge.ts"
-                },
-                "region": {
-                  "startColumn": 15,
-                  "startLine": 528
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Potential SSRF via fetch with user input"
-          },
-          "properties": {
-            "adapter": "js-frontend",
-            "category": "ssrf",
-            "confidence": "high",
-            "cwe": "CWE-918",
-            "owasp": "A10:2021",
-            "provenance": "source"
-          },
-          "ruleId": "js.ssrf-fetch"
+          "ruleId": "js.child-process-exec.tainted"
         },
         {
           "level": "warning",
@@ -5063,26 +4910,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "container/agent-runner/src/formatter.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'container/agent-runner/src/formatter.test.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
                   "uri": "container/agent-runner/src/formatter.ts"
                 },
                 "region": {
@@ -5094,26 +4921,6 @@
           ],
           "message": {
             "text": "Module 'container/agent-runner/src/formatter.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "container/agent-runner/src/integration.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'container/agent-runner/src/integration.test.ts' is not imported by any other module"
           },
           "ruleId": "wiring.orphaned_module"
         },
@@ -5243,26 +5050,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "container/agent-runner/src/poll-loop.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'container/agent-runner/src/poll-loop.test.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
                   "uri": "container/agent-runner/src/poll-loop.ts"
                 },
                 "region": {
@@ -5294,26 +5081,6 @@
           ],
           "message": {
             "text": "Module 'container/agent-runner/src/providers/claude.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "container/agent-runner/src/providers/factory.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'container/agent-runner/src/providers/factory.test.ts' is not imported by any other module"
           },
           "ruleId": "wiring.orphaned_module"
         },
@@ -5414,26 +5181,6 @@
           ],
           "message": {
             "text": "Module 'container/agent-runner/src/scheduling/task-script.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "container/agent-runner/src/timezone.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'container/agent-runner/src/timezone.test.ts' is not imported by any other module"
           },
           "ruleId": "wiring.orphaned_module"
         },
@@ -5574,66 +5321,6 @@
           ],
           "message": {
             "text": "Module 'scripts/seed-discord.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "scripts/test-v2-agent.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'scripts/test-v2-agent.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "scripts/test-v2-channel-e2e.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'scripts/test-v2-channel-e2e.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "scripts/test-v2-host.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'scripts/test-v2-host.ts' is not imported by any other module"
           },
           "ruleId": "wiring.orphaned_module"
         },
@@ -5794,26 +5481,6 @@
           ],
           "message": {
             "text": "Module 'setup/container.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "setup/environment.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'setup/environment.test.ts' is not imported by any other module"
           },
           "ruleId": "wiring.orphaned_module"
         },
@@ -6123,26 +5790,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "setup/platform.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'setup/platform.test.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
                   "uri": "setup/platform.ts"
                 },
                 "region": {
@@ -6174,26 +5821,6 @@
           ],
           "message": {
             "text": "Module 'setup/register.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "setup/service.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'setup/service.test.ts' is not imported by any other module"
           },
           "ruleId": "wiring.orphaned_module"
         },
@@ -6363,26 +5990,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/channels/channel-registry.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'src/channels/channel-registry.test.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
                   "uri": "src/channels/channel-registry.ts"
                 },
                 "region": {
@@ -6394,26 +6001,6 @@
           ],
           "message": {
             "text": "Module 'src/channels/channel-registry.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/channels/chat-sdk-bridge.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'src/channels/chat-sdk-bridge.test.ts' is not imported by any other module"
           },
           "ruleId": "wiring.orphaned_module"
         },
@@ -6543,26 +6130,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/container-runtime.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'src/container-runtime.test.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
                   "uri": "src/container-runtime.ts"
                 },
                 "region": {
@@ -6614,26 +6181,6 @@
           ],
           "message": {
             "text": "Module 'src/db/connection.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/db/db-v2.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'src/db/db-v2.test.ts' is not imported by any other module"
           },
           "ruleId": "wiring.orphaned_module"
         },
@@ -6903,26 +6450,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/db/session-db.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'src/db/session-db.test.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
                   "uri": "src/db/session-db.ts"
                 },
                 "region": {
@@ -6954,26 +6481,6 @@
           ],
           "message": {
             "text": "Module 'src/db/sessions.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/delivery.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'src/delivery.test.ts' is not imported by any other module"
           },
           "ruleId": "wiring.orphaned_module"
         },
@@ -7023,26 +6530,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/group-folder.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'src/group-folder.test.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
                   "uri": "src/group-folder.ts"
                 },
                 "region": {
@@ -7074,46 +6561,6 @@
           ],
           "message": {
             "text": "Module 'src/group-init.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/host-core.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'src/host-core.test.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/host-sweep.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'src/host-sweep.test.ts' is not imported by any other module"
           },
           "ruleId": "wiring.orphaned_module"
         },
@@ -7263,26 +6710,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/modules/approvals/picks.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'src/modules/approvals/picks.test.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
                   "uri": "src/modules/approvals/primitive.ts"
                 },
                 "region": {
@@ -7334,26 +6761,6 @@
           ],
           "message": {
             "text": "Module 'src/modules/permissions/access.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/modules/permissions/channel-approval.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'src/modules/permissions/channel-approval.test.ts' is not imported by any other module"
           },
           "ruleId": "wiring.orphaned_module"
         },
@@ -7503,46 +6910,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/modules/permissions/permissions.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'src/modules/permissions/permissions.test.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/modules/permissions/sender-approval.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'src/modules/permissions/sender-approval.test.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
                   "uri": "src/modules/permissions/sender-approval.ts"
                 },
                 "region": {
@@ -7603,26 +6970,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/modules/scheduling/db.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'src/modules/scheduling/db.test.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
                   "uri": "src/modules/scheduling/db.ts"
                 },
                 "region": {
@@ -7634,26 +6981,6 @@
           ],
           "message": {
             "text": "Module 'src/modules/scheduling/db.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/modules/scheduling/recurrence.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'src/modules/scheduling/recurrence.test.ts' is not imported by any other module"
           },
           "ruleId": "wiring.orphaned_module"
         },
@@ -7823,26 +7150,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/timezone.test.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'src/timezone.test.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
                   "uri": "src/timezone.ts"
                 },
                 "region": {
@@ -7894,46 +7201,6 @@
           ],
           "message": {
             "text": "Module 'src/webhook-server.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "vitest.config.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'vitest.config.ts' is not imported by any other module"
-          },
-          "ruleId": "wiring.orphaned_module"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "vitest.skills.config.ts"
-                },
-                "region": {
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Module 'vitest.skills.config.ts' is not imported by any other module"
           },
           "ruleId": "wiring.orphaned_module"
         }
@@ -8174,19 +7441,19 @@
               "defaultConfiguration": {
                 "level": "error"
               },
-              "id": "js.ssrf-fetch",
-              "name": "js.ssrf-fetch",
+              "id": "js.child-process-exec.tainted",
+              "name": "js.child-process-exec.tainted",
               "properties": {
-                "category": "ssrf",
-                "cwe": "CWE-918",
-                "owasp": "A10:2021",
+                "category": "command-injection",
+                "cwe": "CWE-78",
+                "owasp": "A03:2021",
                 "tags": [
-                  "CWE-918",
-                  "A10:2021"
+                  "CWE-78",
+                  "A03:2021"
                 ]
               },
               "shortDescription": {
-                "text": "Potential SSRF via fetch with user input"
+                "text": "child_process exec with tainted command"
               }
             },
             {
