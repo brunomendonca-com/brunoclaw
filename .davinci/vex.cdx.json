@@ -1,0 +1,19 @@
+{
+  "bomFormat": "CycloneDX",
+  "components": [],
+  "metadata": {
+    "properties": [
+      {
+        "name": "davinci:non_llm",
+        "value": "true"
+      },
+      {
+        "name": "davinci:reachability_granularity",
+        "value": "package_import"
+      }
+    ]
+  },
+  "specVersion": "1.7",
+  "version": 1,
+  "vulnerabilities": []
+}

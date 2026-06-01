@@ -1,0 +1,39 @@
+{
+  "artifact_root": "C:\\tmp\\brunoclaw-davinci-pr\\.davinci",
+  "cleanup": {
+    "manual": "delete the selected artifact directory",
+    "preview": "davinci clean --root <repo> --artifact-root .davinci --dry-run",
+    "single_repo": "davinci clean --root <repo> --artifact-root .davinci --yes"
+  },
+  "contains": [
+    "repository file paths",
+    "security and architecture findings",
+    "bounded source excerpts and evidence snippets",
+    "dependency and supply-chain metadata",
+    "scan timing, health, and degradation metadata"
+  ],
+  "ephemeral_mode": {
+    "behavior": "uses a temporary output directory for scan index/cache state and deletes it on command exit; no canonical artifact directory is written",
+    "dependency_mode_requirement": "cache-only_or_none",
+    "flags": [
+      "--no-persist",
+      "--ephemeral"
+    ]
+  },
+  "generated_at": "2026-06-01T18:38:56.926532600+00:00",
+  "git_safety": {
+    "rule": "Generated .davinci-style directories ignore all contents except the guard .gitignore unless an operator intentionally force-adds reviewed artifacts.",
+    "self_protecting_gitignore": true
+  },
+  "hosted_boundary": "This local CLI policy does not define hosted or CI artifact retention. CI uploads, sync providers, and hosted services need separate retention settings.",
+  "kind": "davinci_retention_policy",
+  "local_default": {
+    "artifacts": "retained_until_operator_deletes_artifact_directory",
+    "heavy_scan_cache": "retained_under_artifact_root_for_warm_scans",
+    "output_scoped_index_cache": "retained_under_artifact_root_when_index_mode_metadata_or_full"
+  },
+  "path_mode": "redacted",
+  "repo_path": "[repo]",
+  "schema_version": "1.0.0",
+  "storage_model": "local_first"
+}

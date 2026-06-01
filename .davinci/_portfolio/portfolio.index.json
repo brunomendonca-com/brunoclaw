@@ -1,0 +1,120 @@
+{
+  "aggregate_backlog_themes": [
+    {
+      "finding_count": 67,
+      "high_or_error_count": 50,
+      "priority": 1,
+      "repo_count": 1,
+      "sample_repos": [
+        "[repo]"
+      ],
+      "theme": "supply_chain_and_ci"
+    },
+    {
+      "finding_count": 13,
+      "high_or_error_count": 13,
+      "priority": 2,
+      "repo_count": 1,
+      "sample_repos": [
+        "[repo]"
+      ],
+      "theme": "command_execution_risk"
+    },
+    {
+      "finding_count": 4,
+      "high_or_error_count": 4,
+      "priority": 2,
+      "repo_count": 1,
+      "sample_repos": [
+        "[repo]"
+      ],
+      "theme": "input_and_injection_risk"
+    }
+  ],
+  "boundary": "Deterministic portfolio assessment over existing DaVinci artifacts. It ranks engineering attention but does not replace owner decisions.",
+  "input_roots": [
+    "[repo:input-root-1]"
+  ],
+  "non_llm": true,
+  "recommended_next_steps": [
+    {
+      "action": "review_supply_chain_and_ci_exposure",
+      "priority": 1,
+      "why": "67 supply-chain findings exist across the portfolio."
+    },
+    {
+      "action": "batch_triage_top_backlog_theme",
+      "priority": 2,
+      "why": "Theme `supply_chain_and_ci` appears in 1 repo with 50 high/error findings."
+    }
+  ],
+  "recommended_workflow": [
+    "Open portfolio.index.md to choose target repos.",
+    "Open each repo's repo.dossier.md for lifecycle/readiness context.",
+    "Use report.agent.json and evidence.packs.json before editing source.",
+    "Use production scope or noise context when full-scope docs/report artifacts dominate findings."
+  ],
+  "repo_count": 1,
+  "report_kind": "portfolio_index",
+  "repos": [
+    {
+      "artifact_dir": "[repo:_repo_]",
+      "degradation_events": 0,
+      "dossier_path": "[repo:_repo_]",
+      "duration_secs": 1.5634665,
+      "files": 260,
+      "findings": 175,
+      "health": 50.0,
+      "high_or_error_findings": 67,
+      "loaded_lines": 41581,
+      "maturity": 69.09,
+      "noise_ratio": 0.3029,
+      "production_findings": 122,
+      "recommendation": "continue_with_backlog",
+      "repo": "[repo]",
+      "repo_path": "[repo:_repo_]",
+      "report_path": "[repo:_repo_]",
+      "stage": "active_development",
+      "supply_chain_findings": 67,
+      "top_backlog_themes": [
+        {
+          "finding_count": 67,
+          "high_or_error_count": 50,
+          "priority": 1,
+          "recommended_action": "Pin mutable workflow/action/container references, review publish paths, and add provenance controls.",
+          "representative_rule": "supply-chain.agent-instructions.secret-access",
+          "theme": "supply_chain_and_ci"
+        },
+        {
+          "finding_count": 13,
+          "high_or_error_count": 13,
+          "priority": 2,
+          "recommended_action": "Remove shell interpolation where possible; otherwise isolate, allowlist, and quote arguments.",
+          "representative_rule": "bash.command-substitution-injection",
+          "theme": "command_execution_risk"
+        },
+        {
+          "finding_count": 4,
+          "high_or_error_count": 4,
+          "priority": 2,
+          "recommended_action": "Trace inputs to sinks and replace string-built queries/HTML/URLs with safe APIs.",
+          "representative_rule": "js.ssrf-fetch",
+          "theme": "input_and_injection_risk"
+        }
+      ]
+    }
+  ],
+  "schema_version": "1.0.0",
+  "stage_counts": {
+    "active_development": 1
+  },
+  "totals": {
+    "average_health": 50.0,
+    "degradation_events": 0,
+    "files": 260,
+    "findings": 175,
+    "loaded_lines": 41581,
+    "repos": 1,
+    "supply_chain_findings": 67
+  }
+}
